@@ -1,0 +1,1417 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="anrlModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="anrlModelStoreContainer">
+    <EntitySet Name="t_Competition" EntityType="anrlModel.Store.t_Competition" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_Competition_Team" EntityType="anrlModel.Store.t_Competition_Team" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_CompetitionSet" EntityType="anrlModel.Store.t_CompetitionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_Daten" EntityType="anrlModel.Store.t_Daten" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_GPS_IN" EntityType="anrlModel.Store.t_GPS_IN" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_GPSPoint" EntityType="anrlModel.Store.t_GPSPoint" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_Line" EntityType="anrlModel.Store.t_Line" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_Log" EntityType="anrlModel.Store.t_Log" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_Map" EntityType="anrlModel.Store.t_Map" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_Parcour" EntityType="anrlModel.Store.t_Parcour" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_Penalty" EntityType="anrlModel.Store.t_Penalty" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_Picture" EntityType="anrlModel.Store.t_Picture" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_Pilot" EntityType="anrlModel.Store.t_Pilot" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_Team" EntityType="anrlModel.Store.t_Team" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="t_Tracker" EntityType="anrlModel.Store.t_Tracker" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="t_Competition_t_Competition_Team" Association="anrlModel.Store.t_Competition_t_Competition_Team">
+      <End Role="t_Competition" EntitySet="t_Competition" />
+      <End Role="t_Competition_Team" EntitySet="t_Competition_Team" />
+    </AssociationSet>
+    <AssociationSet Name="t_CompetitionSet_t_Competition" Association="anrlModel.Store.t_CompetitionSet_t_Competition">
+      <End Role="t_CompetitionSet" EntitySet="t_CompetitionSet" />
+      <End Role="t_Competition" EntitySet="t_Competition" />
+    </AssociationSet>
+    <AssociationSet Name="t_Line_t_Competition" Association="anrlModel.Store.t_Line_t_Competition">
+      <End Role="t_Line" EntitySet="t_Line" />
+      <End Role="t_Competition" EntitySet="t_Competition" />
+    </AssociationSet>
+    <AssociationSet Name="t_Tracker_t_Daten" Association="anrlModel.Store.t_Tracker_t_Daten">
+      <End Role="t_Tracker" EntitySet="t_Tracker" />
+      <End Role="t_Daten" EntitySet="t_Daten" />
+    </AssociationSet>
+    <AssociationSet Name="t_GPSPoint_t_Line" Association="anrlModel.Store.t_GPSPoint_t_Line">
+      <End Role="t_GPSPoint" EntitySet="t_GPSPoint" />
+      <End Role="t_Line" EntitySet="t_Line" />
+    </AssociationSet>
+    <AssociationSet Name="t_GPSPoint_t_Line1" Association="anrlModel.Store.t_GPSPoint_t_Line1">
+      <End Role="t_GPSPoint" EntitySet="t_GPSPoint" />
+      <End Role="t_Line" EntitySet="t_Line" />
+    </AssociationSet>
+    <AssociationSet Name="t_GPSPoint_t_Line2" Association="anrlModel.Store.t_GPSPoint_t_Line2">
+      <End Role="t_GPSPoint" EntitySet="t_GPSPoint" />
+      <End Role="t_Line" EntitySet="t_Line" />
+    </AssociationSet>
+    <AssociationSet Name="t_CompetitionSet_t_Map" Association="anrlModel.Store.t_CompetitionSet_t_Map">
+      <End Role="t_CompetitionSet" EntitySet="t_CompetitionSet" />
+      <End Role="t_Map" EntitySet="t_Map" />
+    </AssociationSet>
+    <AssociationSet Name="t_Map_t_Parcour" Association="anrlModel.Store.t_Map_t_Parcour">
+      <End Role="t_Map" EntitySet="t_Map" />
+      <End Role="t_Parcour" EntitySet="t_Parcour" />
+    </AssociationSet>
+    <AssociationSet Name="t_Picture_t_Map" Association="anrlModel.Store.t_Picture_t_Map">
+      <End Role="t_Picture" EntitySet="t_Picture" />
+      <End Role="t_Map" EntitySet="t_Map" />
+    </AssociationSet>
+    <AssociationSet Name="t_CompetitionSet_t_Parcour" Association="anrlModel.Store.t_CompetitionSet_t_Parcour">
+      <End Role="t_CompetitionSet" EntitySet="t_CompetitionSet" />
+      <End Role="t_Parcour" EntitySet="t_Parcour" />
+    </AssociationSet>
+    <AssociationSet Name="t_Competition_Team_t_Penalty" Association="anrlModel.Store.t_Competition_Team_t_Penalty">
+      <End Role="t_Competition_Team" EntitySet="t_Competition_Team" />
+      <End Role="t_Penalty" EntitySet="t_Penalty" />
+    </AssociationSet>
+    <AssociationSet Name="t_CompetitionSet_t_Penalty" Association="anrlModel.Store.t_CompetitionSet_t_Penalty">
+      <End Role="t_CompetitionSet" EntitySet="t_CompetitionSet" />
+      <End Role="t_Penalty" EntitySet="t_Penalty" />
+    </AssociationSet>
+    <AssociationSet Name="t_CompetitionSet_t_Pilot" Association="anrlModel.Store.t_CompetitionSet_t_Pilot">
+      <End Role="t_CompetitionSet" EntitySet="t_CompetitionSet" />
+      <End Role="t_Pilot" EntitySet="t_Pilot" />
+    </AssociationSet>
+    <AssociationSet Name="t_Picture_t_Pilot" Association="anrlModel.Store.t_Picture_t_Pilot">
+      <End Role="t_Picture" EntitySet="t_Picture" />
+      <End Role="t_Pilot" EntitySet="t_Pilot" />
+    </AssociationSet>
+    <AssociationSet Name="t_Pilot_t_Team" Association="anrlModel.Store.t_Pilot_t_Team">
+      <End Role="t_Pilot" EntitySet="t_Pilot" />
+      <End Role="t_Team" EntitySet="t_Team" />
+    </AssociationSet>
+    <AssociationSet Name="t_Pilot_t_Team1" Association="anrlModel.Store.t_Pilot_t_Team1">
+      <End Role="t_Pilot" EntitySet="t_Pilot" />
+      <End Role="t_Team" EntitySet="t_Team" />
+    </AssociationSet>
+    <AssociationSet Name="t_Team_t_Competition_Team" Association="anrlModel.Store.t_Team_t_Competition_Team">
+      <End Role="t_Team" EntitySet="t_Team" />
+      <End Role="t_Competition_Team" EntitySet="t_Competition_Team" />
+    </AssociationSet>
+    <AssociationSet Name="t_CompetitionSet_t_Team" Association="anrlModel.Store.t_CompetitionSet_t_Team">
+      <End Role="t_CompetitionSet" EntitySet="t_CompetitionSet" />
+      <End Role="t_Team" EntitySet="t_Team" />
+    </AssociationSet>
+    <AssociationSet Name="t_Picture_t_Team" Association="anrlModel.Store.t_Picture_t_Team">
+      <End Role="t_Picture" EntitySet="t_Picture" />
+      <End Role="t_Team" EntitySet="t_Team" />
+    </AssociationSet>
+    <AssociationSet Name="t_Parcourt_Line" Association="anrlModel.Store.t_Parcourt_Line">
+      <End Role="t_Parcour" EntitySet="t_Parcour" />
+      <End Role="t_Line" EntitySet="t_Line" />
+    </AssociationSet>
+    <AssociationSet Name="t_Competition_Teamt_Tracker" Association="anrlModel.Store.t_Competition_Teamt_Tracker">
+      <End Role="t_Competition_Team" EntitySet="t_Competition_Team" />
+      <End Role="t_Tracker" EntitySet="t_Tracker" />
+    </AssociationSet>
+    <AssociationSet Name="t_Trackert_GPSPoint" Association="anrlModel.Store.t_Trackert_GPSPoint">
+      <End Role="t_Tracker" EntitySet="t_Tracker" />
+      <End Role="t_GPSPoint" EntitySet="t_GPSPoint" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="t_Competition">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TimeTakeOff" Type="bigint" Nullable="false" />
+    <Property Name="TimeStartLine" Type="bigint" Nullable="false" />
+    <Property Name="TimeEndLine" Type="bigint" Nullable="false" />
+    <Property Name="ID_TakeOffLine" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="ID_Parcour" Type="int" Nullable="false" />
+    <Property Name="ID_CompetitionSet" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="t_Competition_Team">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartID" Type="int" Nullable="false" />
+    <Property Name="Route" Type="int" Nullable="false" />
+    <Property Name="ID_Team" Type="int" Nullable="false" />
+    <Property Name="ID_Competition" Type="int" Nullable="false" />
+    <Property Name="TimeTakeOff" Type="bigint" Nullable="false" />
+    <Property Name="TimeStart" Type="bigint" Nullable="false" />
+    <Property Name="TimeEnd" Type="bigint" Nullable="false" />
+    <Property Name="ID_CompetitionSet" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="t_CompetitionSet">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="t_Daten">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_Tracker" Type="int" Nullable="false" />
+    <Property Name="Timestamp" Type="bigint" Nullable="false" />
+    <Property Name="Longitude" Type="float" Nullable="false" />
+    <Property Name="Latitude" Type="float" Nullable="false" />
+    <Property Name="Altitude" Type="float" Nullable="false" />
+    <Property Name="Speed" Type="float" Nullable="false" />
+    <Property Name="Accuracy" Type="float" Nullable="true" />
+    <Property Name="Bearing" Type="float" Nullable="true" />
+  </EntityType>
+  <EntityType Name="t_GPS_IN">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IMEI" Type="nchar" Nullable="false" MaxLength="20" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="GPS_fix" Type="int" Nullable="false" />
+    <Property Name="TimestampTracker" Type="datetime" Nullable="false" />
+    <Property Name="longitude" Type="nchar" Nullable="false" MaxLength="12" />
+    <Property Name="latitude" Type="nchar" Nullable="false" MaxLength="12" />
+    <Property Name="altitude" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="speed" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="heading" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="nr_used_sat" Type="int" Nullable="false" />
+    <Property Name="HDOP" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Processed" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="t_GPSPoint">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="altitude" Type="float" Nullable="false" />
+    <Property Name="longitude" Type="float" Nullable="false" />
+    <Property Name="latitude" Type="float" Nullable="false" />
+    <Property Name="edited" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="timestampGPS" Type="bigint" Nullable="false" />
+    <Property Name="speed" Type="float" Nullable="false" />
+    <Property Name="bearing" Type="float" Nullable="false" />
+    <Property Name="accuracy" Type="float" Nullable="false" />
+    <Property Name="identifier" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="timestampSender" Type="bigint" Nullable="false" />
+    <Property Name="t_Tracker_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="t_Line">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="ID_PointA" Type="int" Nullable="false" />
+    <Property Name="ID_PointB" Type="int" Nullable="false" />
+    <Property Name="ID_PointOrientation" Type="int" Nullable="false" />
+    <Property Name="t_Parcour_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="t_Log">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="timestamp" Type="datetime" Nullable="false" />
+    <Property Name="level" Type="int" Nullable="false" />
+    <Property Name="project" Type="varchar(max)" Nullable="true" />
+    <Property Name="Text" Type="varchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="t_Map">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_Picture" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="XSize" Type="float" Nullable="false" />
+    <Property Name="YSize" Type="float" Nullable="false" />
+    <Property Name="XRot" Type="float" Nullable="false" />
+    <Property Name="YRot" Type="float" Nullable="false" />
+    <Property Name="XTopLeft" Type="float" Nullable="false" />
+    <Property Name="YTopLeft" Type="float" Nullable="false" />
+    <Property Name="ID_CompetitionSet" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="t_Parcour">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="ID_Map" Type="int" Nullable="false" />
+    <Property Name="ID_CompetitionSet" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="t_Penalty">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Points" Type="int" Nullable="false" />
+    <Property Name="Reason" Type="varchar" Nullable="false" MaxLength="500" />
+    <Property Name="ID_Competition_Team" Type="int" Nullable="false" />
+    <Property Name="ID_CompetitionSet" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="t_Picture">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Data" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Name" Type="nchar" Nullable="true" MaxLength="50" />
+    <Property Name="isFlag" Type="bit" Nullable="false" />
+    <Property Name="ID_CompetitionSet" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="t_Pilot">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="SureName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="ID_Picture" Type="int" Nullable="true" />
+    <Property Name="ID_CompetitionSet" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="t_Team">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="ID_Pilot" Type="int" Nullable="false" />
+    <Property Name="ID_Navigator" Type="int" Nullable="true" />
+    <Property Name="Color" Type="varchar" Nullable="true" MaxLength="10" />
+    <Property Name="ID_Flag" Type="int" Nullable="true" />
+    <Property Name="Description" Type="varchar" Nullable="true" MaxLength="500" />
+    <Property Name="ID_CompetitionSet" Type="int" Nullable="false" />
+    <Property Name="StartID" Type="varchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="t_Tracker">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IMEI" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Name" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="Visible" Type="bit" Nullable="false" />
+    <Property Name="ID_Competition_Team" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="t_Competition_Team_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="t_Competition_t_Competition_Team">
+    <End Role="t_Competition" Type="anrlModel.Store.t_Competition" Multiplicity="1" />
+    <End Role="t_Competition_Team" Type="anrlModel.Store.t_Competition_Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Competition">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Competition_Team">
+        <PropertyRef Name="ID_Competition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_CompetitionSet_t_Competition">
+    <End Role="t_CompetitionSet" Type="anrlModel.Store.t_CompetitionSet" Multiplicity="1" />
+    <End Role="t_Competition" Type="anrlModel.Store.t_Competition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_CompetitionSet">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Competition">
+        <PropertyRef Name="ID_CompetitionSet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_Line_t_Competition">
+    <End Role="t_Line" Type="anrlModel.Store.t_Line" Multiplicity="1" />
+    <End Role="t_Competition" Type="anrlModel.Store.t_Competition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Line">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Competition">
+        <PropertyRef Name="ID_TakeOffLine" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_Tracker_t_Daten">
+    <End Role="t_Tracker" Type="anrlModel.Store.t_Tracker" Multiplicity="1" />
+    <End Role="t_Daten" Type="anrlModel.Store.t_Daten" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Tracker">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Daten">
+        <PropertyRef Name="ID_Tracker" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_GPSPoint_t_Line">
+    <End Role="t_GPSPoint" Type="anrlModel.Store.t_GPSPoint" Multiplicity="1" />
+    <End Role="t_Line" Type="anrlModel.Store.t_Line" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_GPSPoint">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Line">
+        <PropertyRef Name="ID_PointA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_GPSPoint_t_Line1">
+    <End Role="t_GPSPoint" Type="anrlModel.Store.t_GPSPoint" Multiplicity="1" />
+    <End Role="t_Line" Type="anrlModel.Store.t_Line" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_GPSPoint">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Line">
+        <PropertyRef Name="ID_PointB" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_GPSPoint_t_Line2">
+    <End Role="t_GPSPoint" Type="anrlModel.Store.t_GPSPoint" Multiplicity="1" />
+    <End Role="t_Line" Type="anrlModel.Store.t_Line" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_GPSPoint">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Line">
+        <PropertyRef Name="ID_PointOrientation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_CompetitionSet_t_Map">
+    <End Role="t_CompetitionSet" Type="anrlModel.Store.t_CompetitionSet" Multiplicity="1" />
+    <End Role="t_Map" Type="anrlModel.Store.t_Map" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_CompetitionSet">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Map">
+        <PropertyRef Name="ID_CompetitionSet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_Map_t_Parcour">
+    <End Role="t_Map" Type="anrlModel.Store.t_Map" Multiplicity="1" />
+    <End Role="t_Parcour" Type="anrlModel.Store.t_Parcour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Map">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Parcour">
+        <PropertyRef Name="ID_Map" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_Picture_t_Map">
+    <End Role="t_Picture" Type="anrlModel.Store.t_Picture" Multiplicity="1" />
+    <End Role="t_Map" Type="anrlModel.Store.t_Map" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Picture">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Map">
+        <PropertyRef Name="ID_Picture" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_CompetitionSet_t_Parcour">
+    <End Role="t_CompetitionSet" Type="anrlModel.Store.t_CompetitionSet" Multiplicity="1" />
+    <End Role="t_Parcour" Type="anrlModel.Store.t_Parcour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_CompetitionSet">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Parcour">
+        <PropertyRef Name="ID_CompetitionSet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_Competition_Team_t_Penalty">
+    <End Role="t_Competition_Team" Type="anrlModel.Store.t_Competition_Team" Multiplicity="1" />
+    <End Role="t_Penalty" Type="anrlModel.Store.t_Penalty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Competition_Team">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Penalty">
+        <PropertyRef Name="ID_Competition_Team" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_CompetitionSet_t_Penalty">
+    <End Role="t_CompetitionSet" Type="anrlModel.Store.t_CompetitionSet" Multiplicity="1" />
+    <End Role="t_Penalty" Type="anrlModel.Store.t_Penalty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_CompetitionSet">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Penalty">
+        <PropertyRef Name="ID_CompetitionSet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_CompetitionSet_t_Pilot">
+    <End Role="t_CompetitionSet" Type="anrlModel.Store.t_CompetitionSet" Multiplicity="1" />
+    <End Role="t_Pilot" Type="anrlModel.Store.t_Pilot" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_CompetitionSet">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Pilot">
+        <PropertyRef Name="ID_CompetitionSet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_Picture_t_Pilot">
+    <End Role="t_Picture" Type="anrlModel.Store.t_Picture" Multiplicity="0..1" />
+    <End Role="t_Pilot" Type="anrlModel.Store.t_Pilot" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Picture">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Pilot">
+        <PropertyRef Name="ID_Picture" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_Pilot_t_Team">
+    <End Role="t_Pilot" Type="anrlModel.Store.t_Pilot" Multiplicity="1" />
+    <End Role="t_Team" Type="anrlModel.Store.t_Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Pilot">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Team">
+        <PropertyRef Name="ID_Pilot" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_Pilot_t_Team1">
+    <End Role="t_Pilot" Type="anrlModel.Store.t_Pilot" Multiplicity="0..1" />
+    <End Role="t_Team" Type="anrlModel.Store.t_Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Pilot">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Team">
+        <PropertyRef Name="ID_Navigator" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_Team_t_Competition_Team">
+    <End Role="t_Team" Type="anrlModel.Store.t_Team" Multiplicity="1" />
+    <End Role="t_Competition_Team" Type="anrlModel.Store.t_Competition_Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Team">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Competition_Team">
+        <PropertyRef Name="ID_Team" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_CompetitionSet_t_Team">
+    <End Role="t_CompetitionSet" Type="anrlModel.Store.t_CompetitionSet" Multiplicity="1" />
+    <End Role="t_Team" Type="anrlModel.Store.t_Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_CompetitionSet">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Team">
+        <PropertyRef Name="ID_CompetitionSet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_Picture_t_Team">
+    <End Role="t_Picture" Type="anrlModel.Store.t_Picture" Multiplicity="0..1" />
+    <End Role="t_Team" Type="anrlModel.Store.t_Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Picture">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Team">
+        <PropertyRef Name="ID_Flag" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_Parcourt_Line">
+    <End Role="t_Parcour" Type="anrlModel.Store.t_Parcour" Multiplicity="1" />
+    <End Role="t_Line" Type="anrlModel.Store.t_Line" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Parcour">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Line">
+        <PropertyRef Name="t_Parcour_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_Competition_Teamt_Tracker">
+    <End Role="t_Competition_Team" Type="anrlModel.Store.t_Competition_Team" Multiplicity="1" />
+    <End Role="t_Tracker" Type="anrlModel.Store.t_Tracker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Competition_Team">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_Tracker">
+        <PropertyRef Name="t_Competition_Team_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t_Trackert_GPSPoint">
+    <End Role="t_Tracker" Type="anrlModel.Store.t_Tracker" Multiplicity="1" />
+    <End Role="t_GPSPoint" Type="anrlModel.Store.t_GPSPoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Tracker">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="t_GPSPoint">
+        <PropertyRef Name="t_Tracker_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="anrlModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="anrlEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="t_Competition" EntityType="anrlModel.t_Competition" />
+          <EntitySet Name="t_Competition_Team" EntityType="anrlModel.t_Competition_Team" />
+          <EntitySet Name="t_CompetitionSet" EntityType="anrlModel.t_CompetitionSet" />
+          <EntitySet Name="t_Daten" EntityType="anrlModel.t_Daten" />
+          <EntitySet Name="t_GPS_IN" EntityType="anrlModel.t_GPS_IN" />
+          <EntitySet Name="t_GPSPoint" EntityType="anrlModel.t_GPSPoint" />
+          <EntitySet Name="t_Line" EntityType="anrlModel.t_Line" />
+          <EntitySet Name="t_Log" EntityType="anrlModel.t_Log" />
+          <EntitySet Name="t_Map" EntityType="anrlModel.t_Map" />
+          <EntitySet Name="t_Parcour" EntityType="anrlModel.t_Parcour" />
+          <EntitySet Name="t_Penalty" EntityType="anrlModel.t_Penalty" />
+          <EntitySet Name="t_Picture" EntityType="anrlModel.t_Picture" />
+          <EntitySet Name="t_Pilot" EntityType="anrlModel.t_Pilot" />
+          <EntitySet Name="t_Team" EntityType="anrlModel.t_Team" />
+          <EntitySet Name="t_Tracker" EntityType="anrlModel.t_Tracker" />
+          <AssociationSet Name="t_Competition_t_Competition_Team" Association="anrlModel.t_Competition_t_Competition_Team">
+            <End Role="t_Competition" EntitySet="t_Competition" />
+            <End Role="t_Competition_Team" EntitySet="t_Competition_Team" />
+          </AssociationSet>
+          <AssociationSet Name="t_CompetitionSet_t_Competition" Association="anrlModel.t_CompetitionSet_t_Competition">
+            <End Role="t_CompetitionSet" EntitySet="t_CompetitionSet" />
+            <End Role="t_Competition" EntitySet="t_Competition" />
+          </AssociationSet>
+          <AssociationSet Name="t_Line_t_Competition" Association="anrlModel.t_Line_t_Competition">
+            <End Role="t_Line" EntitySet="t_Line" />
+            <End Role="t_Competition" EntitySet="t_Competition" />
+          </AssociationSet>
+          <AssociationSet Name="t_Tracker_t_Daten" Association="anrlModel.t_Tracker_t_Daten">
+            <End Role="t_Tracker" EntitySet="t_Tracker" />
+            <End Role="t_Daten" EntitySet="t_Daten" />
+          </AssociationSet>
+          <AssociationSet Name="t_GPSPoint_t_Line" Association="anrlModel.t_GPSPoint_t_Line">
+            <End Role="t_GPSPoint" EntitySet="t_GPSPoint" />
+            <End Role="t_Line" EntitySet="t_Line" />
+          </AssociationSet>
+          <AssociationSet Name="t_GPSPoint_t_Line1" Association="anrlModel.t_GPSPoint_t_Line1">
+            <End Role="t_GPSPoint" EntitySet="t_GPSPoint" />
+            <End Role="t_Line" EntitySet="t_Line" />
+          </AssociationSet>
+          <AssociationSet Name="t_GPSPoint_t_Line2" Association="anrlModel.t_GPSPoint_t_Line2">
+            <End Role="t_GPSPoint" EntitySet="t_GPSPoint" />
+            <End Role="t_Line" EntitySet="t_Line" />
+          </AssociationSet>
+          <AssociationSet Name="t_CompetitionSet_t_Map" Association="anrlModel.t_CompetitionSet_t_Map">
+            <End Role="t_CompetitionSet" EntitySet="t_CompetitionSet" />
+            <End Role="t_Map" EntitySet="t_Map" />
+          </AssociationSet>
+          <AssociationSet Name="t_Map_t_Parcour" Association="anrlModel.t_Map_t_Parcour">
+            <End Role="t_Map" EntitySet="t_Map" />
+            <End Role="t_Parcour" EntitySet="t_Parcour" />
+          </AssociationSet>
+          <AssociationSet Name="t_Picture_t_Map" Association="anrlModel.t_Picture_t_Map">
+            <End Role="t_Picture" EntitySet="t_Picture" />
+            <End Role="t_Map" EntitySet="t_Map" />
+          </AssociationSet>
+          <AssociationSet Name="t_CompetitionSet_t_Parcour" Association="anrlModel.t_CompetitionSet_t_Parcour">
+            <End Role="t_CompetitionSet" EntitySet="t_CompetitionSet" />
+            <End Role="t_Parcour" EntitySet="t_Parcour" />
+          </AssociationSet>
+          <AssociationSet Name="t_Competition_Team_t_Penalty" Association="anrlModel.t_Competition_Team_t_Penalty">
+            <End Role="t_Competition_Team" EntitySet="t_Competition_Team" />
+            <End Role="t_Penalty" EntitySet="t_Penalty" />
+          </AssociationSet>
+          <AssociationSet Name="t_CompetitionSet_t_Penalty" Association="anrlModel.t_CompetitionSet_t_Penalty">
+            <End Role="t_CompetitionSet" EntitySet="t_CompetitionSet" />
+            <End Role="t_Penalty" EntitySet="t_Penalty" />
+          </AssociationSet>
+          <AssociationSet Name="t_CompetitionSet_t_Pilot" Association="anrlModel.t_CompetitionSet_t_Pilot">
+            <End Role="t_CompetitionSet" EntitySet="t_CompetitionSet" />
+            <End Role="t_Pilot" EntitySet="t_Pilot" />
+          </AssociationSet>
+          <AssociationSet Name="t_Picture_t_Pilot" Association="anrlModel.t_Picture_t_Pilot">
+            <End Role="t_Picture" EntitySet="t_Picture" />
+            <End Role="t_Pilot" EntitySet="t_Pilot" />
+          </AssociationSet>
+          <AssociationSet Name="t_Pilot_t_Team" Association="anrlModel.t_Pilot_t_Team">
+            <End Role="t_Pilot" EntitySet="t_Pilot" />
+            <End Role="t_Team" EntitySet="t_Team" />
+          </AssociationSet>
+          <AssociationSet Name="t_Pilot_t_Team1" Association="anrlModel.t_Pilot_t_Team1">
+            <End Role="t_Pilot" EntitySet="t_Pilot" />
+            <End Role="t_Team" EntitySet="t_Team" />
+          </AssociationSet>
+          <AssociationSet Name="t_Team_t_Competition_Team" Association="anrlModel.t_Team_t_Competition_Team">
+            <End Role="t_Team" EntitySet="t_Team" />
+            <End Role="t_Competition_Team" EntitySet="t_Competition_Team" />
+          </AssociationSet>
+          <AssociationSet Name="t_CompetitionSet_t_Team" Association="anrlModel.t_CompetitionSet_t_Team">
+            <End Role="t_CompetitionSet" EntitySet="t_CompetitionSet" />
+            <End Role="t_Team" EntitySet="t_Team" />
+          </AssociationSet>
+          <AssociationSet Name="t_Picture_t_Team" Association="anrlModel.t_Picture_t_Team">
+            <End Role="t_Picture" EntitySet="t_Picture" />
+            <End Role="t_Team" EntitySet="t_Team" />
+          </AssociationSet>
+          <AssociationSet Name="t_Parcourt_Line" Association="anrlModel.t_Parcourt_Line">
+            <End Role="t_Parcour" EntitySet="t_Parcour" />
+            <End Role="t_Line" EntitySet="t_Line" />
+          </AssociationSet>
+          <AssociationSet Name="t_Competition_Teamt_Tracker" Association="anrlModel.t_Competition_Teamt_Tracker">
+            <End Role="t_Competition_Team" EntitySet="t_Competition_Team" />
+            <End Role="t_Tracker" EntitySet="t_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="t_Trackert_GPSPoint" Association="anrlModel.t_Trackert_GPSPoint">
+            <End Role="t_Tracker" EntitySet="t_Tracker" />
+            <End Role="t_GPSPoint" EntitySet="t_GPSPoint" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="t_Competition">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="TimeTakeOff" Type="Int64" Nullable="false" />
+          <Property Name="TimeStartLine" Type="Int64" Nullable="false" />
+          <Property Name="TimeEndLine" Type="Int64" Nullable="false" />
+          <Property Name="ID_TakeOffLine" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Parcour" Type="Int32" Nullable="false" />
+          <Property Name="ID_CompetitionSet" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="t_Competition_Team" Relationship="anrlModel.t_Competition_t_Competition_Team" FromRole="t_Competition" ToRole="t_Competition_Team" />
+          <NavigationProperty Name="t_CompetitionSet" Relationship="anrlModel.t_CompetitionSet_t_Competition" FromRole="t_Competition" ToRole="t_CompetitionSet" />
+          <NavigationProperty Name="TakeOffLine" Relationship="anrlModel.t_Line_t_Competition" FromRole="t_Competition" ToRole="t_Line" />
+        </EntityType>
+        <EntityType Name="t_Competition_Team">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="StartID" Type="Int32" Nullable="false" />
+          <Property Name="Route" Type="Int32" Nullable="false" />
+          <Property Name="ID_Team" Type="Int32" Nullable="false" />
+          <Property Name="ID_Competition" Type="Int32" Nullable="false" />
+          <Property Name="TimeTakeOff" Type="Int64" Nullable="false" />
+          <Property Name="TimeStart" Type="Int64" Nullable="false" />
+          <Property Name="TimeEnd" Type="Int64" Nullable="false" />
+          <Property Name="ID_CompetitionSet" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="t_Competition" Relationship="anrlModel.t_Competition_t_Competition_Team" FromRole="t_Competition_Team" ToRole="t_Competition" />
+          <NavigationProperty Name="t_Penalty" Relationship="anrlModel.t_Competition_Team_t_Penalty" FromRole="t_Competition_Team" ToRole="t_Penalty" />
+          <NavigationProperty Name="t_Team" Relationship="anrlModel.t_Team_t_Competition_Team" FromRole="t_Competition_Team" ToRole="t_Team" />
+          <NavigationProperty Name="t_Tracker" Relationship="anrlModel.t_Competition_Teamt_Tracker" FromRole="t_Competition_Team" ToRole="t_Tracker" />
+        </EntityType>
+        <EntityType Name="t_CompetitionSet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="t_Competition" Relationship="anrlModel.t_CompetitionSet_t_Competition" FromRole="t_CompetitionSet" ToRole="t_Competition" />
+          <NavigationProperty Name="t_Map" Relationship="anrlModel.t_CompetitionSet_t_Map" FromRole="t_CompetitionSet" ToRole="t_Map" />
+          <NavigationProperty Name="t_Parcour" Relationship="anrlModel.t_CompetitionSet_t_Parcour" FromRole="t_CompetitionSet" ToRole="t_Parcour" />
+          <NavigationProperty Name="t_Penalty" Relationship="anrlModel.t_CompetitionSet_t_Penalty" FromRole="t_CompetitionSet" ToRole="t_Penalty" />
+          <NavigationProperty Name="t_Pilot" Relationship="anrlModel.t_CompetitionSet_t_Pilot" FromRole="t_CompetitionSet" ToRole="t_Pilot" />
+          <NavigationProperty Name="t_Team" Relationship="anrlModel.t_CompetitionSet_t_Team" FromRole="t_CompetitionSet" ToRole="t_Team" />
+        </EntityType>
+        <EntityType Name="t_Daten">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="ID_Tracker" Type="Int32" Nullable="false" />
+          <Property Name="Timestamp" Type="Int64" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Altitude" Type="Double" Nullable="false" />
+          <Property Name="Speed" Type="Double" Nullable="false" />
+          <Property Name="Accuracy" Type="Double" />
+          <Property Name="Bearing" Type="Double" />
+          <NavigationProperty Name="t_Tracker" Relationship="anrlModel.t_Tracker_t_Daten" FromRole="t_Daten" ToRole="t_Tracker" />
+        </EntityType>
+        <EntityType Name="t_GPS_IN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="IMEI" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="GPS_fix" Type="Int32" Nullable="false" />
+          <Property Name="TimestampTracker" Type="DateTime" Nullable="false" />
+          <Property Name="longitude" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Name="latitude" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Name="altitude" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="speed" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="heading" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="nr_used_sat" Type="Int32" Nullable="false" />
+          <Property Name="HDOP" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="Processed" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_GPSPoint">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="altitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <NavigationProperty Name="t_Line" Relationship="anrlModel.t_GPSPoint_t_Line" FromRole="t_GPSPoint" ToRole="t_Line" />
+          <NavigationProperty Name="t_Line1" Relationship="anrlModel.t_GPSPoint_t_Line1" FromRole="t_GPSPoint" ToRole="t_Line" />
+          <NavigationProperty Name="t_Line2" Relationship="anrlModel.t_GPSPoint_t_Line2" FromRole="t_GPSPoint" ToRole="t_Line" />
+          <Property Name="edited" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="timestampGPS" Type="Int64" Nullable="false" />
+          <Property Name="speed" Type="Double" Nullable="false" />
+          <Property Name="bearing" Type="Double" Nullable="false" />
+          <Property Name="accuracy" Type="Double" Nullable="false" />
+          <Property Name="identifier" Type="String" Nullable="false" />
+          <Property Name="timestampSender" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="t_Tracker" Relationship="anrlModel.t_Trackert_GPSPoint" FromRole="t_GPSPoint" ToRole="t_Tracker" />
+        </EntityType>
+        <EntityType Name="t_Line">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="ID_PointA" Type="Int32" Nullable="false" />
+          <Property Name="ID_PointB" Type="Int32" Nullable="false" />
+          <Property Name="ID_PointOrientation" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="t_Competition" Relationship="anrlModel.t_Line_t_Competition" FromRole="t_Line" ToRole="t_Competition" />
+          <NavigationProperty Name="A" Relationship="anrlModel.t_GPSPoint_t_Line" FromRole="t_Line" ToRole="t_GPSPoint" />
+          <NavigationProperty Name="B" Relationship="anrlModel.t_GPSPoint_t_Line1" FromRole="t_Line" ToRole="t_GPSPoint" />
+          <NavigationProperty Name="O" Relationship="anrlModel.t_GPSPoint_t_Line2" FromRole="t_Line" ToRole="t_GPSPoint" />
+          <NavigationProperty Name="t_Parcour" Relationship="anrlModel.t_Parcourt_Line" FromRole="t_Line" ToRole="t_Parcour" />
+        </EntityType>
+        <EntityType Name="t_Log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="level" Type="Int32" Nullable="false" />
+          <Property Name="project" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="t_Map">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="ID_Picture" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="XSize" Type="Double" Nullable="false" />
+          <Property Name="YSize" Type="Double" Nullable="false" />
+          <Property Name="XRot" Type="Double" Nullable="false" />
+          <Property Name="YRot" Type="Double" Nullable="false" />
+          <Property Name="XTopLeft" Type="Double" Nullable="false" />
+          <Property Name="YTopLeft" Type="Double" Nullable="false" />
+          <Property Name="ID_CompetitionSet" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="t_CompetitionSet" Relationship="anrlModel.t_CompetitionSet_t_Map" FromRole="t_Map" ToRole="t_CompetitionSet" />
+          <NavigationProperty Name="t_Parcour" Relationship="anrlModel.t_Map_t_Parcour" FromRole="t_Map" ToRole="t_Parcour" />
+          <NavigationProperty Name="t_Picture" Relationship="anrlModel.t_Picture_t_Map" FromRole="t_Map" ToRole="t_Picture" />
+        </EntityType>
+        <EntityType Name="t_Parcour">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Map" Type="Int32" Nullable="false" />
+          <Property Name="ID_CompetitionSet" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="t_Map" Relationship="anrlModel.t_Map_t_Parcour" FromRole="t_Parcour" ToRole="t_Map" />
+          <NavigationProperty Name="t_CompetitionSet" Relationship="anrlModel.t_CompetitionSet_t_Parcour" FromRole="t_Parcour" ToRole="t_CompetitionSet" />
+          <NavigationProperty Name="t_Line" Relationship="anrlModel.t_Parcourt_Line" FromRole="t_Parcour" ToRole="t_Line" />
+        </EntityType>
+        <EntityType Name="t_Penalty">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
+          <Property Name="Reason" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Competition_Team" Type="Int32" Nullable="false" />
+          <Property Name="ID_CompetitionSet" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="t_Competition_Team" Relationship="anrlModel.t_Competition_Team_t_Penalty" FromRole="t_Penalty" ToRole="t_Competition_Team" />
+          <NavigationProperty Name="t_CompetitionSet" Relationship="anrlModel.t_CompetitionSet_t_Penalty" FromRole="t_Penalty" ToRole="t_CompetitionSet" />
+        </EntityType>
+        <EntityType Name="t_Picture">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Data" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="isFlag" Type="Boolean" Nullable="false" />
+          <Property Name="ID_CompetitionSet" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="t_Map" Relationship="anrlModel.t_Picture_t_Map" FromRole="t_Picture" ToRole="t_Map" />
+          <NavigationProperty Name="t_Pilot" Relationship="anrlModel.t_Picture_t_Pilot" FromRole="t_Picture" ToRole="t_Pilot" />
+          <NavigationProperty Name="t_Team" Relationship="anrlModel.t_Picture_t_Team" FromRole="t_Picture" ToRole="t_Team" />
+        </EntityType>
+        <EntityType Name="t_Pilot">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SureName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Picture" Type="Int32" />
+          <Property Name="ID_CompetitionSet" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="t_CompetitionSet" Relationship="anrlModel.t_CompetitionSet_t_Pilot" FromRole="t_Pilot" ToRole="t_CompetitionSet" />
+          <NavigationProperty Name="t_Picture" Relationship="anrlModel.t_Picture_t_Pilot" FromRole="t_Pilot" ToRole="t_Picture" />
+          <NavigationProperty Name="t_Team" Relationship="anrlModel.t_Pilot_t_Team" FromRole="t_Pilot" ToRole="t_Team" />
+          <NavigationProperty Name="t_Team1" Relationship="anrlModel.t_Pilot_t_Team1" FromRole="t_Pilot" ToRole="t_Team" />
+        </EntityType>
+        <EntityType Name="t_Team">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Pilot" Type="Int32" Nullable="false" />
+          <Property Name="ID_Navigator" Type="Int32" />
+          <Property Name="Color" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Flag" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ID_CompetitionSet" Type="Int32" Nullable="false" />
+          <Property Name="StartID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="t_Pilot" Relationship="anrlModel.t_Pilot_t_Team" FromRole="t_Team" ToRole="t_Pilot" />
+          <NavigationProperty Name="t_Pilot1" Relationship="anrlModel.t_Pilot_t_Team1" FromRole="t_Team" ToRole="t_Pilot" />
+          <NavigationProperty Name="t_Competition_Team" Relationship="anrlModel.t_Team_t_Competition_Team" FromRole="t_Team" ToRole="t_Competition_Team" />
+          <NavigationProperty Name="t_CompetitionSet" Relationship="anrlModel.t_CompetitionSet_t_Team" FromRole="t_Team" ToRole="t_CompetitionSet" />
+          <NavigationProperty Name="t_Picture" Relationship="anrlModel.t_Picture_t_Team" FromRole="t_Team" ToRole="t_Picture" />
+        </EntityType>
+        <EntityType Name="t_Tracker">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="IMEI" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Visible" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="t_Daten" Relationship="anrlModel.t_Tracker_t_Daten" FromRole="t_Tracker" ToRole="t_Daten" />
+          <Property Name="ID_Competition_Team" Type="String" Nullable="false" />
+          <NavigationProperty Name="t_Competition_Team" Relationship="anrlModel.t_Competition_Teamt_Tracker" FromRole="t_Tracker" ToRole="t_Competition_Team" />
+          <NavigationProperty Name="t_GPSPoint" Relationship="anrlModel.t_Trackert_GPSPoint" FromRole="t_Tracker" ToRole="t_GPSPoint" />
+        </EntityType>
+        <Association Name="t_Competition_t_Competition_Team">
+          <End Type="anrlModel.t_Competition" Role="t_Competition" Multiplicity="1" />
+          <End Type="anrlModel.t_Competition_Team" Role="t_Competition_Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Competition">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Competition_Team">
+              <PropertyRef Name="ID_Competition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_CompetitionSet_t_Competition">
+          <End Type="anrlModel.t_CompetitionSet" Role="t_CompetitionSet" Multiplicity="1" />
+          <End Type="anrlModel.t_Competition" Role="t_Competition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_CompetitionSet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Competition">
+              <PropertyRef Name="ID_CompetitionSet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_Line_t_Competition">
+          <End Type="anrlModel.t_Line" Role="t_Line" Multiplicity="1" />
+          <End Type="anrlModel.t_Competition" Role="t_Competition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Line">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Competition">
+              <PropertyRef Name="ID_TakeOffLine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_Tracker_t_Daten">
+          <End Type="anrlModel.t_Tracker" Role="t_Tracker" Multiplicity="1" />
+          <End Type="anrlModel.t_Daten" Role="t_Daten" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Tracker">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Daten">
+              <PropertyRef Name="ID_Tracker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_GPSPoint_t_Line">
+          <End Type="anrlModel.t_GPSPoint" Role="t_GPSPoint" Multiplicity="1" />
+          <End Type="anrlModel.t_Line" Role="t_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_GPSPoint">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Line">
+              <PropertyRef Name="ID_PointA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_GPSPoint_t_Line1">
+          <End Type="anrlModel.t_GPSPoint" Role="t_GPSPoint" Multiplicity="1" />
+          <End Type="anrlModel.t_Line" Role="t_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_GPSPoint">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Line">
+              <PropertyRef Name="ID_PointB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_GPSPoint_t_Line2">
+          <End Type="anrlModel.t_GPSPoint" Role="t_GPSPoint" Multiplicity="1" />
+          <End Type="anrlModel.t_Line" Role="t_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_GPSPoint">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Line">
+              <PropertyRef Name="ID_PointOrientation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_CompetitionSet_t_Map">
+          <End Type="anrlModel.t_CompetitionSet" Role="t_CompetitionSet" Multiplicity="1" />
+          <End Type="anrlModel.t_Map" Role="t_Map" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_CompetitionSet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Map">
+              <PropertyRef Name="ID_CompetitionSet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_Map_t_Parcour">
+          <End Type="anrlModel.t_Map" Role="t_Map" Multiplicity="1" />
+          <End Type="anrlModel.t_Parcour" Role="t_Parcour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Map">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Parcour">
+              <PropertyRef Name="ID_Map" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_Picture_t_Map">
+          <End Type="anrlModel.t_Picture" Role="t_Picture" Multiplicity="1" />
+          <End Type="anrlModel.t_Map" Role="t_Map" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Picture">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Map">
+              <PropertyRef Name="ID_Picture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_CompetitionSet_t_Parcour">
+          <End Type="anrlModel.t_CompetitionSet" Role="t_CompetitionSet" Multiplicity="1" />
+          <End Type="anrlModel.t_Parcour" Role="t_Parcour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_CompetitionSet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Parcour">
+              <PropertyRef Name="ID_CompetitionSet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_Competition_Team_t_Penalty">
+          <End Type="anrlModel.t_Competition_Team" Role="t_Competition_Team" Multiplicity="1" />
+          <End Type="anrlModel.t_Penalty" Role="t_Penalty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Competition_Team">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Penalty">
+              <PropertyRef Name="ID_Competition_Team" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_CompetitionSet_t_Penalty">
+          <End Type="anrlModel.t_CompetitionSet" Role="t_CompetitionSet" Multiplicity="1" />
+          <End Type="anrlModel.t_Penalty" Role="t_Penalty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_CompetitionSet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Penalty">
+              <PropertyRef Name="ID_CompetitionSet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_CompetitionSet_t_Pilot">
+          <End Type="anrlModel.t_CompetitionSet" Role="t_CompetitionSet" Multiplicity="1" />
+          <End Type="anrlModel.t_Pilot" Role="t_Pilot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_CompetitionSet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Pilot">
+              <PropertyRef Name="ID_CompetitionSet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_Picture_t_Pilot">
+          <End Type="anrlModel.t_Picture" Role="t_Picture" Multiplicity="0..1" />
+          <End Type="anrlModel.t_Pilot" Role="t_Pilot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Picture">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Pilot">
+              <PropertyRef Name="ID_Picture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_Pilot_t_Team">
+          <End Type="anrlModel.t_Pilot" Role="t_Pilot" Multiplicity="1" />
+          <End Type="anrlModel.t_Team" Role="t_Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Pilot">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Team">
+              <PropertyRef Name="ID_Pilot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_Pilot_t_Team1">
+          <End Type="anrlModel.t_Pilot" Role="t_Pilot" Multiplicity="0..1" />
+          <End Type="anrlModel.t_Team" Role="t_Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Pilot">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Team">
+              <PropertyRef Name="ID_Navigator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_Team_t_Competition_Team">
+          <End Type="anrlModel.t_Team" Role="t_Team" Multiplicity="1" />
+          <End Type="anrlModel.t_Competition_Team" Role="t_Competition_Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Team">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Competition_Team">
+              <PropertyRef Name="ID_Team" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_CompetitionSet_t_Team">
+          <End Type="anrlModel.t_CompetitionSet" Role="t_CompetitionSet" Multiplicity="1" />
+          <End Type="anrlModel.t_Team" Role="t_Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_CompetitionSet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Team">
+              <PropertyRef Name="ID_CompetitionSet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_Picture_t_Team">
+          <End Type="anrlModel.t_Picture" Role="t_Picture" Multiplicity="0..1" />
+          <End Type="anrlModel.t_Team" Role="t_Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Picture">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="t_Team">
+              <PropertyRef Name="ID_Flag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_Parcourt_Line">
+          <End Type="anrlModel.t_Parcour" Role="t_Parcour" Multiplicity="1" />
+          <End Type="anrlModel.t_Line" Role="t_Line" Multiplicity="*" />
+        </Association>
+        <Association Name="t_Competition_Teamt_Tracker">
+          <End Type="anrlModel.t_Competition_Team" Role="t_Competition_Team" Multiplicity="1" />
+          <End Type="anrlModel.t_Tracker" Role="t_Tracker" Multiplicity="*" />
+        </Association>
+        <Association Name="t_Trackert_GPSPoint">
+          <End Type="anrlModel.t_Tracker" Role="t_Tracker" Multiplicity="1" />
+          <End Type="anrlModel.t_GPSPoint" Role="t_GPSPoint" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="anrlModelStoreContainer" CdmEntityContainer="anrlEntities">
+    <EntitySetMapping Name="t_Competition">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_Competition)">
+        <MappingFragment StoreEntitySet="t_Competition">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TimeTakeOff" ColumnName="TimeTakeOff" />
+          <ScalarProperty Name="TimeStartLine" ColumnName="TimeStartLine" />
+          <ScalarProperty Name="TimeEndLine" ColumnName="TimeEndLine" />
+          <ScalarProperty Name="ID_TakeOffLine" ColumnName="ID_TakeOffLine" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID_Parcour" ColumnName="ID_Parcour" />
+          <ScalarProperty Name="ID_CompetitionSet" ColumnName="ID_CompetitionSet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_Competition_Team">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_Competition_Team)">
+        <MappingFragment StoreEntitySet="t_Competition_Team">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="StartID" ColumnName="StartID" />
+          <ScalarProperty Name="Route" ColumnName="Route" />
+          <ScalarProperty Name="ID_Team" ColumnName="ID_Team" />
+          <ScalarProperty Name="ID_Competition" ColumnName="ID_Competition" />
+          <ScalarProperty Name="TimeTakeOff" ColumnName="TimeTakeOff" />
+          <ScalarProperty Name="TimeStart" ColumnName="TimeStart" />
+          <ScalarProperty Name="TimeEnd" ColumnName="TimeEnd" />
+          <ScalarProperty Name="ID_CompetitionSet" ColumnName="ID_CompetitionSet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_CompetitionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_CompetitionSet)">
+        <MappingFragment StoreEntitySet="t_CompetitionSet">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_Daten">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_Daten)">
+        <MappingFragment StoreEntitySet="t_Daten">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_Tracker" ColumnName="ID_Tracker" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Altitude" ColumnName="Altitude" />
+          <ScalarProperty Name="Speed" ColumnName="Speed" />
+          <ScalarProperty Name="Accuracy" ColumnName="Accuracy" />
+          <ScalarProperty Name="Bearing" ColumnName="Bearing" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_GPS_IN">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_GPS_IN)">
+        <MappingFragment StoreEntitySet="t_GPS_IN">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="IMEI" ColumnName="IMEI" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="GPS_fix" ColumnName="GPS_fix" />
+          <ScalarProperty Name="TimestampTracker" ColumnName="TimestampTracker" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="altitude" ColumnName="altitude" />
+          <ScalarProperty Name="speed" ColumnName="speed" />
+          <ScalarProperty Name="heading" ColumnName="heading" />
+          <ScalarProperty Name="nr_used_sat" ColumnName="nr_used_sat" />
+          <ScalarProperty Name="HDOP" ColumnName="HDOP" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Processed" ColumnName="Processed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_GPSPoint">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_GPSPoint)">
+        <MappingFragment StoreEntitySet="t_GPSPoint">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="altitude" ColumnName="altitude" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="edited" ColumnName="edited" />
+          <ScalarProperty Name="timestampGPS" ColumnName="timestampGPS" />
+          <ScalarProperty Name="speed" ColumnName="speed" />
+          <ScalarProperty Name="bearing" ColumnName="bearing" />
+          <ScalarProperty Name="accuracy" ColumnName="accuracy" />
+          <ScalarProperty Name="identifier" ColumnName="identifier" />
+          <ScalarProperty Name="timestampSender" ColumnName="timestampSender" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_Line">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_Line)">
+        <MappingFragment StoreEntitySet="t_Line">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ID_PointA" ColumnName="ID_PointA" />
+          <ScalarProperty Name="ID_PointB" ColumnName="ID_PointB" />
+          <ScalarProperty Name="ID_PointOrientation" ColumnName="ID_PointOrientation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_Log">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_Log)">
+        <MappingFragment StoreEntitySet="t_Log">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+          <ScalarProperty Name="level" ColumnName="level" />
+          <ScalarProperty Name="project" ColumnName="project" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_Map">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_Map)">
+        <MappingFragment StoreEntitySet="t_Map">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_Picture" ColumnName="ID_Picture" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="XSize" ColumnName="XSize" />
+          <ScalarProperty Name="YSize" ColumnName="YSize" />
+          <ScalarProperty Name="XRot" ColumnName="XRot" />
+          <ScalarProperty Name="YRot" ColumnName="YRot" />
+          <ScalarProperty Name="XTopLeft" ColumnName="XTopLeft" />
+          <ScalarProperty Name="YTopLeft" ColumnName="YTopLeft" />
+          <ScalarProperty Name="ID_CompetitionSet" ColumnName="ID_CompetitionSet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_Parcour">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_Parcour)">
+        <MappingFragment StoreEntitySet="t_Parcour">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID_Map" ColumnName="ID_Map" />
+          <ScalarProperty Name="ID_CompetitionSet" ColumnName="ID_CompetitionSet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_Penalty">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_Penalty)">
+        <MappingFragment StoreEntitySet="t_Penalty">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="ID_Competition_Team" ColumnName="ID_Competition_Team" />
+          <ScalarProperty Name="ID_CompetitionSet" ColumnName="ID_CompetitionSet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_Picture">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_Picture)">
+        <MappingFragment StoreEntitySet="t_Picture">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="isFlag" ColumnName="isFlag" />
+          <ScalarProperty Name="ID_CompetitionSet" ColumnName="ID_CompetitionSet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_Pilot">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_Pilot)">
+        <MappingFragment StoreEntitySet="t_Pilot">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="SureName" ColumnName="SureName" />
+          <ScalarProperty Name="ID_Picture" ColumnName="ID_Picture" />
+          <ScalarProperty Name="ID_CompetitionSet" ColumnName="ID_CompetitionSet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_Team">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_Team)">
+        <MappingFragment StoreEntitySet="t_Team">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID_Pilot" ColumnName="ID_Pilot" />
+          <ScalarProperty Name="ID_Navigator" ColumnName="ID_Navigator" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="ID_Flag" ColumnName="ID_Flag" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ID_CompetitionSet" ColumnName="ID_CompetitionSet" />
+          <ScalarProperty Name="StartID" ColumnName="StartID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_Tracker">
+      <EntityTypeMapping TypeName="IsTypeOf(anrlModel.t_Tracker)">
+        <MappingFragment StoreEntitySet="t_Tracker">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="IMEI" ColumnName="IMEI" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Visible" ColumnName="Visible" />
+          <ScalarProperty Name="ID_Competition_Team" ColumnName="ID_Competition_Team" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="t_Parcourt_Line" TypeName="anrlModel.t_Parcourt_Line" StoreEntitySet="t_Line">
+      <EndProperty Name="t_Parcour">
+        <ScalarProperty Name="ID" ColumnName="t_Parcour_ID" />
+      </EndProperty>
+      <EndProperty Name="t_Line">
+        <ScalarProperty Name="ID" ColumnName="ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="t_Competition_Teamt_Tracker" TypeName="anrlModel.t_Competition_Teamt_Tracker" StoreEntitySet="t_Tracker">
+      <EndProperty Name="t_Competition_Team">
+        <ScalarProperty Name="ID" ColumnName="t_Competition_Team_ID" />
+      </EndProperty>
+      <EndProperty Name="t_Tracker">
+        <ScalarProperty Name="ID" ColumnName="ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="t_Trackert_GPSPoint" TypeName="anrlModel.t_Trackert_GPSPoint" StoreEntitySet="t_GPSPoint">
+      <EndProperty Name="t_Tracker">
+        <ScalarProperty Name="ID" ColumnName="t_Tracker_ID" />
+      </EndProperty>
+      <EndProperty Name="t_GPSPoint">
+        <ScalarProperty Name="ID" ColumnName="ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

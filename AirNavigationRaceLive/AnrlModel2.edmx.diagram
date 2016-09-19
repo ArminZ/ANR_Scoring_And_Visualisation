@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c4221cbd9dc04f8ea4f04a86c13fd791" Name="Diagram1" >
+        <EntityTypeShape EntityType="AnrlModel2.Competition" Width="2.375" PointX="0.625" PointY="0.5" />
+        <EntityTypeShape EntityType="AnrlModel2.Map" Width="1.5" PointX="1" PointY="3.375" />
+        <EntityTypeShape EntityType="AnrlModel2.Picture" Width="1.5" PointX="3.375" PointY="3.25" />
+        <EntityTypeShape EntityType="AnrlModel2.Subscriber" Width="1.5" PointX="4.125" PointY="0.5" />
+        <AssociationConnector Association="AnrlModel2.CompetitionSubscriber" />
+        <AssociationConnector Association="AnrlModel2.PictureSubscriber" />
+        <AssociationConnector Association="AnrlModel2.PictureMap" />
+        <AssociationConnector Association="AnrlModel2.CompetitionMap" />
+        <EntityTypeShape EntityType="AnrlModel2.Team" Width="1.5" PointX="6.625" PointY="0.5" />
+        <AssociationConnector Association="AnrlModel2.SubscriberTeam" />
+        <AssociationConnector Association="AnrlModel2.SubscriberTeam1" />
+        <EntityTypeShape EntityType="AnrlModel2.QualificationRound" Width="1.75" PointX="5.75" PointY="3.375" />
+        <AssociationConnector Association="AnrlModel2.CompetitionQualificationRound" />
+        <EntityTypeShape EntityType="AnrlModel2.Line" Width="1.5" PointX="8" PointY="3.375" />
+        <EntityTypeShape EntityType="AnrlModel2.Point" Width="1.5" PointX="11.5" PointY="3.625" />
+        <AssociationConnector Association="AnrlModel2.PointLine" />
+        <AssociationConnector Association="AnrlModel2.PointLine1" />
+        <AssociationConnector Association="AnrlModel2.PointLine2" />
+        <AssociationConnector Association="AnrlModel2.LineQualificationRound" />
+        <EntityTypeShape EntityType="AnrlModel2.Parcour" Width="1.5" PointX="3.375" PointY="5.375" />
+        <AssociationConnector Association="AnrlModel2.MapParcour" />
+        <AssociationConnector Association="AnrlModel2.ParcourLine" />
+        <AssociationConnector Association="AnrlModel2.ParcourQualificationRound" />
+        <EntityTypeShape EntityType="AnrlModel2.Flight" Width="1.5" PointX="9" PointY="0.5" />
+        <AssociationConnector Association="AnrlModel2.QualificationRoundFlight" />
+        <AssociationConnector Association="AnrlModel2.TeamFlight" />
+        <EntityTypeShape EntityType="AnrlModel2.Penalty" Width="1.5" PointX="11.125" PointY="0.5" />
+        <AssociationConnector Association="AnrlModel2.FlightPenalty" />
+        <AssociationConnector Association="AnrlModel2.CompetitionTeam" />
+        <AssociationConnector Association="AnrlModel2.CompetitionParcour" />
+        <AssociationConnector Association="AnrlModel2.FlightPoint" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
