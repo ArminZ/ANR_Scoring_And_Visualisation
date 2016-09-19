@@ -5,7 +5,7 @@ The application is a Windows forms application based on c# (.NET framework 4.5, 
 ============================================================================
 Based on the specifications of Heini Schawalder and Maurice Ducret, the development for the ANR scoring and visualisation 
 software was initiated during 2009-2010 at the Commercial and Industrial Training college, Berne (GIBBS), 
-under the technical lead of Luc Baumann/SharpSoft who has been maintaining the application since 2009 onward.
+under the technical lead of Luc Baumann/SharpSoft. Luc has been maintaining the application since its beginnings in 2009.
 The code in this repository is based on original code which can be found at https://github.com/helios57/anrl
  
 ### Major changes as per 19.9.2016:
