@@ -2,6 +2,7 @@
 ANR scoring and visualisation software is an application used in general Aviation Air Navigation Race (ANR) competitions.
 For details refer to http://www.fai.org/gac-our-sport/air-navigation-race
 The application is a Windows forms application based on c# (.NET framework 4.5, & Entity framework).
+
 ============================================================================
 Based on the specifications of Heini Schawalder and Maurice Ducret, the development for the ANR scoring and visualisation 
 software was initiated during 2009-2010 at the Commercial and Industrial Training college, Berne (GIBBS), 
