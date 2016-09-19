@@ -4,6 +4,7 @@ Software used in general Aviation /Air Navigation Race (ANR)
 For details refer to http://www.fai.org
 ============================================================================
 This code is derived from the original code located https://github.com/helios57/anrl
+
 Credits to Luc/sharpsoft who has been maintaining the application since 2009
 The application is a Windows forms application based on c# (.NET framework 4.5, & Entity framework)
 ============================================================================
