@@ -11,12 +11,11 @@ under the technical lead of Luc Baumann/SharpSoft. Luc has been maintaining the 
 The code in this repository is based on original code which can be found at https://github.com/helios57/anrl .
  
 ### What is new/different in this version 1.0.13 (the initial version in this repository)?
-- improvements in user interface (datagridviews and pop-up input windows)
-- removed lots outdated and unused code and features (real-time tracking, Google plugin deprecated & u/s)
-- streamlined existing code
-- improved error handling
+- Improvements in user interface (less buttons, implemented datagridviews in many places, separate input windows if reasonable)
+- Removed outdated and unused code/features (real-time tracking, Google plugin deprecated & u/s)
+- Bug corrections for decimal separator related issues in many place 
+- Improved error handling
 - Additional features: Route generator (route creation in Google Earth Pro)
-- bug corrections for decimal separator related issues in many places
 - Export for flights as .gpx files
 - Results: Map Export + List Export only for teams with logger data. 
 - Result List Export, shared ranking implemented
@@ -26,4 +25,4 @@ The code in this repository is based on original code which can be found at http
 - Updated documentation on map conversion and map import
 - Some documentation about the route generator
 
-Binaries and documentation are available in the Release section.
+Binaries and documentation are available in the Release section of this repository.
