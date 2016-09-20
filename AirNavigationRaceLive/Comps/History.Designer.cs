@@ -54,10 +54,10 @@
             this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.linkLabel1.Location = new System.Drawing.Point(538, 566);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(242, 20);
+            this.linkLabel1.Size = new System.Drawing.Size(522, 20);
             this.linkLabel1.TabIndex = 59;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "https://github.com/helios57/anrl";
+            this.linkLabel1.Text = "https://github.com/ArminZ/ANR_Scoring_And_Visualisation/releases ";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // PictureBox4
