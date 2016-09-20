@@ -1,8 +1,10 @@
 # ANR Scoring And Visualisation
 #### What is this?
 The ANR scoring and visualisation software presented below is an application used in Air Navigation Race (ANR) competitions.
-Air Navigation Race (ANR) is an official competition mode in the area of General Aviation. 
+Air Navigation Race (ANR) is an official competition discipline in General Aviation. 
 For more details please refer to http://www.fai.org/gac-our-sport/air-navigation-race
+This software is used to create & manage ANR competitions and competition tasks, 
+and to evaluate the results based on logger data collected during the competition flights
 
 ---
 #### History
