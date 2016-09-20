@@ -3,6 +3,7 @@
 The ANR scoring and visualisation software presented below is an application used in Air Navigation Race (ANR) competitions.
 Air Navigation Race (ANR) is an official competition mode in the area of General Aviation. 
 For more details please refer to http://www.fai.org/gac-our-sport/air-navigation-race
+
 ---
 #### History
 Based on the specifications of Heini Schawalder and Maurice Ducret, the development for the ANR scoring and visualisation 
@@ -10,8 +11,9 @@ software was initiated during 2009-2010 at the Commercial and Industrial Trainin
 under the technical lead of **Luc Baumann/SharpSoft**. Luc has been maintaining the application since its beginnings in 2009.
 The application is a Windows forms (stand-alone) application based on c# (.NET framework 4.5, & Entity framework) using a local SQL database.
 The code in this repository is based on Luc's original code( on https://github.com/helios57/anrl )
+
 --- 
-#### What's new?
+#### What's new here (version 1.0.13.0)?
 **Improvements in user interface**
 
 * Less buttons, implemented editable datagridviews instead of lists in many places
