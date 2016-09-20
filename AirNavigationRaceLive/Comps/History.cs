@@ -8,7 +8,7 @@ namespace AirNavigationRaceLive.Comps
         {
             InitializeComponent();
             PictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
-            linkLabel1.Links.Add(0,33, linkLabel1.Text.Trim());
+            linkLabel1.Links.Add(0, linkLabel1.Text.Length, linkLabel1.Text.Trim());
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
