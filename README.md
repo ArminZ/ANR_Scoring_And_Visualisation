@@ -15,13 +15,13 @@ The code in this repository is based on original code which can be found at http
 - Removed outdated and unused code/features (real-time tracking, Google plugin deprecated & u/s)
 - Bug corrections for decimal separator related issues in many place 
 - Improved error handling
-- Additional features: Route generator (route creation in Google Earth Pro)
-- Export for flights as .gpx files
-- Results: Map Export + List Export only for teams with logger data. 
+- Additional features: Route generator (route creation in Google Earth Pro) implemented
+- Export for flight data in *.gpx format implemented
+- Results: Map Export + List Export: only teams that have flight data (=uploaded logger data) are shown 
 - Result List Export, shared ranking implemented
-- Map preview: save of transparency value implemented
-- StartList calculation & Re-calculation
-- Legacy calculator moved to Tools (bug corrrection for double format)
+- Map preview: transparency value can be saved. Use numericUpDown instead of trackbar.
+- StartList calculation & re-calculation
+- Legacy calculator (WGS84-CH1903) moved to Tools
 - Updated documentation on map conversion and map import
 - Some documentation about the route generator
 
