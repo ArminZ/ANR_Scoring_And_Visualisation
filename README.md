@@ -46,4 +46,4 @@ It is basically a replacement for the original coordinate upload with an AutoCAD
 
 ---
 #### Download?
-Binaries and documentation are available in the Release section of this repository.
+Binaries and documentation are available in the [Release section](/releases/) of this repository.
