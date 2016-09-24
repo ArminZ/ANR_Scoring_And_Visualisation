@@ -1,0 +1,722 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B483E041-0DA3-4659-8B40-BB5DB3FE5959}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AirNavigationRaceLive</RootNamespace>
+    <AssemblyName>AirNavigationRaceLive</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>c:\temp\webdeploy\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <SupportUrl>http://anrl.googlecode.com</SupportUrl>
+    <ErrorReportUrl>http://anrl.googlecode.com</ErrorReportUrl>
+    <SuiteName>ANRL</SuiteName>
+    <WebPage>publish.htm</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>92</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>DDDBD5EA149E7DC3111AA26A1D60F0C42A268902</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>AirNavigationRaceLive_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationIcon>Resources\ANR_LOGO.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>AirNavigationRace_key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.0.4.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.Core, Version=1.6.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>dlls\GMap.NET.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms, Version=1.6.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\GMap.NET.WindowsForms.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="MigraDoc.DocumentObjectModel, Version=1.31.3066.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\MigraDoc.DocumentObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.Rendering, Version=1.31.3066.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\MigraDoc.Rendering.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.RtfRendering, Version=1.31.3066.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\MigraDoc.RtfRendering.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.0.898.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\PdfSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.31.1789.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpKml, Version=2.0.1.0, Culture=neutral, PublicKeyToken=9bb853c026a5c0ac, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\SharpKml.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.SQLite, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.103\lib\net45\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.103\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.103\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AirNavigationRaceLiveMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AirNavigationRaceLiveMain.Designer.cs">
+      <DependentUpon>AirNavigationRaceLiveMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AnrlModel2.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AnrlModel2.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AnrlModel2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AnrlModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AnrlModel2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AnrlModel2.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Competition.cs">
+      <DependentUpon>AnrlModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\Client\Client.cs" />
+    <Compile Include="Comps\CompetitionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\CompetitionControl.Designer.cs">
+      <DependentUpon>CompetitionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\History.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\History.Designer.cs">
+      <DependentUpon>History.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\Helper\Enums.cs" />
+    <Compile Include="Comps\Helper\Factory.cs" />
+    <Compile Include="Comps\Helper\ParcourGeneratorSingle.cs" />
+    <Compile Include="Comps\Helper\ParcourModelSingle.cs" />
+    <Compile Include="Comps\ImportExport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\ImportExport.Designer.cs">
+      <DependentUpon>ImportExport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\Model\PointTemporaer.cs" />
+    <Compile Include="Comps\ParcourEditSingle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\ParcourEditSingle.Designer.cs">
+      <DependentUpon>ParcourEditSingle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\QualificationRoundControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\QualificationRoundControl.Designer.cs">
+      <DependentUpon>QualificationRoundControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\Helper\PDFCreator.cs" />
+    <Compile Include="Comps\Helper\Status.cs" />
+    <Compile Include="Comps\Results.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\Results.Designer.cs">
+      <DependentUpon>Results.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\Helper\GeneratePenalty.cs" />
+    <Compile Include="Comps\ParcourOverviewZoomed.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\ParcourOverviewZoomed.Designer.cs">
+      <DependentUpon>ParcourOverviewZoomed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\Helper\GEControll.cs" />
+    <Compile Include="Comps\Helper\VisualisationPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comps\ParcourEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\ParcourEdit.Designer.cs">
+      <DependentUpon>ParcourEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\ParcourOverview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\ParcourOverview.Designer.cs">
+      <DependentUpon>ParcourOverview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\Helper\Geometry\AnalyticGeometryException.cs" />
+    <Compile Include="Comps\Helper\Geometry\CLine.cs" />
+    <Compile Include="Comps\Helper\Geometry\CPoint2D.cs" />
+    <Compile Include="Comps\Helper\Geometry\CPolygon.cs" />
+    <Compile Include="Comps\Helper\Geometry\CPolygonShape.cs" />
+    <Compile Include="Comps\Helper\Geometry\Definition.cs" />
+    <Compile Include="Comps\ParcourImport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\ParcourImport.Designer.cs">
+      <DependentUpon>ParcourImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\Helper\Combinatorics\Combinations.cs" />
+    <Compile Include="Comps\Helper\Combinatorics\GenerateOption.cs" />
+    <Compile Include="Comps\Helper\Combinatorics\IMetaCollection.cs" />
+    <Compile Include="Comps\Helper\Combinatorics\Permutations.cs" />
+    <Compile Include="Comps\Helper\Combinatorics\SmallPrimeUtility.cs" />
+    <Compile Include="Comps\Helper\Combinatorics\Variations.cs" />
+    <Compile Include="Comps\Helper\Converter.cs" />
+    <Compile Include="Comps\Helper\Importer.cs" />
+    <Compile Include="Comps\Helper\ParcourGenerator.cs" />
+    <Compile Include="Comps\Helper\ParcourModel.cs" />
+    <Compile Include="Comps\Helper\ParcourPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comps\Helper\Utils.cs" />
+    <Compile Include="Comps\Helper\Vector.cs" />
+    <Compile Include="Comps\Helper\wgs84_ch1903.cs" />
+    <Compile Include="Comps\Model\ParcourModel.cs" />
+    <Compile Include="Comps\ParcourGen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\ParcourGen.Designer.cs">
+      <DependentUpon>ParcourGen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\MapLegacy.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\MapLegacy.Designer.cs">
+      <DependentUpon>MapLegacy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\MapControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\MapControl.Designer.cs">
+      <DependentUpon>MapControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\About.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\Pilot.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\Pilot.Designer.cs">
+      <DependentUpon>Pilot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\RouteGenerator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\RouteGenerator.Designer.cs">
+      <DependentUpon>RouteGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\ANRRouteGenerator\ANRData.cs" />
+    <Compile Include="Comps\ANRRouteGenerator\GeoData.cs" />
+    <Compile Include="Comps\ANRRouteGenerator\KMLPolygonStyle.cs" />
+    <Compile Include="Comps\TeamControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\TeamControl.Designer.cs">
+      <DependentUpon>TeamControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\Visualisation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\Visualisation.Designer.cs">
+      <DependentUpon>Visualisation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\StartListDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\StartListDialog.Designer.cs">
+      <DependentUpon>StartListDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TeamDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\TeamDialog.Designer.cs">
+      <DependentUpon>TeamDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ParticipantDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ParticipantDialog.Designer.cs">
+      <DependentUpon>ParticipantDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TextOverlayDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\TextOverlayDialog.Designer.cs">
+      <DependentUpon>TextOverlayDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ImportTKOFLines.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ImportTKOFLines.Designer.cs">
+      <DependentUpon>ImportTKOFLines.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\UploadGPX.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\UploadGPX.Designer.cs">
+      <DependentUpon>UploadGPX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ExportKML.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ExportKML.Designer.cs">
+      <DependentUpon>ExportKML.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\RankForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\RankForm.Designer.cs">
+      <DependentUpon>RankForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\UploadGAC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\UploadGAC.Designer.cs">
+      <DependentUpon>UploadGAC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Calculator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Calculator.Designer.cs">
+      <DependentUpon>Calculator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\VisualisationPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\VisualisationPopup.Designer.cs">
+      <DependentUpon>VisualisationPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Flight.cs">
+      <DependentUpon>AnrlModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Line.cs">
+      <DependentUpon>AnrlModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Map.cs">
+      <DependentUpon>AnrlModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parcour.cs">
+      <DependentUpon>AnrlModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Penalty.cs">
+      <DependentUpon>AnrlModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Picture.cs">
+      <DependentUpon>AnrlModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Point.cs">
+      <DependentUpon>AnrlModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QualificationRound.cs">
+      <DependentUpon>AnrlModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Subscriber.cs">
+      <DependentUpon>AnrlModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Team.cs">
+      <DependentUpon>AnrlModel2.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AirNavigationRaceLiveMain.resx">
+      <DependentUpon>AirNavigationRaceLiveMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\CompetitionControl.resx">
+      <DependentUpon>CompetitionControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\History.resx">
+      <DependentUpon>History.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\ImportExport.resx">
+      <DependentUpon>ImportExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\ParcourEditSingle.resx">
+      <DependentUpon>ParcourEditSingle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\QualificationRoundControl.resx">
+      <DependentUpon>QualificationRoundControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\Results.resx">
+      <DependentUpon>Results.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\ParcourOverviewZoomed.resx">
+      <DependentUpon>ParcourOverviewZoomed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\ParcourEdit.resx">
+      <DependentUpon>ParcourEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\ParcourOverview.resx">
+      <DependentUpon>ParcourOverview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\ParcourImport.resx">
+      <DependentUpon>ParcourImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\ParcourGen.resx">
+      <DependentUpon>ParcourGen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\MapLegacy.resx">
+      <DependentUpon>MapLegacy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\MapControl.resx">
+      <DependentUpon>MapControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\Pilot.resx">
+      <DependentUpon>Pilot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\RouteGenerator.resx">
+      <DependentUpon>RouteGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\TeamControl.resx">
+      <DependentUpon>TeamControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\Visualisation.resx">
+      <DependentUpon>Visualisation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\StartListDialog.resx">
+      <DependentUpon>StartListDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\TeamDialog.resx">
+      <DependentUpon>TeamDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ParticipantDialog.resx">
+      <DependentUpon>ParticipantDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\TextOverlayDialog.resx">
+      <DependentUpon>TextOverlayDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ImportTKOFLines.resx">
+      <DependentUpon>ImportTKOFLines.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\UploadGPX.resx">
+      <DependentUpon>UploadGPX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ExportKML.resx">
+      <DependentUpon>ExportKML.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\RankForm.resx">
+      <DependentUpon>RankForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\UploadGAC.resx">
+      <DependentUpon>UploadGAC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Calculator.resx">
+      <DependentUpon>Calculator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\VisualisationPopup.resx">
+      <DependentUpon>VisualisationPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EntityDeploy Include="AnrlModel2.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AnrlModel2.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="AirNavigationRace_key.snk" />
+    <None Include="AnrlModel2.edmx.diagram">
+      <DependentUpon>AnrlModel2.edmx</DependentUpon>
+    </None>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Resources\PDFTemplates\Competition_Map.pdf" />
+    <None Include="Resources\PDFTemplates\Competition_Map.xls" />
+    <None Include="Resources\PDFTemplates\Competitor_list.doc" />
+    <None Include="Resources\PDFTemplates\Competitor_list.pdf" />
+    <None Include="Resources\PDFTemplates\Start_list.doc" />
+    <None Include="Resources\PDFTemplates\Start_list.pdf" />
+    <None Include="Resources\Template.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dlls\GMap.NET.Core.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dlls\GMap.NET.WindowsForms.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dlls\EPPlus.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dlls\EPPlus.XML">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="AnrlModel2.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AnrlModel2.Context.cs</LastGenOutput>
+      <DependentUpon>AnrlModel2.edmx</DependentUpon>
+    </Content>
+    <Content Include="AnrlModel2.edmx.sql" />
+    <Content Include="AnrlModel2.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AnrlModel2.cs</LastGenOutput>
+      <DependentUpon>AnrlModel2.edmx</DependentUpon>
+    </Content>
+    <None Include="dlls\SharpKml.dll" />
+    <None Include="Resources\compass.jpg" />
+    <None Include="Resources\ANR_0003.JPG" />
+    <None Include="Resources\ANR_00031.JPG" />
+    <None Include="Resources\Capturex.JPG" />
+    <None Include="Resources\ANR_map_Example.JPG" />
+    <None Include="Resources\compass1.jpg" />
+    <None Include="Resources\Capturex1.JPG" />
+    <Content Include="Resources\default.png" />
+    <None Include="Resources\Landing - Copy.JPG" />
+    <None Include="Resources\stopwatch.jpg" />
+    <None Include="Resources\Landing - Copy1.JPG" />
+    <Content Include="Resources\Summe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="dlls\PdfSharp.dll" />
+    <None Include="dlls\MigraDoc.DocumentObjectModel.dll" />
+    <None Include="dlls\MigraDoc.Rendering.dll" />
+    <None Include="dlls\MigraDoc.RtfRendering.dll" />
+    <None Include="dlls\PdfSharp.Charting.dll" />
+    <Content Include="ANR_LOGO.ico" />
+    <EmbeddedResource Include="Resources\ANR_LOGO.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="Resources\ANR_LOGO.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\FAI_GAC.jpg" />
+    <Content Include="Resources\KMLTemplates\footer.kml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\KMLTemplates\KML_Samples.kml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\KMLTemplates\footerPolygon.kml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\KMLTemplates\header.kml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\KMLTemplates\headerPolygon.kml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\logoVS1.png" />
+    <Content Include="Resources\pluginhost.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\GPSCursorModify.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\GPSCursor.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

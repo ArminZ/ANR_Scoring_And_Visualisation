@@ -1,0 +1,286 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.IO;
+using System.Globalization;
+using SharpKml.Engine;
+using SharpKml.Base;
+using SharpKml.Dom;
+using AirNavigationRaceLive.Comps.ANRRouteGenerator;
+
+namespace AirNavigationRaceLive.Comps
+{
+    public partial class RouteGenerator : UserControl
+    {
+        private Client.DataAccess Client;
+        private string FileNameKML;
+
+        const string STYLENAME = "PolygonAndLine";
+        const double DEFAULT_CHANNEL_WIDTH = 0.4;
+        const bool HAS_MARKERS = true;
+        const bool CREATE_PROH_AREA = true;
+        const bool USE_STANDARD_ORDER = true;
+
+        public String RouteName;
+        public List<Vector> RoutePoints = new List<Vector>();
+        public List<List<Vector>> ListOfListOfVectors = new List<List<Vector>>();
+        public List<string> ListOfNames = new List<string>();
+
+        public RouteGenerator(Client.DataAccess iClient)
+        {
+            Client = iClient;
+            InitializeComponent();
+        }
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            txtChannelWidth.Text = DEFAULT_CHANNEL_WIDTH.ToString().Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+            btnSelectKML.Select();
+        }
+
+        private void btnSelectKML_Click(object sender, EventArgs e)
+        {
+            string FileFilter = "KML Files|*.kml|All Files|*.*";
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Load KML file with Route center lines";
+            //ofd.RestoreDirectory = true;
+            ofd.Multiselect = false;
+            ofd.Filter = FileFilter;
+            //ofd.FilterIndex = 5;
+            ofd.FileOk += new CancelEventHandler(ofd_FileOkSelectKML);
+            ofd.ShowDialog();
+        }
+
+
+        void ofd_FileOkSelectKML(object sender, CancelEventArgs e)
+        {
+            AirNavigationRaceLiveMain.SetStatusText("");
+
+            treeViewAvailableRoutes.Nodes.Clear();
+            OpenFileDialog ofd = sender as OpenFileDialog;
+            string fName = ofd.FileName;
+            FileNameKML = ofd.FileName;
+
+            btnSaveKML.Enabled = FileNameKML != null;
+
+            if (fName == string.Empty)
+            {
+                return;
+            }
+
+            KmlFile file;
+            try
+            {
+                using (FileStream stream = File.Open(fName, FileMode.Open))
+                {
+                    file = KmlFile.Load(stream);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            if ((file != null) && (file.Root != null))
+            {
+                Kml kml = file.Root as Kml;
+                TreeView trv = treeViewAvailableRoutes;
+                ExtractPlaceMarkLineStrings(kml.Feature, trv);
+                btnAddRoute.Visible = true;
+                chkAddAllRoutes.Visible = true;
+                lblSelectedRoutes.Visible = true;
+                btnClearSelectedRoutes.Visible = true;
+                treeViewSelectedRoutes.Visible = true;
+            }
+            AirNavigationRaceLiveMain.SetStatusText(string.Format("Route Generator - loaded file {0}", ofd.FileName));
+
+        }
+
+
+        private void btnSaveKML_Click(object sender, EventArgs e)
+        {
+            // save ANR data
+
+            string FileFilter = "KML Files|*.kml|All Files|*.*";
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Title = "Generate ANR routes and save as KML";
+            sfd.FileName = FileNameKML.Replace(".kml", "_out.kml");
+            sfd.CheckFileExists = false;
+            sfd.Filter = FileFilter;
+            //ofd.FilterIndex = 5;
+            sfd.FileOk += new CancelEventHandler(ofd_FileOkSaveKML);
+            sfd.ShowDialog();
+        }
+
+        void ofd_FileOkSaveKML(object sender, CancelEventArgs e)
+        {
+            AirNavigationRaceLiveMain.SetStatusText("");
+            double channelRadius;
+            double altitude;
+            // retrieve points from selected tree element
+
+            if (ListOfNames.Count == 0)
+            {
+                return;
+            }
+
+            bool ret = double.TryParse(txtChannelWidth.Text, out channelRadius);
+            if (!ret)
+            {
+                channelRadius = DEFAULT_CHANNEL_WIDTH / 2.0;
+            }
+            else
+            {
+                channelRadius = channelRadius / 2.0;
+            }
+
+            ret = double.TryParse(txtHeight.Text, out altitude);
+            if (!ret)
+            {
+                altitude = 300;
+            }
+
+            SaveFileDialog sfd = sender as SaveFileDialog;
+            string fname = sfd.FileName;
+            Document document = ANRData.createANR(ListOfListOfVectors, HAS_MARKERS, CREATE_PROH_AREA, USE_STANDARD_ORDER, channelRadius, STYLENAME, ListOfNames, altitude);
+            Kml kml = new Kml();
+            kml.Feature = document;
+            KmlFile file = KmlFile.Create(kml, false);
+            using (var stream = System.IO.File.Open(fname, FileMode.Create, FileAccess.Write, FileShare.Read))
+            {
+                file.Save(stream);
+            }
+            AirNavigationRaceLiveMain.SetStatusText(string.Format("Route Generator - saved file {0}",sfd.FileName));
+
+        }
+
+        private void btnAddRoute_Click(object sender, EventArgs e)
+        {
+            int idxStart = 0;
+            int idxEnd = treeViewAvailableRoutes.Nodes.Count;
+            if (!chkAddAllRoutes.Checked)
+            {
+                if (treeViewAvailableRoutes.SelectedNode == null)
+                { 
+                    return;
+                }
+                else
+                {
+                    // add only the selected route
+                    idxStart = treeViewAvailableRoutes.SelectedNode.Index;
+                    idxEnd = treeViewAvailableRoutes.SelectedNode.Index + 1;     
+                }
+
+            }
+
+            for (int i = idxStart; i < idxEnd; i++)
+            {
+                int first = treeViewAvailableRoutes.Nodes[i].Text.IndexOf("(");
+                string strName = treeViewAvailableRoutes.Nodes[i].Text.Substring(0, first).Trim();
+                if (strName == "A" || strName == "B" || strName == "C" || strName == "D")
+                {
+                    //lblSelectedRoutes.Text += Environment.NewLine + strName;
+                    List<Vector> lst = (List<Vector>)treeViewAvailableRoutes.Nodes[i].Tag;
+                    ListOfListOfVectors.Add(lst);
+                    ListOfNames.Add(strName);
+                    treeViewSelectedRoutes.Nodes.Add(strName);
+                }
+                else
+                {
+                    MessageBox.Show(String.Format("The selected name <{0}> in the KML file is not valid. Valid names for ANR routes are A, B, C or D. ", strName), String.Format("KML Path name <{0}>", strName), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+
+        }
+
+        private void btnClearSelected_Click(object sender, EventArgs e)
+        {
+            //lblSelectedRoutes.Text = "Selected Routes:";
+            treeViewSelectedRoutes.Nodes.Clear();
+            ListOfListOfVectors.Clear();
+            ListOfNames.Clear();
+        }
+
+        private void txtChannelWidth_Validating(object sender, CancelEventArgs e)
+        {
+            txtChannelWidth.Text = txtChannelWidth.Text.Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+
+            double _width;
+            if (!double.TryParse(txtChannelWidth.Text, out _width))
+            {
+                MessageBox.Show("The number format is invalid", "Channel width", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtChannelWidth.SelectAll();
+                txtChannelWidth.Focus();
+            }
+            else
+            {
+                if (_width < 0.1 || _width > 2.0)
+                {
+                    MessageBox.Show("Value must be between 0.1 NM and 2.0 NM", "Channel width", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    txtChannelWidth.SelectAll();
+                    txtChannelWidth.Focus();
+                }
+            }
+        }
+
+        private void txtHeight_Validating(object sender, CancelEventArgs e)
+        {
+            txtHeight.Text = txtHeight.Text.Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+
+            double _height;
+            if (!double.TryParse(txtHeight.Text, out _height))
+            {
+                MessageBox.Show("The number format is invalid", "Height Value", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtHeight.SelectAll();
+                txtHeight.Focus();
+            }
+            else
+            {
+                if (_height < 100.0 || _height > 600.0)
+                {
+                    MessageBox.Show("Value must be between 100m and 600m", "Height Value", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    txtHeight.SelectAll();
+                    txtHeight.Focus();
+                }
+            }
+
+        }
+
+
+        private void ExtractPlaceMarkLineStrings(Feature feature, TreeView trv)
+        {
+            // Google Earth Paths are PlaceMarks with a Geometry property of type LineString
+            // Extract these and add to the treeview object (include also the points)
+
+            // Is the passed in value a Placemark?
+            Placemark placemark = feature as Placemark;
+            if (placemark != null && placemark.Geometry is LineString)
+            {
+                LineString ln = (LineString)placemark.Geometry;
+
+                if (ln.Coordinates.Count > 2)   // must have at least 2 points
+                {
+                    TreeNode node = trv.Nodes.Add(placemark.Name + " (Path with " + ln.Coordinates.Count.ToString() + " Points)");
+                    // add coordinates as object to the Tag property
+                    node.Tag = new List<Vector>(ln.Coordinates);
+                }
+            }
+            else
+            {
+                // Is it a Container, as the Container might have a child Placemark?
+                SharpKml.Dom.Container container = feature as SharpKml.Dom.Container;
+                if (container != null)
+                {
+                    // Check each Feature to see if it's a Placemark or another Container
+                    foreach (var f in container.Features)
+                    {
+                        ExtractPlaceMarkLineStrings(f, trv);
+                    }
+                }
+            }
+        }
+    }
+}

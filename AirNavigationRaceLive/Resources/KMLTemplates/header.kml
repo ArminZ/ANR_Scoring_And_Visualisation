@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>ANRL KML Generated</name>
+    <Folder>
+      <Style id="sh_red">
+        <IconStyle>
+          <scale>1.2</scale>
+        </IconStyle>
+        <LineStyle>
+          <color>cc3011ff</color>
+          <width>10</width>
+        </LineStyle>
+        <PolyStyle>
+          <color>7f0000ff</color>
+        </PolyStyle>
+      </Style>
+      <Style id="sn_red">
+        <LineStyle>
+          <color>cc3011ff</color>
+          <width>10</width>
+        </LineStyle>
+        <PolyStyle>
+          <color>7f0000ff</color>
+        </PolyStyle>
+      </Style>
+      <StyleMap id="msn_red">
+        <Pair>
+          <key>normal</key>
+          <styleUrl>#sn_red</styleUrl>
+        </Pair>
+        <Pair>
+          <key>highlight</key>
+          <styleUrl>#sh_red</styleUrl>
+        </Pair>
+      </StyleMap>
+      <Style id="sn_blue">
+        <LineStyle>
+          <color>ccff0000</color>
+          <width>10</width>
+        </LineStyle>
+        <PolyStyle>
+          <color>7fff0000</color>
+        </PolyStyle>
+      </Style>
+      <StyleMap id="msn_blue">
+        <Pair>
+          <key>normal</key>
+          <styleUrl>#sn_blue</styleUrl>
+        </Pair>
+        <Pair>
+          <key>highlight</key>
+          <styleUrl>#sh_blue</styleUrl>
+        </Pair>
+      </StyleMap>
+      <Style id="sh_blue">
+        <IconStyle>
+          <scale>1.2</scale>
+        </IconStyle>
+        <LineStyle>
+          <color>ccff0000</color>
+          <width>10</width>
+        </LineStyle>
+        <PolyStyle>
+          <color>7fff0000</color>
+        </PolyStyle>
+      </Style>
+      <Style id="sh_yellow">
+        <IconStyle>
+          <scale>1.2</scale>
+        </IconStyle>
+        <LineStyle>
+          <color>cc00ffff</color>
+          <width>10</width>
+        </LineStyle>
+        <PolyStyle>
+          <color>7f00ffff</color>
+        </PolyStyle>
+      </Style>
+      <StyleMap id="msn_yellow">
+        <Pair>
+          <key>normal</key>
+          <styleUrl>#sn_yellow</styleUrl>
+        </Pair>
+        <Pair>
+          <key>highlight</key>
+          <styleUrl>#sh_yellow</styleUrl>
+        </Pair>
+      </StyleMap>
+      <Style id="sn_yellow">
+        <LineStyle>
+          <color>cc00ffff</color>
+          <width>10</width>
+        </LineStyle>
+        <PolyStyle>
+          <color>7f00ffff</color>
+        </PolyStyle>
+      </Style>
+      <Style id="sn_green">
+        <LineStyle>
+          <color>cc00ff00</color>
+          <width>10</width>
+        </LineStyle>
+        <PolyStyle>
+          <color>7f00ff00</color>
+        </PolyStyle>
+      </Style>
+      <StyleMap id="msn_green">
+        <Pair>
+          <key>normal</key>
+          <styleUrl>#sn_green</styleUrl>
+        </Pair>
+        <Pair>
+          <key>highlight</key>
+          <styleUrl>#sh_green</styleUrl>
+        </Pair>
+      </StyleMap>
+      <Style id="sh_green">
+        <IconStyle>
+          <scale>1.2</scale>
+        </IconStyle>
+        <LineStyle>
+          <color>cc00ff00</color>
+          <width>10</width>
+        </LineStyle>
+        <PolyStyle>
+          <color>7f00ff00</color>
+        </PolyStyle>
+      </Style>

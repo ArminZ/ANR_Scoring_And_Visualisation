@@ -1,0 +1,1115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AnrlModel2.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="AnrlModel2StoreContainer">
+    <EntitySet Name="CompetitionSet" EntityType="AnrlModel2.Store.CompetitionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MapSet" EntityType="AnrlModel2.Store.MapSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PictureSet" EntityType="AnrlModel2.Store.PictureSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SubscriberSet" EntityType="AnrlModel2.Store.SubscriberSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TeamSet" EntityType="AnrlModel2.Store.TeamSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="QualificationRoundSet" EntityType="AnrlModel2.Store.QualificationRoundSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LineSet" EntityType="AnrlModel2.Store.LineSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ParcourSet" EntityType="AnrlModel2.Store.ParcourSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FlightSet" EntityType="AnrlModel2.Store.FlightSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PenaltySet" EntityType="AnrlModel2.Store.PenaltySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PointSet" EntityType="AnrlModel2.Store.PointSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CompetitionSubscriber" Association="AnrlModel2.Store.CompetitionSubscriber">
+      <End Role="Competition" EntitySet="CompetitionSet" />
+      <End Role="Subscriber" EntitySet="SubscriberSet" />
+    </AssociationSet>
+    <AssociationSet Name="PictureSubscriber" Association="AnrlModel2.Store.PictureSubscriber">
+      <End Role="Picture" EntitySet="PictureSet" />
+      <End Role="Subscriber" EntitySet="SubscriberSet" />
+    </AssociationSet>
+    <AssociationSet Name="PictureMap" Association="AnrlModel2.Store.PictureMap">
+      <End Role="Picture" EntitySet="PictureSet" />
+      <End Role="Map" EntitySet="MapSet" />
+    </AssociationSet>
+    <AssociationSet Name="CompetitionMap" Association="AnrlModel2.Store.CompetitionMap">
+      <End Role="Competition" EntitySet="CompetitionSet" />
+      <End Role="Map" EntitySet="MapSet" />
+    </AssociationSet>
+    <AssociationSet Name="SubscriberTeam" Association="AnrlModel2.Store.SubscriberTeam">
+      <End Role="Subscriber" EntitySet="SubscriberSet" />
+      <End Role="Team" EntitySet="TeamSet" />
+    </AssociationSet>
+    <AssociationSet Name="SubscriberTeam1" Association="AnrlModel2.Store.SubscriberTeam1">
+      <End Role="Subscriber" EntitySet="SubscriberSet" />
+      <End Role="Team" EntitySet="TeamSet" />
+    </AssociationSet>
+    <AssociationSet Name="CompetitionQualificationRound" Association="AnrlModel2.Store.CompetitionQualificationRound">
+      <End Role="Competition" EntitySet="CompetitionSet" />
+      <End Role="QualificationRound" EntitySet="QualificationRoundSet" />
+    </AssociationSet>
+    <AssociationSet Name="PointLine" Association="AnrlModel2.Store.PointLine">
+      <End Role="Point" EntitySet="PointSet" />
+      <End Role="Line" EntitySet="LineSet" />
+    </AssociationSet>
+    <AssociationSet Name="PointLine1" Association="AnrlModel2.Store.PointLine1">
+      <End Role="Point" EntitySet="PointSet" />
+      <End Role="Line" EntitySet="LineSet" />
+    </AssociationSet>
+    <AssociationSet Name="PointLine2" Association="AnrlModel2.Store.PointLine2">
+      <End Role="Point" EntitySet="PointSet" />
+      <End Role="Line" EntitySet="LineSet" />
+    </AssociationSet>
+    <AssociationSet Name="LineQualificationRound" Association="AnrlModel2.Store.LineQualificationRound">
+      <End Role="Line" EntitySet="LineSet" />
+      <End Role="QualificationRound" EntitySet="QualificationRoundSet" />
+    </AssociationSet>
+    <AssociationSet Name="MapParcour" Association="AnrlModel2.Store.MapParcour">
+      <End Role="Map" EntitySet="MapSet" />
+      <End Role="Parcour" EntitySet="ParcourSet" />
+    </AssociationSet>
+    <AssociationSet Name="ParcourLine" Association="AnrlModel2.Store.ParcourLine">
+      <End Role="Parcour" EntitySet="ParcourSet" />
+      <End Role="Line" EntitySet="LineSet" />
+    </AssociationSet>
+    <AssociationSet Name="ParcourQualificationRound" Association="AnrlModel2.Store.ParcourQualificationRound">
+      <End Role="Parcour" EntitySet="ParcourSet" />
+      <End Role="QualificationRound" EntitySet="QualificationRoundSet" />
+    </AssociationSet>
+    <AssociationSet Name="QualificationRoundFlight" Association="AnrlModel2.Store.QualificationRoundFlight">
+      <End Role="QualificationRound" EntitySet="QualificationRoundSet" />
+      <End Role="Flight" EntitySet="FlightSet" />
+    </AssociationSet>
+    <AssociationSet Name="TeamFlight" Association="AnrlModel2.Store.TeamFlight">
+      <End Role="Team" EntitySet="TeamSet" />
+      <End Role="Flight" EntitySet="FlightSet" />
+    </AssociationSet>
+    <AssociationSet Name="FlightPenalty" Association="AnrlModel2.Store.FlightPenalty">
+      <End Role="Flight" EntitySet="FlightSet" />
+      <End Role="Penalty" EntitySet="PenaltySet" />
+    </AssociationSet>
+    <AssociationSet Name="CompetitionTeam" Association="AnrlModel2.Store.CompetitionTeam">
+      <End Role="Competition" EntitySet="CompetitionSet" />
+      <End Role="Team" EntitySet="TeamSet" />
+    </AssociationSet>
+    <AssociationSet Name="CompetitionParcour" Association="AnrlModel2.Store.CompetitionParcour">
+      <End Role="Competition" EntitySet="CompetitionSet" />
+      <End Role="Parcour" EntitySet="ParcourSet" />
+    </AssociationSet>
+    <AssociationSet Name="FlightPoint" Association="AnrlModel2.Store.FlightPoint">
+      <End Role="Flight" EntitySet="FlightSet" />
+      <End Role="Point" EntitySet="PointSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="CompetitionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MapSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="XSize" Type="float" Nullable="false" />
+    <Property Name="YSize" Type="float" Nullable="false" />
+    <Property Name="XRot" Type="float" Nullable="false" />
+    <Property Name="YRot" Type="float" Nullable="false" />
+    <Property Name="XTopLeft" Type="float" Nullable="false" />
+    <Property Name="YTopLeft" Type="float" Nullable="false" />
+    <Property Name="Picture_Id" Type="int" Nullable="false" />
+    <Property Name="Competition_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PictureSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Data" Type="varbinary(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubscriberSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Competition_Id" Type="int" Nullable="false" />
+    <Property Name="Picture_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="TeamSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CNumber" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="Color" Type="varchar" Nullable="true" MaxLength="10" />
+    <Property Name="Nationality" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AC" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Pilot_Id" Type="int" Nullable="false" />
+    <Property Name="Navigator_Id" Type="int" Nullable="true" />
+    <Property Name="Competition_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QualificationRoundSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Competition_Id" Type="int" Nullable="false" />
+    <Property Name="TakeOffLine_Id" Type="int" Nullable="false" />
+    <Property Name="Parcour_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LineSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="A_Id" Type="int" Nullable="false" />
+    <Property Name="B_Id" Type="int" Nullable="false" />
+    <Property Name="O_Id" Type="int" Nullable="false" />
+    <Property Name="ParcourLine_Line_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ParcourSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Alpha" Type="int" Nullable="false" DefaultValue="40" />
+    <Property Name="Map_Id" Type="int" Nullable="false" />
+    <Property Name="Competition_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FlightSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Route" Type="int" Nullable="false" />
+    <Property Name="TimeTakeOff" Type="bigint" Nullable="false" />
+    <Property Name="TimeStartLine" Type="bigint" Nullable="false" />
+    <Property Name="TimeEndLine" Type="bigint" Nullable="false" />
+    <Property Name="StartID" Type="int" Nullable="false" />
+    <Property Name="QualificationRound_Id" Type="int" Nullable="false" />
+    <Property Name="Team_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PenaltySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Points" Type="int" Nullable="false" />
+    <Property Name="Reason" Type="varchar" Nullable="false" MaxLength="500" />
+    <Property Name="Flight_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PointSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="altitude" Type="float" Nullable="false" />
+    <Property Name="longitude" Type="float" Nullable="false" />
+    <Property Name="latitude" Type="float" Nullable="false" />
+    <Property Name="Timestamp" Type="bigint" Nullable="false" />
+    <Property Name="Flight_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <Association Name="CompetitionSubscriber">
+    <End Role="Competition" Type="AnrlModel2.Store.CompetitionSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Subscriber" Type="AnrlModel2.Store.SubscriberSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competition">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Subscriber">
+        <PropertyRef Name="Competition_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PictureSubscriber">
+    <End Role="Picture" Type="AnrlModel2.Store.PictureSet" Multiplicity="0..1" />
+    <End Role="Subscriber" Type="AnrlModel2.Store.SubscriberSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Picture">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Subscriber">
+        <PropertyRef Name="Picture_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PictureMap">
+    <End Role="Picture" Type="AnrlModel2.Store.PictureSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Map" Type="AnrlModel2.Store.MapSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Picture">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Map">
+        <PropertyRef Name="Picture_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompetitionMap">
+    <End Role="Competition" Type="AnrlModel2.Store.CompetitionSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Map" Type="AnrlModel2.Store.MapSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competition">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Map">
+        <PropertyRef Name="Competition_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SubscriberTeam">
+    <End Role="Subscriber" Type="AnrlModel2.Store.SubscriberSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Team" Type="AnrlModel2.Store.TeamSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subscriber">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="Pilot_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SubscriberTeam1">
+    <End Role="Subscriber" Type="AnrlModel2.Store.SubscriberSet" Multiplicity="0..1" />
+    <End Role="Team" Type="AnrlModel2.Store.TeamSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subscriber">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="Navigator_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompetitionQualificationRound">
+    <End Role="Competition" Type="AnrlModel2.Store.CompetitionSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="QualificationRound" Type="AnrlModel2.Store.QualificationRoundSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competition">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="QualificationRound">
+        <PropertyRef Name="Competition_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PointLine">
+    <End Role="Point" Type="AnrlModel2.Store.PointSet" Multiplicity="1" />
+    <End Role="Line" Type="AnrlModel2.Store.LineSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Point">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Line">
+        <PropertyRef Name="A_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PointLine1">
+    <End Role="Point" Type="AnrlModel2.Store.PointSet" Multiplicity="1" />
+    <End Role="Line" Type="AnrlModel2.Store.LineSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Point">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Line">
+        <PropertyRef Name="B_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PointLine2">
+    <End Role="Point" Type="AnrlModel2.Store.PointSet" Multiplicity="1" />
+    <End Role="Line" Type="AnrlModel2.Store.LineSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Point">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Line">
+        <PropertyRef Name="O_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LineQualificationRound">
+    <End Role="Line" Type="AnrlModel2.Store.LineSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="QualificationRound" Type="AnrlModel2.Store.QualificationRoundSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Line">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="QualificationRound">
+        <PropertyRef Name="TakeOffLine_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MapParcour">
+    <End Role="Map" Type="AnrlModel2.Store.MapSet" Multiplicity="1" />
+    <End Role="Parcour" Type="AnrlModel2.Store.ParcourSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Map">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Parcour">
+        <PropertyRef Name="Map_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ParcourLine">
+    <End Role="Parcour" Type="AnrlModel2.Store.ParcourSet" Multiplicity="0..1" />
+    <End Role="Line" Type="AnrlModel2.Store.LineSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parcour">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Line">
+        <PropertyRef Name="ParcourLine_Line_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ParcourQualificationRound">
+    <End Role="Parcour" Type="AnrlModel2.Store.ParcourSet" Multiplicity="1" />
+    <End Role="QualificationRound" Type="AnrlModel2.Store.QualificationRoundSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parcour">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="QualificationRound">
+        <PropertyRef Name="Parcour_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="QualificationRoundFlight">
+    <End Role="QualificationRound" Type="AnrlModel2.Store.QualificationRoundSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Flight" Type="AnrlModel2.Store.FlightSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QualificationRound">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="QualificationRound_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TeamFlight">
+    <End Role="Team" Type="AnrlModel2.Store.TeamSet" Multiplicity="1" />
+    <End Role="Flight" Type="AnrlModel2.Store.FlightSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="Team_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FlightPenalty">
+    <End Role="Flight" Type="AnrlModel2.Store.FlightSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Penalty" Type="AnrlModel2.Store.PenaltySet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Flight">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Penalty">
+        <PropertyRef Name="Flight_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompetitionTeam">
+    <End Role="Competition" Type="AnrlModel2.Store.CompetitionSet" Multiplicity="1" />
+    <End Role="Team" Type="AnrlModel2.Store.TeamSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competition">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="Competition_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompetitionParcour">
+    <End Role="Competition" Type="AnrlModel2.Store.CompetitionSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Parcour" Type="AnrlModel2.Store.ParcourSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competition">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Parcour">
+        <PropertyRef Name="Competition_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FlightPoint">
+    <End Role="Flight" Type="AnrlModel2.Store.FlightSet" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Point" Type="AnrlModel2.Store.PointSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Flight">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Point">
+        <PropertyRef Name="Flight_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="AnrlModel2" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="AnrlModel2Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CompetitionSet" EntityType="AnrlModel2.Competition" />
+          <EntitySet Name="MapSet" EntityType="AnrlModel2.Map" />
+          <EntitySet Name="PictureSet" EntityType="AnrlModel2.Picture" />
+          <EntitySet Name="SubscriberSet" EntityType="AnrlModel2.Subscriber" />
+          <AssociationSet Name="CompetitionSubscriber" Association="AnrlModel2.CompetitionSubscriber">
+            <End Role="Competition" EntitySet="CompetitionSet" />
+            <End Role="Subscriber" EntitySet="SubscriberSet" />
+          </AssociationSet>
+          <AssociationSet Name="PictureSubscriber" Association="AnrlModel2.PictureSubscriber">
+            <End Role="Picture" EntitySet="PictureSet" />
+            <End Role="Subscriber" EntitySet="SubscriberSet" />
+          </AssociationSet>
+          <AssociationSet Name="PictureMap" Association="AnrlModel2.PictureMap">
+            <End Role="Picture" EntitySet="PictureSet" />
+            <End Role="Map" EntitySet="MapSet" />
+          </AssociationSet>
+          <AssociationSet Name="CompetitionMap" Association="AnrlModel2.CompetitionMap">
+            <End Role="Competition" EntitySet="CompetitionSet" />
+            <End Role="Map" EntitySet="MapSet" />
+          </AssociationSet>
+          <EntitySet Name="TeamSet" EntityType="AnrlModel2.Team" />
+          <AssociationSet Name="SubscriberTeam" Association="AnrlModel2.SubscriberTeam">
+            <End Role="Subscriber" EntitySet="SubscriberSet" />
+            <End Role="Team" EntitySet="TeamSet" />
+          </AssociationSet>
+          <AssociationSet Name="SubscriberTeam1" Association="AnrlModel2.SubscriberTeam1">
+            <End Role="Subscriber" EntitySet="SubscriberSet" />
+            <End Role="Team" EntitySet="TeamSet" />
+          </AssociationSet>
+          <EntitySet Name="QualificationRoundSet" EntityType="AnrlModel2.QualificationRound" />
+          <AssociationSet Name="CompetitionQualificationRound" Association="AnrlModel2.CompetitionQualificationRound">
+            <End Role="Competition" EntitySet="CompetitionSet" />
+            <End Role="QualificationRound" EntitySet="QualificationRoundSet" />
+          </AssociationSet>
+          <EntitySet Name="LineSet" EntityType="AnrlModel2.Line" />
+          <AssociationSet Name="PointLine" Association="AnrlModel2.PointLine">
+            <End Role="Point" EntitySet="PointSet" />
+            <End Role="Line" EntitySet="LineSet" />
+          </AssociationSet>
+          <AssociationSet Name="PointLine1" Association="AnrlModel2.PointLine1">
+            <End Role="Point" EntitySet="PointSet" />
+            <End Role="Line" EntitySet="LineSet" />
+          </AssociationSet>
+          <AssociationSet Name="PointLine2" Association="AnrlModel2.PointLine2">
+            <End Role="Point" EntitySet="PointSet" />
+            <End Role="Line" EntitySet="LineSet" />
+          </AssociationSet>
+          <AssociationSet Name="LineQualificationRound" Association="AnrlModel2.LineQualificationRound">
+            <End Role="Line" EntitySet="LineSet" />
+            <End Role="QualificationRound" EntitySet="QualificationRoundSet" />
+          </AssociationSet>
+          <EntitySet Name="ParcourSet" EntityType="AnrlModel2.Parcour" />
+          <AssociationSet Name="MapParcour" Association="AnrlModel2.MapParcour">
+            <End Role="Map" EntitySet="MapSet" />
+            <End Role="Parcour" EntitySet="ParcourSet" />
+          </AssociationSet>
+          <AssociationSet Name="ParcourLine" Association="AnrlModel2.ParcourLine">
+            <End Role="Parcour" EntitySet="ParcourSet" />
+            <End Role="Line" EntitySet="LineSet" />
+          </AssociationSet>
+          <AssociationSet Name="ParcourQualificationRound" Association="AnrlModel2.ParcourQualificationRound">
+            <End Role="Parcour" EntitySet="ParcourSet" />
+            <End Role="QualificationRound" EntitySet="QualificationRoundSet" />
+          </AssociationSet>
+          <EntitySet Name="FlightSet" EntityType="AnrlModel2.Flight" />
+          <AssociationSet Name="QualificationRoundFlight" Association="AnrlModel2.QualificationRoundFlight">
+            <End Role="QualificationRound" EntitySet="QualificationRoundSet" />
+            <End Role="Flight" EntitySet="FlightSet" />
+          </AssociationSet>
+          <AssociationSet Name="TeamFlight" Association="AnrlModel2.TeamFlight">
+            <End Role="Team" EntitySet="TeamSet" />
+            <End Role="Flight" EntitySet="FlightSet" />
+          </AssociationSet>
+          <EntitySet Name="PenaltySet" EntityType="AnrlModel2.Penalty" />
+          <AssociationSet Name="FlightPenalty" Association="AnrlModel2.FlightPenalty">
+            <End Role="Flight" EntitySet="FlightSet" />
+            <End Role="Penalty" EntitySet="PenaltySet" />
+          </AssociationSet>
+          <EntitySet Name="PointSet" EntityType="AnrlModel2.Point" />
+          <AssociationSet Name="CompetitionTeam" Association="AnrlModel2.CompetitionTeam">
+            <End Role="Competition" EntitySet="CompetitionSet" />
+            <End Role="Team" EntitySet="TeamSet" />
+          </AssociationSet>
+          <AssociationSet Name="CompetitionParcour" Association="AnrlModel2.CompetitionParcour">
+            <End Role="Competition" EntitySet="CompetitionSet" />
+            <End Role="Parcour" EntitySet="ParcourSet" />
+          </AssociationSet>
+          <AssociationSet Name="FlightPoint" Association="AnrlModel2.FlightPoint">
+            <End Role="Flight" EntitySet="FlightSet" />
+            <End Role="Point" EntitySet="PointSet" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Competition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Subscriber" Relationship="AnrlModel2.CompetitionSubscriber" FromRole="Competition" ToRole="Subscriber" />
+          <NavigationProperty Name="Map" Relationship="AnrlModel2.CompetitionMap" FromRole="Competition" ToRole="Map" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="QualificationRound" Relationship="AnrlModel2.CompetitionQualificationRound" FromRole="Competition" ToRole="QualificationRound" />
+          <NavigationProperty Name="Team" Relationship="AnrlModel2.CompetitionTeam" FromRole="Competition" ToRole="Team" />
+          <NavigationProperty Name="Parcour" Relationship="AnrlModel2.CompetitionParcour" FromRole="Competition" ToRole="Parcour" />
+        </EntityType>
+        <EntityType Name="Map">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Picture" Relationship="AnrlModel2.PictureMap" FromRole="Map" ToRole="Picture" />
+          <NavigationProperty Name="Competition" Relationship="AnrlModel2.CompetitionMap" FromRole="Map" ToRole="Competition" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="XSize" Type="Double" Nullable="false" />
+          <Property Name="YSize" Type="Double" Nullable="false" />
+          <Property Name="XRot" Type="Double" Nullable="false" />
+          <Property Name="YRot" Type="Double" Nullable="false" />
+          <Property Name="XTopLeft" Type="Double" Nullable="false" />
+          <Property Name="YTopLeft" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Parcour" Relationship="AnrlModel2.MapParcour" FromRole="Map" ToRole="Parcour" />
+        </EntityType>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Subscriber" Relationship="AnrlModel2.PictureSubscriber" FromRole="Picture" ToRole="Subscriber" />
+          <NavigationProperty Name="Map" Relationship="AnrlModel2.PictureMap" FromRole="Picture" ToRole="Map" />
+          <Property Name="Data" Type="Binary" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subscriber">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Competition" Relationship="AnrlModel2.CompetitionSubscriber" FromRole="Subscriber" ToRole="Competition" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <NavigationProperty Name="Picture" Relationship="AnrlModel2.PictureSubscriber" FromRole="Subscriber" ToRole="Picture" />
+        </EntityType>
+        <Association Name="CompetitionSubscriber">
+          <End Type="AnrlModel2.Competition" Role="Competition" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AnrlModel2.Subscriber" Role="Subscriber" Multiplicity="*" >
+          </End>
+        </Association>
+        <Association Name="PictureSubscriber">
+          <End Type="AnrlModel2.Picture" Role="Picture" Multiplicity="0..1" />
+          <End Type="AnrlModel2.Subscriber" Role="Subscriber" Multiplicity="*" />
+        </Association>
+        <Association Name="PictureMap">
+          <End Type="AnrlModel2.Picture" Role="Picture" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AnrlModel2.Map" Role="Map" Multiplicity="*" >
+          </End>
+        </Association>
+        <Association Name="CompetitionMap">
+          <End Type="AnrlModel2.Competition" Role="Competition" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AnrlModel2.Map" Role="Map" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Pilot" Relationship="AnrlModel2.SubscriberTeam" FromRole="Team" ToRole="Subscriber" />
+          <NavigationProperty Name="Navigator" Relationship="AnrlModel2.SubscriberTeam1" FromRole="Team" ToRole="Subscriber" />
+          <Property Name="CNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Nationality" Type="String" Nullable="false" />
+          <Property Name="AC" Type="String" Nullable="false" />
+          <NavigationProperty Name="Flight" Relationship="AnrlModel2.TeamFlight" FromRole="Team" ToRole="Flight" />
+          <NavigationProperty Name="Competition" Relationship="AnrlModel2.CompetitionTeam" FromRole="Team" ToRole="Competition" />
+        </EntityType>
+        <Association Name="SubscriberTeam">
+          <End Type="AnrlModel2.Subscriber" Role="Subscriber" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AnrlModel2.Team" Role="Team" Multiplicity="*" />
+        </Association>
+        <Association Name="SubscriberTeam1">
+          <End Type="AnrlModel2.Subscriber" Role="Subscriber" Multiplicity="0..1" >
+          </End>
+          <End Type="AnrlModel2.Team" Role="Team" Multiplicity="*" />
+        </Association>
+        <EntityType Name="QualificationRound">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Competition" Relationship="AnrlModel2.CompetitionQualificationRound" FromRole="QualificationRound" ToRole="Competition" />
+          <NavigationProperty Name="TakeOffLine" Relationship="AnrlModel2.LineQualificationRound" FromRole="QualificationRound" ToRole="Line" />
+          <NavigationProperty Name="Parcour" Relationship="AnrlModel2.ParcourQualificationRound" FromRole="QualificationRound" ToRole="Parcour" />
+          <NavigationProperty Name="Flight" Relationship="AnrlModel2.QualificationRoundFlight" FromRole="QualificationRound" ToRole="Flight" />
+        </EntityType>
+        <Association Name="CompetitionQualificationRound">
+          <End Type="AnrlModel2.Competition" Role="Competition" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AnrlModel2.QualificationRound" Role="QualificationRound" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Line">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="A" Relationship="AnrlModel2.PointLine" FromRole="Line" ToRole="Point" />
+          <NavigationProperty Name="B" Relationship="AnrlModel2.PointLine1" FromRole="Line" ToRole="Point" />
+          <NavigationProperty Name="O" Relationship="AnrlModel2.PointLine2" FromRole="Line" ToRole="Point" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Point">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="altitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="Timestamp" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Flight" Relationship="AnrlModel2.FlightPoint" FromRole="Point" ToRole="Flight" />
+          </EntityType>
+        <Association Name="PointLine">
+          <End Type="AnrlModel2.Point" Role="Point" Multiplicity="1" >
+          </End>
+          <End Type="AnrlModel2.Line" Role="Line" Multiplicity="*" >
+          </End>
+        </Association>
+        <Association Name="PointLine1">
+          <End Type="AnrlModel2.Point" Role="Point" Multiplicity="1" >
+          </End>
+          <End Type="AnrlModel2.Line" Role="Line" Multiplicity="*" >
+          </End>
+        </Association>
+        <Association Name="PointLine2">
+          <End Type="AnrlModel2.Point" Role="Point" Multiplicity="1" >
+          </End>
+          <End Type="AnrlModel2.Line" Role="Line" Multiplicity="*" >
+          </End>
+        </Association>
+        <Association Name="LineQualificationRound">
+          <End Type="AnrlModel2.Line" Role="Line" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AnrlModel2.QualificationRound" Role="QualificationRound" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Parcour">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Map" Relationship="AnrlModel2.MapParcour" FromRole="Parcour" ToRole="Map" />
+          <NavigationProperty Name="Line" Relationship="AnrlModel2.ParcourLine" FromRole="Parcour" ToRole="Line" />
+          <NavigationProperty Name="Competition" Relationship="AnrlModel2.CompetitionParcour" FromRole="Parcour" ToRole="Competition" />
+          <Property Name="Alpha" Type="Int32" Nullable="false" DefaultValue="40" />
+        </EntityType>
+        <Association Name="MapParcour">
+          <End Type="AnrlModel2.Map" Role="Map" Multiplicity="1" >
+          </End>
+          <End Type="AnrlModel2.Parcour" Role="Parcour" Multiplicity="*" />
+        </Association>
+        <Association Name="ParcourLine">
+          <End Type="AnrlModel2.Parcour" Role="Parcour" Multiplicity="0..1" >
+          </End>
+          <End Type="AnrlModel2.Line" Role="Line" Multiplicity="*" />
+        </Association>
+        <Association Name="ParcourQualificationRound">
+          <End Type="AnrlModel2.Parcour" Role="Parcour" Multiplicity="1" >
+          </End>
+          <End Type="AnrlModel2.QualificationRound" Role="QualificationRound" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Flight">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="QualificationRound" Relationship="AnrlModel2.QualificationRoundFlight" FromRole="Flight" ToRole="QualificationRound" />
+          <NavigationProperty Name="Team" Relationship="AnrlModel2.TeamFlight" FromRole="Flight" ToRole="Team" />
+          <Property Name="Route" Type="Int32" Nullable="false" />
+          <Property Name="TimeTakeOff" Type="Int64" Nullable="false" />
+          <Property Name="TimeStartLine" Type="Int64" Nullable="false" />
+          <Property Name="TimeEndLine" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Penalty" Relationship="AnrlModel2.FlightPenalty" FromRole="Flight" ToRole="Penalty" />
+          <Property Name="StartID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Point" Relationship="AnrlModel2.FlightPoint" FromRole="Flight" ToRole="Point" />
+        </EntityType>
+        <Association Name="QualificationRoundFlight">
+          <End Type="AnrlModel2.QualificationRound" Role="QualificationRound" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AnrlModel2.Flight" Role="Flight" Multiplicity="*" />
+        </Association>
+        <Association Name="TeamFlight">
+          <End Type="AnrlModel2.Team" Role="Team" Multiplicity="1" >
+          </End>
+          <End Type="AnrlModel2.Flight" Role="Flight" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Penalty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
+          <Property Name="Reason" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Flight" Relationship="AnrlModel2.FlightPenalty" FromRole="Penalty" ToRole="Flight" />
+        </EntityType>
+        <Association Name="FlightPenalty">
+          <End Type="AnrlModel2.Flight" Role="Flight" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AnrlModel2.Penalty" Role="Penalty" Multiplicity="*" />
+        </Association>
+        <Association Name="CompetitionTeam">
+          <End Type="AnrlModel2.Competition" Role="Competition" Multiplicity="1" >
+          </End>
+          <End Type="AnrlModel2.Team" Role="Team" Multiplicity="*" />
+        </Association>
+        <Association Name="CompetitionParcour">
+          <End Type="AnrlModel2.Competition" Role="Competition" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AnrlModel2.Parcour" Role="Parcour" Multiplicity="*" />
+        </Association>
+        <Association Name="FlightPoint">
+          <End Type="AnrlModel2.Flight" Role="Flight" Multiplicity="0..1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AnrlModel2.Point" Role="Point" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AnrlModel2StoreContainer" CdmEntityContainer="AnrlModel2Container">
+    <EntitySetMapping Name="CompetitionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(AnrlModel2.Competition)">
+        <MappingFragment StoreEntitySet="CompetitionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MapSet">
+      <EntityTypeMapping TypeName="IsTypeOf(AnrlModel2.Map)">
+        <MappingFragment StoreEntitySet="MapSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="XSize" ColumnName="XSize" />
+          <ScalarProperty Name="YSize" ColumnName="YSize" />
+          <ScalarProperty Name="XRot" ColumnName="XRot" />
+          <ScalarProperty Name="YRot" ColumnName="YRot" />
+          <ScalarProperty Name="XTopLeft" ColumnName="XTopLeft" />
+          <ScalarProperty Name="YTopLeft" ColumnName="YTopLeft" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PictureSet">
+      <EntityTypeMapping TypeName="IsTypeOf(AnrlModel2.Picture)">
+        <MappingFragment StoreEntitySet="PictureSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubscriberSet">
+      <EntityTypeMapping TypeName="IsTypeOf(AnrlModel2.Subscriber)">
+        <MappingFragment StoreEntitySet="SubscriberSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TeamSet">
+      <EntityTypeMapping TypeName="IsTypeOf(AnrlModel2.Team)">
+        <MappingFragment StoreEntitySet="TeamSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CNumber" ColumnName="CNumber" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          <ScalarProperty Name="AC" ColumnName="AC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QualificationRoundSet">
+      <EntityTypeMapping TypeName="IsTypeOf(AnrlModel2.QualificationRound)">
+        <MappingFragment StoreEntitySet="QualificationRoundSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LineSet">
+      <EntityTypeMapping TypeName="IsTypeOf(AnrlModel2.Line)">
+        <MappingFragment StoreEntitySet="LineSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ParcourSet">
+      <EntityTypeMapping TypeName="IsTypeOf(AnrlModel2.Parcour)">
+        <MappingFragment StoreEntitySet="ParcourSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Alpha" ColumnName="Alpha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FlightSet">
+      <EntityTypeMapping TypeName="IsTypeOf(AnrlModel2.Flight)">
+        <MappingFragment StoreEntitySet="FlightSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Route" ColumnName="Route" />
+          <ScalarProperty Name="TimeTakeOff" ColumnName="TimeTakeOff" />
+          <ScalarProperty Name="TimeStartLine" ColumnName="TimeStartLine" />
+          <ScalarProperty Name="TimeEndLine" ColumnName="TimeEndLine" />
+          <ScalarProperty Name="StartID" ColumnName="StartID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PenaltySet">
+      <EntityTypeMapping TypeName="IsTypeOf(AnrlModel2.Penalty)">
+        <MappingFragment StoreEntitySet="PenaltySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PointSet">
+      <EntityTypeMapping TypeName="IsTypeOf(AnrlModel2.Point)">
+        <MappingFragment StoreEntitySet="PointSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="altitude" ColumnName="altitude" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CompetitionSubscriber" TypeName="AnrlModel2.CompetitionSubscriber" StoreEntitySet="SubscriberSet">
+      <EndProperty Name="Competition">
+        <ScalarProperty Name="Id" ColumnName="Competition_Id" />
+      </EndProperty>
+      <EndProperty Name="Subscriber">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PictureSubscriber" TypeName="AnrlModel2.PictureSubscriber" StoreEntitySet="SubscriberSet">
+      <EndProperty Name="Picture">
+        <ScalarProperty Name="Id" ColumnName="Picture_Id" />
+      </EndProperty>
+      <EndProperty Name="Subscriber">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Picture_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PictureMap" TypeName="AnrlModel2.PictureMap" StoreEntitySet="MapSet">
+      <EndProperty Name="Picture">
+        <ScalarProperty Name="Id" ColumnName="Picture_Id" />
+      </EndProperty>
+      <EndProperty Name="Map">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CompetitionMap" TypeName="AnrlModel2.CompetitionMap" StoreEntitySet="MapSet">
+      <EndProperty Name="Competition">
+        <ScalarProperty Name="Id" ColumnName="Competition_Id" />
+      </EndProperty>
+      <EndProperty Name="Map">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SubscriberTeam" TypeName="AnrlModel2.SubscriberTeam" StoreEntitySet="TeamSet">
+      <EndProperty Name="Subscriber">
+        <ScalarProperty Name="Id" ColumnName="Pilot_Id" />
+      </EndProperty>
+      <EndProperty Name="Team">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SubscriberTeam1" TypeName="AnrlModel2.SubscriberTeam1" StoreEntitySet="TeamSet">
+      <EndProperty Name="Subscriber">
+        <ScalarProperty Name="Id" ColumnName="Navigator_Id" />
+      </EndProperty>
+      <EndProperty Name="Team">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Navigator_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CompetitionQualificationRound" TypeName="AnrlModel2.CompetitionQualificationRound" StoreEntitySet="QualificationRoundSet">
+      <EndProperty Name="Competition">
+        <ScalarProperty Name="Id" ColumnName="Competition_Id" />
+      </EndProperty>
+      <EndProperty Name="QualificationRound">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PointLine" TypeName="AnrlModel2.PointLine" StoreEntitySet="LineSet">
+      <EndProperty Name="Point">
+        <ScalarProperty Name="Id" ColumnName="A_Id" />
+      </EndProperty>
+      <EndProperty Name="Line">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PointLine1" TypeName="AnrlModel2.PointLine1" StoreEntitySet="LineSet">
+      <EndProperty Name="Point">
+        <ScalarProperty Name="Id" ColumnName="B_Id" />
+      </EndProperty>
+      <EndProperty Name="Line">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PointLine2" TypeName="AnrlModel2.PointLine2" StoreEntitySet="LineSet">
+      <EndProperty Name="Point">
+        <ScalarProperty Name="Id" ColumnName="O_Id" />
+      </EndProperty>
+      <EndProperty Name="Line">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LineQualificationRound" TypeName="AnrlModel2.LineQualificationRound" StoreEntitySet="QualificationRoundSet">
+      <EndProperty Name="Line">
+        <ScalarProperty Name="Id" ColumnName="TakeOffLine_Id" />
+      </EndProperty>
+      <EndProperty Name="QualificationRound">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MapParcour" TypeName="AnrlModel2.MapParcour" StoreEntitySet="ParcourSet">
+      <EndProperty Name="Map">
+        <ScalarProperty Name="Id" ColumnName="Map_Id" />
+      </EndProperty>
+      <EndProperty Name="Parcour">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ParcourLine" TypeName="AnrlModel2.ParcourLine" StoreEntitySet="LineSet">
+      <EndProperty Name="Parcour">
+        <ScalarProperty Name="Id" ColumnName="ParcourLine_Line_Id" />
+      </EndProperty>
+      <EndProperty Name="Line">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="ParcourLine_Line_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ParcourQualificationRound" TypeName="AnrlModel2.ParcourQualificationRound" StoreEntitySet="QualificationRoundSet">
+      <EndProperty Name="Parcour">
+        <ScalarProperty Name="Id" ColumnName="Parcour_Id" />
+      </EndProperty>
+      <EndProperty Name="QualificationRound">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="QualificationRoundFlight" TypeName="AnrlModel2.QualificationRoundFlight" StoreEntitySet="FlightSet">
+      <EndProperty Name="QualificationRound">
+        <ScalarProperty Name="Id" ColumnName="QualificationRound_Id" />
+      </EndProperty>
+      <EndProperty Name="Flight">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TeamFlight" TypeName="AnrlModel2.TeamFlight" StoreEntitySet="FlightSet">
+      <EndProperty Name="Team">
+        <ScalarProperty Name="Id" ColumnName="Team_Id" />
+      </EndProperty>
+      <EndProperty Name="Flight">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FlightPenalty" TypeName="AnrlModel2.FlightPenalty" StoreEntitySet="PenaltySet">
+      <EndProperty Name="Flight">
+        <ScalarProperty Name="Id" ColumnName="Flight_Id" />
+      </EndProperty>
+      <EndProperty Name="Penalty">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CompetitionTeam" TypeName="AnrlModel2.CompetitionTeam" StoreEntitySet="TeamSet">
+      <EndProperty Name="Competition">
+        <ScalarProperty Name="Id" ColumnName="Competition_Id" />
+      </EndProperty>
+      <EndProperty Name="Team">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CompetitionParcour" TypeName="AnrlModel2.CompetitionParcour" StoreEntitySet="ParcourSet">
+      <EndProperty Name="Competition">
+        <ScalarProperty Name="Id" ColumnName="Competition_Id" />
+      </EndProperty>
+      <EndProperty Name="Parcour">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FlightPoint" TypeName="AnrlModel2.FlightPoint" StoreEntitySet="PointSet">
+      <EndProperty Name="Flight">
+        <ScalarProperty Name="Id" ColumnName="Flight_Id" />
+      </EndProperty>
+      <EndProperty Name="Point">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Flight_Id" IsNull="false" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
