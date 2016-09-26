@@ -357,5 +357,14 @@ namespace AirNavigationRaceLive
                 ConverterSwissCH1903.ShowDialog();
             }
         }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SettingsDialog settingsDlg = new SettingsDialog())
+            {
+                settingsDlg.StartPosition = FormStartPosition.CenterScreen;
+                settingsDlg.ShowDialog();
+            }
+        }
     }
 }

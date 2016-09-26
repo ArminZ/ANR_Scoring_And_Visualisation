@@ -367,6 +367,12 @@
     <Compile Include="Dialogs\StartListDialog.Designer.cs">
       <DependentUpon>StartListDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SettingsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SettingsDialog.Designer.cs">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\TeamDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -522,6 +528,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\StartListDialog.resx">
       <DependentUpon>StartListDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SettingsDialog.resx">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\TeamDialog.resx">
       <DependentUpon>TeamDialog.cs</DependentUpon>
