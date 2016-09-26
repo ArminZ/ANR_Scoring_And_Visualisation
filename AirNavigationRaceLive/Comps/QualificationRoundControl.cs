@@ -112,10 +112,6 @@ namespace AirNavigationRaceLive.Comps
             timeParcourLength.Value = new DateTime(time.Year, time.Month, time.Day, time.Hour, 12, 0);
             timeParcourIntervall.Value = new DateTime(time.Year, time.Month, time.Day, time.Hour, 20, 0);
             timeTakeOffStartgate.Value = new DateTime(time.Year, time.Month, time.Day, time.Hour, 12, 0);
-
-            //timeTakeOff.Value = time;
-            //timeStart.Value = timeTakeOff.Value.AddMinutes(timeTakeOffStartgate.Value.Minute + ((comboBoxRoute.Items.Count - 1) * timeTakeOffIntervall.Value.Minute));
-            //timeEnd.Value = timeStart.Value.AddMinutes(timeParcourLength.Value.Minute);
         }
 
         private void btnRefreshCompetitions_Click(object sender, EventArgs e)
@@ -190,13 +186,6 @@ namespace AirNavigationRaceLive.Comps
         {
             return new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, 0, 0);
         }
-
-
-        //private void listViewGroups_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    UpdateEnablement();
-        //}
-
 
         private void comboBoxParcour_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -497,6 +486,7 @@ namespace AirNavigationRaceLive.Comps
             }
 
             Flight flt = dataGridView1.SelectedRows[0].Tag as Flight;
+            int idx = dataGridView1.SelectedRows[0].Index;
             using (StartListDialog frmStartListDialog = new StartListDialog(lstTeams, flt, calculateMaxStartId(), dateQRdate0, timeTKOF0, timeStart0, timeEnd0, (int)numericUpDownRoutes.Value))
             {
                 DialogResult rRes = frmStartListDialog.ShowDialog();
@@ -532,6 +522,8 @@ namespace AirNavigationRaceLive.Comps
                     }
                     Client.DBContext.SaveChanges();
                     updateList(fl.QualificationRound);
+                    dataGridView1.Rows[0].Selected = false;
+                    dataGridView1.Rows[idx].Selected = true;
                     return;
                 }
             }
@@ -544,7 +536,7 @@ namespace AirNavigationRaceLive.Comps
 
         private int calculateMaxStartId()
         {
-            int _maxStartId = 1;
+            int _maxStartId = 0;
             QualificationRound c = textName.Tag as QualificationRound;
             if (c != null && c.Flight.Count > 0)
             {
@@ -553,7 +545,8 @@ namespace AirNavigationRaceLive.Comps
                     _maxStartId = Math.Max(_maxStartId, ct.StartID);
                 }
             }
-            return _maxStartId++;
+            _maxStartId++;
+            return _maxStartId;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -652,6 +645,9 @@ namespace AirNavigationRaceLive.Comps
 
             Client.DBContext.SaveChanges();
             updateList(qRnd);
+
+            dataGridView1.Rows[0].Selected = false;
+            dataGridView1.Rows[idx].Selected = true;
         }
 
 
