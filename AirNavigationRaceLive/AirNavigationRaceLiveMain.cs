@@ -66,15 +66,8 @@ namespace AirNavigationRaceLive
             pilotsToolStripMenuItem.Enabled = connected;
             teamsToolStripMenuItem.Enabled = connected;
             qualificationRoundsToolStripMenuItem.Enabled = connected;
-            rulesToolStripMenuItem.Enabled = connected;
             resultsToolStripMenuItem.Enabled = connected;
-            toplistToolStripMenuItem.Enabled = connected;
-            toplistFlightToolStripMenuItem.Enabled = connected;
-            toplistLandingToolStripMenuItem.Enabled = connected;
-            individualToplistToolStripMenuItem.Enabled = connected;
-            addLandingResultsToolStripMenuItem.Enabled = connected;
-            adjustResultsToolStripMenuItem.Enabled = connected;
-            visualisationToolStripMenuItem.Enabled = connected;
+            //visualisationToolStripMenuItem.Enabled = connected;
             editToolStripMenuItem.Enabled = connected;
             exportToolStripMenuItem.Enabled = connected;
         }
@@ -300,11 +293,6 @@ namespace AirNavigationRaceLive
                 Results = new Results(Client);
             }
             enableControl(Results);
-
-        }
-
-        private void addLandingResultsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
 
         }
 

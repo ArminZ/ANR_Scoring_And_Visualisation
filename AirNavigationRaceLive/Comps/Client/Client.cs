@@ -19,6 +19,28 @@ namespace AirNavigationRaceLive.Comps.Client
     public class DataAccess
     {
         private DataAccess(){
+            string dbPath = getDbPath();
+            AppDomain.CurrentDomain.SetData("DataDirectory", dbPath);
+            DB.Database.CreateIfNotExists();
+        }
+        private static DataAccess instance = new DataAccess();
+        private AnrlModel2Container DB = new AnrlModel2Container();
+        private Competition SelectedComp = null;
+
+        public static DataAccess Instance { get { return instance; } }
+        public AnrlModel2Container DBContext { get { return DB; } }
+        public Competition SelectedCompetition {get { return SelectedComp; } set { SelectedComp = value; } }
+
+        private string readDBPathFromUserSettings()
+        {
+            if (!Settings.Default.promptForDB && !string.IsNullOrEmpty(Settings.Default.directoryForDB))
+            {
+                return Settings.Default.directoryForDB;
+            }
+            return string.Empty;
+        }
+        public string getDbPath()
+        {
             string dbPath = string.Empty;
             if (!String.IsNullOrEmpty(readDBPathFromUserSettings()))
             {
@@ -42,25 +64,7 @@ namespace AirNavigationRaceLive.Comps.Client
                     Directory.CreateDirectory(dbPath);
                 }
             }
-
-            AppDomain.CurrentDomain.SetData("DataDirectory", dbPath);
-            DB.Database.CreateIfNotExists();
-        }
-        private static DataAccess instance = new DataAccess();
-        private AnrlModel2Container DB = new AnrlModel2Container();
-        private Competition SelectedComp = null;
-
-        public static DataAccess Instance { get { return instance; } }
-        public AnrlModel2Container DBContext { get { return DB; } }
-        public Competition SelectedCompetition {get { return SelectedComp; } set { SelectedComp = value; } }
-
-        private string readDBPathFromUserSettings()
-        {
-            if (!Settings.Default.promptForDB && !string.IsNullOrEmpty(Settings.Default.directoryForDB))
-            {
-                return Settings.Default.directoryForDB;
-            }
-            return string.Empty;
+            return dbPath;
         }
     }
 }

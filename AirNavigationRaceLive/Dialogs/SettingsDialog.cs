@@ -10,6 +10,7 @@ namespace AirNavigationRaceLive.Dialogs
 {
     public partial class SettingsDialog : Form
     {
+        private AirNavigationRaceLive.Comps.Client.DataAccess Client;
         public SettingsDialog()
         {
             InitializeComponent();
@@ -49,13 +50,12 @@ namespace AirNavigationRaceLive.Dialogs
             {
                 throw;
             }
-
             Close();
         }
 
         private void btnFindDatabase_Click(object sender, EventArgs e)
         {
-            textBoxDatabasePath.Text = getDBFilePath();
+            textBoxDatabasePath.Text = Client.getDbPath();
         }
 
         private void saveSettings()
@@ -80,30 +80,6 @@ namespace AirNavigationRaceLive.Dialogs
         private void radioButtonPrompt_CheckedChanged(object sender, EventArgs e)
         {
             textBoxDatabasePath.Enabled = !radioButtonPrompt.Checked;
-        }
-
-        private string getDBFilePath()
-        {
-            string dbPath = string.Empty;
-            SaveFileDialog dbLocationDialog = new SaveFileDialog();
-            dbLocationDialog.RestoreDirectory = true;
-            dbLocationDialog.Title = "Select a Folder where ANR will maintain its internal DataBase (anrl.mdf)";
-            dbLocationDialog.FileName = "anrl.mdf";
-            dbLocationDialog.OverwritePrompt = false;
-            dbLocationDialog.ShowDialog();
-            dbPath = dbLocationDialog.FileName.Replace("anrl.mdf", "");
-            if (dbPath == null || dbPath == "")
-            {
-                dbPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\AirNavigationRace";
-            }
-            if (System.IO.Directory.Exists(dbPath))
-            {
-                return dbPath;
-            }
-            else
-            {
-                return string.Empty;
-            }
         }
 
         private void textBoxDatabasePath_TextChanged(object sender, EventArgs e)
