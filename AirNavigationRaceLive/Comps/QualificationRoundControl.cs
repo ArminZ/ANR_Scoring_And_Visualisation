@@ -613,33 +613,41 @@ namespace AirNavigationRaceLive.Comps
             long parcourLenght = timeParcourLength.Value.Minute;
             int NrOfRoutes = (int)numericUpDownRoutes.Value;
             Flight f = null;
+            int idx = 0;
             if (dataGridView1.Rows.Count > 0)
             {
-                f = dataGridView1.Rows[0].Tag as Flight;
+                if (dataGridView1.SelectedRows.Count>0)
+                {
+                    // index of selected row
+                    idx = dataGridView1.SelectedRows[0].Index;
+                }
+
+                f = dataGridView1.Rows[idx].Tag as Flight;
                 tkof0 = f.TimeTakeOff;
                 qRnd = f.QualificationRound;
             }
 
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            // re-calculate from selected index upwards
+            for (int i = idx; i < dataGridView1.Rows.Count; i++)
             {
                 f = dataGridView1.Rows[i].Tag as Flight;
                 if (f == null)
                 {
                     continue;
                 }
-                if (i == 0)
-                {
+                if (i == idx) // the reference
+                {  
                     tkof0 = f.TimeTakeOff;
                 }
-                else
+                if (i > idx)  // re-calculate
                 {
-                    f.TimeTakeOff = new DateTime(tkof0).AddMinutes((i % NrOfRoutes) * intervTKOF).AddMinutes((i / NrOfRoutes) * intervStartL).Ticks;
+                    f.TimeTakeOff = new DateTime(tkof0).AddMinutes(((i-idx) % NrOfRoutes) * intervTKOF).AddMinutes(((i - idx) / NrOfRoutes) * intervStartL).Ticks;
                 }
 
                 // calculate times based on 0-value
-                f.TimeStartLine = new DateTime(tkof0).AddMinutes(tkofToStart).AddMinutes((i / NrOfRoutes) * intervStartL).Ticks;
-                f.TimeEndLine = new DateTime(tkof0).AddMinutes(tkofToStart + parcourLenght).AddMinutes((i / NrOfRoutes) * intervStartL).Ticks;
-                f.Route = i % NrOfRoutes + 1;
+                f.TimeStartLine = new DateTime(tkof0).AddMinutes(tkofToStart).AddMinutes(((i - idx) / NrOfRoutes) * intervStartL).Ticks;
+                f.TimeEndLine = new DateTime(tkof0).AddMinutes(tkofToStart + parcourLenght).AddMinutes(((i - idx) / NrOfRoutes) * intervStartL).Ticks;
+                f.Route = (i - idx) % NrOfRoutes + 1;
             }
 
             Client.DBContext.SaveChanges();

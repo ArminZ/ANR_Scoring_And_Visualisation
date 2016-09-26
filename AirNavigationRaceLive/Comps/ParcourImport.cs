@@ -471,6 +471,7 @@ namespace AirNavigationRaceLive.Comps
                 PictureBox1.SetParcour(activeParcour);
                 PictureBox1.Invalidate();
                 PictureBox1.Refresh();
+                fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
             }
             catch (ApplicationException ex1)
             {

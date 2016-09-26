@@ -163,6 +163,7 @@ namespace AirNavigationRaceLive.Comps
         {
             OpenFileDialog ofd = sender as OpenFileDialog;
             PictureBox1.Image = Image.FromFile(ofd.FileName);
+            fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
             btnSave.Enabled = true;
         }
 
