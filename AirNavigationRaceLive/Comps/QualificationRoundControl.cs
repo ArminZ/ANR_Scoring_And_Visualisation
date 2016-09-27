@@ -549,10 +549,6 @@ namespace AirNavigationRaceLive.Comps
             return _maxStartId;
         }
 
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
-        {
-        }
-
         private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             string str = "StartId " + e.Row.Cells[0].Value.ToString() + ", Crew "   + e.Row.Cells[1].Value.ToString() + ": " + e.Row.Cells[3].Value.ToString();
