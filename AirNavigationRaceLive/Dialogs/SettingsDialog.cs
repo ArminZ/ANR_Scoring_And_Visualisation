@@ -10,7 +10,7 @@ namespace AirNavigationRaceLive.Dialogs
 {
     public partial class SettingsDialog : Form
     {
-        private AirNavigationRaceLive.Comps.Client.DataAccess Client;
+        public Comps.Client.DataAccess Client;
         public SettingsDialog()
         {
             InitializeComponent();
@@ -55,7 +55,7 @@ namespace AirNavigationRaceLive.Dialogs
 
         private void btnFindDatabase_Click(object sender, EventArgs e)
         {
-            textBoxDatabasePath.Text = Client.getDbPath();
+            textBoxDatabasePath.Text = Comps.Helper.Utils.getDbPath(true);
         }
 
         private void saveSettings()
@@ -75,11 +75,13 @@ namespace AirNavigationRaceLive.Dialogs
         private void radioButtonFixed_CheckedChanged(object sender, EventArgs e)
         {
             textBoxDatabasePath.Enabled = radioButtonFixed.Checked;
+            btnOK.Enabled = isValidSettings();
         }
 
         private void radioButtonPrompt_CheckedChanged(object sender, EventArgs e)
         {
             textBoxDatabasePath.Enabled = !radioButtonPrompt.Checked;
+            btnOK.Enabled = isValidSettings();
         }
 
         private void textBoxDatabasePath_TextChanged(object sender, EventArgs e)

@@ -12,5 +12,41 @@ namespace AirNavigationRaceLive.Comps.Helper
         {
             return r.NextDouble();
         }
+
+        private static string readDBPathFromUserSettings()
+        {
+            if (!Properties.Settings.Default.promptForDB && !string.IsNullOrEmpty(Properties.Settings.Default.directoryForDB))
+            {
+                return Properties.Settings.Default.directoryForDB;
+            }
+            return string.Empty;
+        }
+        public static string getDbPath(bool mustPrompt=false)
+        {
+            string dbPath = string.Empty;
+            if (!String.IsNullOrEmpty(readDBPathFromUserSettings()) && !mustPrompt)
+            {
+                dbPath = readDBPathFromUserSettings();
+            }
+            else
+            {
+                System.Windows.Forms.SaveFileDialog dbLocationDialog = new System.Windows.Forms.SaveFileDialog();
+                dbLocationDialog.RestoreDirectory = true;
+                dbLocationDialog.Title = "Select a Folder where ANR will maintain its internal DataBase (anrl.mdf)";
+                dbLocationDialog.FileName = "anrl.mdf";
+                dbLocationDialog.OverwritePrompt = false;
+                dbLocationDialog.ShowDialog();
+                dbPath = dbLocationDialog.FileName.Replace("anrl.mdf", "");
+                if (dbPath == null || dbPath == "")
+                {
+                    dbPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\AirNavigationRace";
+                }
+                if (!System.IO.Directory.Exists(dbPath))
+                {
+                    System.IO.Directory.CreateDirectory(dbPath);
+                }
+            }
+            return dbPath;
+        }
     }
 }
