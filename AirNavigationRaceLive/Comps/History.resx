@@ -126,7 +126,7 @@ Under the technical lead of Luc Baumann/SharpSoft (who has been
 with the the project from its very beginnings) numerous changes and 
 improvements were implemented in the following years.
 
-The actual release (and also source code) on github:</value>
+The actual release (and more information) on github:</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="PictureBox4.InitialImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

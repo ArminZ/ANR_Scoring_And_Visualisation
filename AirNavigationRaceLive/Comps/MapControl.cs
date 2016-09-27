@@ -146,14 +146,15 @@ namespace AirNavigationRaceLive.Comps
                                 + "Bitmap Files (*.bmp)|*.bmp|"
                                 + "Tiff Files (*.tif, *.tiff)|*.tif;*.tiff|"
                                 + "Gif Files (*.gif)|*.gif|"
-                                + "PNG Files (*.png)|*.png";
-            string GraphicFileFilter = "All Picture Files|*.jpg;*.jpeg;*.jpe;*.jfif;*.bmp;*.gif;*.png;*.tif;*.tiff";
+                                + "PNG Files (*.png)|*.png|"
+                                + "All Picture Files|*.jpg;*.jpeg;*.jpe;*.jfif;*.bmp;*.gif;*.png;*.tif;*.tiff|"
+                                + "All Files (*.*)|*.*";
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Import Map picture";
             ofd.RestoreDirectory = true;
             ofd.Multiselect = false;
-            ofd.Filter = FileFilter + "|" + GraphicFileFilter;
-            ofd.FilterIndex = 5;
+            ofd.Filter = FileFilter;
+            ofd.FilterIndex = 6;
             ofd.FileOk += new CancelEventHandler(ofd_FileOk);
             ofd.ShowDialog();
         }
@@ -163,6 +164,7 @@ namespace AirNavigationRaceLive.Comps
         {
             OpenFileDialog ofd = sender as OpenFileDialog;
             PictureBox1.Image = Image.FromFile(ofd.FileName);
+            fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
             btnSave.Enabled = true;
         }
 
@@ -204,20 +206,6 @@ namespace AirNavigationRaceLive.Comps
             fldRotationY.Text = world[1];
             fldX.Text = world[4];
             fldY.Text = world[5];
-
-            //try
-            //{
-            //fldSizeX.Text = Double.Parse(world[0]).ToString();
-            //fldSizeY.Text = Double.Parse(world[3]).ToString();
-            //fldRotationX.Text = Double.Parse(world[2]).ToString();
-            //fldRotationY.Text = Double.Parse(world[1]).ToString();
-            //fldX.Text = Double.Parse(world[4]).ToString();
-            //fldY.Text = Double.Parse(world[5]).ToString();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error while reading World-File");
-            //}
         }
 
         private void btnSave_Click(object sender, EventArgs e)
