@@ -23,8 +23,8 @@ namespace AirNavigationRaceLive.Comps
             InitializeComponent();
             dataGridView2.MultiSelect = false;
             dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView2.RowHeadersVisible = false;
-            dataGridView1.RowHeadersWidth = 30;
+            //dataGridView2.RowHeadersVisible = false;
+            //dataGridView1.RowHeadersWidth = 30;
 
         }
         private void comboBoxQualificRound_SelectedIndexChanged(object sender, EventArgs e)
@@ -321,7 +321,7 @@ namespace AirNavigationRaceLive.Comps
             if (!e.Row.IsNewRow)
             {
                 string str = e.Row.Cells[1].Value.ToString() + " " + e.Row.Cells[2].Value.ToString();
-                if (MessageBox.Show(string.Format("Delete the selected Penalty:\n {0} ?", str), "Delete Penalty", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+                if (MessageBox.Show(string.Format("Delete the selected Penalty:\n {0} ?", str), "Delete Penalty", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.No)
                 {
                     e.Cancel = true;
                     return;
@@ -375,23 +375,22 @@ namespace AirNavigationRaceLive.Comps
             Penalty p = new Penalty();
             if (string.IsNullOrEmpty(iDval.ToString()))
             {
-                ComboBoxFlights competitionTeam = dataGridView2.SelectedRows[0].Tag as ComboBoxFlights;
+                Flight flt = dataGridView2.SelectedRows[0].Tag as Flight;
                 p.Reason = penaltyReason.ToString().Trim();
                 p.Points = penVal;
-                if (!competitionTeam.flight.Penalty.Contains(p))
+                if (!flt.Penalty.Contains(p))
                 {
-                    competitionTeam.flight.Penalty.Add(p);
+                    flt.Penalty.Add(p);
                 }
                 dataGridView1.Rows[e.RowIndex].Tag = p;
-                Client.DBContext.SaveChanges();
             }
             else
             {
                 p = dataGridView1.Rows[e.RowIndex].Tag as Penalty;
                 p.Reason = penaltyReason.ToString().Trim();
                 p.Points = penVal;
-                Client.DBContext.SaveChanges();
             }
+            Client.DBContext.SaveChanges();
             updatePoints();
             updateEnablement();
 

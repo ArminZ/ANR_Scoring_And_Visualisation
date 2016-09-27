@@ -97,7 +97,7 @@ namespace AirNavigationRaceLive.Comps
             if (!e.Row.IsNewRow)
             {
                 string str = e.Row.Cells[0].Value.ToString() + " " + e.Row.Cells[1].Value.ToString();
-                if (MessageBox.Show(string.Format("Delete the selected Competition:\n {0} ?", str), "Delete Competition", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+                if (MessageBox.Show(string.Format("Delete the selected Competition:\n {0} ?", str), "Delete Competition", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.No)
                 {
                     e.Cancel = true;
                     return;

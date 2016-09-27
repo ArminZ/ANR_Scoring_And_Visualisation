@@ -181,7 +181,7 @@ namespace AirNavigationRaceLive.Comps
         private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             string str = "CNum: " + e.Row.Cells[0].Value.ToString() + "\nPilot: " + e.Row.Cells[2].Value.ToString() + "\nNavigator: " + e.Row.Cells[3].Value.ToString();
-            if (MessageBox.Show(string.Format("Delete the selected Crew:\n\n {0} ?", str), "Delete Crew", MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation) == DialogResult.No)
+            if (MessageBox.Show(string.Format("Delete the selected Crew:\n\n {0} ?", str), "Delete Crew", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.No)
             {
                 e.Cancel = true;
                 return;

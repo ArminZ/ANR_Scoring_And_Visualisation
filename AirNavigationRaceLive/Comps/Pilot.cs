@@ -159,7 +159,7 @@ namespace AirNavigationRaceLive.Comps
         {
             if (Client.DBContext.SubscriberSet.Where(x => x.Competition.Id == Client.SelectedCompetition.Id).Count() > 0)
             {
-                if (MessageBox.Show("Remove all existing competitors of this competition?", "Competitor List", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                if (MessageBox.Show("Remove all existing competitors of this competition?", "Competitor List", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     // remove existing competitors of this competition
                     Client.DBContext.SubscriberSet.RemoveRange(
@@ -214,7 +214,7 @@ namespace AirNavigationRaceLive.Comps
                         e.Row.Cells[0].Value != null ? e.Row.Cells[0].Value.ToString() : "" +
                         e.Row.Cells[1].Value != null ? e.Row.Cells[1].Value.ToString() : "" +
                         e.Row.Cells[2].Value != null ? e.Row.Cells[2].Value.ToString() : "";
-                    if (MessageBox.Show(string.Format("Delete the selected Participant:\n {0} ?", str), "Delete Participant", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+                    if (MessageBox.Show(string.Format("Delete the selected Participant:\n {0} ?", str), "Delete Participant", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.No)
                     {
                         e.Cancel = true;
                         return;
