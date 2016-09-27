@@ -66,15 +66,8 @@ namespace AirNavigationRaceLive
             pilotsToolStripMenuItem.Enabled = connected;
             teamsToolStripMenuItem.Enabled = connected;
             qualificationRoundsToolStripMenuItem.Enabled = connected;
-            rulesToolStripMenuItem.Enabled = connected;
             resultsToolStripMenuItem.Enabled = connected;
-            toplistToolStripMenuItem.Enabled = connected;
-            toplistFlightToolStripMenuItem.Enabled = connected;
-            toplistLandingToolStripMenuItem.Enabled = connected;
-            individualToplistToolStripMenuItem.Enabled = connected;
-            addLandingResultsToolStripMenuItem.Enabled = connected;
-            adjustResultsToolStripMenuItem.Enabled = connected;
-            visualisationToolStripMenuItem.Enabled = connected;
+            //visualisationToolStripMenuItem.Enabled = connected;
             editToolStripMenuItem.Enabled = connected;
             exportToolStripMenuItem.Enabled = connected;
         }
@@ -303,11 +296,6 @@ namespace AirNavigationRaceLive
 
         }
 
-        private void addLandingResultsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void generateSingleToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -355,6 +343,15 @@ namespace AirNavigationRaceLive
             {
                 ConverterSwissCH1903.StartPosition = FormStartPosition.CenterScreen;
                 ConverterSwissCH1903.ShowDialog();
+            }
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SettingsDialog settingsDlg = new SettingsDialog())
+            {
+                settingsDlg.StartPosition = FormStartPosition.CenterScreen;
+                settingsDlg.ShowDialog();
             }
         }
     }

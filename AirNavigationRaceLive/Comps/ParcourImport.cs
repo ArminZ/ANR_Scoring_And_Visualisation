@@ -311,7 +311,7 @@ namespace AirNavigationRaceLive.Comps
         private void btnImport_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            string FileFilter = "DXF  (*.dxf)|*.dxf";
+            string FileFilter = "AutoCAD Files (*.dxf)|*.dxf|All Files (*.*)|*.*";
             ofd.Title = "DXF File Import (CH1904)";
             ofd.RestoreDirectory = true;
             ofd.Multiselect = false;
@@ -328,7 +328,8 @@ namespace AirNavigationRaceLive.Comps
                 activeParcour = Importer.importFromDxfCH(ofd.FileName);
                 PictureBox1.SetParcour(activeParcour);
                 PictureBox1.Invalidate();
-            }
+                 fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
+           }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Error while Parsing File");
@@ -398,11 +399,12 @@ namespace AirNavigationRaceLive.Comps
         private void btnImportDxfWGS_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            string FileFilter = "DXF  (*.dxf)|*.dxf";
+            string FileFilter = "AutoCAD Files (*.dxf)|*.dxf|All Files (*.*)|*.*";
             ofd.Title = "DXF File Import (WGS84)";
             ofd.RestoreDirectory = true;
             ofd.Multiselect = false;
             ofd.Filter = FileFilter;
+            ofd.FilterIndex = 1;
             ofd.FileOk += new CancelEventHandler(ofd_FileOkWGS);
             ofd.ShowDialog();
         }
@@ -415,6 +417,7 @@ namespace AirNavigationRaceLive.Comps
                 PictureBox1.SetParcour(activeParcour);
                 PictureBox1.Invalidate();
                 PictureBox1.Refresh();
+                fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
             }
             catch (Exception ex)
             {
@@ -426,11 +429,12 @@ namespace AirNavigationRaceLive.Comps
         {
 
             OpenFileDialog ofd = new OpenFileDialog();
-            string FileFilter = "DXF  (*.dxf)|*.dxf";
+            string FileFilter = "AutoCAD Files (*.dxf)|*.dxf|All Files (*.*)|*.*";
             ofd.Title = "DXF File Import (WGS84), Switched";
             ofd.RestoreDirectory = true;
             ofd.Multiselect = false;
             ofd.Filter = FileFilter;
+            ofd.FilterIndex = 1;
             ofd.FileOk += new CancelEventHandler(ofd_FileOkWGSSwitched);
             ofd.ShowDialog();
         }
@@ -443,6 +447,7 @@ namespace AirNavigationRaceLive.Comps
                 PictureBox1.SetParcour(activeParcour);
                 PictureBox1.Invalidate();
                 PictureBox1.Refresh();
+                fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
             }
             catch (Exception ex)
             {
@@ -459,6 +464,7 @@ namespace AirNavigationRaceLive.Comps
             ofd.RestoreDirectory = true;
             ofd.Multiselect = false;
             ofd.Filter = FileFilter;
+            ofd.FilterIndex = 1;
             ofd.FileOk += new CancelEventHandler(ofd_FileOkKMLLayer);
             ofd.ShowDialog();
         }
@@ -471,6 +477,7 @@ namespace AirNavigationRaceLive.Comps
                 PictureBox1.SetParcour(activeParcour);
                 PictureBox1.Invalidate();
                 PictureBox1.Refresh();
+                fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
             }
             catch (ApplicationException ex1)
             {

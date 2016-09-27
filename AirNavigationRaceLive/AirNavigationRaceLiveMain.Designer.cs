@@ -39,33 +39,26 @@
             this.parcourToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.overviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.overviewZoomedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.generateSingleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pilotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teamsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.qualificationRoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toplistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toplistFlightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toplistLandingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.individualToplistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.addLandingResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.adjustResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.routeGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cH1903converterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visualisationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainPanel = new System.Windows.Forms.Panel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -98,11 +91,11 @@
             this.pilotsToolStripMenuItem,
             this.teamsToolStripMenuItem,
             this.qualificationRoundsToolStripMenuItem,
-            this.rulesToolStripMenuItem,
             this.resultsToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.visualisationToolStripMenuItem,
             this.exportToolStripMenuItem,
+            this.settingsToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
@@ -175,12 +168,10 @@
             this.overviewZoomedToolStripMenuItem.Text = "Overview Zoomed";
             this.overviewZoomedToolStripMenuItem.Click += new System.EventHandler(this.overviewZoomedToolStripMenuItem_Click);
             // 
-            // generateToolStripMenuItem
+            // toolStripSeparator3
             // 
-            this.generateToolStripMenuItem.Name = "generateToolStripMenuItem";
-            this.generateToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
-            this.generateToolStripMenuItem.Text = "Generate";
-            this.generateToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripMenuItem_Click);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(214, 6);
             // 
             // importToolStripMenuItem
             // 
@@ -189,12 +180,10 @@
             this.importToolStripMenuItem.Text = "Import";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
-            // editToolStripMenuItem
+            // toolStripSeparator1
             // 
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
-            this.editToolStripMenuItem.Text = "Edit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(214, 6);
             // 
             // generateSingleToolStripMenuItem
             // 
@@ -202,6 +191,20 @@
             this.generateSingleToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
             this.generateSingleToolStripMenuItem.Text = "Generate Single";
             this.generateSingleToolStripMenuItem.Click += new System.EventHandler(this.generateSingleToolStripMenuItem_Click);
+            // 
+            // generateToolStripMenuItem
+            // 
+            this.generateToolStripMenuItem.Name = "generateToolStripMenuItem";
+            this.generateToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+            this.generateToolStripMenuItem.Text = "Generate";
+            this.generateToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // pilotsToolStripMenuItem
             // 
@@ -230,87 +233,14 @@
             this.qualificationRoundsToolStripMenuItem.Text = "Qualification Rounds";
             this.qualificationRoundsToolStripMenuItem.Click += new System.EventHandler(this.racesToolStripMenuItem_Click);
             // 
-            // rulesToolStripMenuItem
-            // 
-            this.rulesToolStripMenuItem.Enabled = false;
-            this.rulesToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
-            this.rulesToolStripMenuItem.Name = "rulesToolStripMenuItem";
-            this.rulesToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
-            this.rulesToolStripMenuItem.Text = "Rules";
-            this.rulesToolStripMenuItem.Visible = false;
-            // 
             // resultsToolStripMenuItem
             // 
-            this.resultsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toplistToolStripMenuItem,
-            this.toplistFlightToolStripMenuItem,
-            this.toplistLandingToolStripMenuItem,
-            this.individualToplistToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.addLandingResultsToolStripMenuItem,
-            this.adjustResultsToolStripMenuItem});
             this.resultsToolStripMenuItem.Enabled = false;
             this.resultsToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.resultsToolStripMenuItem.Name = "resultsToolStripMenuItem";
             this.resultsToolStripMenuItem.Size = new System.Drawing.Size(78, 24);
             this.resultsToolStripMenuItem.Text = "Results";
             this.resultsToolStripMenuItem.Click += new System.EventHandler(this.resultsToolStripMenuItem_Click);
-            // 
-            // toplistToolStripMenuItem
-            // 
-            this.toplistToolStripMenuItem.Enabled = false;
-            this.toplistToolStripMenuItem.Name = "toplistToolStripMenuItem";
-            this.toplistToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
-            this.toplistToolStripMenuItem.Text = "Toplist";
-            this.toplistToolStripMenuItem.Visible = false;
-            // 
-            // toplistFlightToolStripMenuItem
-            // 
-            this.toplistFlightToolStripMenuItem.Enabled = false;
-            this.toplistFlightToolStripMenuItem.Name = "toplistFlightToolStripMenuItem";
-            this.toplistFlightToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
-            this.toplistFlightToolStripMenuItem.Text = "Toplist Flight";
-            this.toplistFlightToolStripMenuItem.Visible = false;
-            // 
-            // toplistLandingToolStripMenuItem
-            // 
-            this.toplistLandingToolStripMenuItem.Enabled = false;
-            this.toplistLandingToolStripMenuItem.Name = "toplistLandingToolStripMenuItem";
-            this.toplistLandingToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
-            this.toplistLandingToolStripMenuItem.Text = "Toplist Landing";
-            this.toplistLandingToolStripMenuItem.Visible = false;
-            // 
-            // individualToplistToolStripMenuItem
-            // 
-            this.individualToplistToolStripMenuItem.Enabled = false;
-            this.individualToplistToolStripMenuItem.Name = "individualToplistToolStripMenuItem";
-            this.individualToplistToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
-            this.individualToplistToolStripMenuItem.Text = "Individual Toplist";
-            this.individualToplistToolStripMenuItem.Visible = false;
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(236, 6);
-            this.toolStripSeparator2.Visible = false;
-            // 
-            // addLandingResultsToolStripMenuItem
-            // 
-            this.addLandingResultsToolStripMenuItem.Enabled = false;
-            this.addLandingResultsToolStripMenuItem.Name = "addLandingResultsToolStripMenuItem";
-            this.addLandingResultsToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
-            this.addLandingResultsToolStripMenuItem.Text = "Add Landing Results";
-            this.addLandingResultsToolStripMenuItem.Visible = false;
-            this.addLandingResultsToolStripMenuItem.Click += new System.EventHandler(this.addLandingResultsToolStripMenuItem_Click);
-            // 
-            // adjustResultsToolStripMenuItem
-            // 
-            this.adjustResultsToolStripMenuItem.Enabled = false;
-            this.adjustResultsToolStripMenuItem.Name = "adjustResultsToolStripMenuItem";
-            this.adjustResultsToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
-            this.adjustResultsToolStripMenuItem.Text = "Adjust Results";
-            this.adjustResultsToolStripMenuItem.Visible = false;
-            this.adjustResultsToolStripMenuItem.Click += new System.EventHandler(this.adjustResultsToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -355,6 +285,14 @@
             this.exportToolStripMenuItem.Text = "Import/Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -369,14 +307,14 @@
             // versionToolStripMenuItem
             // 
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
-            this.versionToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.versionToolStripMenuItem.Text = "Version";
             this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
             // 
             // historyToolStripMenuItem
             // 
             this.historyToolStripMenuItem.Name = "historyToolStripMenuItem";
-            this.historyToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.historyToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.historyToolStripMenuItem.Text = "History";
             this.historyToolStripMenuItem.Click += new System.EventHandler(this.historyToolStripMenuItem_Click);
             // 
@@ -389,16 +327,6 @@
             this.MainPanel.Size = new System.Drawing.Size(1038, 701);
             this.MainPanel.TabIndex = 2;
             this.MainPanel.Resize += new System.EventHandler(this.MainPanel_Resize);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(214, 6);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(214, 6);
             // 
             // AirNavigationRaceLiveMain
             // 
@@ -437,15 +365,7 @@
         private System.Windows.Forms.ToolStripMenuItem teamsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem parcourToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rulesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resultsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toplistToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toplistFlightToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toplistLandingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem individualToplistToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem addLandingResultsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem adjustResultsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem legacyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem overviewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generateToolStripMenuItem;
@@ -463,6 +383,7 @@
         private System.Windows.Forms.ToolStripMenuItem cH1903converterToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
     }
 }
 

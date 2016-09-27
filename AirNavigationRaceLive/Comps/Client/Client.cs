@@ -19,11 +19,32 @@ namespace AirNavigationRaceLive.Comps.Client
     public class DataAccess
     {
         private DataAccess(){
-            string key = "DataDirectory";
-            string dbPath = string.Empty;
-            if (ConfigurationManager.AppSettings.Count > 0 && !String.IsNullOrEmpty(ConfigurationManager.AppSettings[key]))
+            string dbPath = getDbPath();
+            AppDomain.CurrentDomain.SetData("DataDirectory", dbPath);
+            DB.Database.CreateIfNotExists();
+        }
+        private static DataAccess instance = new DataAccess();
+        private AnrlModel2Container DB = new AnrlModel2Container();
+        private Competition SelectedComp = null;
+
+        public static DataAccess Instance { get { return instance; } }
+        public AnrlModel2Container DBContext { get { return DB; } }
+        public Competition SelectedCompetition {get { return SelectedComp; } set { SelectedComp = value; } }
+
+        private string readDBPathFromUserSettings()
+        {
+            if (!Settings.Default.promptForDB && !string.IsNullOrEmpty(Settings.Default.directoryForDB))
             {
-                dbPath = ConfigurationManager.AppSettings[key];
+                return Settings.Default.directoryForDB;
+            }
+            return string.Empty;
+        }
+        public string getDbPath()
+        {
+            string dbPath = string.Empty;
+            if (!String.IsNullOrEmpty(readDBPathFromUserSettings()))
+            {
+                dbPath = readDBPathFromUserSettings();
             }
             else
             {
@@ -42,37 +63,8 @@ namespace AirNavigationRaceLive.Comps.Client
                 {
                     Directory.CreateDirectory(dbPath);
                 }
-
-                //try
-                //{
-                //    var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                //    var settings = configFile.AppSettings.Settings;
-                //    if (settings[key] == null)
-                //    {
-                //        settings.Add(key, dbPath);
-                //    }
-                //    else
-                //    {
-                //        settings[key].Value = dbPath;
-                //    }
-                //    configFile.Save(ConfigurationSaveMode.Modified);
-                //    ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
-                //}
-                //catch (ConfigurationErrorsException)
-                //{
-                //    //Console.WriteLine("Error writing app settings");
-                //}
             }
-
-            AppDomain.CurrentDomain.SetData("DataDirectory", dbPath);
-            DB.Database.CreateIfNotExists();
+            return dbPath;
         }
-        private static DataAccess instance = new DataAccess();
-        private AnrlModel2Container DB = new AnrlModel2Container();
-        private Competition SelectedComp = null;
-
-        public static DataAccess Instance { get { return instance; } }
-        public AnrlModel2Container DBContext { get { return DB; } }
-        public Competition SelectedCompetition {get { return SelectedComp; } set { SelectedComp = value; } }
     }
 }
