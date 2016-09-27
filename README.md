@@ -22,7 +22,7 @@ Luc has stored the 2015 development code in a dedicated GitHub repository ( http
 My starting point for the code upgrade was a clone of Luc's Github repository.
 
 --- 
-#### What's new here (version 1.0.13.0)?
+#### What's new here (version 1.0.14.0)?
 **Improvements in user interface**
 
 * Less buttons, implemented editable datagridviews instead of lists in many places
@@ -40,6 +40,7 @@ My starting point for the code upgrade was a clone of Luc's Github repository.
 * Route generator implemented. This is probably the most important change. 
 It is basically a replacement for the original coordinate upload with an AutoCAD (*.dxf) file. Routes can now be created with Google Earth Pro,and the resulting kml file uploaded. A dedicated AutoCAD software is not required anymore.
 * Export for flight data in *.gpx format implemented
+* User settings: the user can select a default batabase path (or being prompted when the application starts)
 
 **Other minor changes**
 * Results, Map Export + List Export: only teams that have flight data (=uploaded logger data) are shown 
