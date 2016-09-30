@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblCompetition = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.listBox1 = new System.Windows.Forms.ListView();
             this.columnHeaderParcour = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -62,14 +64,16 @@
             this.numLatA = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.btnExport = new System.Windows.Forms.Button();
-            this.btnExport100k = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.numericUpDownAlpha = new System.Windows.Forms.NumericUpDown();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.groupBoxMapScale = new System.Windows.Forms.GroupBox();
+            this.radioButton250 = new System.Windows.Forms.RadioButton();
+            this.radioButton200 = new System.Windows.Forms.RadioButton();
+            this.radioButton100 = new System.Windows.Forms.RadioButton();
             this.PictureBox1 = new AirNavigationRaceLive.Comps.ParcourPictureBox();
-            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblCompetition = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel10.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -82,8 +86,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).BeginInit();
             this.panel6.SuspendLayout();
+            this.groupBoxMapScale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
-            this.tableLayoutPanel10.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -107,16 +111,41 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1480, 714);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.ColumnCount = 1;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel10.Controls.Add(this.lblCompetition, 0, 0);
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(23, 23);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 2;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(260, 34);
+            this.tableLayoutPanel10.TabIndex = 5;
+            // 
+            // lblCompetition
+            // 
+            this.lblCompetition.AutoSize = true;
+            this.lblCompetition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCompetition.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCompetition.Location = new System.Drawing.Point(4, 0);
+            this.lblCompetition.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCompetition.Name = "lblCompetition";
+            this.lblCompetition.Size = new System.Drawing.Size(252, 30);
+            this.lblCompetition.TabIndex = 1;
+            this.lblCompetition.Text = "Competition ";
+            // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.flowLayoutPanel1.Controls.Add(this.listBox1);
             this.flowLayoutPanel1.Controls.Add(this.groupBox1);
             this.flowLayoutPanel1.Controls.Add(this.lineBox);
-            this.flowLayoutPanel1.Controls.Add(this.btnExport);
-            this.flowLayoutPanel1.Controls.Add(this.btnExport100k);
             this.flowLayoutPanel1.Controls.Add(this.label17);
             this.flowLayoutPanel1.Controls.Add(this.numericUpDownAlpha);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Controls.Add(this.groupBoxMapScale);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(24, 67);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -137,7 +166,7 @@
             this.listBox1.MultiSelect = false;
             this.listBox1.Name = "listBox1";
             this.listBox1.ShowGroups = false;
-            this.listBox1.Size = new System.Drawing.Size(254, 276);
+            this.listBox1.Size = new System.Drawing.Size(254, 296);
             this.listBox1.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listBox1.TabIndex = 19;
             this.listBox1.UseCompatibleStateImageBehavior = false;
@@ -183,7 +212,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.fldCursorX);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(4, 288);
+            this.groupBox1.Location = new System.Drawing.Point(4, 308);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -286,7 +315,7 @@
             this.lineBox.Controls.Add(this.numLatA);
             this.lineBox.Controls.Add(this.label9);
             this.lineBox.Enabled = false;
-            this.lineBox.Location = new System.Drawing.Point(4, 371);
+            this.lineBox.Location = new System.Drawing.Point(4, 391);
             this.lineBox.Margin = new System.Windows.Forms.Padding(4);
             this.lineBox.Name = "lineBox";
             this.lineBox.Padding = new System.Windows.Forms.Padding(4);
@@ -470,30 +499,19 @@
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(4, 596);
+            this.btnExport.Location = new System.Drawing.Point(103, 22);
             this.btnExport.Margin = new System.Windows.Forms.Padding(4);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(240, 28);
+            this.btnExport.Size = new System.Drawing.Size(138, 31);
             this.btnExport.TabIndex = 20;
-            this.btnExport.Text = "Export Competition Map 1:200\'000";
+            this.btnExport.Text = "Export Map";
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
-            // btnExport100k
-            // 
-            this.btnExport100k.Location = new System.Drawing.Point(4, 632);
-            this.btnExport100k.Margin = new System.Windows.Forms.Padding(4);
-            this.btnExport100k.Name = "btnExport100k";
-            this.btnExport100k.Size = new System.Drawing.Size(240, 28);
-            this.btnExport100k.TabIndex = 21;
-            this.btnExport100k.Text = "Export Competition Map 1:100\'000";
-            this.btnExport100k.UseVisualStyleBackColor = true;
-            this.btnExport100k.Click += new System.EventHandler(this.btnExport100k_Click);
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(4, 664);
+            this.label17.Location = new System.Drawing.Point(4, 612);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Padding = new System.Windows.Forms.Padding(4, 4, 0, 0);
@@ -503,7 +521,7 @@
             // 
             // numericUpDownAlpha
             // 
-            this.numericUpDownAlpha.Location = new System.Drawing.Point(152, 668);
+            this.numericUpDownAlpha.Location = new System.Drawing.Point(152, 616);
             this.numericUpDownAlpha.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownAlpha.Name = "numericUpDownAlpha";
             this.numericUpDownAlpha.Size = new System.Drawing.Size(92, 22);
@@ -523,6 +541,51 @@
             this.panel6.Size = new System.Drawing.Size(1186, 646);
             this.panel6.TabIndex = 3;
             // 
+            // groupBoxMapScale
+            // 
+            this.groupBoxMapScale.Controls.Add(this.radioButton100);
+            this.groupBoxMapScale.Controls.Add(this.radioButton200);
+            this.groupBoxMapScale.Controls.Add(this.radioButton250);
+            this.groupBoxMapScale.Controls.Add(this.btnExport);
+            this.groupBoxMapScale.Location = new System.Drawing.Point(3, 645);
+            this.groupBoxMapScale.Name = "groupBoxMapScale";
+            this.groupBoxMapScale.Size = new System.Drawing.Size(251, 107);
+            this.groupBoxMapScale.TabIndex = 2;
+            this.groupBoxMapScale.TabStop = false;
+            this.groupBoxMapScale.Text = "Map Scale";
+            // 
+            // radioButton250
+            // 
+            this.radioButton250.AutoSize = true;
+            this.radioButton250.Location = new System.Drawing.Point(7, 22);
+            this.radioButton250.Name = "radioButton250";
+            this.radioButton250.Size = new System.Drawing.Size(93, 21);
+            this.radioButton250.TabIndex = 0;
+            this.radioButton250.Text = "1:250 000";
+            this.radioButton250.UseVisualStyleBackColor = true;
+            // 
+            // radioButton200
+            // 
+            this.radioButton200.AutoSize = true;
+            this.radioButton200.Checked = true;
+            this.radioButton200.Location = new System.Drawing.Point(6, 49);
+            this.radioButton200.Name = "radioButton200";
+            this.radioButton200.Size = new System.Drawing.Size(93, 21);
+            this.radioButton200.TabIndex = 1;
+            this.radioButton200.TabStop = true;
+            this.radioButton200.Text = "1:200 000";
+            this.radioButton200.UseVisualStyleBackColor = true;
+            // 
+            // radioButton100
+            // 
+            this.radioButton100.AutoSize = true;
+            this.radioButton100.Location = new System.Drawing.Point(6, 76);
+            this.radioButton100.Name = "radioButton100";
+            this.radioButton100.Size = new System.Drawing.Size(93, 21);
+            this.radioButton100.TabIndex = 2;
+            this.radioButton100.Text = "1:100 000";
+            this.radioButton100.UseVisualStyleBackColor = true;
+            // 
             // PictureBox1
             // 
             this.PictureBox1.Location = new System.Drawing.Point(4, 4);
@@ -535,31 +598,6 @@
             this.PictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_Click);
             this.PictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
             // 
-            // tableLayoutPanel10
-            // 
-            this.tableLayoutPanel10.ColumnCount = 1;
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Controls.Add(this.lblCompetition, 0, 0);
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(23, 23);
-            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
-            this.tableLayoutPanel10.RowCount = 2;
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(260, 34);
-            this.tableLayoutPanel10.TabIndex = 5;
-            // 
-            // lblCompetition
-            // 
-            this.lblCompetition.AutoSize = true;
-            this.lblCompetition.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCompetition.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCompetition.Location = new System.Drawing.Point(4, 0);
-            this.lblCompetition.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCompetition.Name = "lblCompetition";
-            this.lblCompetition.Size = new System.Drawing.Size(252, 30);
-            this.lblCompetition.TabIndex = 1;
-            this.lblCompetition.Text = "Competition ";
-            // 
             // ParcourOverview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -571,6 +609,8 @@
             this.Load += new System.EventHandler(this.ParcourGen_VisibleChanged);
             this.VisibleChanged += new System.EventHandler(this.ParcourGen_VisibleChanged);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel10.ResumeLayout(false);
+            this.tableLayoutPanel10.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -587,9 +627,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.groupBoxMapScale.ResumeLayout(false);
+            this.groupBoxMapScale.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
-            this.tableLayoutPanel10.ResumeLayout(false);
-            this.tableLayoutPanel10.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -630,11 +670,14 @@
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.Button btnExport;
-        private System.Windows.Forms.Button btnExport100k;
         private System.Windows.Forms.ColumnHeader columnHeaderParcour;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.NumericUpDown numericUpDownAlpha;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.Label lblCompetition;
+        private System.Windows.Forms.GroupBox groupBoxMapScale;
+        private System.Windows.Forms.RadioButton radioButton100;
+        private System.Windows.Forms.RadioButton radioButton200;
+        private System.Windows.Forms.RadioButton radioButton250;
     }
 }

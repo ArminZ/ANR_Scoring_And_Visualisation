@@ -41,6 +41,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             AddCompetitionAndLogo(c, sec);
             sec.AddParagraph("");
             sec.AddParagraph("Participants list");
+            sec.AddParagraph("");
 
             Table table = sec.AddTable();
             table.Borders.Visible = true;
@@ -110,18 +111,18 @@ namespace AirNavigationRaceLive.Comps.Helper
             logo.Height = Unit.FromCentimeter(1.912);
             logo.Width = Unit.FromCentimeter(2.873);
             logo.LockAspectRatio = true;
-            logo.Left = Unit.FromCentimeter(21);
+            logo.Left = Unit.FromCentimeter(24);
             logo.Top = Unit.FromCentimeter(0);
         }
 
         private static void AddLogo(XGraphics gfx, PdfPage page)
         {
             XImage logo = XImage.FromFile(@"Resources\ANR_LOGO.jpg");
-            XRect point = new XRect(page.Width - XUnit.FromCentimeter(3), XUnit.FromCentimeter(1), Unit.FromCentimeter(2.873), Unit.FromCentimeter(1.912));
+            XRect point = new XRect(page.Width - XUnit.FromCentimeter(4), XUnit.FromCentimeter(1), Unit.FromCentimeter(2.873), Unit.FromCentimeter(1.912));
             gfx.DrawImage(logo, point);
         }
 
-        public static void CreateParcourPDF(ParcourPictureBox picBox, Client.DataAccess c, String parcourName, String pathToPDF, String overlayText)
+        public static void CreateParcourPDF(double scaleFactor, ParcourPictureBox picBox, Client.DataAccess c, String parcourName, String pathToPDF, String overlayText)
         {
             //PdfDocument doc = new PdfDocument(@"Resources\PDFTemplates\Competition_Map.pdf");
             PdfDocument doc = new PdfDocument();
@@ -142,16 +143,16 @@ namespace AirNavigationRaceLive.Comps.Helper
 
             gfx.DrawString("Competition: " + c.SelectedCompetition.Name,
                 new XFont("Verdana", 16, XFontStyle.Bold), XBrushes.Black,
-                new XPoint(XUnit.FromCentimeter(2), XUnit.FromCentimeter(2)));
+                new XPoint(XUnit.FromCentimeter(1), XUnit.FromCentimeter(2)));
 
             gfx.DrawString("Parcour: " + parcourName,
                 new XFont("Verdana", 14, XFontStyle.Bold), XBrushes.Black,
-                new XPoint(XUnit.FromCentimeter(2), XUnit.FromCentimeter(3)));
+                new XPoint(XUnit.FromCentimeter(1), XUnit.FromCentimeter(3)));
 
             XImage image = XImage.FromGdiPlusImage(picBox.PrintOutImage);
 
-            double distX = picBox.GetXDistanceKM() / 2;//1:200 000 in cm
-            double distY = picBox.GetYDistanceKM() / 2;//1:200 000 in cm
+            double distX = picBox.GetXDistanceKM() / scaleFactor;//1:200 000 in cm
+            double distY = picBox.GetYDistanceKM() / scaleFactor;//1:200 000 in cm
 
             gfx.DrawImage(image, XUnit.FromCentimeter(1), XUnit.FromCentimeter(4), page.Width.Point * (distX / page.Width.Centimeter), page.Height.Point * (distY / page.Height.Centimeter));
 
@@ -164,20 +165,20 @@ namespace AirNavigationRaceLive.Comps.Helper
             points.Add(new XPoint(Unit.FromMillimeter(startX), Unit.FromMillimeter(40 + 9)));
             points.Add(new XPoint(Unit.FromMillimeter(startX), Unit.FromMillimeter(40)));
             gfx.DrawLines(XPens.Black, points.ToArray());
-            for (int i = 0; i < 5; i++)
-            {
-                if (i == 1) continue;
-                points = new List<XPoint>();
-                points.Add(new XPoint(Unit.FromMillimeter(startX + 18 * i), Unit.FromMillimeter(40)));
-                points.Add(new XPoint(Unit.FromMillimeter(startX + 18 * i), Unit.FromMillimeter(40 + 9)));
-                gfx.DrawLines(XPens.Black, points.ToArray());
-            }
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    if (i == 1) continue;
+            //    points = new List<XPoint>();
+            //    points.Add(new XPoint(Unit.FromMillimeter(startX + 18 * i), Unit.FromMillimeter(40)));
+            //    points.Add(new XPoint(Unit.FromMillimeter(startX + 18 * i), Unit.FromMillimeter(40 + 9)));
+            //    gfx.DrawLines(XPens.Black, points.ToArray());
+            //}
 
             gfx.DrawString("Comp. Nr:",
                 new XFont("Verdana", 14, XFontStyle.Bold), XBrushes.Black,
                 new XPoint(Unit.FromMillimeter(startX + 1), Unit.FromMillimeter(40 + 7)));
 
-            gfx.DrawString("Track:",
+            gfx.DrawString("Route:",
                 new XFont("Verdana", 14, XFontStyle.Bold), XBrushes.Black,
                 new XPoint(Unit.FromMillimeter(startX + 18 * 3 + 1), Unit.FromMillimeter(40 + 7)));
 
@@ -240,16 +241,32 @@ namespace AirNavigationRaceLive.Comps.Helper
             gfx.DrawImage(XImage.FromFile(@"Resources\Summe.png"),
                 new XPoint(Unit.FromMillimeter(startX + 1), Unit.FromMillimeter(startY + rowHeight * 14 + 2)));
 
-            if (overlayText != null && overlayText != "")
+            if (!string.IsNullOrEmpty(overlayText.Trim()))
             {
-                XRect rect = new XRect(new XPoint(Unit.FromMillimeter(startX - 80 - 2), Unit.FromMillimeter(startY + rowHeight * 14 + 2 - 16)), new XSize(Unit.FromCentimeter(8), Unit.FromCentimeter(3.6)));
+                XRect rect = new XRect(XUnit.FromCentimeter(19.0), XUnit.FromCentimeter(1.5), Unit.FromCentimeter(5.0), Unit.FromCentimeter(2.0));
+  //              XRect rect = new XRect(new XPoint(Unit.FromMillimeter(startX - 80 - 2), Unit.FromMillimeter(startY + rowHeight * 14 + 2 - 16)), new XSize(Unit.FromCentimeter(8), Unit.FromCentimeter(3.6)));
                 gfx.DrawRectangle(XBrushes.White, rect);
                 XTextFormatter tf = new XTextFormatter(gfx);
-                tf.DrawString(overlayText, new XFont("Verdana", 13, XFontStyle.Bold), XBrushes.Black, rect, XStringFormats.TopLeft);
+                tf.DrawString(overlayText, new XFont("Verdana", 10, XFontStyle.Regular), XBrushes.Black, rect, XStringFormats.TopLeft);
+            }
+            else
+            {
+                writeScale(gfx, page, scaleFactor);
             }
             doc.Save(pathToPDF);
             doc.Close();
             Process.Start(pathToPDF);
+        }
+        private static void writeScale(XGraphics gfx, PdfPage page, double scaleFactor)
+        {
+            string strScFactor = "";
+            if (scaleFactor == 2.0) { strScFactor = "1:200'000"; }
+            if (scaleFactor == 2.5) { strScFactor = "1:250'000"; }
+      
+            XRect rect = new XRect(XUnit.FromCentimeter(1.0), XUnit.FromCentimeter(19.5), Unit.FromCentimeter(5.0), Unit.FromCentimeter(1.0));
+            gfx.DrawRectangle(XBrushes.White, rect);
+            XTextFormatter tf = new XTextFormatter(gfx);
+            tf.DrawString(string.Format("Map scale {0}", strScFactor), new XFont("Verdana", 10, XFontStyle.Regular), XBrushes.Black, rect, XStringFormats.TopLeft);
         }
 
         public static void CreateParcourPDF100k(ParcourPictureBox picBox, Client.DataAccess c, String parcourName, String pathToPDF, String overlayText)
@@ -285,12 +302,13 @@ namespace AirNavigationRaceLive.Comps.Helper
 
             gfx.DrawImage(image, XUnit.FromCentimeter(1), XUnit.FromCentimeter(4), page.Width.Point * (distX / page.Width.Centimeter), page.Height.Point * (distY / page.Height.Centimeter));
 
-            if (overlayText != null && overlayText != "")
+            if (!string.IsNullOrEmpty(overlayText.Trim()))
             {
-                XRect rect = new XRect(new XPoint(Unit.FromCentimeter(page.Width.Centimeter - 8), Unit.FromCentimeter(page.Height.Centimeter-4)), new XSize(Unit.FromCentimeter(8), Unit.FromCentimeter(3.6)));
+                //       XRect rect = new XRect(new XPoint(Unit.FromCentimeter(page.Width.Centimeter - 8), Unit.FromCentimeter(page.Height.Centimeter-4)), new XSize(Unit.FromCentimeter(8), Unit.FromCentimeter(3.6)));
+                XRect rect = new XRect(XUnit.FromCentimeter(19.0), XUnit.FromCentimeter(1.5), Unit.FromCentimeter(5.0), Unit.FromCentimeter(2.0));
                 gfx.DrawRectangle(XBrushes.White, rect);
                 XTextFormatter tf = new XTextFormatter(gfx);
-                tf.DrawString(overlayText, new XFont("Verdana", 13, XFontStyle.Bold), XBrushes.Black, rect, XStringFormats.TopLeft);
+                tf.DrawString(overlayText, new XFont("Verdana", 10, XFontStyle.Regular), XBrushes.Black, rect, XStringFormats.TopLeft);
             }
             doc.Save(pathToPDF);
             doc.Close();
@@ -554,6 +572,7 @@ namespace AirNavigationRaceLive.Comps.Helper
 
             sec.AddParagraph("Qualification Round: " + qRnd.Name);
             sec.AddParagraph("Startlist");
+            sec.AddParagraph("");
             sec.AddParagraph("");
 
             Table table = sec.AddTable();

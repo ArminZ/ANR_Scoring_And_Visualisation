@@ -346,25 +346,14 @@ namespace AirNavigationRaceLive.Comps
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItems.Count == 1 && PictureBox1.PrintOutImage != null)
-            {
-                ListItem li = listBox1.SelectedItems[0] as ListItem;
-                String dirPath = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments) + @"\AirNavigationRace\";
-                DirectoryInfo di = Directory.CreateDirectory(dirPath);
-                if (!di.Exists)
-                {
-                    di.Create();
-                }
-                TextOverlayDialog dialog = new TextOverlayDialog();
-                dialog.ShowDialog();
-                String freitext = dialog.text;
-                PDFCreator.CreateParcourPDF(PictureBox1, Client, li.getParcour().Name, dirPath +
-                    @"\Parcour_" + li.getParcour().Id + "_" + li.getParcour().Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf", freitext);
-            }
-        }
+            double scaleFactor = 2.0;
+            string mapScale = "";
+            if (radioButton100.Checked) { scaleFactor = 1.0; mapScale = "1:100 000"; };
+            if (radioButton200.Checked) { scaleFactor = 2.0; mapScale = "1:200 000"; };
+            if (radioButton250.Checked) { scaleFactor = 2.5; mapScale = "1:250 000"; };
 
-        private void btnExport100k_Click(object sender, EventArgs e)
-        {
+            string defaultText = string.Format("Map scale = {0}" + Environment.NewLine + "Parcour length = 00.00 NM" + Environment.NewLine + "Time = 00:00 Min (@80 kt)",mapScale);
+
             if (listBox1.SelectedItems.Count == 1 && PictureBox1.PrintOutImage != null)
             {
                 ListItem li = listBox1.SelectedItems[0] as ListItem;
@@ -374,11 +363,19 @@ namespace AirNavigationRaceLive.Comps
                 {
                     di.Create();
                 }
-                TextOverlayDialog dialog = new TextOverlayDialog();
+                TextOverlayDialog dialog = new TextOverlayDialog(defaultText);
                 dialog.ShowDialog();
                 String freitext = dialog.text;
-                PDFCreator.CreateParcourPDF100k(PictureBox1, Client, li.getParcour().Name, dirPath +
-                    @"\Parcour_" + li.getParcour().Id + "_" + li.getParcour().Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf", freitext);
+                if (radioButton100.Checked)
+                {
+                    PDFCreator.CreateParcourPDF100k(PictureBox1, Client, li.getParcour().Name, dirPath +
+                        @"\Parcour_" + li.getParcour().Id + "_" + li.getParcour().Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf", freitext);
+                }
+                else
+                {
+                    PDFCreator.CreateParcourPDF(scaleFactor, PictureBox1, Client, li.getParcour().Name, dirPath +
+                        @"\Parcour_" + li.getParcour().Id + "_" + li.getParcour().Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf", freitext);
+                }
             }
         }
 
