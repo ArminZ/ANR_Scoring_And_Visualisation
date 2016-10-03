@@ -59,6 +59,7 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainPanel = new System.Windows.Forms.Panel();
+            this.ParcourCoordExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -246,6 +247,7 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.routeGeneratorToolStripMenuItem,
+            this.ParcourCoordExportToolStripMenuItem,
             this.cH1903converterToolStripMenuItem});
             this.toolsToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
@@ -328,6 +330,13 @@
             this.MainPanel.TabIndex = 2;
             this.MainPanel.Resize += new System.EventHandler(this.MainPanel_Resize);
             // 
+            // ParcourCoordExportToolStripMenuItem
+            // 
+            this.ParcourCoordExportToolStripMenuItem.Name = "ParcourCoordExportToolStripMenuItem";
+            this.ParcourCoordExportToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
+            this.ParcourCoordExportToolStripMenuItem.Text = "Parcour Coordinate Export";
+            this.ParcourCoordExportToolStripMenuItem.Click += new System.EventHandler(this.ParcourCoordExportToolStripMenuItem_Click);
+            // 
             // AirNavigationRaceLiveMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -384,6 +393,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ParcourCoordExportToolStripMenuItem;
     }
 }
 

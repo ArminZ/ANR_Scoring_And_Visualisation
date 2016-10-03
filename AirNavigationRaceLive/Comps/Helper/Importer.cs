@@ -993,7 +993,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// </example>
         /// <param name="str"></param>
         /// <returns>A list of points</returns>
-        internal static List<Point> getPointsFromKMLCoordinates(string str)
+        public static List<Point> getPointsFromKMLCoordinates(string str)
         {
             Line l = new Line();
             Point point = new Point();

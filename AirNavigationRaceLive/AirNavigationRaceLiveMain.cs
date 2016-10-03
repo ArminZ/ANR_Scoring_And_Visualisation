@@ -350,8 +350,17 @@ namespace AirNavigationRaceLive
         {
             using (SettingsDialog settingsDlg = new SettingsDialog())
             {
-                settingsDlg.StartPosition = FormStartPosition.CenterScreen;
+                settingsDlg.StartPosition = FormStartPosition.WindowsDefaultLocation;
                 settingsDlg.ShowDialog();
+            }
+        }
+
+        private void ParcourCoordExportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (ParcourExportDialog routeExportDialog = new ParcourExportDialog())
+            {
+                routeExportDialog.StartPosition = FormStartPosition.WindowsDefaultLocation;
+                routeExportDialog.ShowDialog();
             }
         }
     }

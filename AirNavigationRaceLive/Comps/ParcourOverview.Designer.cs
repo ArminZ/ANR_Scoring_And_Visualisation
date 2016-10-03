@@ -63,14 +63,14 @@
             this.label10 = new System.Windows.Forms.Label();
             this.numLatA = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
-            this.btnExport = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.numericUpDownAlpha = new System.Windows.Forms.NumericUpDown();
-            this.panel6 = new System.Windows.Forms.Panel();
             this.groupBoxMapScale = new System.Windows.Forms.GroupBox();
-            this.radioButton250 = new System.Windows.Forms.RadioButton();
-            this.radioButton200 = new System.Windows.Forms.RadioButton();
             this.radioButton100 = new System.Windows.Forms.RadioButton();
+            this.radioButton200 = new System.Windows.Forms.RadioButton();
+            this.radioButton250 = new System.Windows.Forms.RadioButton();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.panel6 = new System.Windows.Forms.Panel();
             this.PictureBox1 = new AirNavigationRaceLive.Comps.ParcourPictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
@@ -85,8 +85,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLongA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).BeginInit();
-            this.panel6.SuspendLayout();
             this.groupBoxMapScale.SuspendLayout();
+            this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -497,17 +497,6 @@
             this.label9.TabIndex = 0;
             this.label9.Text = "Latitude A:";
             // 
-            // btnExport
-            // 
-            this.btnExport.Location = new System.Drawing.Point(103, 22);
-            this.btnExport.Margin = new System.Windows.Forms.Padding(4);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(138, 31);
-            this.btnExport.TabIndex = 20;
-            this.btnExport.Text = "Export Map";
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -529,18 +518,6 @@
             this.numericUpDownAlpha.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownAlpha.ValueChanged += new System.EventHandler(this.numericUpDownAlpha_ValueChanged);
             // 
-            // panel6
-            // 
-            this.panel6.AutoScroll = true;
-            this.panel6.Controls.Add(this.PictureBox1);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(290, 64);
-            this.panel6.Margin = new System.Windows.Forms.Padding(4);
-            this.panel6.Name = "panel6";
-            this.tableLayoutPanel1.SetRowSpan(this.panel6, 2);
-            this.panel6.Size = new System.Drawing.Size(1186, 646);
-            this.panel6.TabIndex = 3;
-            // 
             // groupBoxMapScale
             // 
             this.groupBoxMapScale.Controls.Add(this.radioButton100);
@@ -554,15 +531,15 @@
             this.groupBoxMapScale.TabStop = false;
             this.groupBoxMapScale.Text = "Map Scale";
             // 
-            // radioButton250
+            // radioButton100
             // 
-            this.radioButton250.AutoSize = true;
-            this.radioButton250.Location = new System.Drawing.Point(7, 22);
-            this.radioButton250.Name = "radioButton250";
-            this.radioButton250.Size = new System.Drawing.Size(93, 21);
-            this.radioButton250.TabIndex = 0;
-            this.radioButton250.Text = "1:250 000";
-            this.radioButton250.UseVisualStyleBackColor = true;
+            this.radioButton100.AutoSize = true;
+            this.radioButton100.Location = new System.Drawing.Point(6, 76);
+            this.radioButton100.Name = "radioButton100";
+            this.radioButton100.Size = new System.Drawing.Size(93, 21);
+            this.radioButton100.TabIndex = 2;
+            this.radioButton100.Text = "1:100 000";
+            this.radioButton100.UseVisualStyleBackColor = true;
             // 
             // radioButton200
             // 
@@ -576,15 +553,38 @@
             this.radioButton200.Text = "1:200 000";
             this.radioButton200.UseVisualStyleBackColor = true;
             // 
-            // radioButton100
+            // radioButton250
             // 
-            this.radioButton100.AutoSize = true;
-            this.radioButton100.Location = new System.Drawing.Point(6, 76);
-            this.radioButton100.Name = "radioButton100";
-            this.radioButton100.Size = new System.Drawing.Size(93, 21);
-            this.radioButton100.TabIndex = 2;
-            this.radioButton100.Text = "1:100 000";
-            this.radioButton100.UseVisualStyleBackColor = true;
+            this.radioButton250.AutoSize = true;
+            this.radioButton250.Location = new System.Drawing.Point(7, 22);
+            this.radioButton250.Name = "radioButton250";
+            this.radioButton250.Size = new System.Drawing.Size(93, 21);
+            this.radioButton250.TabIndex = 0;
+            this.radioButton250.Text = "1:250 000";
+            this.radioButton250.UseVisualStyleBackColor = true;
+            // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(103, 22);
+            this.btnExport.Margin = new System.Windows.Forms.Padding(4);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(138, 31);
+            this.btnExport.TabIndex = 20;
+            this.btnExport.Text = "Export Map";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // panel6
+            // 
+            this.panel6.AutoScroll = true;
+            this.panel6.Controls.Add(this.PictureBox1);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(290, 64);
+            this.panel6.Margin = new System.Windows.Forms.Padding(4);
+            this.panel6.Name = "panel6";
+            this.tableLayoutPanel1.SetRowSpan(this.panel6, 2);
+            this.panel6.Size = new System.Drawing.Size(1186, 646);
+            this.panel6.TabIndex = 3;
             // 
             // PictureBox1
             // 
@@ -625,10 +625,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLongA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).EndInit();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
             this.groupBoxMapScale.ResumeLayout(false);
             this.groupBoxMapScale.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.ResumeLayout(false);
 

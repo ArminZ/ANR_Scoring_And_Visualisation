@@ -40,7 +40,6 @@
             this.btnClearSelectedRoutes = new System.Windows.Forms.Button();
             this.btnAddRoute = new System.Windows.Forms.Button();
             this.lblRoute = new System.Windows.Forms.Label();
-            this.btnSaveKML = new System.Windows.Forms.Button();
             this.txtChannelWidth = new System.Windows.Forms.TextBox();
             this.btnSelectKML = new System.Windows.Forms.Button();
             this.lblChannelWidth = new System.Windows.Forms.Label();
@@ -48,7 +47,11 @@
             this.treeViewSelectedRoutes = new System.Windows.Forms.TreeView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnSaveKML = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -95,7 +98,7 @@
             // 
             this.lblHeight.AutoSize = true;
             this.lblHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.lblHeight.Location = new System.Drawing.Point(124, 458);
+            this.lblHeight.Location = new System.Drawing.Point(150, 451);
             this.lblHeight.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblHeight.Name = "lblHeight";
             this.lblHeight.Size = new System.Drawing.Size(210, 17);
@@ -104,12 +107,13 @@
             // 
             // txtHeight
             // 
-            this.txtHeight.Location = new System.Drawing.Point(38, 454);
+            this.txtHeight.Location = new System.Drawing.Point(38, 445);
             this.txtHeight.Margin = new System.Windows.Forms.Padding(5);
             this.txtHeight.Name = "txtHeight";
             this.txtHeight.Size = new System.Drawing.Size(79, 27);
             this.txtHeight.TabIndex = 31;
             this.txtHeight.Text = "300";
+            this.txtHeight.TextChanged += new System.EventHandler(this.txtHeight_TextChanged);
             // 
             // lblSelectedRoutes
             // 
@@ -160,26 +164,15 @@
             this.lblRoute.TabIndex = 34;
             this.lblRoute.Text = "Available routes:";
             // 
-            // btnSaveKML
-            // 
-            this.btnSaveKML.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.btnSaveKML.Location = new System.Drawing.Point(634, 493);
-            this.btnSaveKML.Margin = new System.Windows.Forms.Padding(5);
-            this.btnSaveKML.Name = "btnSaveKML";
-            this.btnSaveKML.Size = new System.Drawing.Size(206, 38);
-            this.btnSaveKML.TabIndex = 5;
-            this.btnSaveKML.Text = "Save layer as *.kml file...";
-            this.btnSaveKML.UseVisualStyleBackColor = true;
-            this.btnSaveKML.Click += new System.EventHandler(this.btnSaveKML_Click);
-            // 
             // txtChannelWidth
             // 
-            this.txtChannelWidth.Location = new System.Drawing.Point(38, 416);
+            this.txtChannelWidth.Location = new System.Drawing.Point(38, 415);
             this.txtChannelWidth.Margin = new System.Windows.Forms.Padding(5);
             this.txtChannelWidth.Name = "txtChannelWidth";
             this.txtChannelWidth.Size = new System.Drawing.Size(79, 27);
             this.txtChannelWidth.TabIndex = 29;
             this.txtChannelWidth.Text = "0,4";
+            this.txtChannelWidth.TextChanged += new System.EventHandler(this.txtChannelWidth_TextChanged);
             // 
             // btnSelectKML
             // 
@@ -197,7 +190,7 @@
             // 
             this.lblChannelWidth.AutoSize = true;
             this.lblChannelWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.lblChannelWidth.Location = new System.Drawing.Point(124, 423);
+            this.lblChannelWidth.Location = new System.Drawing.Point(150, 421);
             this.lblChannelWidth.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblChannelWidth.Name = "lblChannelWidth";
             this.lblChannelWidth.Size = new System.Drawing.Size(195, 17);
@@ -243,10 +236,39 @@
             this.label2.TabIndex = 41;
             this.label2.Text = "Route Generator";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // btnSaveKML
+            // 
+            this.btnSaveKML.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
+            this.btnSaveKML.Location = new System.Drawing.Point(634, 493);
+            this.btnSaveKML.Margin = new System.Windows.Forms.Padding(5);
+            this.btnSaveKML.Name = "btnSaveKML";
+            this.btnSaveKML.Size = new System.Drawing.Size(206, 38);
+            this.btnSaveKML.TabIndex = 5;
+            this.btnSaveKML.Text = "Save layer as *.kml file...";
+            this.btnSaveKML.UseVisualStyleBackColor = true;
+            this.btnSaveKML.Click += new System.EventHandler(this.btnSaveKML_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(856, 438);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(93, 36);
+            this.button1.TabIndex = 43;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // RouteGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.treeViewSelectedRoutes);
@@ -268,6 +290,7 @@
             this.Name = "RouteGenerator";
             this.Size = new System.Drawing.Size(968, 560);
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -285,7 +308,6 @@
         private System.Windows.Forms.Button btnClearSelectedRoutes;
         private System.Windows.Forms.Button btnAddRoute;
         private System.Windows.Forms.Label lblRoute;
-        private System.Windows.Forms.Button btnSaveKML;
         private System.Windows.Forms.TextBox txtChannelWidth;
         private System.Windows.Forms.Button btnSelectKML;
         private System.Windows.Forms.Label lblChannelWidth;
@@ -293,5 +315,8 @@
         private System.Windows.Forms.TreeView treeViewSelectedRoutes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Button btnSaveKML;
+        private System.Windows.Forms.Button button1;
     }
 }

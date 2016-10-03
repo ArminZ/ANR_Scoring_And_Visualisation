@@ -18,6 +18,7 @@ namespace AirNavigationRaceLive.Comps
         private Line selectedLine = null;
         private Line hoverLine = null;
         private Parcour activeParcour = new Parcour();
+        private bool mustPromptForAdditionalText = Properties.Settings.Default.parcourPDFAdditionalText;
 
         private enum ActivePoint
         {
@@ -352,7 +353,8 @@ namespace AirNavigationRaceLive.Comps
             if (radioButton200.Checked) { scaleFactor = 2.0; mapScale = "1:200 000"; };
             if (radioButton250.Checked) { scaleFactor = 2.5; mapScale = "1:250 000"; };
 
-            string defaultText = string.Format("Map scale = {0}" + Environment.NewLine + "Parcour length = 00.00 NM" + Environment.NewLine + "Time = 00:00 Min (@80 kt)",mapScale);
+            string defaultText = string.Format("Map scale = {0}" + Environment.NewLine + "Parcour length = 00.00 NM" + Environment.NewLine + "Time = 00:00 Min (@80 kt)", mapScale);
+            String freitext = string.Empty;
 
             if (listBox1.SelectedItems.Count == 1 && PictureBox1.PrintOutImage != null)
             {
@@ -363,9 +365,13 @@ namespace AirNavigationRaceLive.Comps
                 {
                     di.Create();
                 }
-                TextOverlayDialog dialog = new TextOverlayDialog(defaultText);
-                dialog.ShowDialog();
-                String freitext = dialog.text;
+                if (mustPromptForAdditionalText)
+                {
+                    TextOverlayDialog dialog = new TextOverlayDialog(defaultText);
+                    dialog.ShowDialog();
+                    freitext = dialog.text;
+                }
+
                 if (radioButton100.Checked)
                 {
                     PDFCreator.CreateParcourPDF100k(PictureBox1, Client, li.getParcour().Name, dirPath +
