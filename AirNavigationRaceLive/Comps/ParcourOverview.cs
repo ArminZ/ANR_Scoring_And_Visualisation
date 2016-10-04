@@ -371,6 +371,10 @@ namespace AirNavigationRaceLive.Comps
                     dialog.ShowDialog();
                     freitext = dialog.text;
                 }
+                else
+                {
+                    freitext = Environment.NewLine + Environment.NewLine + string.Format("Map scale = {0}", mapScale);
+                }
 
                 if (radioButton100.Checked)
                 {

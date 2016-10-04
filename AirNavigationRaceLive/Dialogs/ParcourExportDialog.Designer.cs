@@ -98,9 +98,9 @@
             this.label4.Location = new System.Drawing.Point(18, 56);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(107, 17);
+            this.label4.Size = new System.Drawing.Size(99, 17);
             this.label4.TabIndex = 9;
-            this.label4.Text = "Outpute text file";
+            this.label4.Text = "Output text file";
             // 
             // btnExportParcourCoord
             // 

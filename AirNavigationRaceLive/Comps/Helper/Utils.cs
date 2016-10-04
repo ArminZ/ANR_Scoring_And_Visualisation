@@ -37,7 +37,8 @@ namespace AirNavigationRaceLive.Comps.Helper
                 dbLocationDialog.FileName = "anrl.mdf";
                 dbLocationDialog.OverwritePrompt = false;
                 dbLocationDialog.ShowDialog();
-                dbPath = dbLocationDialog.FileName.Replace("anrl.mdf", "");
+                //dbPath = dbLocationDialog.FileName.Replace("anrl.mdf", "");
+                dbPath = System.IO.Path.GetDirectoryName(dbLocationDialog.FileName);
                 if (dbPath == null || dbPath == "")
                 {
                     dbPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\AirNavigationRace";

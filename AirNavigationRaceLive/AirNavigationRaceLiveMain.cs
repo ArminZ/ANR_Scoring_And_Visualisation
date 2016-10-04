@@ -341,7 +341,7 @@ namespace AirNavigationRaceLive
         {
             using (Calculator ConverterSwissCH1903 = new Calculator())
             {
-                ConverterSwissCH1903.StartPosition = FormStartPosition.CenterScreen;
+                ConverterSwissCH1903.StartPosition = FormStartPosition.CenterParent;
                 ConverterSwissCH1903.ShowDialog();
             }
         }
@@ -350,16 +350,16 @@ namespace AirNavigationRaceLive
         {
             using (SettingsDialog settingsDlg = new SettingsDialog())
             {
-                settingsDlg.StartPosition = FormStartPosition.WindowsDefaultLocation;
+                settingsDlg.StartPosition = FormStartPosition.CenterParent;
                 settingsDlg.ShowDialog();
             }
         }
 
-        private void ParcourCoordExportToolStripMenuItem_Click(object sender, EventArgs e)
+        private void kmlCoordinateExportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (ParcourExportDialog routeExportDialog = new ParcourExportDialog())
             {
-                routeExportDialog.StartPosition = FormStartPosition.WindowsDefaultLocation;
+                routeExportDialog.StartPosition = FormStartPosition.CenterParent;
                 routeExportDialog.ShowDialog();
             }
         }

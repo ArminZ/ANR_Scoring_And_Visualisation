@@ -63,6 +63,7 @@ namespace AirNavigationRaceLive.Dialogs
             sfd.Title = "Coordinates of Route input / Parcour Layer";
             sfd.RestoreDirectory = true;
             sfd.CheckPathExists = true;
+            sfd.OverwritePrompt = true;
             sfd.Filter = FileFilter;
             sfd.FilterIndex = 1;
             sfd.ShowDialog();

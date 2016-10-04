@@ -279,16 +279,5 @@ namespace AirNavigationRaceLive.Comps
             _isValidated = string.IsNullOrEmpty(strErr) && treeViewSelectedRoutes.Nodes.Count > 0;
             btnSaveKML.Enabled = _isValidated;
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string fname = @"C:\Temp\East_3_out.kml";
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(fname);
-            ANRData anr = new ANRData();
-            List<string> lst = anr.exportParcourCoordinates(xmlDoc);
-            fname = Path.Combine(Path.GetDirectoryName(fname), Path.GetFileNameWithoutExtension(fname) + "_Coord.txt");
-            File.WriteAllLines(fname, anr.exportParcourCoordinates(xmlDoc).ToArray());
-        }
     }
 }

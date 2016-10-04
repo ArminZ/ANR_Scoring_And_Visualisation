@@ -249,25 +249,25 @@ namespace AirNavigationRaceLive.Comps.Helper
                 XTextFormatter tf = new XTextFormatter(gfx);
                 tf.DrawString(overlayText, new XFont("Verdana", 10, XFontStyle.Regular), XBrushes.Black, rect, XStringFormats.TopLeft);
             }
-            else
-            {
-                writeScale(gfx, page, scaleFactor);
-            }
+            //else
+            //{
+            //    writeScale(gfx, page, scaleFactor);
+            //}
             doc.Save(pathToPDF);
             doc.Close();
             Process.Start(pathToPDF);
         }
-        private static void writeScale(XGraphics gfx, PdfPage page, double scaleFactor)
-        {
-            string strScFactor = "";
-            if (scaleFactor == 2.0) { strScFactor = "1:200'000"; }
-            if (scaleFactor == 2.5) { strScFactor = "1:250'000"; }
+        //private static void writeScale(XGraphics gfx, PdfPage page, double scaleFactor)
+        //{
+        //    string strScFactor = "";
+        //    if (scaleFactor == 2.0) { strScFactor = "1:200'000"; }
+        //    if (scaleFactor == 2.5) { strScFactor = "1:250'000"; }
       
-            XRect rect = new XRect(XUnit.FromCentimeter(1.0), XUnit.FromCentimeter(19.5), Unit.FromCentimeter(5.0), Unit.FromCentimeter(1.0));
-            gfx.DrawRectangle(XBrushes.White, rect);
-            XTextFormatter tf = new XTextFormatter(gfx);
-            tf.DrawString(string.Format("Map scale {0}", strScFactor), new XFont("Verdana", 10, XFontStyle.Regular), XBrushes.Black, rect, XStringFormats.TopLeft);
-        }
+        //    XRect rect = new XRect(XUnit.FromCentimeter(1.0), XUnit.FromCentimeter(19.5), Unit.FromCentimeter(5.0), Unit.FromCentimeter(1.0));
+        //    gfx.DrawRectangle(XBrushes.White, rect);
+        //    XTextFormatter tf = new XTextFormatter(gfx);
+        //    tf.DrawString(string.Format("Map scale {0}", strScFactor), new XFont("Verdana", 10, XFontStyle.Regular), XBrushes.Black, rect, XStringFormats.TopLeft);
+        //}
 
         public static void CreateParcourPDF100k(ParcourPictureBox picBox, Client.DataAccess c, String parcourName, String pathToPDF, String overlayText)
         {
@@ -289,11 +289,11 @@ namespace AirNavigationRaceLive.Comps.Helper
 
             gfx.DrawString("Competition: " + c.SelectedCompetition.Name,
                 new XFont("Verdana", 16, XFontStyle.Bold), XBrushes.Black,
-                new XPoint(XUnit.FromCentimeter(2), XUnit.FromCentimeter(2)));
+                new XPoint(XUnit.FromCentimeter(1), XUnit.FromCentimeter(2)));
 
             gfx.DrawString("Parcour: " + parcourName,
                 new XFont("Verdana", 14, XFontStyle.Bold), XBrushes.Black,
-                new XPoint(XUnit.FromCentimeter(2), XUnit.FromCentimeter(3)));
+                new XPoint(XUnit.FromCentimeter(1), XUnit.FromCentimeter(3)));
 
             XImage image = XImage.FromGdiPlusImage(picBox.PrintOutImage);
 
