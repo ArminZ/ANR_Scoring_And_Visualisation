@@ -42,6 +42,7 @@
             this.textBox.Name = "textBox";
             this.textBox.Size = new System.Drawing.Size(270, 132);
             this.textBox.TabIndex = 0;
+            this.textBox.Text = "Map scale = 1:200 000\r\nParcour lenght = \r\nTime = 12:00 (@80 kt)";
             // 
             // button
             // 
