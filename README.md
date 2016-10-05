@@ -22,7 +22,7 @@ Luc has stored the 2015 development code in a dedicated GitHub repository ( http
 My starting point for the code upgrade was a clone of Luc's Github repository.
 
 --- 
-#### What's new here (version 1.0.15.0)?
+#### What's new here (version 1.0.15)?
 **Improvements in user interface**
 
 * Less buttons, implemented editable datagridviews instead of lists in many places
