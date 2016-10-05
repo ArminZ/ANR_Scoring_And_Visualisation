@@ -56,5 +56,17 @@ namespace AirNavigationRaceLive.Properties {
                 return ((string)(this["anrlConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool parcourPDFAdditionalText {
+            get {
+                return ((bool)(this["parcourPDFAdditionalText"]));
+            }
+            set {
+                this["parcourPDFAdditionalText"] = value;
+            }
+        }
     }
 }

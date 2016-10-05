@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.IO;
+using System.Xml;
 using System.Globalization;
 using SharpKml.Engine;
 using SharpKml.Base;
@@ -31,6 +32,7 @@ namespace AirNavigationRaceLive.Comps
         {
             Client = iClient;
             InitializeComponent();
+            isValidated();
         }
 
 
@@ -46,6 +48,7 @@ namespace AirNavigationRaceLive.Comps
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Load KML file with Route center lines";
             //ofd.RestoreDirectory = true;
+            ofd.RestoreDirectory = true;
             ofd.Multiselect = false;
             ofd.Filter = FileFilter;
             //ofd.FilterIndex = 5;
@@ -62,8 +65,6 @@ namespace AirNavigationRaceLive.Comps
             OpenFileDialog ofd = sender as OpenFileDialog;
             string fName = ofd.FileName;
             FileNameKML = ofd.FileName;
-
-            btnSaveKML.Enabled = FileNameKML != null;
 
             if (fName == string.Empty)
             {
@@ -109,6 +110,7 @@ namespace AirNavigationRaceLive.Comps
             sfd.Title = "Generate ANR routes and save as KML";
             sfd.FileName = FileNameKML.Replace(".kml", "_out.kml");
             sfd.CheckFileExists = false;
+            sfd.RestoreDirectory = true;
             sfd.Filter = FileFilter;
             //ofd.FilterIndex = 5;
             sfd.FileOk += new CancelEventHandler(ofd_FileOkSaveKML);
@@ -145,7 +147,9 @@ namespace AirNavigationRaceLive.Comps
 
             SaveFileDialog sfd = sender as SaveFileDialog;
             string fname = sfd.FileName;
-            Document document = ANRData.createANR(ListOfListOfVectors, HAS_MARKERS, CREATE_PROH_AREA, USE_STANDARD_ORDER, channelRadius, STYLENAME, ListOfNames, altitude);
+            ANRData anrData = new ANRData();
+            anrData.generateParcour(ListOfListOfVectors, HAS_MARKERS, CREATE_PROH_AREA, USE_STANDARD_ORDER, channelRadius, STYLENAME, ListOfNames, altitude);
+            Document document = anrData.Document;
             Kml kml = new Kml();
             kml.Feature = document;
             KmlFile file = KmlFile.Create(kml, false);
@@ -153,8 +157,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 file.Save(stream);
             }
-            AirNavigationRaceLiveMain.SetStatusText(string.Format("Route Generator - saved file {0}",sfd.FileName));
-
+            AirNavigationRaceLiveMain.SetStatusText(string.Format("Route Generator - saved file {0}", sfd.FileName));
         }
 
         private void btnAddRoute_Click(object sender, EventArgs e)
@@ -164,16 +167,15 @@ namespace AirNavigationRaceLive.Comps
             if (!chkAddAllRoutes.Checked)
             {
                 if (treeViewAvailableRoutes.SelectedNode == null)
-                { 
+                {
                     return;
                 }
                 else
                 {
                     // add only the selected route
                     idxStart = treeViewAvailableRoutes.SelectedNode.Index;
-                    idxEnd = treeViewAvailableRoutes.SelectedNode.Index + 1;     
+                    idxEnd = treeViewAvailableRoutes.SelectedNode.Index + 1;
                 }
-
             }
 
             for (int i = idxStart; i < idxEnd; i++)
@@ -193,7 +195,7 @@ namespace AirNavigationRaceLive.Comps
                     MessageBox.Show(String.Format("The selected name <{0}> in the KML file is not valid. Valid names for ANR routes are A, B, C or D. ", strName), String.Format("KML Path name <{0}>", strName), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-
+            isValidated();
         }
 
         private void btnClearSelected_Click(object sender, EventArgs e)
@@ -202,53 +204,8 @@ namespace AirNavigationRaceLive.Comps
             treeViewSelectedRoutes.Nodes.Clear();
             ListOfListOfVectors.Clear();
             ListOfNames.Clear();
+            isValidated();
         }
-
-        private void txtChannelWidth_Validating(object sender, CancelEventArgs e)
-        {
-            txtChannelWidth.Text = txtChannelWidth.Text.Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
-
-            double _width;
-            if (!double.TryParse(txtChannelWidth.Text, out _width))
-            {
-                MessageBox.Show("The number format is invalid", "Channel width", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtChannelWidth.SelectAll();
-                txtChannelWidth.Focus();
-            }
-            else
-            {
-                if (_width < 0.1 || _width > 2.0)
-                {
-                    MessageBox.Show("Value must be between 0.1 NM and 2.0 NM", "Channel width", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    txtChannelWidth.SelectAll();
-                    txtChannelWidth.Focus();
-                }
-            }
-        }
-
-        private void txtHeight_Validating(object sender, CancelEventArgs e)
-        {
-            txtHeight.Text = txtHeight.Text.Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
-
-            double _height;
-            if (!double.TryParse(txtHeight.Text, out _height))
-            {
-                MessageBox.Show("The number format is invalid", "Height Value", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtHeight.SelectAll();
-                txtHeight.Focus();
-            }
-            else
-            {
-                if (_height < 100.0 || _height > 600.0)
-                {
-                    MessageBox.Show("Value must be between 100m and 600m", "Height Value", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    txtHeight.SelectAll();
-                    txtHeight.Focus();
-                }
-            }
-
-        }
-
 
         private void ExtractPlaceMarkLineStrings(Feature feature, TreeView trv)
         {
@@ -281,6 +238,46 @@ namespace AirNavigationRaceLive.Comps
                     }
                 }
             }
+        }
+
+        private void txtChannelWidth_TextChanged(object sender, EventArgs e)
+        {
+            isValidated();
+        }
+
+        private void txtHeight_TextChanged(object sender, EventArgs e)
+        {
+            isValidated();
+        }
+
+        private void isValidated()
+        {
+            bool _isValidated = true;
+            double _val;
+            errorProvider1.Clear();
+
+            if (!double.TryParse(txtChannelWidth.Text, out _val))
+            {
+                errorProvider1.SetError(txtChannelWidth, "Invalid number format");
+            }
+
+            if (_val < 0.1 || _val > 2.0)
+            {
+                errorProvider1.SetError(txtChannelWidth, "Value must be between 0.1 NM and 2.0 NM");
+            }
+
+            if (!double.TryParse(txtHeight.Text, out _val))
+            {
+                errorProvider1.SetError(txtHeight, "Invalid number format");
+            }
+            if (_val < 100 || _val > 600)
+            {
+                errorProvider1.SetError(txtHeight, "Value must be between 100m and 600m");
+            }
+
+            string strErr = errorProvider1.GetError(txtHeight) + errorProvider1.GetError(txtChannelWidth);
+            _isValidated = string.IsNullOrEmpty(strErr) && treeViewSelectedRoutes.Nodes.Count > 0;
+            btnSaveKML.Enabled = _isValidated;
         }
     }
 }

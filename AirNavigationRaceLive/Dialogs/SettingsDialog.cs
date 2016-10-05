@@ -23,7 +23,7 @@ namespace AirNavigationRaceLive.Dialogs
             errorProvider1.Clear();
             // check if path exists or
             bool ret = true;
-            if (radioButtonFixed.Checked)
+            if (checkBoxDefaultDBDirectory.Checked)
             {
                 // check if valid file path
                 if (!System.IO.Directory.Exists(textBoxDatabasePath.Text))
@@ -60,33 +60,35 @@ namespace AirNavigationRaceLive.Dialogs
 
         private void saveSettings()
         {
-            Properties.Settings.Default.promptForDB = radioButtonPrompt.Checked;
+            Properties.Settings.Default.promptForDB = !checkBoxDefaultDBDirectory.Checked;
             Properties.Settings.Default.directoryForDB = textBoxDatabasePath.Text;
+            Properties.Settings.Default.parcourPDFAdditionalText = checkBoxParcourAdditionalText.Checked;
             Properties.Settings.Default.Save();
         }
 
         private void getSettings()
         {
-            radioButtonPrompt.Checked = Properties.Settings.Default.promptForDB;
-            radioButtonFixed.Checked = !radioButtonPrompt.Checked;
+            checkBoxDefaultDBDirectory.Checked = !Properties.Settings.Default.promptForDB;
+            checkBoxParcourAdditionalText.Checked = Properties.Settings.Default.parcourPDFAdditionalText;
             textBoxDatabasePath.Text = Properties.Settings.Default.directoryForDB;
+            textBoxDatabasePath.Enabled = checkBoxDefaultDBDirectory.Checked;
         }
 
-        private void radioButtonFixed_CheckedChanged(object sender, EventArgs e)
-        {
-            textBoxDatabasePath.Enabled = radioButtonFixed.Checked;
-            btnOK.Enabled = isValidSettings();
-        }
-
-        private void radioButtonPrompt_CheckedChanged(object sender, EventArgs e)
-        {
-            textBoxDatabasePath.Enabled = !radioButtonPrompt.Checked;
-            btnOK.Enabled = isValidSettings();
-        }
-
+    
         private void textBoxDatabasePath_TextChanged(object sender, EventArgs e)
         {
            btnOK.Enabled= isValidSettings();
+        }
+
+        private void checkBoxDefaultDBDirectory_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxDatabasePath.Enabled = checkBoxDefaultDBDirectory.Checked;
+            btnOK.Enabled = isValidSettings();
+        }
+
+        private void checkBoxParcourAdditionalText_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
