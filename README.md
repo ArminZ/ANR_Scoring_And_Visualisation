@@ -22,7 +22,7 @@ Luc has stored the 2015 development code in a dedicated GitHub repository ( http
 My starting point for the code upgrade was a clone of Luc's Github repository.
 
 --- 
-#### What's new here (version 1.0.14.0)?
+#### What's new here (version 1.0.15.0)?
 **Improvements in user interface**
 
 * Less buttons, implemented editable datagridviews instead of lists in many places
@@ -41,6 +41,7 @@ My starting point for the code upgrade was a clone of Luc's Github repository.
 It is basically a replacement for the original coordinate upload with an AutoCAD (*.dxf) file. Routes can now be created with Google Earth Pro,and the resulting kml file uploaded. A dedicated AutoCAD software is not required anymore.
 * Export for flight data in *.gpx format implemented
 * User settings: the user can select a default batabase path (or being prompted when the application starts)
+* User settings: for Parcour pdf export, the user can select to include an additional text (pop-up).
 
 **Other minor changes**
 * Results, Map Export + List Export: only teams that have flight data (=uploaded logger data) are shown 
@@ -48,6 +49,7 @@ It is basically a replacement for the original coordinate upload with an AutoCAD
 * Map preview: transparency value can be saved; replaced Trackbar control with numericUpDown
 * Start List calculation & re-calculation implemented
 * Legacy calculator (WGS84-CH1903) moved to Tools
+* Parcour pdf export also in scale 1:250:000
 
 **Updated documentation** 
 * Documentation about map conversion and map import
