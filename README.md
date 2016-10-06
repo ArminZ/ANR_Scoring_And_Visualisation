@@ -22,36 +22,26 @@ Luc has stored the 2015 development code in a dedicated GitHub repository ( http
 My starting point for the code upgrade was a clone of Luc's Github repository.
 
 --- 
-#### What's new here (version 1.0.14.0)?
-**Improvements in user interface**
+#### What's new here (version 1.0.15)?
 
-* Less buttons, implemented editable datagridviews instead of lists in many places
-* Separate input windows if reasonable
-
-**Removed outdated and unused code/features**
-* Outdated real-time tracking removed
-* Google plugin deprecated & u/s, removed
 
 **Bug fixes and error handling** 
-* Mainly decimal separator related issues (dot/comma)
-* Improved error handling
+* Bug fix for Start list calculation
 
 **Additional features** 
-* Route generator implemented. This is probably the most important change. 
-It is basically a replacement for the original coordinate upload with an AutoCAD (*.dxf) file. Routes can now be created with Google Earth Pro,and the resulting kml file uploaded. A dedicated AutoCAD software is not required anymore.
-* Export for flight data in *.gpx format implemented
 * User settings: the user can select a default batabase path (or being prompted when the application starts)
+* User settings: enable/disable additional overlay text for Parcour PDF export
+* Coordinate export (*.kml->*.txt) for Route Generator
 
 **Other minor changes**
-* Results, Map Export + List Export: only teams that have flight data (=uploaded logger data) are shown 
-* Result List Export, shared ranking implemented
-* Map preview: transparency value can be saved; replaced Trackbar control with numericUpDown
-* Start List calculation & re-calculation implemented
-* Legacy calculator (WGS84-CH1903) moved to Tools
+* Parcour PDF export, maps scale 1:250'000 implemented
+* Parcour PDF export, text showing the map scale is added (if no overlay text, or overlay text is empty)
+* Parcour PDF export, size and positioning of additional overlay text 
 
 **Updated documentation** 
 * Documentation about map conversion and map import
 * Some documentation about the route generator
+* General updates (some missing application parts included)
 
 ---
 #### Download?
