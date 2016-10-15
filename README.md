@@ -30,7 +30,7 @@ The most important changes (comparing to Luc's latest version) are
 * Entirely revised user interface
 * Removal of unused code and bug corrections
 * Additional functionality ('Route Generator')
-* Documentation, including tricky subjects like map conversion/map imprt, and parcour creation/import
+* Documentation, including tricky subjects like map conversion/map import, and parcour creation/import
 
 --- 
 #### What is new here (version 1.0.15)?
