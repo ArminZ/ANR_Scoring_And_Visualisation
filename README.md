@@ -5,7 +5,7 @@ For more details please refer to the FAI pages on http://www.fai.org/gac-our-spo
 The ANR scoring and visualisation software presented below is an application used in Air Navigation Race (ANR) competitions.
 In brief, this software is used to create & manage ANR competitions and competition tasks, and -maps. 
 Data collected during the competition flight is imported into the application, and penalty points for the flight will be calculated. 
-This application allows to import map data, to design a competition tasks in Google Earth, 
+This application allows to import map data, to design a competition tasks (referred to as 'parcour') in Google Earth, 
 and to print out the map with the competition task overlay.
 
 ---
@@ -22,7 +22,14 @@ Old code can be found from the google code archive https://code.google.com/archi
 At this time the application was basically a client-server application with a centralized database server.
 There has been some development later (2015), developed probably from the 2013 version of the Anrl.zip (workaround-local-app) of above google code. 
 Luc has stored the 2015 development code in a dedicated GitHub repository ( https://github.com/helios57/anrl )
-My starting point for the code upgrade was a clone of Luc's Github repository.
+My starting point for the code upgrade was a clone of Luc's Github repository
+
+#### What is new?
+The most important changes (comparing to Luc's latest version) are
+
+* Entirely revised user interface
+* Removal of unused code and bug corrections
+* Additional functionality ('Route Generator')
 
 --- 
 #### What is new here (version 1.0.15)?
