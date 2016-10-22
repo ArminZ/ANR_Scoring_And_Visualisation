@@ -48,7 +48,16 @@ namespace AirNavigationRaceLive
 
         public AirNavigationRaceLiveMain()
         {
-            Client = DataAccess.Instance;
+            try
+            {
+                Client = DataAccess.Instance;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.InnerException.Message,"Exception - Connection to database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //throw;
+            }
+
             InitializeComponent();
             main = this;
         }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {
-    class GeneratePenalty
+ public class GeneratePenalty
     {
         private const long tickOfSecond = 10000000;
         private const long tickOfMinute = tickOfSecond * 60;
