@@ -12,7 +12,7 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {
-    static class Importer
+   public static class Importer
     {
         /// <summary> 
         /// Imports a DxfFile that is in the specified Format. Any changes on the import schema may cause Errors!
@@ -993,26 +993,31 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// </example>
         /// <param name="str"></param>
         /// <returns>A list of points</returns>
-        public static List<Point> getPointsFromKMLCoordinates(string str)
+        public static List<Point> getPointsFromKMLCoordinates(string str, bool includeAltitude = false)
         {
             Line l = new Line();
             Point point = new Point();
             List<Point> lst = new List<Point>();
-            double lon, lat;
             string[] pt;
             // NOTE: string may contain linebreaks instead of space
             string[] ptstrings = str.Replace("\n", " ").Split(' ');
 
             foreach (var ptstring in ptstrings)
             {
+                double lon, lat, alt = 0.0;
                 point = new Point();
                 pt = ptstring.Split(',');
                 if (double.TryParse(pt[0].Trim(), System.Globalization.NumberStyles.Float, NumberFormatInfo.InvariantInfo, out lon) &&
-                    double.TryParse(pt[1].Trim(), System.Globalization.NumberStyles.Float, NumberFormatInfo.InvariantInfo, out lat)
+                    double.TryParse(pt[1].Trim(), System.Globalization.NumberStyles.Float, NumberFormatInfo.InvariantInfo, out lat) &&
+                    double.TryParse(pt[2].Trim(), System.Globalization.NumberStyles.Float, NumberFormatInfo.InvariantInfo, out alt)
 )
                 {
                     point.longitude = lon;
                     point.latitude = lat;
+                    if (includeAltitude)
+                    {
+                        point.altitude = alt;
+                    }
                     lst.Add(point);
                 }
             }

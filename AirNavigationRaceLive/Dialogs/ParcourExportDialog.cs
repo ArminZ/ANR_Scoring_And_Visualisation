@@ -21,12 +21,12 @@ namespace AirNavigationRaceLive.Dialogs
         {
             bool hasErrors = false;
             errorProvider1.Clear();
-            if (String.IsNullOrEmpty(txtOutputFile.Text) || !System.IO.Directory.Exists(Path.GetDirectoryName(txtOutputFile.Text)))
+            if ((TextBox)sender == txtOutputFile && (String.IsNullOrEmpty(txtOutputFile.Text) || !System.IO.Directory.Exists(Path.GetDirectoryName(txtOutputFile.Text))))
             {
                 errorProvider1.SetError(txtOutputFile, "Invalid directory");
                 hasErrors = true;
             }
-            if (String.IsNullOrEmpty(txtInputFile.Text) || !System.IO.File.Exists(txtInputFile.Text))
+            if ((TextBox)sender == txtInputFile && (String.IsNullOrEmpty(txtInputFile.Text) || !System.IO.File.Exists(txtInputFile.Text)))
             {
                 errorProvider1.SetError(txtInputFile, "Invalid file name");
                 hasErrors = true;
@@ -54,6 +54,8 @@ namespace AirNavigationRaceLive.Dialogs
             ofd.FilterIndex = 1;
             ofd.ShowDialog();
             txtInputFile.Text = ofd.FileName;
+            btnExportParcourCoord.Enabled = true;
+            btnClear.Enabled = true;
         }
 
         private void btnOutput_Click(object sender, EventArgs e)
@@ -61,11 +63,12 @@ namespace AirNavigationRaceLive.Dialogs
             SaveFileDialog sfd = new SaveFileDialog();
             string FileFilter = "Text file (*.txt)|*.txt|All Files (*.*)|*.*";
             sfd.Title = "Coordinates of Route input / Parcour Layer";
-            sfd.RestoreDirectory = true;
-            sfd.CheckPathExists = true;
+             sfd.RestoreDirectory = true;
+           // sfd.CheckPathExists = true;
             sfd.OverwritePrompt = true;
             sfd.Filter = FileFilter;
             sfd.FilterIndex = 1;
+            sfd.FileName = Path.Combine(Path.GetDirectoryName(txtInputFile.Text), Path.GetFileNameWithoutExtension(txtInputFile.Text) + "_out.txt");
             sfd.ShowDialog();
             txtOutputFile.Text = sfd.FileName;
         }
@@ -90,6 +93,8 @@ namespace AirNavigationRaceLive.Dialogs
             {
                 MessageBox.Show(ex.ToString(), "Error while Parsing kml File");
             }
+            btnExportParcourCoord.Enabled = false;
+            btnClear.Enabled = false;
         }
 
         private void txtOutputFile_TextChanged(object sender, EventArgs e)
