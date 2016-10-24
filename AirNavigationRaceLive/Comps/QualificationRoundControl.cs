@@ -63,15 +63,15 @@ namespace AirNavigationRaceLive.Comps
 
         private void UpdateEnablement()
         {
-            bool isCompetitionSelected = listViewQualificationRound.SelectedItems.Count == 1;
+            bool isQRSelected = listViewQualificationRound.SelectedItems.Count == 1;
 
             bool Ediable = textName.Text != "";
             bool isParcourSelected = comboBoxParcour.SelectedItem != null;
             bool hasTakeOffLine = false;
-            groupBoxStartList.Visible = isCompetitionSelected;
+            groupBoxStartList.Visible = isQRSelected;
             hasTakeOffLine = !hasValidationErrors();
 
-            btnDeleteQualificationRound.Enabled = isCompetitionSelected;
+            btnDeleteQualificationRound.Enabled = isQRSelected;
             btnSaveQualificationRound.Enabled = Ediable && isParcourSelected && hasTakeOffLine;
 
             groupBoxTKOFLine.Enabled = Ediable;
@@ -83,6 +83,9 @@ namespace AirNavigationRaceLive.Comps
 
             btnExportToPDF.Enabled = btnSaveQualificationRound.Enabled;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            btnAutoFillStartList.Enabled = isQRSelected;
+            btnRecalcStartList.Enabled = isQRSelected && dataGridView1.RowCount>0;
 
         }
 
