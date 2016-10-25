@@ -35,7 +35,7 @@ The most important changes (comparing to Luc's latest version) are
 --- 
 #### What is new in this version?
 
-* Please refer to the release section
+Changes for each version are listed in the [Release section](../../releases) of this repository.
 
 ---
 #### Download?
