@@ -33,26 +33,9 @@ The most important changes (comparing to Luc's latest version) are
 * Documentation, including tricky subjects like map conversion/map import, and parcour creation/import
 
 --- 
-#### What is new here (version 1.0.15)?
+#### What is new in this version?
 
-
-**Bug fixes and error handling** 
-* Bug fix for Start list calculation
-
-**Additional features** 
-* User settings: the user can select a default batabase path (or being prompted when the application starts)
-* User settings: enable/disable additional overlay text for Parcour PDF export
-* Coordinate export (*.kml->*.txt) for Route Generator
-
-**Other minor changes**
-* Parcour PDF export, maps scale 1:250'000 implemented
-* Parcour PDF export, text showing the map scale is added (if no overlay text, or overlay text is empty)
-* Parcour PDF export, size and positioning of additional overlay text 
-
-**Updated documentation** 
-* Documentation about map conversion and map import
-* Some documentation about the route generator
-* General updates (some missing application parts included)
+* Please refer to the release section
 
 ---
 #### Download?
