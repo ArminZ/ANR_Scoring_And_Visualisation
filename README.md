@@ -9,9 +9,9 @@ This application allows to import map data, to design a competition tasks (refer
 and to print out the map with the competition task overlay.
 
 ---
-#### Tech
-The application is a Microsoft Windows Forms (stand-alone) application written in C# (.NET framework 4.5, & Entity framework). 
-Data is stored in a local MS SQL database file.
+#### Technical
+The application is a Microsoft Windows Forms (stand-alone) application written in C# (.NET Framework 4.5, Entity framework 6.1). 
+Data is stored in a local MS SQL database file (SQLLocalDB).
 
 ---
 #### History
@@ -30,7 +30,7 @@ The most important changes (comparing to Luc's latest version) are
 * Entirely revised user interface
 * Removal of unused code and bug corrections
 * Additional functionality ('Route Generator')
-* Documentation, including tricky subjects like map conversion/map import, and parcour creation/import
+* Documentation, including the important subjects map conversion/map import, and parcour creation/import
 
 --- 
 #### What is new in this version?
