@@ -19,10 +19,7 @@ With the original ANR rules and specifications by Heini Schawalder and Maurice D
 software was initiated during 2009-2010 at the Commercial and Industrial Training college, Berne, Switzerland (GIBBS), 
 under the technical lead of **Luc Baumann/SharpSoft**. Luc has been maintaining the application since its beginnings in 2009.
 Old code can be found from the google code archive https://code.google.com/archive/p/anrl/downloads. 
-At this time the application was basically a client-server application with a centralized database server.
-There has been some development later (2015), developed probably from the 2013 version of the Anrl.zip (workaround-local-app) of above google code. 
-Luc has stored the 2015 development code in a dedicated GitHub repository ( https://github.com/helios57/anrl )
-My starting point for the code upgrade was a clone of Luc's Github repository
+At this time the application was basically a client-server application with a centralized database server. Later on a first stand-alone version was tested. There has been some development in 2015, probably from the 2013 stand-alone version of the 'Anrl.zip (workaround-local-app)' version of above google code. Luc has stored the latest code of the 2015 stand-alone version in a dedicated GitHub repository ( https://github.com/helios57/anrl). This repository served as the starting point for the code presented here.
 
 #### What is new?
 The most important changes (comparing to Luc's latest version) are
