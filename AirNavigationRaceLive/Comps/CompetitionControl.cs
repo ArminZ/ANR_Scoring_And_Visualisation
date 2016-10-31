@@ -14,6 +14,7 @@ namespace AirNavigationRaceLive.Comps
 
         private volatile bool active = false;
         private Competition compDeleted;
+        private int Idx = -1;  // index of the added or changed row
 
         public CompetitionControl(Client.DataAccess client)
         {
@@ -46,6 +47,12 @@ namespace AirNavigationRaceLive.Comps
                 dgvr.SetValues(cs.Id, cs.Name);
                 dataGridView1.Rows.Add(dgvr);
             }
+            if (Idx>=0)
+            {
+                // set selected Row / Current cell 
+                dataGridView1.Rows[Idx].Selected = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[Idx].Cells[1];
+            }
         }
 
 
@@ -72,18 +79,6 @@ namespace AirNavigationRaceLive.Comps
                 active = false;
                 UpdateEnablement();
             }
-        }
-
-
-
-        private void fldCompetition_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateEnablement();
-        }
-
-        private void fldCompetitionName_TextChanged(object sender, EventArgs e)
-        {
-            UpdateEnablement();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -113,11 +108,9 @@ namespace AirNavigationRaceLive.Comps
                 c.DBContext.CompetitionSet.Remove(compDeleted);
                 compDeleted = null;
                 c.DBContext.SaveChanges();
+                Idx = -1;
                 this.BeginInvoke(new MethodInvoker(reloadCompetitions));
             }
-        }
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -129,10 +122,6 @@ namespace AirNavigationRaceLive.Comps
                     textBoxSelectedComp.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
                 }
             }
-        }
-
-        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
         }
 
         private void dataGridView1_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
@@ -173,6 +162,7 @@ namespace AirNavigationRaceLive.Comps
                 comp.Name = compVal.ToString().Trim();
                 c.DBContext.SaveChanges();
             }
+            Idx = e.RowIndex;
             dataGridView1.Rows[e.RowIndex].ErrorText = "";
             this.BeginInvoke(new MethodInvoker(reloadCompetitions));
         }
@@ -184,16 +174,16 @@ namespace AirNavigationRaceLive.Comps
         }
     }
 
-    class RoleCombo
-    {
-        public NetworkObjects.Access role;
-        public RoleCombo(NetworkObjects.Access role)
-        {
-            this.role = role;
-        }
-        public override string ToString()
-        {
-            return System.Enum.GetName(NetworkObjects.Access.Admin.GetType(), role);
-        }
-    }
+    //class RoleCombo
+    //{
+    //    public NetworkObjects.Access role;
+    //    public RoleCombo(NetworkObjects.Access role)
+    //    {
+    //        this.role = role;
+    //    }
+    //    public override string ToString()
+    //    {
+    //        return System.Enum.GetName(NetworkObjects.Access.Admin.GetType(), role);
+    //    }
+    //}
 }

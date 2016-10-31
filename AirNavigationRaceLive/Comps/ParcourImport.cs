@@ -31,6 +31,7 @@ namespace AirNavigationRaceLive.Comps
         {
             Client = iClient;
             InitializeComponent();
+
             lblCompetition.Text = Client.SelectedCompetition.Name + " - parcours";
             PictureBox1.Cursor = new Cursor(@"Resources\GPSCursor.cur");
             activeParcour = new Parcour();
@@ -241,26 +242,17 @@ namespace AirNavigationRaceLive.Comps
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // CurrentMap == null is handled by errorProvider (avoid pop-ups)
-            //if (CurrentMap == null)
-            //{
-            //    MessageBox.Show("No Map selected", "Incomplete Data");
-            //}
-            //else
-            //{
             Parcour p = new Parcour();
-                p.Name = fldName.Text;
-                foreach(Line l in activeParcour.Line)
-                {
-                    p.Line.Add(l);
-                }
-                p.Map = CurrentMap;
-                p.Competition = Client.SelectedCompetition;
-                Client.DBContext.ParcourSet.Add(p);
-                Client.DBContext.SaveChanges();
-                btnClear_Click(null, null);
-                MessageBox.Show("Successfully saved");
-            //}
+            p.Name = fldName.Text;
+            foreach (Line l in activeParcour.Line)
+            {
+                p.Line.Add(l);
+            }
+            p.Map = CurrentMap;
+            p.Competition = Client.SelectedCompetition;
+            Client.DBContext.ParcourSet.Add(p);
+            Client.DBContext.SaveChanges();
+            MessageBox.Show("Successfully saved", "Parcour", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void PictureBox1_Click(object sender, MouseEventArgs e)
@@ -328,8 +320,8 @@ namespace AirNavigationRaceLive.Comps
                 activeParcour = Importer.importFromDxfCH(ofd.FileName);
                 PictureBox1.SetParcour(activeParcour);
                 PictureBox1.Invalidate();
-                 fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
-           }
+                fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Error while Parsing File");
@@ -395,7 +387,7 @@ namespace AirNavigationRaceLive.Comps
         }
         #endregion
 
-   
+
         private void btnImportDxfWGS_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -427,7 +419,6 @@ namespace AirNavigationRaceLive.Comps
 
         private void btnImportSwitched_Click(object sender, EventArgs e)
         {
-
             OpenFileDialog ofd = new OpenFileDialog();
             string FileFilter = "AutoCAD Files (*.dxf)|*.dxf|All Files (*.*)|*.*";
             ofd.Title = "DXF File Import (WGS84), Switched";
@@ -481,7 +472,7 @@ namespace AirNavigationRaceLive.Comps
             }
             catch (ApplicationException ex1)
             {
-                MessageBox.Show(ex1.Message,"Parcour import from *.kml",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(ex1.Message, "Parcour import from *.kml", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
@@ -498,11 +489,11 @@ namespace AirNavigationRaceLive.Comps
         {
             bool hasErrors = false;
             errorProviderParcourImport.Clear();
-                if (string.IsNullOrWhiteSpace(fldName.Text))
-                {
+            if (string.IsNullOrWhiteSpace(fldName.Text))
+            {
                 errorProviderParcourImport.SetError(fldName, "Fill a name");
                 hasErrors = true;
-                }
+            }
             if (CurrentMap == null)
             {
                 errorProviderParcourImport.SetError(fldName, "No Map selected");

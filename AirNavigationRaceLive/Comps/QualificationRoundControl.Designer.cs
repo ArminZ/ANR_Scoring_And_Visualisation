@@ -94,7 +94,7 @@
             // 
             // btnDeleteQualificationRound
             // 
-            this.btnDeleteQualificationRound.Location = new System.Drawing.Point(0, 623);
+            this.btnDeleteQualificationRound.Location = new System.Drawing.Point(0, 578);
             this.btnDeleteQualificationRound.Margin = new System.Windows.Forms.Padding(4);
             this.btnDeleteQualificationRound.Name = "btnDeleteQualificationRound";
             this.btnDeleteQualificationRound.Size = new System.Drawing.Size(273, 35);
@@ -105,7 +105,7 @@
             // 
             // btnRefreshCompetitions
             // 
-            this.btnRefreshCompetitions.Location = new System.Drawing.Point(0, 579);
+            this.btnRefreshCompetitions.Location = new System.Drawing.Point(0, 663);
             this.btnRefreshCompetitions.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefreshCompetitions.Name = "btnRefreshCompetitions";
             this.btnRefreshCompetitions.Size = new System.Drawing.Size(273, 36);
@@ -319,6 +319,7 @@
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(164, 22);
             this.textName.TabIndex = 54;
+            this.textName.TextChanged += new System.EventHandler(this.textName_TextChanged);
             // 
             // label2
             // 
@@ -364,7 +365,6 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(819, 358);
             this.dataGridView1.TabIndex = 80;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_UserDeletedRow);
             this.dataGridView1.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView1_UserDeletingRow);
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
@@ -520,7 +520,7 @@
             // 
             // btnExportToPDF
             // 
-            this.btnExportToPDF.Location = new System.Drawing.Point(0, 666);
+            this.btnExportToPDF.Location = new System.Drawing.Point(0, 621);
             this.btnExportToPDF.Margin = new System.Windows.Forms.Padding(4);
             this.btnExportToPDF.Name = "btnExportToPDF";
             this.btnExportToPDF.Size = new System.Drawing.Size(273, 34);
