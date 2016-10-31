@@ -9,20 +9,17 @@ This application allows to import map data, to design a competition tasks (refer
 and to print out the map with the competition task overlay.
 
 ---
-#### Tech
-The application is a Microsoft Windows Forms (stand-alone) application written in C# (.NET framework 4.5, & Entity framework). 
-Data is stored in a local MS SQL database file.
+#### Technical
+The application is a Microsoft Windows Forms (stand-alone) application written in C# (.NET Framework 4.5, and Entity Framework 6.1). 
+Data is stored in a local MS SQL database file (SQLLocalDB).
 
 ---
 #### History
 With the original ANR rules and specifications by Heini Schawalder and Maurice Ducret, the development for the ANR scoring and visualisation 
-software was initiated during 2009-2010 at the Commercial and Industrial Training college, Berne, Switzerland (GIBBS), 
+software was initiated during 2009-2010 at the Commercial and Industrial Training College, Berne, Switzerland (GIBBS), 
 under the technical lead of **Luc Baumann/SharpSoft**. Luc has been maintaining the application since its beginnings in 2009.
 Old code can be found from the google code archive https://code.google.com/archive/p/anrl/downloads. 
-At this time the application was basically a client-server application with a centralized database server.
-There has been some development later (2015), developed probably from the 2013 version of the Anrl.zip (workaround-local-app) of above google code. 
-Luc has stored the 2015 development code in a dedicated GitHub repository ( https://github.com/helios57/anrl )
-My starting point for the code upgrade was a clone of Luc's Github repository
+At this time the application was basically a client-server application with a centralized database server. Later on a first stand-alone version was tested. There has been some development in 2015, probably from the 2013 stand-alone version of the 'Anrl.zip (workaround-local-app)' version of above google code. Luc has stored the latest code of the 2015 stand-alone version in a dedicated GitHub repository ( https://github.com/helios57/anrl). This repository served as the starting point for the code presented here.
 
 #### What is new?
 The most important changes (comparing to Luc's latest version) are
@@ -30,29 +27,12 @@ The most important changes (comparing to Luc's latest version) are
 * Entirely revised user interface
 * Removal of unused code and bug corrections
 * Additional functionality ('Route Generator')
-* Documentation, including tricky subjects like map conversion/map import, and parcour creation/import
+* Documentation, including the important subjects map conversion/map import, and parcour creation/import
 
 --- 
-#### What is new here (version 1.0.15)?
+#### What is new in this version?
 
-
-**Bug fixes and error handling** 
-* Bug fix for Start list calculation
-
-**Additional features** 
-* User settings: the user can select a default batabase path (or being prompted when the application starts)
-* User settings: enable/disable additional overlay text for Parcour PDF export
-* Coordinate export (*.kml->*.txt) for Route Generator
-
-**Other minor changes**
-* Parcour PDF export, maps scale 1:250'000 implemented
-* Parcour PDF export, text showing the map scale is added (if no overlay text, or overlay text is empty)
-* Parcour PDF export, size and positioning of additional overlay text 
-
-**Updated documentation** 
-* Documentation about map conversion and map import
-* Some documentation about the route generator
-* General updates (some missing application parts included)
+Changes for each version are listed in the [Release section](../../releases) of this repository.
 
 ---
 #### Download?
