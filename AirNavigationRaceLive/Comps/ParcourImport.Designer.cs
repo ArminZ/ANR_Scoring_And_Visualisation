@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblCompetition = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.comboBoxMaps = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -69,15 +71,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.PictureBox1 = new AirNavigationRaceLive.Comps.ParcourPictureBox();
             this.parcourLength = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.channelWide = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.errorProviderParcourImport = new System.Windows.Forms.ErrorProvider(this.components);
-            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblCompetition = new System.Windows.Forms.Label();
-            this.PictureBox1 = new AirNavigationRaceLive.Comps.ParcourPictureBox();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel10.SuspendLayout();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -90,11 +91,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.parcourLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelWide)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderParcourImport)).BeginInit();
-            this.tableLayoutPanel10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -118,6 +118,31 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.28778F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1480, 714);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.ColumnCount = 1;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel10.Controls.Add(this.lblCompetition, 0, 0);
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(23, 23);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 2;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(260, 34);
+            this.tableLayoutPanel10.TabIndex = 4;
+            // 
+            // lblCompetition
+            // 
+            this.lblCompetition.AutoSize = true;
+            this.lblCompetition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCompetition.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCompetition.Location = new System.Drawing.Point(4, 0);
+            this.lblCompetition.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCompetition.Name = "lblCompetition";
+            this.lblCompetition.Size = new System.Drawing.Size(252, 30);
+            this.lblCompetition.TabIndex = 1;
+            this.lblCompetition.Text = "Competition ";
             // 
             // panel1
             // 
@@ -602,6 +627,18 @@
             this.panel6.Size = new System.Drawing.Size(1186, 646);
             this.panel6.TabIndex = 3;
             // 
+            // PictureBox1
+            // 
+            this.PictureBox1.Location = new System.Drawing.Point(4, 4);
+            this.PictureBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.PictureBox1.Name = "PictureBox1";
+            this.PictureBox1.Size = new System.Drawing.Size(500, 500);
+            this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.PictureBox1.TabIndex = 1;
+            this.PictureBox1.TabStop = false;
+            this.PictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_Click);
+            this.PictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
+            // 
             // parcourLength
             // 
             this.parcourLength.Location = new System.Drawing.Point(0, 0);
@@ -636,43 +673,6 @@
             this.errorProviderParcourImport.ContainerControl = this;
             this.errorProviderParcourImport.RightToLeft = true;
             // 
-            // tableLayoutPanel10
-            // 
-            this.tableLayoutPanel10.ColumnCount = 1;
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Controls.Add(this.lblCompetition, 0, 0);
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(23, 23);
-            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
-            this.tableLayoutPanel10.RowCount = 2;
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(260, 34);
-            this.tableLayoutPanel10.TabIndex = 4;
-            // 
-            // lblCompetition
-            // 
-            this.lblCompetition.AutoSize = true;
-            this.lblCompetition.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCompetition.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCompetition.Location = new System.Drawing.Point(4, 0);
-            this.lblCompetition.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCompetition.Name = "lblCompetition";
-            this.lblCompetition.Size = new System.Drawing.Size(252, 30);
-            this.lblCompetition.TabIndex = 1;
-            this.lblCompetition.Text = "Competition ";
-            // 
-            // PictureBox1
-            // 
-            this.PictureBox1.Location = new System.Drawing.Point(4, 4);
-            this.PictureBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.PictureBox1.Name = "PictureBox1";
-            this.PictureBox1.Size = new System.Drawing.Size(500, 500);
-            this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.PictureBox1.TabIndex = 1;
-            this.PictureBox1.TabStop = false;
-            this.PictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_Click);
-            this.PictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
-            // 
             // ParcourImport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -684,6 +684,8 @@
             this.Load += new System.EventHandler(this.ParcourGen_Load);
             this.VisibleChanged += new System.EventHandler(this.ParcourGen_VisibleChanged);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel10.ResumeLayout(false);
+            this.tableLayoutPanel10.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
@@ -701,12 +703,10 @@
             this.panel4.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.parcourLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelWide)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderParcourImport)).EndInit();
-            this.tableLayoutPanel10.ResumeLayout(false);
-            this.tableLayoutPanel10.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

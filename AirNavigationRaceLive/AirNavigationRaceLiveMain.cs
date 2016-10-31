@@ -54,7 +54,7 @@ namespace AirNavigationRaceLive
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.InnerException.Message,"Exception - Connection to database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.InnerException.Message, "Exception - Connection to database", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //throw;
             }
 
@@ -284,7 +284,6 @@ namespace AirNavigationRaceLive
                 Results = new Results(Client);
             }
             enableControl(Results);
-
         }
 
         private void competitionToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -302,7 +301,6 @@ namespace AirNavigationRaceLive
                 Results = new Results(Client);
             }
             enableControl(Results);
-
         }
 
 

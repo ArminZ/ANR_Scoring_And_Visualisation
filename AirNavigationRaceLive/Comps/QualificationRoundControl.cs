@@ -13,7 +13,8 @@ namespace AirNavigationRaceLive.Comps
     public partial class QualificationRoundControl : UserControl
     {
         private Client.DataAccess Client;
-        Flight deleteFlt;
+        private Flight deleteFlt;
+        private int qrIdx =-1; //index of selected QR
 
         public QualificationRoundControl(Client.DataAccess iClient)
         {
@@ -38,8 +39,8 @@ namespace AirNavigationRaceLive.Comps
             UpdateEnablement();
             lblQRound.Text = string.Format("{0} - Qualification Rounds", Client.SelectedCompetition.Name);
             groupBoxStartList.Visible = false;
-
         }
+
         private void LoadTeams()
         {
             List<Team> teams = Client.SelectedCompetition.Team.ToList();
@@ -63,30 +64,31 @@ namespace AirNavigationRaceLive.Comps
 
         private void UpdateEnablement()
         {
-            bool isQRSelected = listViewQualificationRound.SelectedItems.Count == 1;
-
+            // TODO: review and simplify this part
+            bool isQRSelected = listViewQualificationRound.SelectedItems.Count == 1 && qrIdx >= 0;
             bool Ediable = textName.Text != "";
             bool isParcourSelected = comboBoxParcour.SelectedItem != null;
             bool hasTakeOffLine = false;
-            groupBoxStartList.Visible = isQRSelected;
-            hasTakeOffLine = !hasValidationErrors();
 
-            btnDeleteQualificationRound.Enabled = isQRSelected;
-            btnSaveQualificationRound.Enabled = Ediable && isParcourSelected && hasTakeOffLine;
+            hasTakeOffLine = !hasValidationErrors();
 
             groupBoxTKOFLine.Enabled = Ediable;
             btnImportTKOFline.Enabled = Ediable;
             btnSwitchLeftRight.Enabled = Ediable;
 
+            btnSaveQualificationRound.Enabled = Ediable && isParcourSelected && hasTakeOffLine;
             groupBoxGeneral.Enabled = Ediable && isParcourSelected && hasTakeOffLine;
-            groupBoxStartList.Enabled = Ediable && isParcourSelected && hasTakeOffLine;
+            groupBoxStartList.Enabled = Ediable && isParcourSelected && hasTakeOffLine && qrIdx >= 0;
 
-            btnExportToPDF.Enabled = btnSaveQualificationRound.Enabled;
+            btnExportToPDF.Enabled = btnSaveQualificationRound.Enabled && dataGridView1.RowCount > 1;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
+            groupBoxStartList.Visible = isQRSelected;
+            btnDeleteQualificationRound.Enabled = isQRSelected;
             btnAutoFillStartList.Enabled = isQRSelected;
-            btnRecalcStartList.Enabled = isQRSelected && dataGridView1.RowCount>0;
+            btnRecalcStartList.Enabled = isQRSelected;
 
+            btnRefreshCompetitions.Visible = false;  // not in use anymore!
         }
 
         private void Reset()
@@ -131,58 +133,70 @@ namespace AirNavigationRaceLive.Comps
             if (listViewQualificationRound.SelectedItems.Count == 1)
             {
                 QualificationRound c = listViewQualificationRound.SelectedItems[0].Tag as QualificationRound;
-                Client.DBContext.QualificationRoundSet.Remove(c);
-                Client.DBContext.SaveChanges();
-                LoadQualificationRounds();
-                errorProviderQualification.Clear();
+                if (MessageBox.Show(string.Format("Delete the selected Qualification Round:\n {0} ?", c.Name), "Delete Qualification", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    Client.DBContext.QualificationRoundSet.Remove(c);
+                    Client.DBContext.SaveChanges();
+                    LoadQualificationRounds();
+                    errorProviderQualification.Clear();
+
+                    if (listViewQualificationRound.Items.Count > 0)
+                    {
+                        listViewQualificationRound.Items[0].Selected = true;
+                    }
+                    else
+                    {
+                        Reset();
+                    }
+                }
             }
         }
 
         private void btnNewQualificationRound_Click(object sender, EventArgs e)
         {
-            LoadParcours();
             Reset();
-            textName.Text = "new";
+            LoadParcours();
+            textName.Text = String.Empty;
             QualificationRound qualificationRound = new QualificationRound();
             qualificationRound.Competition = Client.SelectedCompetition;
             textName.Tag = qualificationRound;
-            UpdateEnablement();
+            qrIdx =-1;
+            comboBoxParcour.SelectedIndex = -1;
             textName.SelectAll();
             textName.Focus();
-            errorProviderQualification.Clear();
         }
 
         private void btnSaveQualificationRound_Click(object sender, EventArgs e)
         {
             UpdateEnablement();
-            if (btnSaveQualificationRound.Enabled)
+
+            QualificationRound c = textName.Tag as QualificationRound;
+            c.Parcour = (comboBoxParcour.SelectedItem as ComboParcour).p;
+            c.Name = textName.Text;
+
+            Vector start = new Vector(double.Parse(takeOffLeftLongitude.Text), double.Parse(takeOffLeftLatitude.Text), 0);
+            Vector end = new Vector(double.Parse(takeOffRightLongitude.Text), double.Parse(takeOffRightLatitude.Text), 0);
+            Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
+            Line line = new Line();
+            line.A = Factory.newGPSPoint(start.X, start.Y, start.Z);
+            line.B = Factory.newGPSPoint(end.X, end.Y, end.Z);
+            line.O = Factory.newGPSPoint(o.X, o.Y, o.Z);
+            c.TakeOffLine = line;
+            //List<Flight> toDelete = new List<Flight>();
+            //toDelete.AddRange(c.Flight);
+            //Client.DBContext.FlightSet.RemoveRange(toDelete);
+
+            if (c.Id == 0)
             {
-                QualificationRound c = textName.Tag as QualificationRound;
-                c.Parcour = (comboBoxParcour.SelectedItem as ComboParcour).p;
-                c.Name = textName.Text;
-
-                Vector start = new Vector(double.Parse(takeOffLeftLongitude.Text), double.Parse(takeOffLeftLatitude.Text), 0);
-                Vector end = new Vector(double.Parse(takeOffRightLongitude.Text), double.Parse(takeOffRightLatitude.Text), 0);
-                Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
-                Line line = new Line();
-                line.A = Factory.newGPSPoint(start.X, start.Y, start.Z);
-                line.B = Factory.newGPSPoint(end.X, end.Y, end.Z);
-                line.O = Factory.newGPSPoint(o.X, o.Y, o.Z);
-                c.TakeOffLine = line;
-                List<Flight> toDelete = new List<Flight>();
-                toDelete.AddRange(c.Flight);
-                Client.DBContext.FlightSet.RemoveRange(toDelete);
-
-                if (c.Id == 0)
-                {
-                    Client.DBContext.QualificationRoundSet.Add(c);
-                }
-                Client.DBContext.SaveChanges();
-                Reset();
-                LoadQualificationRounds();
-                UpdateEnablement();
-                errorProviderQualification.Clear();
+                Client.DBContext.QualificationRoundSet.Add(c);
+                qrIdx = listViewQualificationRound.Items.Count;
             }
+            Client.DBContext.SaveChanges();
+            Reset();
+            LoadQualificationRounds();
+            UpdateEnablement();
+            errorProviderQualification.Clear();
+            listViewQualificationRound.Items[qrIdx].Selected = true;
         }
 
         private DateTime mergeDateTime(DateTime time, DateTime date)
@@ -221,6 +235,9 @@ namespace AirNavigationRaceLive.Comps
             {
                 ListViewItem lvi = listViewQualificationRound.SelectedItems[0];
                 QualificationRound c = lvi.Tag as QualificationRound;
+                if (c == null) return;
+                //qR = c;
+                qrIdx = lvi.Index;
                 textName.Tag = c;
                 textName.Text = c.Name;
                 ComboParcour cp = null;
@@ -238,12 +255,9 @@ namespace AirNavigationRaceLive.Comps
                 takeOffRightLatitude.Text = c.TakeOffLine.B.latitude.ToString();
                 takeOffRightLongitude.Text = c.TakeOffLine.B.longitude.ToString();
                 updateList(c);
+                UpdateEnablement();
             }
-            else
-            {
-                Reset();
-            }
-            UpdateEnablement();
+
         }
 
         private void updateList(QualificationRound c)
@@ -295,7 +309,7 @@ namespace AirNavigationRaceLive.Comps
             UpdateEnablement();
         }
 
-        private void textBoxStartId_TextChanged(object sender, EventArgs e)
+        private void textName_TextChanged(object sender, EventArgs e)
         {
             UpdateEnablement();
         }
@@ -372,6 +386,7 @@ namespace AirNavigationRaceLive.Comps
             takeOffRightLatitude.Text = values[0];
             takeOffRightLongitude.Text = values[1];
         }
+
         private void btnImportTKOFline_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -391,7 +406,6 @@ namespace AirNavigationRaceLive.Comps
                 // reset the Tag
                 ofd.Tag = null;
             }
-
         }
 
         void ofd_FileOkImportTKOFline(object sender, CancelEventArgs e)
@@ -453,7 +467,6 @@ namespace AirNavigationRaceLive.Comps
                 frmImportTKOF.Dispose();
             }
         }
-
 
         private void startListDialog()
         {
@@ -532,11 +545,6 @@ namespace AirNavigationRaceLive.Comps
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //  startListDialog();
-        }
-
         private int calculateMaxStartId()
         {
             int _maxStartId = 0;
@@ -554,25 +562,20 @@ namespace AirNavigationRaceLive.Comps
 
         private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            string str = "StartId " + e.Row.Cells[0].Value.ToString() + ", Crew "   + e.Row.Cells[1].Value.ToString() + ": " + e.Row.Cells[3].Value.ToString();
-            if (MessageBox.Show(string.Format("Delete the selected Startlist Entry:\n\n {0} ?", str), "Delete Startlist Entry", MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.No)
+            string str = "StartId " + e.Row.Cells[0].Value.ToString() + ", Crew " + e.Row.Cells[1].Value.ToString() + ": " + e.Row.Cells[3].Value.ToString();
+            if (MessageBox.Show(string.Format("Delete the selected Startlist Entry:\n\n {0} ?", str), "Delete Startlist Entry", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.No)
             {
                 e.Cancel = true;
                 return;
             }
             deleteFlt = e.Row.Tag as Flight;
-
-
         }
-
 
         private void dataGridView1_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
-            //if (dataGridView1.SelectedRows.Count == 1 && listViewQualificationRound.SelectedItems.Count == 1 && !(dataGridView1.SelectedRows[0].Tag == null))
-
-            if(!(deleteFlt==null))
-                {
-               // Flight ct = dataGridView1.SelectedRows[0].Tag as Flight;
+            if (!(deleteFlt == null))
+            {
+                // Flight ct = dataGridView1.SelectedRows[0].Tag as Flight;
                 Client.DBContext.FlightSet.Remove(deleteFlt);
                 Client.DBContext.SaveChanges();
                 listViewQualificationRound_SelectedIndexChanged(null, null);
@@ -580,7 +583,6 @@ namespace AirNavigationRaceLive.Comps
                 deleteFlt = null;
             }
             UpdateEnablement();
-
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -606,9 +608,14 @@ namespace AirNavigationRaceLive.Comps
             int NrOfRoutes = (int)numericUpDownRoutes.Value;
             Flight f = null;
             int idx = 0;
-            if (dataGridView1.Rows.Count > 0)
+            if (dataGridView1.Rows.Count <= 1)
             {
-                if (dataGridView1.SelectedRows.Count>0)
+                // we only have a new line row but no data
+                return;
+            }
+            if (dataGridView1.Rows.Count > 1)
+            {
+                if (dataGridView1.SelectedRows.Count > 0)
                 {
                     // index of selected row
                     idx = dataGridView1.SelectedRows[0].Index;
@@ -628,12 +635,12 @@ namespace AirNavigationRaceLive.Comps
                     continue;
                 }
                 if (i == idx) // the reference
-                {  
+                {
                     tkof0 = f.TimeTakeOff;
                 }
                 if (i > idx)  // re-calculate
                 {
-                    f.TimeTakeOff = new DateTime(tkof0).AddMinutes(((i-idx) % NrOfRoutes) * intervTKOF).AddMinutes(((i - idx) / NrOfRoutes) * intervStartL).Ticks;
+                    f.TimeTakeOff = new DateTime(tkof0).AddMinutes(((i - idx) % NrOfRoutes) * intervTKOF).AddMinutes(((i - idx) / NrOfRoutes) * intervStartL).Ticks;
                 }
 
                 // calculate times based on 0-value
@@ -649,6 +656,10 @@ namespace AirNavigationRaceLive.Comps
             dataGridView1.Rows[idx].Selected = true;
         }
 
+        private void btnAutoFillStartList_Click(object sender, EventArgs e)
+        {
+            autoFillStartList();
+        }
 
         private void autoFillStartList()
         {
@@ -673,7 +684,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 ListViewItem lvi = listViewQualificationRound.SelectedItems[0];
                 qRnd = lvi.Tag as QualificationRound;
-                tkof0 =  DateTime.Now.Ticks;
+                tkof0 = DateTime.Now.Ticks;
             }
 
             List<Team> lstTeam = Client.SelectedCompetition.Team.ToList();
@@ -686,18 +697,13 @@ namespace AirNavigationRaceLive.Comps
                 flt.TimeEndLine = new DateTime(tkof0).AddMinutes(tkofToStart + parcourLenght).AddMinutes(i * intervTKOF).AddMinutes((i / NrOfRoutes) * (intervStartL + intervTKOF)).Ticks;
                 flt.Route = i % NrOfRoutes + 1;
                 flt.Team = lstTeam[i];
-                flt.StartID = i+1;
+                flt.StartID = i + 1;
                 flt.QualificationRound = qRnd;
                 Client.DBContext.FlightSet.Add(flt);
             }
 
             Client.DBContext.SaveChanges();
             updateList(qRnd);
-        }
-
-        private void btnAutoFillStartList_Click(object sender, EventArgs e)
-        {
-            autoFillStartList();
         }
     }
 }
