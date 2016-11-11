@@ -166,6 +166,38 @@ namespace AirNavigationRaceLive.Comps
             PictureBox1.Image = Image.FromFile(ofd.FileName);
             fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
             btnSave.Enabled = true;
+
+            if (!String.IsNullOrEmpty(getWorldFileByMapName(ofd.FileName)))
+            {   // we found a single world file with the same name
+                // set ofd.Filename, then load it directly
+                ofd.FileName = getWorldFileByMapName(ofd.FileName);
+                ofd_FileOkWorld(ofd, null);
+            }
+        }
+
+        private string getWorldFileByMapName(string mapFileFullName)
+        {
+            string fnam = System.IO.Path.GetFileNameWithoutExtension(mapFileFullName);
+            string path = System.IO.Path.GetDirectoryName(mapFileFullName);
+
+            // all possbile extensions for world file
+            string[] filters = new[] { ".jgw", ".pgw", ".gfw", ".tfw", ".wld" };
+            for (int i = 0; i < filters.Length; i++)
+            {
+                filters[i] = fnam + filters[i];  // combine known file name + possible extensions
+            }
+            // fetch files
+            string[] filePaths = filters.SelectMany(f => System.IO.Directory.GetFiles(path, f)).ToArray();
+
+            if (filePaths.Length == 1)
+            {
+                // only one match, so return it
+                return filePaths[0];
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         private void btnSelectWorldFile_Click(object sender, EventArgs e)
