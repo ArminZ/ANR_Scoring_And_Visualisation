@@ -211,9 +211,7 @@ namespace AirNavigationRaceLive.Comps
                 if (!e.Row.IsNewRow)
                 {
                     string str = 
-                        e.Row.Cells[0].Value != null ? e.Row.Cells[0].Value.ToString() : "" +
-                        e.Row.Cells[1].Value != null ? e.Row.Cells[1].Value.ToString() : "" +
-                        e.Row.Cells[2].Value != null ? e.Row.Cells[2].Value.ToString() : "";
+                       "(" + e.Row.Cells[0].Value.ToString() + ") "+ e.Row.Cells[1].Value.ToString() + " " + e.Row.Cells[2].Value.ToString();
                     if (MessageBox.Show(string.Format("Delete the selected Participant:\n {0} ?", str), "Delete Participant", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.No)
                     {
                         e.Cancel = true;
