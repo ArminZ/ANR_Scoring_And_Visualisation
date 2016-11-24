@@ -950,9 +950,11 @@ namespace AirNavigationRaceLive.Comps.Helper
 
         internal static List<Point> GPSdataFromGPX(string filename)
         {
+            // note the namespace can be ...GPX/1/1  but for livetrack24 etc. also GPX/1/0 so do not use a fixed namespace....
+            //XNamespace gpx = XNamespace.Get("http://www.topografix.com/GPX/1/1");
             List<Point> result = new List<Point>();
-            XNamespace gpx = XNamespace.Get("http://www.topografix.com/GPX/1/1");
             XDocument gpxDoc = XDocument.Load(filename);
+            XNamespace gpx = gpxDoc.Root.Name.Namespace;
             var tracks = from track in gpxDoc.Descendants(gpx + "trk")
                          select new
                          {
@@ -971,6 +973,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                                   }
                                 )
                          };
+
             foreach (var trk in tracks)
             {
                 foreach (var trkSeg in trk.Segs)

@@ -64,7 +64,7 @@ namespace AirNavigationRaceLive.Comps
                     visualisationPictureBox1.Invalidate();
                     visualisationPictureBox1.Refresh();
                     this.BeginInvoke(new MethodInvoker(updatePoints));
-
+                    dataGridView2_SelectionChanged(sender, e);
                 }
                 else
                 {
@@ -450,6 +450,7 @@ namespace AirNavigationRaceLive.Comps
                 e.Handled = true;//pass by the default sorting
             }
         }
+
     }
     public class ComboBoxFlights : ListViewItem
     {
