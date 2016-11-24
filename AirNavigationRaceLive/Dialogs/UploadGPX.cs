@@ -63,7 +63,7 @@ namespace AirNavigationRaceLive.Dialogs
             try
             {
                 List<Point> list = Importer.GPSdataFromGPX(ofd.FileName);
-                textBoxPositions.Text = list.Count.ToString();
+                textBoxPositions.Text = string.Format("{0} pts ({1})", list.Count.ToString(),new DateTime((long)(list[0].Timestamp)));
                 textBoxPositions.Tag = list;
             }
             catch (Exception ex)
