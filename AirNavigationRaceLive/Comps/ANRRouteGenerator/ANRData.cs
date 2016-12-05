@@ -23,7 +23,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             }
         }
 
-        public void generateParcour(List<List<Vector>> listOfListOfVcts, bool hasMarkers, bool showForbiddenArea, bool isStandardOrder, double channelWidth, string styleName, List<string> routeNames, double altitude)
+        public void generateParcour(List<List<Vector>> listOfRoutes, List<string> ListOfRouteNames, List<List<Vector>> listOfNBL, List<string> listOfNBLNames, bool hasMarkers, bool showForbiddenArea, bool isStandardOrder, double channelWidth, string styleName, double altitude)
         {
             // Document document = new Document();
             KMLPolygonStyle.AddStylesForPolygon(document, styleName);
@@ -32,6 +32,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             List<Feature> lstFeaturesPROHPolygon = new List<Feature>();
             List<Feature> lstFeaturesSP = new List<Feature>();
             List<Feature> lstFeaturesFP = new List<Feature>();
+            List<Feature> lstFeaturesNBLine = new List<Feature>();
 
             Folder folderGeneral = new Folder();
             folderGeneral.Name = "General";
@@ -50,10 +51,12 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
 
             List<Vector> lstOldRightBorder = new List<Vector>();
 
-            for (int j = 0; j < listOfListOfVcts.Count(); j++)
+            for (int j = 0; j < listOfRoutes.Count(); j++)
             {
-                List<Vector> routePoints = listOfListOfVcts[j];
-                string routeName = routeNames[j];
+                List<Vector> routePoints = listOfRoutes[j];
+                List<Vector> lstOrigNBLine = new List<Vector>();
+                Vector NBLPointOnRoute = new Vector();
+                string routeName = ListOfRouteNames[j];
                 Folder folderBorders = new Folder();
                 folderBorders.Name = routeName + "_RouteBorders";
 
@@ -63,21 +66,48 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 List<Vector> lstRightBorder = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth, true, 1);
 
                 // shift start and end points of border inwards
-                lstLeftBorder = gc.BorderVectorWithIntersect(lstLeftBorder, SHIFT_DIST);
-                lstRightBorder = gc.BorderVectorWithIntersect(lstRightBorder, SHIFT_DIST);
+                lstLeftBorder = gc.BorderModification(lstLeftBorder, SHIFT_DIST);
+                lstRightBorder = gc.BorderModification(lstRightBorder, SHIFT_DIST);
 
                 // calculate the gate points for start and end point gate. Fixed width 0.6 NM
+                // we will use later on only the first two/ last two points 
                 List<Vector> lstGateLeft = gc.CalculateCurvePoint(routePoints, lstHeadings, GATE_WIDTH, false, 1);
                 List<Vector> lstGateRight = gc.CalculateCurvePoint(routePoints, lstHeadings, GATE_WIDTH, true, 1);
 
                 // SP line and FP line (use first/last points of left/right borders)
-                List<Vector> lstSP, lstFP;
+                List<Vector> lstSP, lstFP, lstNBLine;
                 lstSP = new List<Vector>();
                 lstSP.Add(new Vector(lstGateRight[0].Latitude, lstGateRight[0].Longitude, altitude));
                 lstSP.Add(new Vector(lstGateLeft[0].Latitude, lstGateLeft[0].Longitude, altitude));
                 lstFP = new List<Vector>();
                 lstFP.Add(new Vector(lstGateRight[lstGateRight.Count - 1].Latitude, lstGateRight[lstGateRight.Count - 1].Longitude, altitude));
                 lstFP.Add(new Vector(lstGateLeft[lstGateLeft.Count - 1].Latitude, lstGateLeft[lstGateLeft.Count - 1].Longitude, altitude));
+                lstNBLine = new List<Vector>();
+
+
+                // check if we have a NBLINE for this route
+                if (listOfNBLNames.IndexOf(String.Format("NBLINE-{0}", routeName)) >= 0)
+                {
+                    int idx = listOfNBLNames.IndexOf(String.Format("NBLINE-{0}", routeName));
+                    int idxRoutePointBeforeNBL = -1;
+                    lstOrigNBLine = listOfNBL[idx];
+                    NBLPointOnRoute = gc.NBLPointOnRouteLine(routePoints, lstOrigNBLine, out idxRoutePointBeforeNBL);
+                    if (idxRoutePointBeforeNBL > -1)
+                    {
+                        List<Vector> lstNBLSegm = new List<Vector>();
+                        // create a short segment with the NBL point on the route line, and  the first route point after the NBL point
+                        lstNBLSegm.Add(NBLPointOnRoute);
+                        lstNBLSegm.Add(routePoints[idxRoutePointBeforeNBL + 1]);
+
+                        // calculate borders
+                        List<double> lstNBLHdg = gc.CalculateHeadings(lstNBLSegm);
+                        List<Vector> lstNBLGateLeft = gc.CalculateCurvePoint(lstNBLSegm, lstNBLHdg, channelWidth, false, 1);
+                        List<Vector> lstNBLGateRight = gc.CalculateCurvePoint(lstNBLSegm, lstNBLHdg, channelWidth, true, 1);
+
+                        lstNBLine.Add(new Vector(lstNBLGateRight[0].Latitude, lstNBLGateRight[0].Longitude, altitude));
+                        lstNBLine.Add(new Vector(lstNBLGateLeft[0].Latitude, lstNBLGateLeft[0].Longitude, altitude));
+                    }
+                }
 
 
                 List<Vector> lstLeftBorderForbiddenArea = new List<Vector>();
@@ -101,7 +131,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     }
 
                     // for the last route, also calculate right border PROH
-                    if (j == listOfListOfVcts.Count - 1)
+                    if (j == listOfRoutes.Count - 1)
                     {
                         List<Vector> lstRightBorderPROH = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth * 10, true, 1);
                         lstRightBorderForbiddenArea = combineBorderVectorsForPolygon(lstRightBorderPROH, lstRightBorder);
@@ -125,6 +155,8 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 var lineStrLeftBorder = new SharpKml.Dom.LineString();
                 var lineStrSP = new SharpKml.Dom.LineString();
                 var lineStrFP = new SharpKml.Dom.LineString();
+                var lineStrNBLine = new SharpKml.Dom.LineString();
+                var lineStrOrigNBLine = new SharpKml.Dom.LineString();
 
 
                 lineStrRoute.Coordinates = new CoordinateCollection(routePoints);
@@ -133,19 +165,32 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 lineStrLeftBorder.Coordinates = new CoordinateCollection(lstLeftBorder);
                 lineStrSP.Coordinates = new CoordinateCollection(lstSP);
                 lineStrFP.Coordinates = new CoordinateCollection(lstFP);
+                lineStrNBLine.Coordinates = new CoordinateCollection(lstNBLine);
+                lineStrOrigNBLine.Coordinates = new CoordinateCollection(lstOrigNBLine);
 
                 var polygLeftBorderForbiddenArea = makeSimplePolygon(lstLeftBorderForbiddenArea, AltitudeMode.ClampToGround);
                 var polygRightBorderForbiddenArea = makeSimplePolygon(lstRightBorderForbiddenArea, AltitudeMode.ClampToGround);
                 var polySP = makeSimplePolygonFromLineString(lineStrSP, AltitudeMode.RelativeToGround);
                 var polyFP = makeSimplePolygonFromLineString(lineStrFP, AltitudeMode.RelativeToGround);
+                var polyNBLine = new Polygon();
+
+                if (lstNBLine.Count > 0)
+                {
+                    polyNBLine = makeSimplePolygonFromLineString(lineStrNBLine, AltitudeMode.RelativeToGround);
+                }
 
                 // Route itself
                 var plm = new SharpKml.Dom.Placemark();
                 plm = makeSimplePlacemark(lineStrRoute, routeName);
-                //plm.Geometry = lineStrRoute;
-                //plm.Name = routeName;
                 folderGeneral.AddFeature(plm);
-                //folderRoute.AddFeature(placemarkRoute);
+
+                // original hand-made NBLine
+                if (lstNBLine.Count > 0)
+                {
+                    plm = new SharpKml.Dom.Placemark();
+                    plm = makeSimplePlacemark(lineStrOrigNBLine, "NBLINE-" + routeName + " (orig)");
+                    folderGeneral.AddFeature(plm);
+                }
 
                 // Right border line
                 plm = makeSimplePlacemark(lineStrRightBorder, routeName + "_RightBorder");
@@ -163,11 +208,24 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 plm = makeSimplePlacemark(lineStrFP, "ENDPOINT-" + routeName);
                 folderBorders.AddFeature(plm);
 
+                // calculated NB line
+                if (lstNBLine.Count > 0)
+                {
+                    plm = makeSimplePlacemark(lineStrNBLine, "NBLINE-" + routeName);
+                    folderBorders.AddFeature(plm);
+                }
+
                 plm = makeSimplePlacemark(polySP, "STARTPOINT-" + routeName, styleName);
                 lstFeaturesSP.Add(plm);
 
                 plm = makeSimplePlacemark(polyFP, "ENDPOINT-" + routeName, styleName);
                 lstFeaturesFP.Add(plm);
+
+                if (lstNBLine.Count > 0)
+                {
+                    plm = makeSimplePlacemark(polyNBLine, "NBLINE-" + routeName, styleName);
+                    lstFeaturesNBLine.Add(plm);
+                }
 
                 folderGeneral.AddFeature(folderBorders);
 
@@ -213,6 +271,15 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                         }
                         folder.AddFeature(pm);
                     }
+                    if (lstNBLine.Count > 0)
+                    {
+                        Placemark pm = new Placemark();
+                        SharpKml.Dom.Point pt = new SharpKml.Dom.Point();
+                        pt.Coordinate = new Vector(NBLPointOnRoute.Latitude, NBLPointOnRoute.Longitude);
+                        pm.Geometry = pt;
+                        pm.Name = String.Format("NBLINE_{0}", routeName);
+                        folder.AddFeature(pm);
+                    }
                     folderGeneral.AddFeature(folder);
 
                 }
@@ -229,6 +296,10 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             for (int i = 0; i < lstFeaturesFP.Count; i++)
             {
                 folderLiveTracking.AddFeature(lstFeaturesFP[i].Clone());
+            }
+            for (int i = 0; i < lstFeaturesNBLine.Count; i++)
+            {
+                folderLiveTracking.AddFeature(lstFeaturesNBLine[i].Clone());
             }
 
             document.AddFeature(folderGeneral);
@@ -280,14 +351,14 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 lstPoint = Helper.Importer.getPointsFromKMLCoordinates(kmlCoordStr);
                 for (int i = 0; i < lstPoint.Count; i++)
                 {
-                    if ((name.StartsWith("STARTPOINT-") || name.StartsWith("ENDPOINT-")) && i==2)
+                    if ((name.StartsWith("STARTPOINT-") || name.StartsWith("ENDPOINT-")) && i == 2)
                     {
                         // do nothing on STARTPOINT / ENDPOINT for the third coordinate point
                         // (the third point is the same as the first for technical reasons)
                     }
                     else
                     {
-                    lst.Add(lstPoint[i].latitude.ToString(ci) + "," + lstPoint[i].longitude.ToString(ci));
+                        lst.Add(lstPoint[i].latitude.ToString(ci) + "," + lstPoint[i].longitude.ToString(ci));
                     }
                 }
             }
