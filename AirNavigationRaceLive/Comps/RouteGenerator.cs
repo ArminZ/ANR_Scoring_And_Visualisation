@@ -9,6 +9,7 @@ using SharpKml.Engine;
 using SharpKml.Base;
 using SharpKml.Dom;
 using AirNavigationRaceLive.Comps.ANRRouteGenerator;
+using System.Linq;
 
 namespace AirNavigationRaceLive.Comps
 {
@@ -23,23 +24,22 @@ namespace AirNavigationRaceLive.Comps
         const bool CREATE_PROH_AREA = true;
         const bool USE_STANDARD_ORDER = true;
 
+        private string[] arrRouteNames = { "A", "B", "C", "D" };
+        private string[] arrNBLNames = { "NBLINE-A", "NBLINE-B", "NBLINE-C", "NBLINE-D" };
+
+
         public String RouteName;
         public List<Vector> RoutePoints = new List<Vector>();
-        public List<List<Vector>> ListOfListOfVectors = new List<List<Vector>>();
-        public List<string> ListOfNames = new List<string>();
+        public List<List<Vector>> ListOfRoutes = new List<List<Vector>>();
+        public List<string> ListOfRouteNames = new List<string>();
+        public List<List<Vector>> ListOfNBL = new List<List<Vector>>();
+        public List<string> ListOfNBLNames = new List<string>();
 
         public RouteGenerator(Client.DataAccess iClient)
         {
             Client = iClient;
             InitializeComponent();
             isValidated();
-        }
-
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            txtChannelWidth.Text = DEFAULT_CHANNEL_WIDTH.ToString().Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
-            btnSelectKML.Select();
         }
 
         private void btnSelectKML_Click(object sender, EventArgs e)
@@ -56,10 +56,15 @@ namespace AirNavigationRaceLive.Comps
             ofd.ShowDialog();
         }
 
-
         void ofd_FileOkSelectKML(object sender, CancelEventArgs e)
         {
             AirNavigationRaceLiveMain.SetStatusText("");
+
+            RoutePoints = new List<Vector>();
+            ListOfRoutes = new List<List<Vector>>();
+            ListOfRouteNames = new List<string>();
+            ListOfNBL = new List<List<Vector>>();
+            ListOfNBLNames = new List<string>();
 
             treeViewAvailableRoutes.Nodes.Clear();
             OpenFileDialog ofd = sender as OpenFileDialog;
@@ -100,7 +105,6 @@ namespace AirNavigationRaceLive.Comps
 
         }
 
-
         private void btnSaveKML_Click(object sender, EventArgs e)
         {
             // save ANR data
@@ -124,7 +128,7 @@ namespace AirNavigationRaceLive.Comps
             double altitude;
             // retrieve points from selected tree element
 
-            if (ListOfNames.Count == 0)
+            if (ListOfRouteNames.Count == 0)
             {
                 return;
             }
@@ -148,7 +152,7 @@ namespace AirNavigationRaceLive.Comps
             SaveFileDialog sfd = sender as SaveFileDialog;
             string fname = sfd.FileName;
             ANRData anrData = new ANRData();
-            anrData.generateParcour(ListOfListOfVectors, HAS_MARKERS, CREATE_PROH_AREA, USE_STANDARD_ORDER, channelRadius, STYLENAME, ListOfNames, altitude);
+            anrData.generateParcour(ListOfRoutes, ListOfRouteNames, ListOfNBL, ListOfNBLNames, HAS_MARKERS, CREATE_PROH_AREA, USE_STANDARD_ORDER, channelRadius, STYLENAME, altitude);
             Document document = anrData.Document;
             Kml kml = new Kml();
             kml.Feature = document;
@@ -182,12 +186,11 @@ namespace AirNavigationRaceLive.Comps
             {
                 int first = treeViewAvailableRoutes.Nodes[i].Text.IndexOf("(");
                 string strName = treeViewAvailableRoutes.Nodes[i].Text.Substring(0, first).Trim();
-                if (strName == "A" || strName == "B" || strName == "C" || strName == "D")
+                if (arrRouteNames.Any(s => strName.Contains(s)))
                 {
-                    //lblSelectedRoutes.Text += Environment.NewLine + strName;
                     List<Vector> lst = (List<Vector>)treeViewAvailableRoutes.Nodes[i].Tag;
-                    ListOfListOfVectors.Add(lst);
-                    ListOfNames.Add(strName);
+                    ListOfRoutes.Add(lst);
+                    ListOfRouteNames.Add(strName);
                     treeViewSelectedRoutes.Nodes.Add(strName);
                 }
                 else
@@ -200,10 +203,9 @@ namespace AirNavigationRaceLive.Comps
 
         private void btnClearSelected_Click(object sender, EventArgs e)
         {
-            //lblSelectedRoutes.Text = "Selected Routes:";
             treeViewSelectedRoutes.Nodes.Clear();
-            ListOfListOfVectors.Clear();
-            ListOfNames.Clear();
+            ListOfRoutes.Clear();
+            ListOfRouteNames.Clear();
             isValidated();
         }
 
@@ -218,12 +220,21 @@ namespace AirNavigationRaceLive.Comps
             {
                 LineString ln = (LineString)placemark.Geometry;
 
-                if (ln.Coordinates.Count > 2)   // must have at least 2 points
+                //if (ln.Coordinates.Count > 2)   // must have at least 2 points
+                //{
+                if (arrRouteNames.Any(s => placemark.Name.ToUpper() == (s)))
                 {
                     TreeNode node = trv.Nodes.Add(placemark.Name + " (Path with " + ln.Coordinates.Count.ToString() + " Points)");
                     // add coordinates as object to the Tag property
                     node.Tag = new List<Vector>(ln.Coordinates);
                 }
+                if (arrNBLNames.Any(s => placemark.Name.ToUpper().Contains(s)))
+                {
+                    // add NonBacktrack lines directly to list
+                    ListOfNBL.Add(new List<Vector>(ln.Coordinates));
+                    ListOfNBLNames.Add(placemark.Name.ToUpper());
+                }
+                // }
             }
             else
             {
