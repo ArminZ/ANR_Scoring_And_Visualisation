@@ -11,6 +11,9 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
 {
     public class ANRData
     {
+        private string[] arrRouteNames = { "A", "B", "C", "D" };
+        private string[] arrNBLNames = { "NBLINE-A", "NBLINE-B", "NBLINE-C", "NBLINE-D" };
+
         const double GATE_WIDTH = 0.3;  // gate width for start and end gate is fixed 0.6 = 2*0.3 NM  
         const double SHIFT_DIST = 0.4;  // shift border points 'inwards' (away from start- and end gate)
 
@@ -170,13 +173,13 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
 
                 var polygLeftBorderForbiddenArea = makeSimplePolygon(lstLeftBorderForbiddenArea, AltitudeMode.ClampToGround);
                 var polygRightBorderForbiddenArea = makeSimplePolygon(lstRightBorderForbiddenArea, AltitudeMode.ClampToGround);
-                var polySP = makeSimplePolygonFromLineString(lineStrSP, AltitudeMode.RelativeToGround);
-                var polyFP = makeSimplePolygonFromLineString(lineStrFP, AltitudeMode.RelativeToGround);
+                var polySP = makeSimplePolygon(lineStrSP, AltitudeMode.RelativeToGround);
+                var polyFP = makeSimplePolygon(lineStrFP, AltitudeMode.RelativeToGround);
                 var polyNBLine = new Polygon();
 
                 if (lstNBLine.Count > 0)
                 {
-                    polyNBLine = makeSimplePolygonFromLineString(lineStrNBLine, AltitudeMode.RelativeToGround);
+                    polyNBLine = makeSimplePolygon(lineStrNBLine, AltitudeMode.RelativeToGround);
                 }
 
                 // Route itself
@@ -281,7 +284,6 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                         folder.AddFeature(pm);
                     }
                     folderGeneral.AddFeature(folder);
-
                 }
             }
 
@@ -325,7 +327,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
            + "or starts-with(./*[local-name()='name'],'PROH') "
            + "or starts-with(./*[local-name()='name'],'STARTPOINT-') "
            + "or starts-with(./*[local-name()='name'],'ENDPOINT-') "
-           + "or starts-with(./*[local-name()='name'],'NBLINE') "
+           + "or starts-with(./*[local-name()='name'],'NBLINE-') "
            + "or starts-with(./*[local-name()='name'],'TKOF')"
            + "]"
            + " | "
@@ -339,10 +341,19 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             {
                 XmlNode nodeName = nod.SelectSingleNode(xPathName);
                 string name = nodeName.InnerText.ToString().Trim();
-                if (name == "A" || name == "B" || name == "C" || name == "D")
+
+                if (name.ToLower().EndsWith("orig)"))
+                {
+                    // skip original malually created NBLINE lines
+                    continue;
+                }
+
+                //if (name == "A" || name == "B" || name == "C" || name == "D")
+                if (arrRouteNames.Any(s => name.ToUpper() == s))
                 {
                     name = @"Route Center Line, Route " + name; // add some additional text for the Route
                 }
+
                 lst.Add(name);
                 XmlNode nodeCoord = nod.SelectSingleNode(xPathCoord);
 
@@ -351,9 +362,9 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 lstPoint = Helper.Importer.getPointsFromKMLCoordinates(kmlCoordStr);
                 for (int i = 0; i < lstPoint.Count; i++)
                 {
-                    if ((name.StartsWith("STARTPOINT-") || name.StartsWith("ENDPOINT-")) && i == 2)
+                    if ((name.StartsWith("STARTPOINT-") || name.StartsWith("ENDPOINT-") || (arrNBLNames.Any(s => name.ToUpper() == s))) && i == 2)
                     {
-                        // do nothing on STARTPOINT / ENDPOINT for the third coordinate point
+                        // do nothing on STARTPOINT / ENDPOINT / NBLINE for the third coordinate point
                         // (the third point is the same as the first for technical reasons)
                     }
                     else
@@ -387,11 +398,6 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
 
         public void setAltitude(List<Vector> lstVct, double Altitude)
         {
-            // input: two vectors for channel borderlines
-            // check if they have the same orientation
-            // if yes: invert lstvector2, else do nothing
-            // append to lstvector1, then add first point of lstVectors1
-
             for (int i = 0; i < lstVct.Count; i++)
             {
                 lstVct[i].Altitude = Altitude;
@@ -414,12 +420,13 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             return pg;
         }
 
-        public SharpKml.Dom.Polygon makeSimplePolygonFromLineString(SharpKml.Dom.LineString lineString, AltitudeMode altMode)
+        public SharpKml.Dom.Polygon makeSimplePolygon(SharpKml.Dom.LineString lineString, AltitudeMode altMode)
         {
-            var pg = new SharpKml.Dom.Polygon();
             List<Vector> lstVct = new List<Vector>();
             lstVct.AddRange(lineString.Coordinates);
             lstVct.Add(lineString.Coordinates.First());
+
+            var pg = new SharpKml.Dom.Polygon();
             pg.Extrude = true;
             pg.AltitudeMode = altMode;
             var linring = new LinearRing();
