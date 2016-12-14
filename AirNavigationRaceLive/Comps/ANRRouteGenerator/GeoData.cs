@@ -367,7 +367,10 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
         /// <returns></returns>
         public Vector NBLPointOnRouteLine(List<Vector> routePoints, List<Vector> NBLpoints, out int idx)
         {
+            // Note: we may have several intersections depending on the shape of the route
+            // ensure that we take the last valid intersection 
             Vector nblPoint = null;
+            idx = -1;
             LineSegment lsNBL = new LineSegment(NBLpoints[0], NBLpoints[1]);
             for (int i = 0; i < routePoints.Count - 1; i++)
             {
@@ -376,10 +379,9 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 if (ls.IsOnSegment(pointInters))
                 {
                     idx = i;
-                    return pointInters;
+                    nblPoint = pointInters;
                 }
             }
-            idx = -1;
             return nblPoint;
         }
 

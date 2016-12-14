@@ -106,7 +106,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                         List<double> lstNBLHdg = gc.CalculateHeadings(lstNBLSegm);
                         List<Vector> lstNBLGateLeft = gc.CalculateCurvePoint(lstNBLSegm, lstNBLHdg, channelWidth, false, 1);
                         List<Vector> lstNBLGateRight = gc.CalculateCurvePoint(lstNBLSegm, lstNBLHdg, channelWidth, true, 1);
-
+                        lstNBLine.Clear();
                         lstNBLine.Add(new Vector(lstNBLGateRight[0].Latitude, lstNBLGateRight[0].Longitude, altitude));
                         lstNBLine.Add(new Vector(lstNBLGateLeft[0].Latitude, lstNBLGateLeft[0].Longitude, altitude));
                     }
