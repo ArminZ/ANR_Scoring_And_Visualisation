@@ -186,19 +186,19 @@
             this.refreshToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(134, 56);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(128, 52);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -363,6 +363,16 @@
             262144});
             this.numLongO.Location = new System.Drawing.Point(106, 187);
             this.numLongO.Margin = new System.Windows.Forms.Padding(4);
+            this.numLongO.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numLongO.Minimum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            -2147483648});
             this.numLongO.Name = "numLongO";
             this.numLongO.Size = new System.Drawing.Size(134, 22);
             this.numLongO.TabIndex = 11;
@@ -387,6 +397,16 @@
             262144});
             this.numLatO.Location = new System.Drawing.Point(106, 164);
             this.numLatO.Margin = new System.Windows.Forms.Padding(4);
+            this.numLatO.Maximum = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            this.numLatO.Minimum = new decimal(new int[] {
+            90,
+            0,
+            0,
+            -2147483648});
             this.numLatO.Name = "numLatO";
             this.numLatO.Size = new System.Drawing.Size(134, 22);
             this.numLatO.TabIndex = 9;
@@ -411,6 +431,16 @@
             262144});
             this.numLongB.Location = new System.Drawing.Point(104, 119);
             this.numLongB.Margin = new System.Windows.Forms.Padding(4);
+            this.numLongB.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numLongB.Minimum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            -2147483648});
             this.numLongB.Name = "numLongB";
             this.numLongB.Size = new System.Drawing.Size(136, 22);
             this.numLongB.TabIndex = 7;
@@ -435,6 +465,16 @@
             262144});
             this.numLatB.Location = new System.Drawing.Point(104, 96);
             this.numLatB.Margin = new System.Windows.Forms.Padding(4);
+            this.numLatB.Maximum = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            this.numLatB.Minimum = new decimal(new int[] {
+            90,
+            0,
+            0,
+            -2147483648});
             this.numLatB.Name = "numLatB";
             this.numLatB.Size = new System.Drawing.Size(136, 22);
             this.numLatB.TabIndex = 5;
@@ -459,6 +499,16 @@
             262144});
             this.numLongA.Location = new System.Drawing.Point(106, 68);
             this.numLongA.Margin = new System.Windows.Forms.Padding(4);
+            this.numLongA.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numLongA.Minimum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            -2147483648});
             this.numLongA.Name = "numLongA";
             this.numLongA.Size = new System.Drawing.Size(134, 22);
             this.numLongA.TabIndex = 3;
@@ -483,6 +533,16 @@
             262144});
             this.numLatA.Location = new System.Drawing.Point(106, 44);
             this.numLatA.Margin = new System.Windows.Forms.Padding(4);
+            this.numLatA.Maximum = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            this.numLatA.Minimum = new decimal(new int[] {
+            90,
+            0,
+            0,
+            -2147483648});
             this.numLatA.Name = "numLatA";
             this.numLatA.Size = new System.Drawing.Size(134, 22);
             this.numLatA.TabIndex = 1;
