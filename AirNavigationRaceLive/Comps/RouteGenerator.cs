@@ -38,8 +38,9 @@ namespace AirNavigationRaceLive.Comps
         public RouteGenerator(Client.DataAccess iClient)
         {
             Client = iClient;
-            InitializeComponent();
+            InitializeComponent(); 
             isValidated();
+            txtChannelWidth.Text = DEFAULT_CHANNEL_WIDTH.ToString();
         }
 
         private void btnSelectKML_Click(object sender, EventArgs e)
