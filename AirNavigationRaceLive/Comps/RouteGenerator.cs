@@ -19,7 +19,7 @@ namespace AirNavigationRaceLive.Comps
         private string FileNameKML;
 
         const string STYLENAME = "PolygonAndLine";
-        const double DEFAULT_CHANNEL_WIDTH = 0.4;
+        const double DEFAULT_CHANNEL_WIDTH = 0.3;
         const bool HAS_MARKERS = true;
         const bool CREATE_PROH_AREA = true;
         const bool USE_STANDARD_ORDER = true;
@@ -38,8 +38,9 @@ namespace AirNavigationRaceLive.Comps
         public RouteGenerator(Client.DataAccess iClient)
         {
             Client = iClient;
-            InitializeComponent();
+            InitializeComponent(); 
             isValidated();
+            txtChannelWidth.Text = DEFAULT_CHANNEL_WIDTH.ToString();
         }
 
         private void btnSelectKML_Click(object sender, EventArgs e)

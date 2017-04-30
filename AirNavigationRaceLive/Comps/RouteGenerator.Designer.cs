@@ -170,7 +170,6 @@
             this.txtChannelWidth.Name = "txtChannelWidth";
             this.txtChannelWidth.Size = new System.Drawing.Size(79, 27);
             this.txtChannelWidth.TabIndex = 29;
-            this.txtChannelWidth.Text = "0,4";
             this.txtChannelWidth.TextChanged += new System.EventHandler(this.txtChannelWidth_TextChanged);
             // 
             // btnSelectKML
