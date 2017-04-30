@@ -19,7 +19,7 @@ namespace AirNavigationRaceLive.Comps
         private string FileNameKML;
 
         const string STYLENAME = "PolygonAndLine";
-        const double DEFAULT_CHANNEL_WIDTH = 0.3;
+        const double DEFAULT_CHANNEL_WIDTH = 0.4;
         const bool HAS_MARKERS = true;
         const bool CREATE_PROH_AREA = true;
         const bool USE_STANDARD_ORDER = true;
