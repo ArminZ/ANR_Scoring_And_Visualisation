@@ -171,6 +171,11 @@ namespace AirNavigationRaceLive.Comps
             UpdateEnablement();
 
             QualificationRound c = textName.Tag as QualificationRound;
+            if (c == null)
+            {
+                c = new QualificationRound();
+                c.Competition = Client.SelectedCompetition;
+            }
             c.Parcour = (comboBoxParcour.SelectedItem as ComboParcour).p;
             c.Name = textName.Text;
 

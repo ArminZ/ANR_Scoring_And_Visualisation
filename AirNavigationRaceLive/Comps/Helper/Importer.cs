@@ -12,8 +12,9 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {
-   public static class Importer
+    public static class Importer
     {
+        public static List<string> lstWarnings = new List<string>();
         /// <summary> 
         /// Imports a DxfFile that is in the specified Format. Any changes on the import schema may cause Errors!
         /// </summary>
@@ -887,54 +888,133 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// <returns>The created Flight object</returns>
         public static List<Point> GPSdataFromGAC(int year, int month, int day, string filename)
         {
+            lstWarnings.Clear();
             List<Point> result = new List<Point>();
             StreamReader gacFileStreamReader = new StreamReader(filename);
             string line = string.Empty;
-            line = gacFileStreamReader.ReadLine();
-            while (!line.Substring(0, 1).Equals("I") && !gacFileStreamReader.EndOfStream)
-            {
-                line = gacFileStreamReader.ReadLine();
-            }
+            long iCnt = 0;
+            //line = gacFileStreamReader.ReadLine();
+            //while (!line.Substring(0, 1).Equals("I") && !gacFileStreamReader.EndOfStream)
+            //{
+            //    line = gacFileStreamReader.ReadLine();
+            //}
             {
                 while (!gacFileStreamReader.EndOfStream)
                 {
                     line = gacFileStreamReader.ReadLine();
+                    if (line.Length == 0)
+                    {
+                        continue;
+                    }
                     if (line.Substring(0, 1).Equals("B"))
                     {
+                        iCnt++;
                         //B082337 4758489N 008 30 945 E A99999 0224901011680001
                         //B1601114816962N00700724EA003100037007532330012
                         // timestamp
-                        DateTime newPointTimeStamp = new DateTime(year, month, day, Convert.ToInt32(line.Substring(1, 2)), Convert.ToInt32(line.Substring(3, 2)), Convert.ToInt32(line.Substring(5, 2)));
+                        DateTime newPointTimeStamp = new DateTime(year, month, day);
+                        // in certain cases loggerds may produce a timestamp as 100860 (10:08:60 is basically an invalid timestamp)
+                        // this case can however be handled
+                        try
+                        {
+                            // this will reject a formally invalid timestamp 101160
+                            //newPointTimeStamp = new DateTime(year, month, day,
+                            //Convert.ToInt32(line.Substring(1, 2)),
+                            //Convert.ToInt32(line.Substring(3, 2)),
+                            //Convert.ToInt32(line.Substring(5, 2)));
+
+                            // this will accept a formally invalid timestamp 101160 --> 101200
+
+                            newPointTimeStamp = newPointTimeStamp.AddHours(Convert.ToInt32(line.Substring(1, 2)));
+                            newPointTimeStamp = newPointTimeStamp.AddMinutes(Convert.ToInt32(line.Substring(3, 2)));
+                            newPointTimeStamp = newPointTimeStamp.AddSeconds(Convert.ToInt32(line.Substring(5, 2)));
+                            newPointTimeStamp.ToString("HHmmss");
+                            if (Convert.ToInt32(line.Substring(1, 2)) < 0 || Convert.ToInt32(line.Substring(1, 2)) > 23)    
+                            {
+                                lstWarnings.Add(string.Format("WARNING: data line {0}, time value [{1}] is invalid. [{2}] will be used instead.", iCnt, line.Substring(1, 6), newPointTimeStamp.ToString("HHmmss")));
+                            }
+                            if (Convert.ToInt32(line.Substring(3, 2)) < 0 || Convert.ToInt32(line.Substring(3, 2)) > 59)
+                            {
+                                lstWarnings.Add(string.Format("WARNING: data line {0}, time value [{1}] value is invalid. [{2}] will be used instead.", iCnt, line.Substring(1, 6), newPointTimeStamp.ToString("HHmmss")));
+                            }
+                            if (Convert.ToInt32(line.Substring(5, 2)) < 0 || Convert.ToInt32(line.Substring(5, 2)) > 59)
+                            {
+                                lstWarnings.Add(string.Format("WARNING: data line {0}, time value [{1}] value is invalid. [{2}] will be used instead.", iCnt, line.Substring(1, 6), newPointTimeStamp.ToString("HHmmss")));
+
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            throw new ApplicationException(String.Format("\nError in time import on data line {1}\ndata {0} is probably not a valid time format (HHmmss)", line.Substring(1, 6), iCnt));
+                        }
+
                         // latitude
-                        double newPointLatitude = Convert.ToDouble(line.Substring(7, 2)) + Convert.ToDouble(line.Substring(9, 2) + "." + line.Substring(11, 3)) / 60;
-                        switch (line.Substring(14, 1))
+                        double newPointLatitude;
+                        try
                         {
-                            case "N":
-                                break;
-                            case "S":
-                                newPointLatitude *= (-1);
-                                break;
-                            default:
-                                // TODO: Error
-                                break;
+                            newPointLatitude = Convert.ToDouble(line.Substring(7, 2)) + Convert.ToDouble(line.Substring(9, 2) + "." + line.Substring(11, 3), NumberFormatInfo.InvariantInfo) / 60;
+                            switch (line.Substring(14, 1))
+                            {
+                                case "N":
+                                    break;
+                                case "S":
+                                    newPointLatitude *= (-1);
+                                    break;
+                                default:
+                                    // TODO: Error
+                                    break;
+                            }
                         }
+                        catch (Exception)
+                        {
+                            throw new ApplicationException(String.Format("\nError in Longitude import\ndata line {1}: data value: {0}", line.Substring(7, 8), iCnt));
+                        }
+
                         // longitude
-                        double newPointLongitude = Convert.ToDouble(line.Substring(15, 3)) + Convert.ToDouble(line.Substring(18, 2) + "." + line.Substring(20, 3)) / 60;
-                        switch (line.Substring(23, 1))
+                        double newPointLongitude;
+                        try
                         {
-                            case "E":
-                                break;
-                            case "W":
-                                newPointLongitude *= (-1);
-                                break;
-                            default:
-                                // ToDo: Error
-                                break;
+                            newPointLongitude = Convert.ToDouble(line.Substring(15, 3)) + Convert.ToDouble(line.Substring(18, 2) + "." + line.Substring(20, 3), NumberFormatInfo.InvariantInfo) / 60;
+                            switch (line.Substring(23, 1))
+                            {
+                                case "E":
+                                    break;
+                                case "W":
+                                    newPointLongitude *= (-1);
+                                    break;
+                                default:
+                                    // ToDo: Error
+                                    break;
+                            }
                         }
-                        double altitude = double.Parse(line.Substring(30, 5), NumberFormatInfo.InvariantInfo) * 0.3048f; //Feet to Meter
-                        double speed = (double.Parse(line.Substring(35, 4), NumberFormatInfo.InvariantInfo) / 10) / 0.514444444f; //Knot to m/s
-                        double bearing = double.Parse(line.Substring(39, 3), NumberFormatInfo.InvariantInfo);
-                        double acc = double.Parse(line.Substring(42, 4), NumberFormatInfo.InvariantInfo);
+                        catch (Exception)
+                        {
+                            throw new ApplicationException(String.Format("\nError in Longitude import\ndata line {1}: data value: {0}", line.Substring(15, 9), iCnt));
+                        }
+
+                        if (line.Length<46)
+                        {
+                            throw new ApplicationException(String.Format("\nError in import\ndata line {1}: line length: {0}, expected: 46", line.Length, iCnt));
+                        }
+
+                        double altitude, speed, bearing, acc;
+                        string strFld=string.Empty, strPos=String.Empty;
+                        try
+                        {
+                            strFld = "altitude"; strPos = line.Substring(30, 5);
+                            altitude = double.Parse(line.Substring(30, 5), NumberFormatInfo.InvariantInfo) * 0.3048f; //Feet to Meter
+                            strFld = "speed"; strPos = line.Substring(35, 4);
+                            speed = (double.Parse(line.Substring(35, 4), NumberFormatInfo.InvariantInfo) / 10) / 0.514444444f; //Knot to m/s
+                            strFld = "bearing"; strPos = line.Substring(39, 3);
+                            bearing = double.Parse(line.Substring(39, 3), NumberFormatInfo.InvariantInfo);
+                            strFld = "acc"; strPos = line.Substring(42, 4);
+                            acc = double.Parse(line.Substring(42, 4), NumberFormatInfo.InvariantInfo);
+                        }
+                        catch (Exception)
+                        {
+                            throw new ApplicationException(String.Format("\nError in {2} import\ndata line {1}: data value: {0}", strPos, iCnt, strFld));
+                        }
+
 
                         Point data = new Point();
                         data.Timestamp = newPointTimeStamp.Ticks;
@@ -948,6 +1028,11 @@ namespace AirNavigationRaceLive.Comps.Helper
             return result;
         }
 
+        /// <summary>
+        /// Importing data in GPX format
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
         internal static List<Point> GPSdataFromGPX(string filename)
         {
             // note the namespace can be ...GPX/1/1  but for livetrack24 etc. also GPX/1/0 so do not use a fixed namespace....

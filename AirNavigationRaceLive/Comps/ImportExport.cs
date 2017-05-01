@@ -21,9 +21,6 @@ namespace AirNavigationRaceLive.Comps
         {
             this.Client = Client;
             InitializeComponent();
-            groupBox1.Text = string.Format("{0} - Parcour export", Client.SelectedCompetition.Name);
-            groupBox2.Text = string.Format("{0} - Excel Data import/export", Client.SelectedCompetition.Name);
-
         }
 
         private void btnExportKLM_Click(object sender, EventArgs e)
@@ -39,6 +36,8 @@ namespace AirNavigationRaceLive.Comps
             {
                 comboBoxQualificationRound.Items.Add(new QualiComboBoxItem(round));
             }
+            groupBox1.Text = string.Format("{0} - Parcour export", Client.SelectedCompetition.Name);
+            groupBox2.Text = string.Format("{0} - Excel Data import/export", Client.SelectedCompetition.Name);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
