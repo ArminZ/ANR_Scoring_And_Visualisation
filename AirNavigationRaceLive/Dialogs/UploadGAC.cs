@@ -22,6 +22,8 @@ namespace AirNavigationRaceLive.Dialogs
 
         private void btnImportGAC_Click(object sender, EventArgs e)
         {
+            textBoxPositions.Text = String.Empty;
+            textBoxPositions.Tag = null;
             OpenFileDialog ofd = new OpenFileDialog();
             string FileFilter = "GAC  (*.gac)|*.gac";
             ofd.Title = "GAC Import";
@@ -41,10 +43,15 @@ namespace AirNavigationRaceLive.Dialogs
                 List<Point> list = Importer.GPSdataFromGAC(dt.Year, dt.Month, dt.Day, ofd.FileName);
                 textBoxPositions.Text = list.Count.ToString();
                 textBoxPositions.Tag = list;
+                if (Importer.lstWarnings.Count>0)
+                {
+                    string res = string.Join("\n", Importer.lstWarnings);
+                    MessageBox.Show(res, "Import warnings", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error while Parsing File");
+                MessageBox.Show(null, ex.ToString(), "Error while Parsing File",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
             UpdateEnablement();
         }
