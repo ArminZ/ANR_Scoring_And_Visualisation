@@ -71,6 +71,9 @@
             this.radioButton250 = new System.Windows.Forms.RadioButton();
             this.btnExport = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.btnColorSelect = new System.Windows.Forms.Button();
+            this.layerBox = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.PictureBox1 = new AirNavigationRaceLive.Comps.ParcourPictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
@@ -87,6 +90,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).BeginInit();
             this.groupBoxMapScale.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.layerBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -143,8 +147,7 @@
             this.flowLayoutPanel1.Controls.Add(this.listBox1);
             this.flowLayoutPanel1.Controls.Add(this.groupBox1);
             this.flowLayoutPanel1.Controls.Add(this.lineBox);
-            this.flowLayoutPanel1.Controls.Add(this.label17);
-            this.flowLayoutPanel1.Controls.Add(this.numericUpDownAlpha);
+            this.flowLayoutPanel1.Controls.Add(this.layerBox);
             this.flowLayoutPanel1.Controls.Add(this.groupBoxMapScale);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(24, 67);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
@@ -166,7 +169,7 @@
             this.listBox1.MultiSelect = false;
             this.listBox1.Name = "listBox1";
             this.listBox1.ShowGroups = false;
-            this.listBox1.Size = new System.Drawing.Size(254, 296);
+            this.listBox1.Size = new System.Drawing.Size(254, 151);
             this.listBox1.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listBox1.TabIndex = 19;
             this.listBox1.UseCompatibleStateImageBehavior = false;
@@ -212,7 +215,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.fldCursorX);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(4, 308);
+            this.groupBox1.Location = new System.Drawing.Point(4, 163);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -315,7 +318,7 @@
             this.lineBox.Controls.Add(this.numLatA);
             this.lineBox.Controls.Add(this.label9);
             this.lineBox.Enabled = false;
-            this.lineBox.Location = new System.Drawing.Point(4, 391);
+            this.lineBox.Location = new System.Drawing.Point(4, 246);
             this.lineBox.Margin = new System.Windows.Forms.Padding(4);
             this.lineBox.Name = "lineBox";
             this.lineBox.Padding = new System.Windows.Forms.Padding(4);
@@ -560,20 +563,20 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(4, 612);
+            this.label17.Location = new System.Drawing.Point(3, 23);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Padding = new System.Windows.Forms.Padding(4, 4, 0, 0);
-            this.label17.Size = new System.Drawing.Size(140, 21);
+            this.label17.Size = new System.Drawing.Size(57, 21);
             this.label17.TabIndex = 24;
-            this.label17.Text = "Layer Transparency";
+            this.label17.Text = "Transp";
             // 
             // numericUpDownAlpha
             // 
-            this.numericUpDownAlpha.Location = new System.Drawing.Point(152, 616);
+            this.numericUpDownAlpha.Location = new System.Drawing.Point(63, 23);
             this.numericUpDownAlpha.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownAlpha.Name = "numericUpDownAlpha";
-            this.numericUpDownAlpha.Size = new System.Drawing.Size(92, 22);
+            this.numericUpDownAlpha.Size = new System.Drawing.Size(57, 22);
             this.numericUpDownAlpha.TabIndex = 25;
             this.numericUpDownAlpha.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownAlpha.ValueChanged += new System.EventHandler(this.numericUpDownAlpha_ValueChanged);
@@ -584,7 +587,7 @@
             this.groupBoxMapScale.Controls.Add(this.radioButton200);
             this.groupBoxMapScale.Controls.Add(this.radioButton250);
             this.groupBoxMapScale.Controls.Add(this.btnExport);
-            this.groupBoxMapScale.Location = new System.Drawing.Point(3, 645);
+            this.groupBoxMapScale.Location = new System.Drawing.Point(3, 538);
             this.groupBoxMapScale.Name = "groupBoxMapScale";
             this.groupBoxMapScale.Size = new System.Drawing.Size(251, 107);
             this.groupBoxMapScale.TabIndex = 2;
@@ -646,6 +649,43 @@
             this.panel6.Size = new System.Drawing.Size(1186, 646);
             this.panel6.TabIndex = 3;
             // 
+            // btnColorSelect
+            // 
+            this.btnColorSelect.BackColor = System.Drawing.Color.Red;
+            this.btnColorSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnColorSelect.Location = new System.Drawing.Point(198, 23);
+            this.btnColorSelect.Margin = new System.Windows.Forms.Padding(4);
+            this.btnColorSelect.Name = "btnColorSelect";
+            this.btnColorSelect.Size = new System.Drawing.Size(43, 22);
+            this.btnColorSelect.TabIndex = 26;
+            this.btnColorSelect.Text = "...";
+            this.btnColorSelect.UseVisualStyleBackColor = false;
+            this.btnColorSelect.Click += new System.EventHandler(this.btnColorSelect_Click);
+            // 
+            // layerBox
+            // 
+            this.layerBox.Controls.Add(this.label1);
+            this.layerBox.Controls.Add(this.label17);
+            this.layerBox.Controls.Add(this.numericUpDownAlpha);
+            this.layerBox.Controls.Add(this.btnColorSelect);
+            this.layerBox.Location = new System.Drawing.Point(3, 470);
+            this.layerBox.Name = "layerBox";
+            this.layerBox.Size = new System.Drawing.Size(251, 62);
+            this.layerBox.TabIndex = 27;
+            this.layerBox.TabStop = false;
+            this.layerBox.Text = "Layer transparency and color";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(145, 23);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Padding = new System.Windows.Forms.Padding(4, 4, 0, 0);
+            this.label1.Size = new System.Drawing.Size(45, 21);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "Color";
+            // 
             // PictureBox1
             // 
             this.PictureBox1.Location = new System.Drawing.Point(4, 4);
@@ -672,7 +712,6 @@
             this.tableLayoutPanel10.ResumeLayout(false);
             this.tableLayoutPanel10.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -689,6 +728,8 @@
             this.groupBoxMapScale.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.layerBox.ResumeLayout(false);
+            this.layerBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -739,5 +780,8 @@
         private System.Windows.Forms.RadioButton radioButton100;
         private System.Windows.Forms.RadioButton radioButton200;
         private System.Windows.Forms.RadioButton radioButton250;
+        private System.Windows.Forms.Button btnColorSelect;
+        private System.Windows.Forms.GroupBox layerBox;
+        private System.Windows.Forms.Label label1;
     }
 }

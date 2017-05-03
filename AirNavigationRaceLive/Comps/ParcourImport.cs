@@ -513,5 +513,18 @@ namespace AirNavigationRaceLive.Comps
                 PictureBox1.Invalidate();
             }
         }
+
+        private void btnColorSelect_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnColorSelect.BackColor = cd.Color;
+            Parcour p = activeParcour;
+            PictureBox1.ProhZoneColor = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
     }
 }
