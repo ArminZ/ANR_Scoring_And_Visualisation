@@ -414,6 +414,5 @@ namespace AirNavigationRaceLive.Comps
                 PictureBox1.Invalidate();
             }
         }
-
     }
 }

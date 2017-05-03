@@ -16,16 +16,17 @@ namespace AirNavigationRaceLive.Comps
         private Converter c;
         private Line selectedLine;
         private Line hoverLine;
-        private System.Drawing.Pen Pen = new Pen(new SolidBrush(Color.Red), 2f);
-        private System.Drawing.Pen PenHover = new Pen(new SolidBrush(Color.White), 4f);
-        private System.Drawing.Pen PenSelected = new Pen(new SolidBrush(Color.Blue), 6f);
+        private Pen Pen = new Pen(new SolidBrush(Color.Red), 2f);
+        private Pen PenHover = new Pen(new SolidBrush(Color.White), 4f);
+        private Pen PenSelected = new Pen(new SolidBrush(Color.Blue), 6f);
         private SolidBrush Brush = new SolidBrush(Color.FromArgb(70, 255, 0, 0));
+        // user may modify prohibited zone color
         private volatile bool pdf = false;
-
+        public Color ProhZoneColor = Color.FromArgb(255, 0, 0);
         public void SetParcour(Parcour iParcour)
         {
             Parcour = iParcour;
-            Brush = new SolidBrush(Color.FromArgb((255*iParcour.Alpha)/100, 255, 0, 0));
+            Brush = new SolidBrush(Color.FromArgb(255*iParcour.Alpha/100, ProhZoneColor));
         }
         public void SetConverter(Converter iConverter)
         {
