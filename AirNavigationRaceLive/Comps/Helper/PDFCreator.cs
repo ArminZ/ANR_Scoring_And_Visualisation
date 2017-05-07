@@ -620,9 +620,9 @@ namespace AirNavigationRaceLive.Comps.Helper
                     r.Cells[5].AddParagraph(navigator.LastName);
                     r.Cells[6].AddParagraph(navigator.FirstName);
                 }
-                r.Cells[7].AddParagraph(new DateTime(ct.TimeTakeOff).ToString("HH:mm"));
-                r.Cells[8].AddParagraph(new DateTime(ct.TimeStartLine).ToString("HH:mm"));
-                r.Cells[9].AddParagraph(new DateTime(ct.TimeEndLine).ToString("HH:mm"));
+                r.Cells[7].AddParagraph(new DateTime(ct.TimeTakeOff).ToString("HH:mm:ss"));
+                r.Cells[8].AddParagraph(new DateTime(ct.TimeStartLine).ToString("HH:mm:ss"));
+                r.Cells[9].AddParagraph(new DateTime(ct.TimeEndLine).ToString("HH:mm:ss"));
                 r.Cells[10].AddParagraph(Enum.GetName(NetworkObjects.Route.A.GetType(), ct.Route));
             }
 

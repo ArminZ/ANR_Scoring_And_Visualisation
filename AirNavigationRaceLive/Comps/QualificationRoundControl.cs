@@ -279,11 +279,11 @@ namespace AirNavigationRaceLive.Comps
                     fl.Team.CNumber,
                     fl.Team.AC,
                     getTeamDsc(fl.Team),
-                    new DateTime(fl.TimeTakeOff).ToShortTimeString(),
-                    new DateTime(fl.TimeStartLine).ToShortTimeString(),
-                    new DateTime(fl.TimeEndLine).ToShortTimeString(),
-                    getRouteText(fl.Route),
-                    new DateTime(fl.TimeTakeOff).ToShortDateString());
+                new DateTime(fl.TimeTakeOff).ToString("HH:mm:ss"),
+                        new DateTime(fl.TimeStartLine).ToString("HH:mm:ss"),
+                        new DateTime(fl.TimeEndLine).ToString("HH:mm:ss"),
+                        getRouteText(fl.Route),
+                        new DateTime(fl.TimeTakeOff).ToShortDateString());
 
                 fl.QualificationRound = listViewQualificationRound.SelectedItems[0].Tag as QualificationRound;
                 dgvr.Tag = fl;
@@ -483,16 +483,16 @@ namespace AirNavigationRaceLive.Comps
                 lstCboTeam.Add(new ComboTeam(t, getTeamDsc(t)));
             }
 
-            int takeOffInterval = timeTakeOffIntervall.Value.Minute;
-            int takeOffStartgate = timeTakeOffStartgate.Value.Minute;
-            int parcourInterval = timeParcourIntervall.Value.Minute;
-            int parcourLength = timeParcourLength.Value.Minute;
+            long intervTKOF = timeTakeOffIntervall.Value.Minute * 60 + timeTakeOffIntervall.Value.Second;  // timeTakeOffIntervall.Value.Ticks;
+            long intervStartL = timeParcourIntervall.Value.Minute * 60 + timeParcourIntervall.Value.Second;
+            long tkofToStart = timeTakeOffStartgate.Value.Minute * 60 + timeTakeOffStartgate.Value.Second;
+            long parcourLength = timeParcourLength.Value.Minute * 60 + timeParcourLength.Value.Second;
 
             // as a default, use the actual date
             long dateQRdate0 = DateTime.Now.Ticks;
             long timeTKOF0 = dateQRdate0;
-            long timeStart0 = new DateTime(timeTKOF0).AddMinutes(takeOffStartgate).Ticks;
-            long timeEnd0 = new DateTime(timeStart0).AddMinutes(parcourLength).Ticks;
+            long timeStart0 = new DateTime(timeTKOF0).AddSeconds(intervStartL).Ticks;
+            long timeEnd0 = new DateTime(timeStart0).AddSeconds(parcourLength).Ticks;
 
             if (dataGridView1.RowCount > 1 && dataGridView1.SelectedRows[0].IsNewRow)
             {
@@ -501,9 +501,9 @@ namespace AirNavigationRaceLive.Comps
                 Flight flt0 = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index - 1].Tag as Flight;
 
                 dateQRdate0 = flt0.TimeTakeOff;
-                timeTKOF0 = new DateTime(flt0.TimeTakeOff).AddMinutes(takeOffInterval).Ticks;
-                timeStart0 = new DateTime(timeTKOF0).AddMinutes(takeOffStartgate).Ticks;
-                timeEnd0 = new DateTime(timeStart0).AddMinutes(parcourLength).Ticks;
+                timeTKOF0 = new DateTime(flt0.TimeTakeOff).AddSeconds(intervTKOF).Ticks;
+                timeStart0 = new DateTime(timeTKOF0).AddSeconds(intervStartL).Ticks;
+                timeEnd0 = new DateTime(timeStart0).AddSeconds(parcourLength).Ticks;
             }
 
             Flight flt = dataGridView1.SelectedRows[0].Tag as Flight;
@@ -531,11 +531,11 @@ namespace AirNavigationRaceLive.Comps
                             fl.Team.CNumber,
                             fl.Team.AC,
                             getTeamDsc(fl.Team),
-                            new DateTime(fl.TimeTakeOff).ToShortTimeString(),
-                            new DateTime(fl.TimeStartLine).ToShortTimeString(),
-                            new DateTime(fl.TimeEndLine).ToShortTimeString(),
-                            getRouteText(fl.Route),
-                            new DateTime(fl.TimeTakeOff).ToShortDateString());
+                        new DateTime(fl.TimeTakeOff).ToString("HH:mm:ss"),
+                        new DateTime(fl.TimeStartLine).ToString("HH:mm:ss"),
+                        new DateTime(fl.TimeEndLine).ToString("HH:mm:ss"),
+                        getRouteText(fl.Route),
+                        new DateTime(fl.TimeTakeOff).ToShortDateString());
 
                         fl.QualificationRound = listViewQualificationRound.SelectedItems[0].Tag as QualificationRound;
                         dgvr.Tag = fl;
@@ -606,10 +606,10 @@ namespace AirNavigationRaceLive.Comps
             //Flight f = new Flight();
             long tkof0 = 0;
             QualificationRound qRnd = null;
-            long intervTKOF = timeTakeOffIntervall.Value.Minute;  // timeTakeOffIntervall.Value.Ticks;
-            long intervStartL = timeParcourIntervall.Value.Minute;
-            long tkofToStart = timeTakeOffStartgate.Value.Minute;
-            long parcourLenght = timeParcourLength.Value.Minute;
+            long intervTKOF = timeTakeOffIntervall.Value.Minute * 60 + timeTakeOffIntervall.Value.Second;  // timeTakeOffIntervall.Value.Ticks;
+            long intervStartL = timeParcourIntervall.Value.Minute * 60 + timeParcourIntervall.Value.Second;
+            long tkofToStart = timeTakeOffStartgate.Value.Minute * 60 + timeTakeOffStartgate.Value.Second;
+            long parcourLength = timeParcourLength.Value.Minute * 60 + timeParcourLength.Value.Second;
             int NrOfRoutes = (int)numericUpDownRoutes.Value;
             Flight f = null;
             int idx = 0;
@@ -645,12 +645,12 @@ namespace AirNavigationRaceLive.Comps
                 }
                 if (i > idx)  // re-calculate
                 {
-                    f.TimeTakeOff = new DateTime(tkof0).AddMinutes(((i - idx) % NrOfRoutes) * intervTKOF).AddMinutes(((i - idx) / NrOfRoutes) * intervStartL).Ticks;
+                    f.TimeTakeOff = new DateTime(tkof0).AddSeconds(((i - idx) % NrOfRoutes) * intervTKOF).AddSeconds(((i - idx) / NrOfRoutes) * intervStartL).Ticks;
                 }
 
                 // calculate times based on 0-value
-                f.TimeStartLine = new DateTime(tkof0).AddMinutes(tkofToStart).AddMinutes(((i - idx) / NrOfRoutes) * intervStartL).Ticks;
-                f.TimeEndLine = new DateTime(tkof0).AddMinutes(tkofToStart + parcourLenght).AddMinutes(((i - idx) / NrOfRoutes) * intervStartL).Ticks;
+                f.TimeStartLine = new DateTime(tkof0).AddSeconds(tkofToStart).AddSeconds(((i - idx) / NrOfRoutes) * intervStartL).Ticks;
+                f.TimeEndLine = new DateTime(tkof0).AddSeconds(tkofToStart + parcourLength).AddSeconds(((i - idx) / NrOfRoutes) * intervStartL).Ticks;
                 f.Route = (i - idx) % NrOfRoutes + 1;
             }
 
@@ -673,10 +673,11 @@ namespace AirNavigationRaceLive.Comps
             //Flight f = new Flight();
             long tkof0 = 0;
             QualificationRound qRnd = null;
-            long intervTKOF = timeTakeOffIntervall.Value.Minute;  // timeTakeOffIntervall.Value.Ticks;
-            long intervStartL = timeParcourIntervall.Value.Minute;
-            long tkofToStart = timeTakeOffStartgate.Value.Minute;
-            long parcourLenght = timeParcourLength.Value.Minute;
+            long intervTKOF = timeTakeOffIntervall.Value.Minute * 60 + timeTakeOffIntervall.Value.Second;  // timeTakeOffIntervall.Value.Ticks;
+            long intervStartL = timeParcourIntervall.Value.Minute * 60 + timeParcourIntervall.Value.Second;
+            long tkofToStart = timeTakeOffStartgate.Value.Minute * 60 + timeTakeOffStartgate.Value.Second;
+            long parcourLenght = timeParcourLength.Value.Minute * 60 + timeParcourLength.Value.Second;
+
             int NrOfRoutes = (int)numericUpDownRoutes.Value;
             Flight f = null;
             if (dataGridView1.Rows.Count > 1)
@@ -697,9 +698,9 @@ namespace AirNavigationRaceLive.Comps
             {
                 Flight flt = new Flight();
 
-                flt.TimeTakeOff = new DateTime(tkof0).AddMinutes(i * intervTKOF).AddMinutes((i / NrOfRoutes) * (intervStartL - intervTKOF)).Ticks;
-                flt.TimeStartLine = new DateTime(tkof0).AddMinutes(tkofToStart).AddMinutes(i * intervTKOF).AddMinutes((i / NrOfRoutes) * (intervStartL + intervTKOF)).Ticks;
-                flt.TimeEndLine = new DateTime(tkof0).AddMinutes(tkofToStart + parcourLenght).AddMinutes(i * intervTKOF).AddMinutes((i / NrOfRoutes) * (intervStartL + intervTKOF)).Ticks;
+                flt.TimeTakeOff = new DateTime(tkof0).AddSeconds(i * intervTKOF).AddSeconds((i / NrOfRoutes) * (intervStartL - intervTKOF)).Ticks;
+                flt.TimeStartLine = new DateTime(tkof0).AddSeconds(tkofToStart).AddSeconds(i * intervTKOF).AddSeconds((i / NrOfRoutes) * (intervStartL + intervTKOF)).Ticks;
+                flt.TimeEndLine = new DateTime(tkof0).AddSeconds(tkofToStart + parcourLenght).AddSeconds(i * intervTKOF).AddSeconds((i / NrOfRoutes) * (intervStartL + intervTKOF)).Ticks;
                 flt.Route = i % NrOfRoutes + 1;
                 flt.Team = lstTeam[i];
                 flt.StartID = i + 1;

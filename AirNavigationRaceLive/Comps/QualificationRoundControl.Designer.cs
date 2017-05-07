@@ -344,7 +344,7 @@
             this.groupBoxStartList.Size = new System.Drawing.Size(890, 499);
             this.groupBoxStartList.TabIndex = 92;
             this.groupBoxStartList.TabStop = false;
-            this.groupBoxStartList.Text = "Start List Management";
+            this.groupBoxStartList.Text = "Start List Management (times in UTC)";
             // 
             // dataGridView1
             // 
@@ -444,21 +444,21 @@
             // timeTakeOffStartgate
             // 
             this.timeTakeOffStartgate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeTakeOffStartgate.CustomFormat = "mm";
+            this.timeTakeOffStartgate.CustomFormat = "mm:ss";
             this.timeTakeOffStartgate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timeTakeOffStartgate.Location = new System.Drawing.Point(180, 34);
+            this.timeTakeOffStartgate.Location = new System.Drawing.Point(160, 34);
             this.timeTakeOffStartgate.Margin = new System.Windows.Forms.Padding(4);
             this.timeTakeOffStartgate.Name = "timeTakeOffStartgate";
             this.timeTakeOffStartgate.ShowUpDown = true;
-            this.timeTakeOffStartgate.Size = new System.Drawing.Size(56, 22);
+            this.timeTakeOffStartgate.Size = new System.Drawing.Size(76, 22);
             this.timeTakeOffStartgate.TabIndex = 68;
             this.timeTakeOffStartgate.Value = new System.DateTime(2012, 4, 5, 13, 13, 48, 0);
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.93578F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.06422F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.86765F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.13235F));
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.timeTakeOffIntervall, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.timeParcourIntervall, 1, 1);
@@ -471,7 +471,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(253, 63);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(272, 63);
             this.tableLayoutPanel1.TabIndex = 69;
             // 
             // label5
@@ -487,25 +487,25 @@
             // timeTakeOffIntervall
             // 
             this.timeTakeOffIntervall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeTakeOffIntervall.CustomFormat = "mm";
+            this.timeTakeOffIntervall.CustomFormat = "mm:ss";
             this.timeTakeOffIntervall.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timeTakeOffIntervall.Location = new System.Drawing.Point(188, 4);
+            this.timeTakeOffIntervall.Location = new System.Drawing.Point(185, 4);
             this.timeTakeOffIntervall.Margin = new System.Windows.Forms.Padding(4);
             this.timeTakeOffIntervall.Name = "timeTakeOffIntervall";
             this.timeTakeOffIntervall.ShowUpDown = true;
-            this.timeTakeOffIntervall.Size = new System.Drawing.Size(61, 22);
+            this.timeTakeOffIntervall.Size = new System.Drawing.Size(83, 22);
             this.timeTakeOffIntervall.TabIndex = 70;
             // 
             // timeParcourIntervall
             // 
             this.timeParcourIntervall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeParcourIntervall.CustomFormat = "mm";
+            this.timeParcourIntervall.CustomFormat = "mm:ss";
             this.timeParcourIntervall.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timeParcourIntervall.Location = new System.Drawing.Point(188, 34);
+            this.timeParcourIntervall.Location = new System.Drawing.Point(185, 34);
             this.timeParcourIntervall.Margin = new System.Windows.Forms.Padding(4);
             this.timeParcourIntervall.Name = "timeParcourIntervall";
             this.timeParcourIntervall.ShowUpDown = true;
-            this.timeParcourIntervall.Size = new System.Drawing.Size(61, 22);
+            this.timeParcourIntervall.Size = new System.Drawing.Size(83, 22);
             this.timeParcourIntervall.TabIndex = 71;
             // 
             // label6
@@ -554,8 +554,8 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.35F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.65F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.16666F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.83333F));
             this.tableLayoutPanel2.Controls.Add(this.timeTakeOffStartgate, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label19, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.timeParcourLength, 1, 0);
@@ -581,13 +581,13 @@
             // timeParcourLength
             // 
             this.timeParcourLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeParcourLength.CustomFormat = "mm";
+            this.timeParcourLength.CustomFormat = "mm:ss";
             this.timeParcourLength.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timeParcourLength.Location = new System.Drawing.Point(180, 4);
+            this.timeParcourLength.Location = new System.Drawing.Point(160, 4);
             this.timeParcourLength.Margin = new System.Windows.Forms.Padding(4);
             this.timeParcourLength.Name = "timeParcourLength";
             this.timeParcourLength.ShowUpDown = true;
-            this.timeParcourLength.Size = new System.Drawing.Size(56, 22);
+            this.timeParcourLength.Size = new System.Drawing.Size(76, 22);
             this.timeParcourLength.TabIndex = 67;
             this.timeParcourLength.Value = new System.DateTime(2012, 4, 5, 13, 13, 48, 0);
             // 
@@ -614,7 +614,7 @@
             this.groupBoxGeneral.Size = new System.Drawing.Size(892, 122);
             this.groupBoxGeneral.TabIndex = 65;
             this.groupBoxGeneral.TabStop = false;
-            this.groupBoxGeneral.Text = "Time Settings (in minutes)";
+            this.groupBoxGeneral.Text = "Time Settings (in mm:ss)";
             // 
             // btnAutoFillStartList
             // 
