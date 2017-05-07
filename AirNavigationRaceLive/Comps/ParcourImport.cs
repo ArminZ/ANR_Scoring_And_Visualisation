@@ -31,12 +31,13 @@ namespace AirNavigationRaceLive.Comps
         {
             Client = iClient;
             InitializeComponent();
-
             lblCompetition.Text = Client.SelectedCompetition.Name + " - parcours";
             PictureBox1.Cursor = new Cursor(@"Resources\GPSCursor.cur");
             activeParcour = new Parcour();
+            numericUpDownAlpha.Value = 40;
             PictureBox1.SetParcour(activeParcour);
             checkValidationErrors();
+
         }
         #region load
         private void ParcourGen_Load(object sender, EventArgs e)
@@ -229,7 +230,6 @@ namespace AirNavigationRaceLive.Comps
                 PictureBox1.Image = System.Drawing.Image.FromStream(ms);
                 c = new Converter(li.getMap());
                 PictureBox1.SetConverter(c);
-
                 activeParcour = new Parcour();
                 PictureBox1.SetParcour(activeParcour);
                 SetHoverLine(null);
@@ -500,6 +500,31 @@ namespace AirNavigationRaceLive.Comps
                 hasErrors = true;
             }
             btnSave.Enabled = !hasErrors && !(CurrentMap == null);
+        }
+
+        private void numericUpDownAlpha_ValueChanged(object sender, EventArgs e)
+        {
+            if (activeParcour != null)
+            {
+                Parcour p = activeParcour;
+                p.Alpha = (int)numericUpDownAlpha.Value;
+                //Client.DBContext.SaveChanges();
+                PictureBox1.SetParcour(p);
+                PictureBox1.Invalidate();
+            }
+        }
+
+        private void btnColorSelect_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnColorSelect.BackColor = cd.Color;
+            Parcour p = activeParcour;
+            PictureBox1.ProhZoneColor = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
         }
     }
 }

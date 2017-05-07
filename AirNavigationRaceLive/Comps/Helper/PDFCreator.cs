@@ -604,7 +604,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             row.Cells[9].AddParagraph("End Gate (UTC)");
             row.Cells[10].AddParagraph("Route");
 
-            foreach (Flight ct in qRnd.Flight)
+            foreach (Flight ct in qRnd.Flight.OrderBy(x => x.TimeTakeOff).ThenBy(x=>x.Route))
             {
                 Row r = table.AddRow();
                 r.Cells[0].AddParagraph(ct.StartID.ToString());
