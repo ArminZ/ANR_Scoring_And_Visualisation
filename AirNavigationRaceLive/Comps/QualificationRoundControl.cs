@@ -115,8 +115,8 @@ namespace AirNavigationRaceLive.Comps
             DateTime time = DateTime.Now;
             timeParcourDuration.Value = new DateTime(time.Year, time.Month, time.Day, time.Hour, 12, 0);
             timeTakeOffToStartgateDuration.Value = new DateTime(time.Year, time.Month, time.Day, time.Hour, 12, 0);
-            timeTakeOffIntervall.Value = new DateTime(time.Year, time.Month, time.Day, time.Hour, 1, 0);
-            timeStartBlockIntervall.Value = new DateTime(time.Year, time.Month, time.Day, time.Hour, 20, 0);
+            timeTakeOffInterval.Value = new DateTime(time.Year, time.Month, time.Day, time.Hour, 1, 0);
+            timeStartBlockInterval.Value = new DateTime(time.Year, time.Month, time.Day, time.Hour, 20, 0);
         }
         private void SetTimeParameters(QualificationRound c)
         {
@@ -131,7 +131,7 @@ namespace AirNavigationRaceLive.Comps
                 if (flights.Count > 1)
                 {
                     Flight secon = flights.OrderBy(x => x.TimeTakeOff).Skip(1).First();
-                    timeTakeOffIntervall.Value = new DateTime(secon.TimeTakeOff - first.TimeTakeOff).AddYears(2000);
+                    timeTakeOffInterval.Value = new DateTime(secon.TimeTakeOff - first.TimeTakeOff).AddYears(2000);
                    // timeTakeOffBlocksIntervall.Value will not be set
                 }
             }
@@ -501,8 +501,8 @@ namespace AirNavigationRaceLive.Comps
                 lstCboTeam.Add(new ComboTeam(t, getTeamDsc(t)));
             }
 
-            long intervTKOF = timeTakeOffIntervall.Value.Minute * 60 + timeTakeOffIntervall.Value.Second;  // timeTakeOffIntervall.Value.Ticks;
-            long intervStartL = timeStartBlockIntervall.Value.Minute * 60 + timeStartBlockIntervall.Value.Second;
+            long intervTKOF = timeTakeOffInterval.Value.Minute * 60 + timeTakeOffInterval.Value.Second;  // timeTakeOffIntervall.Value.Ticks;
+            long intervStartL = timeStartBlockInterval.Value.Minute * 60 + timeStartBlockInterval.Value.Second;
             long tkofToStart = timeTakeOffToStartgateDuration.Value.Minute * 60 + timeTakeOffToStartgateDuration.Value.Second;
             long parcourLength = timeParcourDuration.Value.Minute * 60 + timeParcourDuration.Value.Second;
 
@@ -624,8 +624,8 @@ namespace AirNavigationRaceLive.Comps
             //Flight f = new Flight();
             long tkof0 = 0;
             QualificationRound qRnd = null;
-            long intervTKOF = timeTakeOffIntervall.Value.Minute * 60 + timeTakeOffIntervall.Value.Second;  // timeTakeOffIntervall.Value.Ticks;
-            long intervStartL = timeStartBlockIntervall.Value.Minute * 60 + timeStartBlockIntervall.Value.Second;
+            long intervTKOF = timeTakeOffInterval.Value.Minute * 60 + timeTakeOffInterval.Value.Second;  // timeTakeOffIntervall.Value.Ticks;
+            long intervStartL = timeStartBlockInterval.Value.Minute * 60 + timeStartBlockInterval.Value.Second;
             long tkofToStart = timeTakeOffToStartgateDuration.Value.Minute * 60 + timeTakeOffToStartgateDuration.Value.Second;
             long parcourLength = timeParcourDuration.Value.Minute * 60 + timeParcourDuration.Value.Second;
             int NrOfRoutes = (int)numericUpDownRoutes.Value;
@@ -691,8 +691,8 @@ namespace AirNavigationRaceLive.Comps
             //Flight f = new Flight();
             long tkof0 = 0;
             QualificationRound qRnd = null;
-            long intervTKOF = timeTakeOffIntervall.Value.Minute * 60 + timeTakeOffIntervall.Value.Second;  // timeTakeOffIntervall.Value.Ticks;
-            long intervStartL = timeStartBlockIntervall.Value.Minute * 60 + timeStartBlockIntervall.Value.Second;
+            long intervTKOF = timeTakeOffInterval.Value.Minute * 60 + timeTakeOffInterval.Value.Second;  // timeTakeOffIntervall.Value.Ticks;
+            long intervStartL = timeStartBlockInterval.Value.Minute * 60 + timeStartBlockInterval.Value.Second;
             long tkofToStart = timeTakeOffToStartgateDuration.Value.Minute * 60 + timeTakeOffToStartgateDuration.Value.Second;
             long parcourLenght = timeParcourDuration.Value.Minute * 60 + timeParcourDuration.Value.Second;
 
