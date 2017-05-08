@@ -36,6 +36,10 @@ namespace AirNavigationRaceLive.Comps
                 lvi.Tag = c;
                 listViewQualificationRound.Items.Add(lvi);
             }
+            if (listViewQualificationRound.Items.Count > 0)
+            {
+                listViewQualificationRound.Items[0].Selected = true;
+            }
             UpdateEnablement();
             lblQRound.Text = string.Format("{0} - Qualification Rounds", Client.SelectedCompetition.Name);
             groupBoxStartList.Visible = false;
@@ -287,10 +291,10 @@ namespace AirNavigationRaceLive.Comps
         {
             dataGridView1.Rows.Clear();
             List<Flight> flights = new List<Flight>(c.Flight);
-            flights.Sort((p, q) => p.StartID.CompareTo(q.StartID));
-            foreach (Flight fl in flights)
-            {
-                DataGridViewRow dgvr = new DataGridViewRow();
+            //foreach (Flight fl in flights.OrderBy(x => x.TimeTakeOff))
+                foreach (Flight fl in flights.OrderBy(x => x.StartID))
+                {
+                    DataGridViewRow dgvr = new DataGridViewRow();
                 dgvr.CreateCells(dataGridView1);
                 dgvr.SetValues(
                     fl.StartID.ToString(),
