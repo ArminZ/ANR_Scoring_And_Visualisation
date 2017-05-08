@@ -36,10 +36,10 @@ namespace AirNavigationRaceLive.Comps
                 lvi.Tag = c;
                 listViewQualificationRound.Items.Add(lvi);
             }
-            if (listViewQualificationRound.Items.Count > 0)
-            {
-                listViewQualificationRound.Items[0].Selected = true;
-            }
+            //if (listViewQualificationRound.Items.Count > 0)
+            //{
+            //    listViewQualificationRound.Items[0].Selected = true;
+            //}
             UpdateEnablement();
             lblQRound.Text = string.Format("{0} - Qualification Rounds", Client.SelectedCompetition.Name);
             groupBoxStartList.Visible = false;
