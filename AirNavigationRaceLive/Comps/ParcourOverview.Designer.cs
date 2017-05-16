@@ -63,17 +63,17 @@
             this.label10 = new System.Windows.Forms.Label();
             this.numLatA = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
+            this.layerBox = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.numericUpDownAlpha = new System.Windows.Forms.NumericUpDown();
+            this.btnColorSelect = new System.Windows.Forms.Button();
             this.groupBoxMapScale = new System.Windows.Forms.GroupBox();
             this.radioButton100 = new System.Windows.Forms.RadioButton();
             this.radioButton200 = new System.Windows.Forms.RadioButton();
             this.radioButton250 = new System.Windows.Forms.RadioButton();
             this.btnExport = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.btnColorSelect = new System.Windows.Forms.Button();
-            this.layerBox = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.PictureBox1 = new AirNavigationRaceLive.Comps.ParcourPictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
@@ -87,10 +87,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLatB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLongA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).BeginInit();
+            this.layerBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).BeginInit();
             this.groupBoxMapScale.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.layerBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -169,7 +169,7 @@
             this.listBox1.MultiSelect = false;
             this.listBox1.Name = "listBox1";
             this.listBox1.ShowGroups = false;
-            this.listBox1.Size = new System.Drawing.Size(254, 151);
+            this.listBox1.Size = new System.Drawing.Size(254, 302);
             this.listBox1.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listBox1.TabIndex = 19;
             this.listBox1.UseCompatibleStateImageBehavior = false;
@@ -189,19 +189,19 @@
             this.refreshToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(134, 56);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(128, 52);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -215,7 +215,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.fldCursorX);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(4, 163);
+            this.groupBox1.Location = new System.Drawing.Point(4, 314);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -318,7 +318,7 @@
             this.lineBox.Controls.Add(this.numLatA);
             this.lineBox.Controls.Add(this.label9);
             this.lineBox.Enabled = false;
-            this.lineBox.Location = new System.Drawing.Point(4, 246);
+            this.lineBox.Location = new System.Drawing.Point(4, 397);
             this.lineBox.Margin = new System.Windows.Forms.Padding(4);
             this.lineBox.Name = "lineBox";
             this.lineBox.Padding = new System.Windows.Forms.Padding(4);
@@ -560,6 +560,30 @@
             this.label9.TabIndex = 0;
             this.label9.Text = "Latitude A:";
             // 
+            // layerBox
+            // 
+            this.layerBox.Controls.Add(this.label1);
+            this.layerBox.Controls.Add(this.label17);
+            this.layerBox.Controls.Add(this.numericUpDownAlpha);
+            this.layerBox.Controls.Add(this.btnColorSelect);
+            this.layerBox.Location = new System.Drawing.Point(3, 621);
+            this.layerBox.Name = "layerBox";
+            this.layerBox.Size = new System.Drawing.Size(251, 62);
+            this.layerBox.TabIndex = 27;
+            this.layerBox.TabStop = false;
+            this.layerBox.Text = "Layer transparency and color";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(145, 23);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Padding = new System.Windows.Forms.Padding(4, 4, 0, 0);
+            this.label1.Size = new System.Drawing.Size(45, 21);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "Color";
+            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -581,13 +605,26 @@
             this.numericUpDownAlpha.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownAlpha.ValueChanged += new System.EventHandler(this.numericUpDownAlpha_ValueChanged);
             // 
+            // btnColorSelect
+            // 
+            this.btnColorSelect.BackColor = System.Drawing.Color.Red;
+            this.btnColorSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnColorSelect.Location = new System.Drawing.Point(198, 23);
+            this.btnColorSelect.Margin = new System.Windows.Forms.Padding(4);
+            this.btnColorSelect.Name = "btnColorSelect";
+            this.btnColorSelect.Size = new System.Drawing.Size(43, 22);
+            this.btnColorSelect.TabIndex = 26;
+            this.btnColorSelect.Text = "...";
+            this.btnColorSelect.UseVisualStyleBackColor = false;
+            this.btnColorSelect.Click += new System.EventHandler(this.btnColorSelect_Click);
+            // 
             // groupBoxMapScale
             // 
             this.groupBoxMapScale.Controls.Add(this.radioButton100);
             this.groupBoxMapScale.Controls.Add(this.radioButton200);
             this.groupBoxMapScale.Controls.Add(this.radioButton250);
             this.groupBoxMapScale.Controls.Add(this.btnExport);
-            this.groupBoxMapScale.Location = new System.Drawing.Point(3, 538);
+            this.groupBoxMapScale.Location = new System.Drawing.Point(3, 689);
             this.groupBoxMapScale.Name = "groupBoxMapScale";
             this.groupBoxMapScale.Size = new System.Drawing.Size(251, 107);
             this.groupBoxMapScale.TabIndex = 2;
@@ -649,43 +686,6 @@
             this.panel6.Size = new System.Drawing.Size(1186, 646);
             this.panel6.TabIndex = 3;
             // 
-            // btnColorSelect
-            // 
-            this.btnColorSelect.BackColor = System.Drawing.Color.Red;
-            this.btnColorSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnColorSelect.Location = new System.Drawing.Point(198, 23);
-            this.btnColorSelect.Margin = new System.Windows.Forms.Padding(4);
-            this.btnColorSelect.Name = "btnColorSelect";
-            this.btnColorSelect.Size = new System.Drawing.Size(43, 22);
-            this.btnColorSelect.TabIndex = 26;
-            this.btnColorSelect.Text = "...";
-            this.btnColorSelect.UseVisualStyleBackColor = false;
-            this.btnColorSelect.Click += new System.EventHandler(this.btnColorSelect_Click);
-            // 
-            // layerBox
-            // 
-            this.layerBox.Controls.Add(this.label1);
-            this.layerBox.Controls.Add(this.label17);
-            this.layerBox.Controls.Add(this.numericUpDownAlpha);
-            this.layerBox.Controls.Add(this.btnColorSelect);
-            this.layerBox.Location = new System.Drawing.Point(3, 470);
-            this.layerBox.Name = "layerBox";
-            this.layerBox.Size = new System.Drawing.Size(251, 62);
-            this.layerBox.TabIndex = 27;
-            this.layerBox.TabStop = false;
-            this.layerBox.Text = "Layer transparency and color";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(145, 23);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(4, 4, 0, 0);
-            this.label1.Size = new System.Drawing.Size(45, 21);
-            this.label1.TabIndex = 27;
-            this.label1.Text = "Color";
-            // 
             // PictureBox1
             // 
             this.PictureBox1.Location = new System.Drawing.Point(4, 4);
@@ -723,13 +723,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLatB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLongA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).EndInit();
+            this.layerBox.ResumeLayout(false);
+            this.layerBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).EndInit();
             this.groupBoxMapScale.ResumeLayout(false);
             this.groupBoxMapScale.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            this.layerBox.ResumeLayout(false);
-            this.layerBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.ResumeLayout(false);
 

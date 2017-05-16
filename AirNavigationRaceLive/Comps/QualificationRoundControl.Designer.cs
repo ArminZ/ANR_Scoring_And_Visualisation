@@ -62,18 +62,18 @@
             this.End = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Route = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timeTakeOffStartgate = new System.Windows.Forms.DateTimePicker();
+            this.timeTakeOffToStartgateDuration = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
-            this.timeTakeOffIntervall = new System.Windows.Forms.DateTimePicker();
-            this.timeParcourIntervall = new System.Windows.Forms.DateTimePicker();
+            this.timeTakeOffInterval = new System.Windows.Forms.DateTimePicker();
+            this.timeStartBlockInterval = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
             this.btnExportToPDF = new System.Windows.Forms.Button();
             this.btnSaveQualificationRound = new System.Windows.Forms.Button();
             this.btnNewQualificationRound = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label19 = new System.Windows.Forms.Label();
-            this.timeParcourLength = new System.Windows.Forms.DateTimePicker();
+            this.timeParcourDuration = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBoxGeneral = new System.Windows.Forms.GroupBox();
             this.btnAutoFillStartList = new System.Windows.Forms.Button();
@@ -344,7 +344,7 @@
             this.groupBoxStartList.Size = new System.Drawing.Size(890, 499);
             this.groupBoxStartList.TabIndex = 92;
             this.groupBoxStartList.TabStop = false;
-            this.groupBoxStartList.Text = "Start List Management";
+            this.groupBoxStartList.Text = "Start List Management (times in UTC)";
             // 
             // dataGridView1
             // 
@@ -441,27 +441,27 @@
             this.Date1.ReadOnly = true;
             this.Date1.Width = 24;
             // 
-            // timeTakeOffStartgate
+            // timeTakeOffToStartgateDuration
             // 
-            this.timeTakeOffStartgate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeTakeOffStartgate.CustomFormat = "mm";
-            this.timeTakeOffStartgate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timeTakeOffStartgate.Location = new System.Drawing.Point(180, 34);
-            this.timeTakeOffStartgate.Margin = new System.Windows.Forms.Padding(4);
-            this.timeTakeOffStartgate.Name = "timeTakeOffStartgate";
-            this.timeTakeOffStartgate.ShowUpDown = true;
-            this.timeTakeOffStartgate.Size = new System.Drawing.Size(56, 22);
-            this.timeTakeOffStartgate.TabIndex = 68;
-            this.timeTakeOffStartgate.Value = new System.DateTime(2012, 4, 5, 13, 13, 48, 0);
+            this.timeTakeOffToStartgateDuration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeTakeOffToStartgateDuration.CustomFormat = "mm:ss";
+            this.timeTakeOffToStartgateDuration.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.timeTakeOffToStartgateDuration.Location = new System.Drawing.Point(160, 34);
+            this.timeTakeOffToStartgateDuration.Margin = new System.Windows.Forms.Padding(4);
+            this.timeTakeOffToStartgateDuration.Name = "timeTakeOffToStartgateDuration";
+            this.timeTakeOffToStartgateDuration.ShowUpDown = true;
+            this.timeTakeOffToStartgateDuration.Size = new System.Drawing.Size(76, 22);
+            this.timeTakeOffToStartgateDuration.TabIndex = 68;
+            this.timeTakeOffToStartgateDuration.Value = new System.DateTime(2012, 4, 5, 13, 13, 48, 0);
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.93578F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.06422F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.86765F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.13235F));
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.timeTakeOffIntervall, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.timeParcourIntervall, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.timeTakeOffInterval, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.timeStartBlockInterval, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(278, 36);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
@@ -471,7 +471,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(253, 63);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(272, 63);
             this.tableLayoutPanel1.TabIndex = 69;
             // 
             // label5
@@ -480,33 +480,33 @@
             this.label5.Location = new System.Drawing.Point(4, 0);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(149, 17);
+            this.label5.Size = new System.Drawing.Size(146, 17);
             this.label5.TabIndex = 75;
-            this.label5.Text = "Intervall btw Take-Offs";
+            this.label5.Text = "Interval btw Take-Offs";
             // 
             // timeTakeOffIntervall
             // 
-            this.timeTakeOffIntervall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeTakeOffIntervall.CustomFormat = "mm";
-            this.timeTakeOffIntervall.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timeTakeOffIntervall.Location = new System.Drawing.Point(188, 4);
-            this.timeTakeOffIntervall.Margin = new System.Windows.Forms.Padding(4);
-            this.timeTakeOffIntervall.Name = "timeTakeOffIntervall";
-            this.timeTakeOffIntervall.ShowUpDown = true;
-            this.timeTakeOffIntervall.Size = new System.Drawing.Size(61, 22);
-            this.timeTakeOffIntervall.TabIndex = 70;
+            this.timeTakeOffInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeTakeOffInterval.CustomFormat = "mm:ss";
+            this.timeTakeOffInterval.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.timeTakeOffInterval.Location = new System.Drawing.Point(185, 4);
+            this.timeTakeOffInterval.Margin = new System.Windows.Forms.Padding(4);
+            this.timeTakeOffInterval.Name = "timeTakeOffIntervall";
+            this.timeTakeOffInterval.ShowUpDown = true;
+            this.timeTakeOffInterval.Size = new System.Drawing.Size(83, 22);
+            this.timeTakeOffInterval.TabIndex = 70;
             // 
-            // timeParcourIntervall
+            // timeStartBlockIntervall
             // 
-            this.timeParcourIntervall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeParcourIntervall.CustomFormat = "mm";
-            this.timeParcourIntervall.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timeParcourIntervall.Location = new System.Drawing.Point(188, 34);
-            this.timeParcourIntervall.Margin = new System.Windows.Forms.Padding(4);
-            this.timeParcourIntervall.Name = "timeParcourIntervall";
-            this.timeParcourIntervall.ShowUpDown = true;
-            this.timeParcourIntervall.Size = new System.Drawing.Size(61, 22);
-            this.timeParcourIntervall.TabIndex = 71;
+            this.timeStartBlockInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeStartBlockInterval.CustomFormat = "mm:ss";
+            this.timeStartBlockInterval.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.timeStartBlockInterval.Location = new System.Drawing.Point(185, 34);
+            this.timeStartBlockInterval.Margin = new System.Windows.Forms.Padding(4);
+            this.timeStartBlockInterval.Name = "timeStartBlockIntervall";
+            this.timeStartBlockInterval.ShowUpDown = true;
+            this.timeStartBlockInterval.Size = new System.Drawing.Size(83, 22);
+            this.timeStartBlockInterval.TabIndex = 71;
             // 
             // label6
             // 
@@ -514,9 +514,9 @@
             this.label6.Location = new System.Drawing.Point(4, 30);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(161, 17);
+            this.label6.Size = new System.Drawing.Size(158, 17);
             this.label6.TabIndex = 76;
-            this.label6.Text = "Intervall btw Start Blocks";
+            this.label6.Text = "Interval btw Start Blocks";
             // 
             // btnExportToPDF
             // 
@@ -554,11 +554,11 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.35F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.65F));
-            this.tableLayoutPanel2.Controls.Add(this.timeTakeOffStartgate, 1, 1);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.16666F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.83333F));
+            this.tableLayoutPanel2.Controls.Add(this.timeTakeOffToStartgateDuration, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label19, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.timeParcourLength, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.timeParcourDuration, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label7, 0, 1);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(17, 36);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -578,18 +578,18 @@
             this.label19.TabIndex = 66;
             this.label19.Text = "Parcour duration";
             // 
-            // timeParcourLength
+            // timeParcourDuration
             // 
-            this.timeParcourLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeParcourLength.CustomFormat = "mm";
-            this.timeParcourLength.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timeParcourLength.Location = new System.Drawing.Point(180, 4);
-            this.timeParcourLength.Margin = new System.Windows.Forms.Padding(4);
-            this.timeParcourLength.Name = "timeParcourLength";
-            this.timeParcourLength.ShowUpDown = true;
-            this.timeParcourLength.Size = new System.Drawing.Size(56, 22);
-            this.timeParcourLength.TabIndex = 67;
-            this.timeParcourLength.Value = new System.DateTime(2012, 4, 5, 13, 13, 48, 0);
+            this.timeParcourDuration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeParcourDuration.CustomFormat = "mm:ss";
+            this.timeParcourDuration.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.timeParcourDuration.Location = new System.Drawing.Point(160, 4);
+            this.timeParcourDuration.Margin = new System.Windows.Forms.Padding(4);
+            this.timeParcourDuration.Name = "timeParcourDuration";
+            this.timeParcourDuration.ShowUpDown = true;
+            this.timeParcourDuration.Size = new System.Drawing.Size(76, 22);
+            this.timeParcourDuration.TabIndex = 67;
+            this.timeParcourDuration.Value = new System.DateTime(2012, 4, 5, 13, 13, 48, 0);
             // 
             // label7
             // 
@@ -614,7 +614,7 @@
             this.groupBoxGeneral.Size = new System.Drawing.Size(892, 122);
             this.groupBoxGeneral.TabIndex = 65;
             this.groupBoxGeneral.TabStop = false;
-            this.groupBoxGeneral.Text = "Time Settings (in minutes)";
+            this.groupBoxGeneral.Text = "Time Settings (in mm:ss)";
             // 
             // btnAutoFillStartList
             // 
@@ -728,12 +728,12 @@
         private System.Windows.Forms.Button btnExportToPDF;
         private System.Windows.Forms.Button btnSaveQualificationRound;
         private System.Windows.Forms.GroupBox groupBoxStartList;
-        private System.Windows.Forms.DateTimePicker timeTakeOffStartgate;
+        private System.Windows.Forms.DateTimePicker timeTakeOffToStartgateDuration;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DateTimePicker timeTakeOffIntervall;
+        private System.Windows.Forms.DateTimePicker timeTakeOffInterval;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DateTimePicker timeParcourIntervall;
+        private System.Windows.Forms.DateTimePicker timeStartBlockInterval;
         private System.Windows.Forms.GroupBox groupBoxQualification;
         private System.Windows.Forms.Button btnImportTKOFline;
         private System.Windows.Forms.Button btnSwitchLeftRight;
@@ -754,7 +754,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.DateTimePicker timeParcourLength;
+        private System.Windows.Forms.DateTimePicker timeParcourDuration;
         private System.Windows.Forms.GroupBox groupBoxTKOFLine;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;

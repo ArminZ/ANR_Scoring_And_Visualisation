@@ -177,7 +177,7 @@ namespace AirNavigationRaceLive.Dialogs
         }
         private DateTime mergeDateTime(DateTime time, DateTime date)
         {
-            return new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, 0, 0);
+            return new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, time.Second, 0);
         }
 
         private void comboBoxCrew_SelectedIndexChanged(object sender, EventArgs e)

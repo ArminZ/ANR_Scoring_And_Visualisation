@@ -2,8 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D8E3542C-14E1-48F3-B8DA-EDF8B4A3CDC8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirNavigationRaceLive", "AirNavigationRaceLive\AirNavigationRaceLive.csproj", "{B483E041-0DA3-4659-8B40-BB5DB3FE5959}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AirNavigationRaceLiveInstaller", "AirNavigationRaceLiveInstaller\AirNavigationRaceLiveInstaller.vdproj", "{404F1C7C-8035-4D63-831D-9D3F09C0214F}"

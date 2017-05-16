@@ -77,7 +77,7 @@
             // 
             this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(823, 30);
+            this.label18.Location = new System.Drawing.Point(926, 27);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(46, 17);
@@ -91,10 +91,10 @@
             this.comboBoxRoute.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxRoute.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxRoute.FormattingEnabled = true;
-            this.comboBoxRoute.Location = new System.Drawing.Point(824, 49);
+            this.comboBoxRoute.Location = new System.Drawing.Point(929, 48);
             this.comboBoxRoute.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxRoute.Name = "comboBoxRoute";
-            this.comboBoxRoute.Size = new System.Drawing.Size(60, 24);
+            this.comboBoxRoute.Size = new System.Drawing.Size(92, 24);
             this.comboBoxRoute.TabIndex = 114;
             this.comboBoxRoute.SelectedIndexChanged += new System.EventHandler(this.comboBoxRoute_SelectedIndexChanged);
             // 
@@ -102,7 +102,7 @@
             // 
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(746, 30);
+            this.label17.Location = new System.Drawing.Point(817, 30);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(68, 17);
@@ -112,32 +112,32 @@
             // timeEnd
             // 
             this.timeEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeEnd.CustomFormat = "HH:mm";
+            this.timeEnd.CustomFormat = "HH:mm:ss";
             this.timeEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timeEnd.Location = new System.Drawing.Point(749, 51);
+            this.timeEnd.Location = new System.Drawing.Point(820, 49);
             this.timeEnd.Margin = new System.Windows.Forms.Padding(4);
             this.timeEnd.Name = "timeEnd";
             this.timeEnd.ShowUpDown = true;
-            this.timeEnd.Size = new System.Drawing.Size(65, 22);
+            this.timeEnd.Size = new System.Drawing.Size(101, 22);
             this.timeEnd.TabIndex = 112;
             // 
             // timeStart
             // 
             this.timeStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeStart.CustomFormat = "HH:mm";
+            this.timeStart.CustomFormat = "HH:mm:ss";
             this.timeStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timeStart.Location = new System.Drawing.Point(674, 51);
+            this.timeStart.Location = new System.Drawing.Point(712, 50);
             this.timeStart.Margin = new System.Windows.Forms.Padding(4);
             this.timeStart.Name = "timeStart";
             this.timeStart.ShowUpDown = true;
-            this.timeStart.Size = new System.Drawing.Size(65, 22);
+            this.timeStart.Size = new System.Drawing.Size(101, 22);
             this.timeStart.TabIndex = 111;
             // 
             // label16
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(671, 30);
+            this.label16.Location = new System.Drawing.Point(709, 30);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(73, 17);
@@ -196,13 +196,13 @@
             // timeTakeOff
             // 
             this.timeTakeOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeTakeOff.CustomFormat = "HH:mm";
+            this.timeTakeOff.CustomFormat = "HH:mm:ss";
             this.timeTakeOff.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timeTakeOff.Location = new System.Drawing.Point(600, 51);
+            this.timeTakeOff.Location = new System.Drawing.Point(603, 51);
             this.timeTakeOff.Margin = new System.Windows.Forms.Padding(4);
             this.timeTakeOff.Name = "timeTakeOff";
             this.timeTakeOff.ShowUpDown = true;
-            this.timeTakeOff.Size = new System.Drawing.Size(65, 22);
+            this.timeTakeOff.Size = new System.Drawing.Size(101, 22);
             this.timeTakeOff.TabIndex = 105;
             // 
             // label4
