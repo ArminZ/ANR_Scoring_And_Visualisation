@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 using AirNavigationRaceLive.Comps.Helper;
-using AirNavigationRaceLive.Comps.Model;
-using NetworkObjects;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps
 {
     public class VisualisationPictureBox : PictureBox
     {
-        private Parcour Parcour;
+        private ParcourSet Parcour;
         private Converter c;
-        private List<Flight> flights;
+        private List<FlightSet> flights;
         private System.Drawing.Pen Pen = new Pen(new SolidBrush(Color.Red), 2f);
         private System.Drawing.Pen PenHover = new Pen(new SolidBrush(Color.White), 4f);
         private System.Drawing.Pen PenSelected = new Pen(new SolidBrush(Color.Blue), 6f);
         private SolidBrush Brush = new SolidBrush(Color.FromArgb(100, 255, 0, 0));
-        public void SetParcour(Parcour iParcour)
+        public void SetParcour(ParcourSet iParcour)
         {
             Parcour = iParcour;
             Brush = new SolidBrush(Color.FromArgb((255*iParcour.Alpha)/100, 255, 0, 0));
@@ -28,7 +26,7 @@ namespace AirNavigationRaceLive.Comps
         {
             c = iConverter;
         }
-        public void SetData(List<Flight> flights)
+        public void SetData(List<FlightSet> flights)
         {
             this.flights = flights;
         }
@@ -157,12 +155,12 @@ namespace AirNavigationRaceLive.Comps
                     }
                 }
 
-                foreach (Flight flight in flights)
+                foreach (FlightSet flight in flights)
                 {
                     //Color Color = Color.FromName(flight.Team.Color);
                     Color Color = Color.Black;
                     List<System.Drawing.Point> points = new List<System.Drawing.Point>();
-                    foreach (Point gd in flight.Point)
+                    foreach (AirNavigationRaceLive.Model.Point gd in flight.Point)
                     {
                         int startXp = x0 + (int)(c.LongitudeToX(gd.longitude) * factor);
                         int startYp = y0 + (int)(c.LatitudeToY(gd.latitude) * factor);

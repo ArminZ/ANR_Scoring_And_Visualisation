@@ -25136,7 +25136,7 @@
         </member>
         <member name="M:OfficeOpenXml.Packaging.Ionic.Zlib.Tree.DistanceCode(System.Int32)">
             <summary>
-            Map from a distance to a distance code.
+            MapSet from a distance to a distance code.
             </summary>
             <remarks> 
             No side effects. _dist_code[256] and _dist_code[257] are never used.

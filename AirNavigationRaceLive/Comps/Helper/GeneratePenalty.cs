@@ -1,35 +1,34 @@
-﻿using NetworkObjects;
+﻿using AirNavigationRaceLive.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {
- public class GeneratePenalty
+    public class GeneratePenalty
     {
         private const long tickOfSecond = 10000000;
         private const long tickOfMinute = tickOfSecond * 60;
 
-        public static void CalculateAndPersistPenaltyPoints(Client.DataAccess c, Flight f)
+        public static void CalculateAndPersistPenaltyPoints(Client.DataAccess c, FlightSet f)
         {
-            List<Penalty> penalties = CalculatePenaltyPoints(f);
-            c.DBContext.PenaltySet.RemoveRange(f.Penalty);
-            f.Penalty.Clear();
-            foreach (Penalty p in penalties)
+            List<PenaltySet> penalties = CalculatePenaltyPoints(f);
+            c.DBContext.PenaltySet.RemoveRange(f.PenaltySet);
+            f.PenaltySet.Clear();
+            foreach (PenaltySet p in penalties)
             {
-                f.Penalty.Add(p);
+                f.PenaltySet.Add(p);
             }
             c.DBContext.SaveChanges();
         }
 
-        public static List<Penalty> CalculatePenaltyPoints(Flight flight)
+        public static List<PenaltySet> CalculatePenaltyPoints(FlightSet flight)
         {
-            List<Penalty> result = new List<Penalty>();
+            List<PenaltySet> result = new List<PenaltySet>();
             Point last = null;
             List<LineP> PenaltyZoneLines = new List<LineP>();
-            QualificationRound qr = flight.QualificationRound;
-            Parcour parcour = flight.QualificationRound.Parcour;
+            QualificationRoundSet qr = flight.QualificationRoundSet;
+            ParcourSet parcour = flight.QualificationRoundSet.ParcourSet;
             foreach (Line nl in parcour.Line.Where(p => p.Type == ((int)LineType.PENALTYZONE)))
             {
                 PenaltyZoneLines.Add(getLine(nl));
@@ -91,7 +90,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     }
                     if (seconds > 60 || seconds < 0)
                     {
-                        Penalty penalty = new Penalty();
+                        PenaltySet penalty = new PenaltySet();
                         penalty.Points = 200;
                         penalty.Reason = "Crossed Takeoff-Line at " + new DateTime((Int64)crossTime).ToLongTimeString() + " instead of expected " + new DateTime((Int64)flight.TimeTakeOff).ToLongTimeString();
                         result.Add(penalty);
@@ -109,7 +108,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     }
                     if (seconds > 1)
                     {
-                        Penalty penalty = new Penalty();
+                        PenaltySet penalty = new PenaltySet();
                         penalty.Points = Math.Min((seconds-1) * 3, 200);
                         penalty.Reason = "Crossed Start-Line at " + new DateTime((Int64)crossTime).ToLongTimeString() + " instead of expected " + new DateTime((Int64)flight.TimeStartLine).ToLongTimeString();
                         result.Add(penalty);
@@ -127,7 +126,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     }
                     if (seconds>1)
                     {
-                        Penalty penalty = new Penalty();
+                        PenaltySet penalty = new PenaltySet();
                         penalty.Points = Math.Min((seconds-1) * 3, 200);
                         penalty.Reason = "Crossed End-Line at " + new DateTime((Int64)crossTime).ToLongTimeString() + " instead of expected " + new DateTime((Int64)flight.TimeEndLine).ToLongTimeString();
                         result.Add(penalty);
@@ -150,7 +149,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                             int sec = (int)Math.Floor(((intersectionPenalty - timeSinceInsidePenalty) / tickOfSecond));
                             if (sec > 5)
                             {
-                                Penalty penalty = new Penalty();
+                                PenaltySet penalty = new PenaltySet();
                                 penalty.Points = Math.Min((sec-5) * 3, 300);
                                 penalty.Reason = "Inside Penaltyzone for " + sec + " sec from " + new DateTime((Int64)timeSinceInsidePenalty).ToLongTimeString() + " to " + new DateTime((Int64)intersectionPenalty).ToLongTimeString();
                                 result.Add(penalty);
@@ -161,7 +160,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             }
             if (shouldHaveCrossedTakeOff && !haveCrossedTakeOff)
             {
-                Penalty penalty = new Penalty();
+                PenaltySet penalty = new PenaltySet();
                 penalty.Points = 200;
                 penalty.Reason = "Takeoff not passed";
                 result.Add(penalty);
@@ -169,7 +168,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             }; 
             if (shouldHaveCrossedStart && !haveCrossedStart)
             {
-                Penalty penalty = new Penalty();
+                PenaltySet penalty = new PenaltySet();
                 penalty.Points = 200;
                 penalty.Reason = "Start not passed";
                 result.Add(penalty);
@@ -177,7 +176,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             };
             if (shouldHaveCrossedEnd && !haveCrossedEnd)
             {
-                Penalty penalty = new Penalty();
+                PenaltySet penalty = new PenaltySet();
                 penalty.Points = 200;
                 penalty.Reason = "End not passed";
                 result.Add(penalty);
@@ -226,26 +225,26 @@ namespace AirNavigationRaceLive.Comps.Helper
             }
             return -1;
         }
-        private static LineP getStartLine(Parcour parcour, NetworkObjects.Route type)
+        private static LineP getStartLine(ParcourSet parcour, Route type)
         {
             Line nl = null;
             try
             {
                 switch (type)
                 {
-                    case NetworkObjects.Route.A:
+                    case Route.A:
                         {
                             nl = parcour.Line.Single(p => p.Type == (int)LineType.START_A); break;
                         }
-                    case NetworkObjects.Route.B:
+                    case Route.B:
                         {
                             nl = parcour.Line.Single(p => p.Type == (int)LineType.START_B); break;
                         }
-                    case NetworkObjects.Route.C:
+                    case Route.C:
                         {
                             nl = parcour.Line.Single(p => p.Type == (int)LineType.START_C); break;
                         }
-                    case NetworkObjects.Route.D:
+                    case Route.D:
                         {
                             nl = parcour.Line.Single(p => p.Type == (int)LineType.START_D); break;
                         }
@@ -262,26 +261,26 @@ namespace AirNavigationRaceLive.Comps.Helper
             }
             return l;
         }
-        private static LineP getEndLine(Parcour parcour, NetworkObjects.Route type)
+        private static LineP getEndLine(ParcourSet parcour, Route type)
         {
             Line nl = null;
             try
             {
                 switch (type)
                 {
-                    case NetworkObjects.Route.A:
+                    case Route.A:
                         {
                             nl = parcour.Line.Single(p => p.Type == (int)LineType.END_A); break;
                         }
-                    case NetworkObjects.Route.B:
+                    case Route.B:
                         {
                             nl = parcour.Line.Single(p => p.Type == (int)LineType.END_B); break;
                         }
-                    case NetworkObjects.Route.C:
+                    case Route.C:
                         {
                             nl = parcour.Line.Single(p => p.Type == (int)LineType.END_C); break;
                         }
-                    case NetworkObjects.Route.D:
+                    case Route.D:
                         {
                             nl = parcour.Line.Single(p => p.Type == (int)LineType.END_D); break;
                         }

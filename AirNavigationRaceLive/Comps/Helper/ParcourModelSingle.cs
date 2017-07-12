@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using AirNavigationRaceLive.Comps.Model;
-using NetworkObjects;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {
@@ -19,7 +16,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         public double straightLength = 0;
         public double lenght = 0;
 
-        public ParcourModelSingle(Parcour parcour, Converter c, double channel, double channelLength)
+        public ParcourModelSingle(ParcourSet parcour, Converter c, double channel, double channelLength)
         {
             this.desiredLength = Converter.NMtoM(channelLength);
             this.channelWidth = Converter.NMtoM(channel);
@@ -28,7 +25,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             AddLineAsCorridor(c, lines.Single(p => p.Type == (int)LineType.START_A), lines.Single(p => p.Type == (int)LineType.END_A));
         }
 
-        public ParcourModelSingle(Parcour parcour, Converter c, double channel, double channelLength, bool regenerate)
+        public ParcourModelSingle(ParcourSet parcour, Converter c, double channel, double channelLength, bool regenerate)
         {
             this.desiredLength = Converter.NMtoM(channelLength);
             this.channelWidth = Converter.NMtoM(channel);

@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 using AirNavigationRaceLive.Comps.Helper;
-using AirNavigationRaceLive.Comps.Model;
-using NetworkObjects;
+using AirNavigationRaceLive.Model;
+using System.Drawing.Drawing2D;
+using System;
 
 namespace AirNavigationRaceLive.Comps
 {
     public class ParcourPictureBox : PictureBox
     {
-        private Parcour Parcour;
+        private ParcourSet Parcour;
         private Converter c;
         private Line selectedLine;
         private Line hoverLine;
@@ -23,10 +22,21 @@ namespace AirNavigationRaceLive.Comps
         // user may modify prohibited zone color
         private volatile bool pdf = false;
         public Color ProhZoneColor = Color.FromArgb(255, 0, 0);
-        public void SetParcour(Parcour iParcour)
+
+        public Color UserPenColor = Color.FromArgb(255, 0, 0);
+        public float UserLineWidth = 6f;
+        public float UserCircleWidth = 2f;
+        private Pen UserPenLine = new Pen(new SolidBrush(Color.Red), 2f);
+        private Pen UserPenCircle = new Pen(new SolidBrush(Color.Red), 6f);
+
+        public void SetParcour(ParcourSet iParcour)
         {
             Parcour = iParcour;
             Brush = new SolidBrush(Color.FromArgb(255*iParcour.Alpha/100, ProhZoneColor));
+            UserPenLine.Width = UserLineWidth;
+            UserPenCircle.Width = UserCircleWidth;
+            UserPenLine.Color = UserPenColor;
+            UserPenCircle.Color = UserPenColor;
         }
         public void SetConverter(Converter iConverter)
         {
@@ -72,25 +82,42 @@ namespace AirNavigationRaceLive.Comps
                         {
                             int startX = c.getStartX(l);
                             int startY = c.getStartY(l);
+                            float LongCorrFactor = (float)c.LongitudeCorrFactor(l);
                             int endX = c.getEndX(l);
                             int endY = c.getEndY(l);
+
+                            Model.Point CenterPoint = new Model.Point();
+                            CenterPoint.latitude = (l.A.latitude + l.B.latitude) / 2.0;
+                            CenterPoint.longitude = (l.A.longitude + l.B.longitude) / 2.0;
+                            // create a dedicated point on the same latitude as the Center point
+                            Model.Point RadiusPoint = c.PointForRadius(CenterPoint);
+
                             int midX = startX + (endX - startX) / 2;
                             int midY = startY + (endY - startY) / 2;
+                            int radX = c.LongitudeToX(RadiusPoint.longitude);
+                            int radY = c.LatitudeToY(RadiusPoint.latitude);
                             int orientationX = c.getOrientationX(l);
                             int orientationY = c.getOrientationY(l);
+                            double tmp = (double)midY + (orientationY - midY) *c.LongitudeCorrFactor(CenterPoint);
+                            orientationY = (int)tmp;
                             Vector start = new Vector(startX, startY, 0);
-                            Vector midv = new Vector(midX, midY, 0);
-                            float radius = (float)Vector.Abs(midv - start);
+                            Vector radv = new Vector(radX, radY, 0);
+                            //float radius = (float)Vector.Abs(midv - start)
+                            float radius = Math.Abs(midY-radY)/LongCorrFactor;
                             try
                             {
                                 if (l.Type != (int)LineType.PENALTYZONE)
                                 {
                                     //Start_X/End_X
-                                    if (((int)l.Type) >= 3 && ((int)l.Type) <= 10 && !pdf)
+                                    if (l.Type >= 3 && l.Type <= 10 && !pdf)
                                     {
-                                        pe.Graphics.DrawEllipse(Pen, midX - radius, midY - radius, radius * 2, radius * 2);
+                                        pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
+                                        //pe.Graphics.ResetTransform();
+                                        pe.Graphics.TranslateTransform(midX - radius, midY - radius * LongCorrFactor);
+                                        pe.Graphics.DrawEllipse(UserPenCircle, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
+                                        pe.Graphics.ResetTransform();
                                     }
-                                    if (selectedLine == l)
+                                    if (selectedLine == l && !pdf)
                                     {
                                         pe.Graphics.DrawLine(PenSelected, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
                                         if (!pdf)
@@ -99,7 +126,7 @@ namespace AirNavigationRaceLive.Comps
                                             pe.Graphics.DrawEllipse(PenSelected, orientationX - 3, orientationY - 3, 6, 6);
                                         }
                                     }
-                                    if (hoverLine == l)
+                                    if (hoverLine == l && !pdf)
                                     {
                                         pe.Graphics.DrawLine(PenHover, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
                                         if (!pdf)
@@ -108,11 +135,21 @@ namespace AirNavigationRaceLive.Comps
                                             pe.Graphics.DrawEllipse(PenHover, orientationX - 2, orientationY - 2, 4, 4);
                                         }
                                     }
-                                    pe.Graphics.DrawLine(Pen, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
+                                    pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
                                     if (!pdf)
                                     {
                                         pe.Graphics.DrawLine(Pen, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
                                         pe.Graphics.DrawEllipse(Pen, orientationX - 1, orientationY - 1, 2, 2);
+                                    }
+                                    if (pdf)
+                                    {
+                                        pe.Graphics.ResetTransform();
+                                        pe.Graphics.TranslateTransform(midX - radius, midY - radius * LongCorrFactor);
+                                        pe.Graphics.DrawEllipse(UserPenCircle, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
+                                        pe.Graphics.ResetTransform();
+
+                                        //pe.Graphics.DrawLine(UserPen, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
+                                        //pe.Graphics.DrawEllipse(PenSelected, orientationX - 3, orientationY - 3, 6, 6);
                                     }
                                 }
                             }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using AirNavigationRaceLive.Comps;
-using AirNavigationRaceLive.Comps.Client;
+using AirNavigationRaceLive.Client;
 using AirNavigationRaceLive.Dialogs;
 
 namespace AirNavigationRaceLive
@@ -16,15 +16,15 @@ namespace AirNavigationRaceLive
         private TeamControl Team;
         private QualificationRoundControl QualificationRound;
         private MapControl Map;
-        private Visualisation Visualisation;
-        private ParcourGen ParcourGen;
-        private ParcourEditSingle ParcourEditSingle;
         private ParcourImport ParcourImport;
         private ParcourOverview ParcourOverview;
-        private ParcourEdit ParcourEdit;
         private MapLegacy MapLegacy;
         private ParcourOverviewZoomed ParcourOverviewZoomed;
         private Results Results;
+        //private ParcourGen ParcourGen;
+        //private Visualisation Visualisation;
+        //private ParcourEditSingle ParcourEditSingle;
+        //private ParcourEdit ParcourEdit;
         //private MapSelection MapSelection;
         //private MapImportFromMaps MapImportFromMaps;  // removed functionality 15.9.2016
         private ImportExport ImportExport;
@@ -64,21 +64,26 @@ namespace AirNavigationRaceLive
 
         public void UpdateEnablement()
         {
-            Boolean connected = Client.SelectedCompetition != null;
-            competitionToolStripMenuItem.Enabled = Client != null;
-            mapToolStripMenuItem.Enabled = connected;
-            parcourToolStripMenuItem.Enabled = connected;
-            overviewZoomedToolStripMenuItem.Enabled = connected;
-            overviewToolStripMenuItem.Enabled = connected;
-            generateToolStripMenuItem.Enabled = connected;
-            importToolStripMenuItem.Enabled = connected;
-            pilotsToolStripMenuItem.Enabled = connected;
-            teamsToolStripMenuItem.Enabled = connected;
-            qualificationRoundsToolStripMenuItem.Enabled = connected;
-            resultsToolStripMenuItem.Enabled = connected;
-            //visualisationToolStripMenuItem.Enabled = connected;
-            editToolStripMenuItem.Enabled = connected;
-            exportToolStripMenuItem.Enabled = connected;
+            if (Client==null)
+            {
+                return;
+            }
+                Boolean connected = Client.SelectedCompetition != null;
+                competitionToolStripMenuItem.Enabled = Client != null;
+                mapToolStripMenuItem.Enabled = connected;
+                parcourToolStripMenuItem.Enabled = connected;
+                overviewZoomedToolStripMenuItem.Enabled = connected;
+                overviewToolStripMenuItem.Enabled = connected;
+                importToolStripMenuItem.Enabled = connected;
+                pilotsToolStripMenuItem.Enabled = connected;
+                teamsToolStripMenuItem.Enabled = connected;
+                qualificationRoundsToolStripMenuItem.Enabled = connected;
+                resultsToolStripMenuItem.Enabled = connected;
+                exportToolStripMenuItem.Enabled = connected;  
+                //generateToolStripMenuItem.Enabled = connected;
+                //visualisationToolStripMenuItem.Enabled = connected;
+                //editToolStripMenuItem.Enabled = connected;
+
         }
 
         private void AirNavigationRaceLive_Load(object sender, EventArgs e)
@@ -110,11 +115,11 @@ namespace AirNavigationRaceLive
                 Pilot = null;
                 Team = null;
                 QualificationRound = null;
-                Visualisation = null;
+                //Visualisation = null;
+                //ParcourEdit = null;
+                //ParcourGen = null;
                 Map = null;
-                ParcourGen = null;
                 ParcourImport = null;
-                ParcourEdit = null;
                 ParcourOverviewZoomed = null;
                 MapLegacy = null;
                 Results = null;
@@ -129,16 +134,16 @@ namespace AirNavigationRaceLive
             Pilot = null;
             Team = null;
             QualificationRound = null;
-            Visualisation = null;
+            //Visualisation = null;
+            //ParcourEdit = null;
+            //ParcourGen = null; 
             Map = null;
-            ParcourGen = null;
             ParcourImport = null;
-            ParcourEdit = null;
             ParcourOverviewZoomed = null;
             MapLegacy = null;
             Results = null;
             CompetitionO = null;
-            StatusStripLabel.Text = "Disconnected from Server";
+            StatusStripLabel.Text = string.Empty;
             UpdateEnablement();
             enableControl(About);
         }
@@ -178,11 +183,11 @@ namespace AirNavigationRaceLive
 
         private void visualisationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Visualisation == null)
-            {
-                Visualisation = new Visualisation(Client);
-            }
-            enableControl(Visualisation);
+            //if (Visualisation == null)
+            //{
+            //    Visualisation = new Visualisation(Client);
+            //}
+            //enableControl(Visualisation);
         }
 
         private void MainPanel_Resize(object sender, EventArgs e)
@@ -209,7 +214,7 @@ namespace AirNavigationRaceLive
 
         private void mapToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Visualisation == null)
+           if (Map == null)
             {
                 Map = new MapControl(Client);
             }
@@ -233,11 +238,11 @@ namespace AirNavigationRaceLive
 
         private void generateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ParcourGen == null)
-            {
-                ParcourGen = new ParcourGen(Client);
-            }
-            enableControl(ParcourGen);
+            //if (ParcourGen == null)
+            //{
+            //    ParcourGen = new ParcourGen(Client);
+            //}
+            //enableControl(ParcourGen);
         }
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
@@ -260,11 +265,11 @@ namespace AirNavigationRaceLive
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ParcourEdit == null)
-            {
-                ParcourEdit = new ParcourEdit(Client);
-            }
-            enableControl(ParcourEdit);
+            //if (ParcourEdit == null)
+            //{
+            //    ParcourEdit = new ParcourEdit(Client);
+            //}
+            //enableControl(ParcourEdit);
         }
 
         private void overviewZoomedToolStripMenuItem_Click(object sender, EventArgs e)
@@ -306,11 +311,11 @@ namespace AirNavigationRaceLive
 
         private void generateSingleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ParcourEditSingle == null)
-            {
-                ParcourEditSingle = new ParcourEditSingle(Client);
-            }
-            enableControl(ParcourEditSingle);
+            //if (ParcourEditSingle == null)
+            //{
+            //    ParcourEditSingle = new ParcourEditSingle(Client);
+            //}
+            //enableControl(ParcourEditSingle);
         }
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)

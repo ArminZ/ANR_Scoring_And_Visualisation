@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using GeometryUtility;
 using PolygonCuttingEar;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {

@@ -6,15 +6,17 @@ using System.Windows.Forms;
 using AirNavigationRaceLive.Dialogs;
 using AirNavigationRaceLive.Comps.Helper;
 using System.IO;
+using AirNavigationRaceLive.Model;
+using AirNavigationRaceLive.ModelExtensions;
 
 namespace AirNavigationRaceLive.Comps
 {
     public partial class Results : UserControl
     {
         private Client.DataAccess Client;
-        private QualificationRound qualificRound = null;
-        private Parcour parcour;
-        private Penalty pDeleted;
+        private QualificationRoundSet qualificRound = null;
+        private ParcourSet parcour;
+        private PenaltySet pDeleted;
 
 
         public Results(Client.DataAccess iClient)
@@ -32,17 +34,17 @@ namespace AirNavigationRaceLive.Comps
             qualificRound = null;
             if (comboBoxQualificRound.SelectedItem != null)
             {
-                QualificRoundComboEntry cce = comboBoxQualificRound.SelectedItem as QualificRoundComboEntry;
+                ComboQRExtension cce = comboBoxQualificRound.SelectedItem as ComboQRExtension;
                 if (cce != null)
                 {
-                    qualificRound = cce.qualRnd;
+                    qualificRound = cce.q;
                     dataGridView2.Rows.Clear();
                     long min = long.MaxValue;
                     long max = long.MinValue;
-                    List<Flight> CompetitionTeamList = qualificRound.Flight.ToList();
+                    List<FlightSet> CompetitionTeamList = qualificRound.FlightSet.ToList();
                     CompetitionTeamList.Sort((p, q) => p.StartID.CompareTo(q.StartID));
                     List<Point> points = new List<Point>();
-                    foreach (Flight ct in qualificRound.Flight)
+                    foreach (FlightSet ct in qualificRound.FlightSet)
                     {
                         min = Math.Min(ct.TimeTakeOff, min);
                         max = Math.Max(ct.TimeEndLine, max);
@@ -55,9 +57,9 @@ namespace AirNavigationRaceLive.Comps
 
                     }
 
-                    parcour = cce.qualRnd.Parcour;
-                    Map map = parcour.Map;
-                    MemoryStream ms = new MemoryStream(map.Picture.Data);
+                    parcour = cce.q.ParcourSet;
+                    MapSet map = parcour.MapSet;
+                    MemoryStream ms = new MemoryStream(map.PictureSet.Data);
                     visualisationPictureBox1.Image = System.Drawing.Image.FromStream(ms);
                     visualisationPictureBox1.SetConverter(new Converter(map));
                     visualisationPictureBox1.SetParcour(parcour);
@@ -76,22 +78,22 @@ namespace AirNavigationRaceLive.Comps
                 dataGridView2.Rows.Clear();
             }
         }
-        private string getTeamDsc(Flight flight)
+        private string getTeamDsc(FlightSet flight)
         {
-            Team team = flight.Team;
-            Subscriber pilot = team.Pilot;
+            TeamSet team = flight.TeamSet;
+            SubscriberSet pilot = team.Pilot;
             StringBuilder sb = new StringBuilder();
             sb.Append(pilot.LastName).Append(" ").Append(pilot.FirstName);
             if (team.Navigator != null)
             {
-                Subscriber navi = team.Navigator;
+                SubscriberSet navi = team.Navigator;
                 sb.Append(" - ").Append(navi.LastName).Append(" ").Append(navi.FirstName);
             }
             return sb.ToString();
         }
         private string getRouteText(int id)
         {
-            return ((NetworkObjects.Route)id).ToString();
+            return ((Route)id).ToString();
         }
 
         public void updatePoints()
@@ -101,9 +103,9 @@ namespace AirNavigationRaceLive.Comps
 
                 foreach (DataGridViewRow row in dataGridView2.Rows)
                 {
-                    Flight flt = row.Tag as Flight;
+                    FlightSet flt = row.Tag as FlightSet;
                     int sum = 0;
-                    foreach (Penalty p in flt.Penalty)
+                    foreach (PenaltySet p in flt.PenaltySet)
                     {
                         sum += p.Points;
                     }
@@ -133,11 +135,11 @@ namespace AirNavigationRaceLive.Comps
 
         private void Results_Load(object sender, EventArgs e)
         {
-            List<QualificationRound> comps = Client.SelectedCompetition.QualificationRound.ToList();
+            List<QualificationRoundSet> comps = Client.SelectedCompetition.QualificationRoundSet.ToList();
             comboBoxQualificRound.Items.Clear();
-            foreach (QualificationRound c in comps)
+            foreach (QualificationRoundSet c in comps)
             {
-                comboBoxQualificRound.Items.Add(new QualificRoundComboEntry(c));
+                comboBoxQualificRound.Items.Add(new ComboQRExtension(c));
             }
             updateEnablement();
             lblResults.Text = string.Format("{0} - Results", Client.SelectedCompetition.Name);
@@ -161,7 +163,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 return;
             }
-            Penalty p = dataGridView1.SelectedRows[0].Tag as Penalty;
+            PenaltySet p = dataGridView1.SelectedRows[0].Tag as PenaltySet;
             updateEnablement();
         }
 
@@ -173,7 +175,7 @@ namespace AirNavigationRaceLive.Comps
 
                 DataGridViewRow dgvr = dataGridView2.SelectedRows[0];
                 {
-                    Flight flt = dgvr.Tag as Flight;
+                    FlightSet flt = dgvr.Tag as FlightSet;
                     if (flt.Point.Count > 0)  // skip flights without imported logger data
                     {
                         ComboBoxFlights cboFlt = new ComboBoxFlights(flt, new string[] { "--" });
@@ -190,7 +192,7 @@ namespace AirNavigationRaceLive.Comps
                     }
                     else
                     {
-                        MessageBox.Show("Logger data for the selected flight is missing. The map will not be exported.","Single Map Export",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                        MessageBox.Show("Logger data for the selected flight is missing. The MapSet will not be exported.","Single MapSet Export",MessageBoxButtons.OK,MessageBoxIcon.Information);
                     }
                 }
             }
@@ -203,7 +205,7 @@ namespace AirNavigationRaceLive.Comps
                 List<ComboBoxFlights> ctl = new List<ComboBoxFlights>();
                 foreach (DataGridViewRow dgvr in dataGridView2.Rows)
                 {
-                    Flight flt = dgvr.Tag as Flight;
+                    FlightSet flt = dgvr.Tag as FlightSet;
                     if (flt.Point.Count == 0)  // skip flights without imported logger data
                     {
                         continue;
@@ -226,12 +228,12 @@ namespace AirNavigationRaceLive.Comps
         {
             if (qualificRound != null && dataGridView2.Rows.Count > 0)
             {
-                List<Flight> lstFlt = new List<Flight>();
+                List<FlightSet> lstFlt = new List<FlightSet>();
                 List<ComboBoxFlights> ctl = new List<ComboBoxFlights>();
 
                 foreach (DataGridViewRow dgvr in dataGridView2.Rows)
                 {
-                    Flight flt = dgvr.Tag as Flight;
+                    FlightSet flt = dgvr.Tag as FlightSet;
                     if (flt.Point.Count > 0)
                     {
                         ComboBoxFlights cboFlt = new ComboBoxFlights(flt, new string[] { "--" });
@@ -258,14 +260,14 @@ namespace AirNavigationRaceLive.Comps
                           .FirstOrDefault(r => r.Checked);
                 if (checkedButton == radioButtonGACimport)
                 {
-                    Flight selectedTeamFlight = dataGridView2.SelectedRows[0].Tag as Flight;
+                    FlightSet selectedTeamFlight = dataGridView2.SelectedRows[0].Tag as FlightSet;
                     UploadGAC upload = new UploadGAC(Client, selectedTeamFlight);
                     upload.OnFinish += new EventHandler(UploadFinished);
                     upload.Show();
                 }
                 if (checkedButton == radioButtonGPXimport)
                 {
-                    Flight selectedTeamFlight = dataGridView2.SelectedRows[0].Tag as Flight;
+                    FlightSet selectedTeamFlight = dataGridView2.SelectedRows[0].Tag as FlightSet;
                     UploadGPX upload = new UploadGPX(Client, selectedTeamFlight);
                     upload.OnFinish += new EventHandler(UploadFinished);
                     upload.Show();
@@ -287,13 +289,13 @@ namespace AirNavigationRaceLive.Comps
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            List<QualificationRound> comps = Client.SelectedCompetition.QualificationRound.ToList();
+            List<QualificationRoundSet> comps = Client.SelectedCompetition.QualificationRoundSet.ToList();
             comboBoxQualificRound.Items.Clear();
             comboBoxQualificRound.SelectedItem = null;
             comboBoxQualificRound.Text = "";
-            foreach (QualificationRound c in comps)
+            foreach (QualificationRoundSet c in comps)
             {
-                comboBoxQualificRound.Items.Add(new QualificRoundComboEntry(c));
+                comboBoxQualificRound.Items.Add(new ComboQRExtension(c));
             }
             comboBoxQualificRound_SelectedIndexChanged(null, null);
         }
@@ -326,7 +328,7 @@ namespace AirNavigationRaceLive.Comps
                     e.Cancel = true;
                     return;
                 }
-                pDeleted = e.Row.Tag as Penalty;
+                pDeleted = e.Row.Tag as PenaltySet;
             }
         }
 
@@ -372,21 +374,21 @@ namespace AirNavigationRaceLive.Comps
             }
 
             dataGridView1.Rows[e.RowIndex].ErrorText = string.Empty;
-            Penalty p = new Penalty();
+            PenaltySet p = new PenaltySet();
             if (string.IsNullOrEmpty(iDval.ToString()))
             {
-                Flight flt = dataGridView2.SelectedRows[0].Tag as Flight;
+                FlightSet flt = dataGridView2.SelectedRows[0].Tag as FlightSet;
                 p.Reason = penaltyReason.ToString().Trim();
                 p.Points = penVal;
-                if (!flt.Penalty.Contains(p))
+                if (!flt.PenaltySet.Contains(p))
                 {
-                    flt.Penalty.Add(p);
+                    flt.PenaltySet.Add(p);
                 }
                 dataGridView1.Rows[e.RowIndex].Tag = p;
             }
             else
             {
-                p = dataGridView1.Rows[e.RowIndex].Tag as Penalty;
+                p = dataGridView1.Rows[e.RowIndex].Tag as PenaltySet;
                 p.Reason = penaltyReason.ToString().Trim();
                 p.Points = penVal;
             }
@@ -406,13 +408,13 @@ namespace AirNavigationRaceLive.Comps
             if (dataGridView2.SelectedRows.Count > 0 && dataGridView2.SelectedRows[0].Tag != null)
             {
                 btnLoggerImport.Enabled = true;
-                List<Flight> flights = new List<Flight>(1);
-                Flight flt = dataGridView2.Rows[rowIdx].Tag as Flight;
+                List<FlightSet> flights = new List<FlightSet>(1);
+                FlightSet flt = dataGridView2.Rows[rowIdx].Tag as FlightSet;
                 flights.Add(flt);
                 visualisationPictureBox1.SetData(flights);
                 visualisationPictureBox1.Invalidate();
                 List<DataGridViewRow> ppd = new List<DataGridViewRow>();
-                foreach (Penalty p in flt.Penalty)
+                foreach (PenaltySet p in flt.PenaltySet)
                 {
                     DataGridViewRow dgvr = new DataGridViewRow();
                     dgvr.CreateCells(dataGridView1);
@@ -454,8 +456,8 @@ namespace AirNavigationRaceLive.Comps
     }
     public class ComboBoxFlights : ListViewItem
     {
-        public readonly Flight flight;
-        public ComboBoxFlights(Flight team, string[] display)
+        public readonly FlightSet flight;
+        public ComboBoxFlights(FlightSet team, string[] display)
             : base(display)
         {
             this.flight = team;

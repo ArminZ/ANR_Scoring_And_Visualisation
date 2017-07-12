@@ -11,14 +11,14 @@ using MigraDoc.DocumentObjectModel;
 using MigraDoc.Rendering;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.DocumentObjectModel.Shapes;
-using NetworkObjects;
 using PdfSharp.Drawing.Layout;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {
     public class PDFCreator
     {
-        public static void CreateTeamsPDF(List<Team> teams, Client.DataAccess c, String pathToPDF)
+        public static void CreateTeamsPDF(List<TeamSet> teams, Client.DataAccess c, String pathToPDF)
         {
 
             Document doc = new Document();
@@ -66,18 +66,18 @@ namespace AirNavigationRaceLive.Comps.Helper
             row.Cells[5].AddParagraph("Navigator Firstname");
             row.Cells[6].AddParagraph("AC");
 
-            foreach (Team t in teams)
+            foreach (TeamSet t in teams)
             {
                 Row r = table.AddRow();
                 //r.Cells[0].AddParagraph(t.ID.ToString());
                 r.Cells[0].AddParagraph(t.CNumber);
                 r.Cells[1].AddParagraph(t.Nationality);
-                Subscriber pilot = t.Pilot;
+                SubscriberSet pilot = t.Pilot;
                 r.Cells[2].AddParagraph(pilot.LastName);
                 r.Cells[3].AddParagraph(pilot.FirstName);
                 if (t.Navigator != null)
                 {
-                    Subscriber navigator = t.Navigator;
+                    SubscriberSet navigator = t.Navigator;
                     r.Cells[4].AddParagraph(navigator.LastName);
                     r.Cells[5].AddParagraph(navigator.FirstName);
                 }
@@ -314,13 +314,13 @@ namespace AirNavigationRaceLive.Comps.Helper
             doc.Close();
             Process.Start(pathToPDF);
         }
-        public static void CreateToplistResultPDF(Client.DataAccess c, QualificationRound qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
+        public static void CreateToplistResultPDF(Client.DataAccess c, QualificationRoundSet qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
         {
             List<Toplist> toplist = new List<Toplist>();
             foreach (ComboBoxFlights cbct in qRndFlights)
             {
                 int sum = 0;
-                foreach (Penalty penalty in cbct.flight.Penalty)
+                foreach (PenaltySet penalty in cbct.flight.PenaltySet)
                 {
                     sum += penalty.Points;
                 }
@@ -377,7 +377,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             foreach (Toplist top in toplist)
             {
                 rank++;
-                Team t = top.ct.Team;
+                TeamSet t = top.ct.TeamSet;
                 Row r = table.AddRow();
                 if (rank>1 && oldsum == top.sum)  // we have a shared rank
                 { 
@@ -390,12 +390,12 @@ namespace AirNavigationRaceLive.Comps.Helper
                 }
                 r.Cells[1].AddParagraph(top.sum.ToString());
                 r.Cells[2].AddParagraph(t.Nationality);
-                Subscriber pilot = t.Pilot;
+                SubscriberSet pilot = t.Pilot;
                 r.Cells[3].AddParagraph(pilot.LastName);
                 r.Cells[4].AddParagraph(pilot.FirstName);
                 if (t.Navigator != null)
                 {
-                    Subscriber navigator = t.Navigator;
+                    SubscriberSet navigator = t.Navigator;
                     r.Cells[5].AddParagraph(navigator.LastName);
                     r.Cells[6].AddParagraph(navigator.FirstName);
                 }
@@ -411,14 +411,14 @@ namespace AirNavigationRaceLive.Comps.Helper
         }
         class Toplist : IComparable
         {
-            public Toplist(Flight ct,
+            public Toplist(FlightSet ct,
             int sum)
             {
 
                 this.ct = ct;
                 this.sum = sum;
             }
-            public Flight ct = null;
+            public FlightSet ct = null;
             public int sum = 0;
 
             public int CompareTo(object obj)
@@ -427,10 +427,10 @@ namespace AirNavigationRaceLive.Comps.Helper
             }
         }
 
-        public static void CreateResultPDF(VisualisationPictureBox picBox, Client.DataAccess c, QualificationRound qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
+        public static void CreateResultPDF(VisualisationPictureBox picBox, Client.DataAccess c, QualificationRoundSet qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
         {
             int counter = 0;
-            List<Flight> tempList = new List<Flight>();
+            List<FlightSet> tempList = new List<FlightSet>();
             foreach (ComboBoxFlights cbct in qRndFlights)
             {
                 GC.Collect();
@@ -480,7 +480,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                 gfx.DrawString("Points ", new XFont("Verdana", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine), XUnit.FromCentimeter(3)));
                 gfx.DrawString("Reason ", new XFont("Verdana", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine + 2), XUnit.FromCentimeter(3)));
 
-                foreach (Penalty penalty in cbct.flight.Penalty)
+                foreach (PenaltySet penalty in cbct.flight.PenaltySet)
                 {
                     sum += penalty.Points;
                     line++;
@@ -539,22 +539,22 @@ namespace AirNavigationRaceLive.Comps.Helper
             return result;
         }
 
-        private static string getTeamDsc(Client.DataAccess c, Flight flight)
+        private static string getTeamDsc(Client.DataAccess c, FlightSet flight)
         {
-            Team team = flight.Team;
-            Subscriber pilot = team.Pilot;
+            TeamSet team = flight.TeamSet;
+            SubscriberSet pilot = team.Pilot;
             StringBuilder sb = new StringBuilder();
             sb.Append(team.CNumber).Append(" ");
             sb.Append(pilot.LastName).Append(" ").Append(pilot.FirstName);
             if (team.Navigator != null)
             {
-                Subscriber navi = team.Navigator;
+                SubscriberSet navi = team.Navigator;
                 sb.Append(" - ").Append(navi.LastName).Append(" ").Append(navi.FirstName);
             }
             return sb.ToString();
         }
 
-        internal static void CreateStartListPDF(QualificationRound qRnd, Client.DataAccess Client, string pathToPDF)
+        internal static void CreateStartListPDF(QualificationRoundSet qRnd, Client.DataAccess Client, string pathToPDF)
         {
             Document doc = new Document();
             doc.Info.Author = "Luc.Baumann@sharpsoft.ch";
@@ -604,26 +604,26 @@ namespace AirNavigationRaceLive.Comps.Helper
             row.Cells[9].AddParagraph("End Gate (UTC)");
             row.Cells[10].AddParagraph("Route");
 
-            foreach (Flight ct in qRnd.Flight.OrderBy(x => x.TimeTakeOff).ThenBy(x=>x.Route))
+            foreach (FlightSet ct in qRnd.FlightSet.OrderBy(x => x.TimeTakeOff).ThenBy(x=>x.Route))
             {
                 Row r = table.AddRow();
                 r.Cells[0].AddParagraph(ct.StartID.ToString());
-                Team teams = ct.Team;
+                TeamSet teams = ct.TeamSet;
                 r.Cells[1].AddParagraph(teams.CNumber);
                 r.Cells[2].AddParagraph(teams.AC);
-                Subscriber pilot = teams.Pilot;
+                SubscriberSet pilot = teams.Pilot;
                 r.Cells[3].AddParagraph(pilot.LastName);
                 r.Cells[4].AddParagraph(pilot.FirstName);
                 if (teams.Navigator != null)
                 {
-                    Subscriber navigator = teams.Navigator;
+                    SubscriberSet navigator = teams.Navigator;
                     r.Cells[5].AddParagraph(navigator.LastName);
                     r.Cells[6].AddParagraph(navigator.FirstName);
                 }
                 r.Cells[7].AddParagraph(new DateTime(ct.TimeTakeOff).ToString("HH:mm:ss"));
                 r.Cells[8].AddParagraph(new DateTime(ct.TimeStartLine).ToString("HH:mm:ss"));
                 r.Cells[9].AddParagraph(new DateTime(ct.TimeEndLine).ToString("HH:mm:ss"));
-                r.Cells[10].AddParagraph(Enum.GetName(NetworkObjects.Route.A.GetType(), ct.Route));
+                r.Cells[10].AddParagraph(Enum.GetName(Route.A.GetType(), ct.Route));
             }
 
             PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always);

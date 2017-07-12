@@ -7,8 +7,10 @@ using System.Windows.Forms;
 using AirNavigationRaceLive.Dialogs;
 using System.IO;
 using OfficeOpenXml;
-using NetworkObjects;
 using System.Globalization;
+using AirNavigationRaceLive.Model;
+using AirNavigationRaceLive.ModelExtensions;
+using AirNavigationRaceLive.Comps.Helper;
 
 namespace AirNavigationRaceLive.Comps
 {
@@ -30,11 +32,11 @@ namespace AirNavigationRaceLive.Comps
 
         public void ImportExport_Load(object sender, EventArgs e)
         {
-            List<QualificationRound> rounds = Client.SelectedCompetition.QualificationRound.ToList();
+            List<QualificationRoundSet> rounds = Client.SelectedCompetition.QualificationRoundSet.ToList();
             comboBoxQualificationRound.Items.Clear();
-            foreach (QualificationRound round in rounds)
+            foreach (QualificationRoundSet round in rounds)
             {
-                comboBoxQualificationRound.Items.Add(new QualiComboBoxItem(round));
+                comboBoxQualificationRound.Items.Add(new ComboQRExtension(round));
             }
             groupBox1.Text = string.Format("{0} - Parcour export", Client.SelectedCompetition.Name);
             groupBox2.Text = string.Format("{0} - Excel Data import/export", Client.SelectedCompetition.Name);
@@ -51,7 +53,7 @@ namespace AirNavigationRaceLive.Comps
         {
             if (comboBoxQualificationRound.SelectedItem != null)
             {
-                QualiComboBoxItem item = comboBoxQualificationRound.SelectedItem as QualiComboBoxItem;
+                ComboQRExtension item = comboBoxQualificationRound.SelectedItem as ComboQRExtension;
                 SaveFileDialog sfd = new SaveFileDialog();
                 sfd.FileName = "AirNavigationRaceStartList.xlsx";
                 sfd.Title = "Export Startlist";
@@ -65,7 +67,7 @@ namespace AirNavigationRaceLive.Comps
         {
             if (comboBoxQualificationRound.SelectedItem != null)
             {
-                QualiComboBoxItem item = comboBoxQualificationRound.SelectedItem as QualiComboBoxItem;
+                ComboQRExtension item = comboBoxQualificationRound.SelectedItem as ComboQRExtension;
                 OpenFileDialog sfd = new OpenFileDialog();
                 sfd.FileName = "AirNavigationRaceStartList.xlsx";
                 sfd.Title = "Sync Startlist";
@@ -76,7 +78,7 @@ namespace AirNavigationRaceLive.Comps
             }
         }
 
-        private void ExportToExcel(QualiComboBoxItem item, string filename)
+        private void ExportToExcel(ComboQRExtension item, string filename)
         {
             File.WriteAllBytes(filename, Properties.Resources.Template);
             FileInfo newFile = new FileInfo(filename);
@@ -85,14 +87,14 @@ namespace AirNavigationRaceLive.Comps
             ExcelWorksheet Teams = pck.Workbook.Worksheets.First(p => p.Name == "Crews");
             ExcelWorksheet StartList = pck.Workbook.Worksheets.First(p => p.Name == "StartList");
             int i = 2;
-            foreach (Subscriber sub in Client.SelectedCompetition.Subscriber.OrderBy(p => p.LastName))
+            foreach (SubscriberSet sub in Client.SelectedCompetition.SubscriberSet.OrderBy(p => p.LastName))
             {
                 Participants.Cells[("A" + i)].Value = sub.LastName;
                 Participants.Cells[("B" + i)].Value = sub.FirstName;
                 i++;
             }
             i = 2;
-            foreach (Team t in Client.SelectedCompetition.Team.OrderBy(p => int.Parse(p.CNumber)))
+            foreach (TeamSet t in Client.SelectedCompetition.TeamSet.OrderBy(p => int.Parse(p.CNumber)))
             {
                 Teams.Cells[("A" + i)].Value = int.Parse(t.CNumber);
                 Teams.Cells[("B" + i)].Value = t.Nationality;
@@ -102,20 +104,20 @@ namespace AirNavigationRaceLive.Comps
                 i++;
             }
             i = 2;
-            foreach (Flight f in item.q.Flight.OrderBy(p => p.StartID))
+            foreach (FlightSet f in item.q.FlightSet.OrderBy(p => p.StartID))
             {
                 if (i == 2)
                 {
                     StartList.Cells[("J" + i)].Value = new DateTime(f.TimeTakeOff).ToString("dd.MM.yyyy");
                 }
                 StartList.Cells[("A" + i)].Value = f.StartID;
-                StartList.Cells[("B" + i)].Value = int.Parse(f.Team.CNumber);
-                StartList.Cells[("C" + i)].Value = f.Team.AC;
-                string pilot = f.Team.Pilot.LastName + " " + f.Team.Pilot.FirstName;
+                StartList.Cells[("B" + i)].Value = int.Parse(f.TeamSet.CNumber);
+                StartList.Cells[("C" + i)].Value = f.TeamSet.AC;
+                string pilot = f.TeamSet.Pilot.LastName + " " + f.TeamSet.Pilot.FirstName;
                 string navigator = "";
-                if (f.Team.Navigator != null)
+                if (f.TeamSet.Navigator != null)
                 {
-                    navigator = " - " + f.Team.Navigator.LastName + " " + f.Team.Navigator.FirstName;
+                    navigator = " - " + f.TeamSet.Navigator.LastName + " " + f.TeamSet.Navigator.FirstName;
                 }
                 string crew = pilot + navigator;
                 StartList.Cells[("D" + i)].Value = crew;
@@ -128,7 +130,7 @@ namespace AirNavigationRaceLive.Comps
             pck.Save();
         }
 
-        private void ImportFromExcel(QualiComboBoxItem item, string filename)
+        private void ImportFromExcel(ComboQRExtension item, string filename)
         {
             FileInfo newFile = new FileInfo(filename);
             ExcelPackage pck = new ExcelPackage(newFile);
@@ -142,10 +144,10 @@ namespace AirNavigationRaceLive.Comps
                 string FirstName = Participants.Cells[("B" + i)].Value as string;
                 if (LastName != null && FirstName != null && LastName != "" && FirstName != "")
                 {
-                    if (!Client.SelectedCompetition.Subscriber.Any(p => p.LastName == LastName && p.FirstName == FirstName))
+                    if (!Client.SelectedCompetition.SubscriberSet.Any(p => p.LastName == LastName && p.FirstName == FirstName))
                     {
-                        Subscriber sub = new Subscriber();
-                        sub.Competition = Client.SelectedCompetition;
+                        SubscriberSet sub = new SubscriberSet();
+                        sub.CompetitionSet = Client.SelectedCompetition;
                         sub.LastName = LastName;
                         sub.FirstName = FirstName;
                         Client.DBContext.SubscriberSet.Add(sub);
@@ -168,21 +170,21 @@ namespace AirNavigationRaceLive.Comps
                 string ac = Teams.Cells[("E" + i)].Value as string;
                 if (cNumber.HasValue && pilot != null && pilot != "")
                 {
-                    Subscriber pilotS = Client.SelectedCompetition.Subscriber.First(p => pilot.Contains(p.FirstName) && pilot.Contains(p.LastName));
-                    Subscriber navigatorS = null;
+                    SubscriberSet pilotS = Client.SelectedCompetition.SubscriberSet.First(p => pilot.Contains(p.FirstName) && pilot.Contains(p.LastName));
+                    SubscriberSet navigatorS = null;
                     if (navigator != null && navigator != "")
                     {
-                        navigatorS = Client.SelectedCompetition.Subscriber.First(p => navigator.Contains(p.FirstName) && navigator.Contains(p.LastName));
+                        navigatorS = Client.SelectedCompetition.SubscriberSet.First(p => navigator.Contains(p.FirstName) && navigator.Contains(p.LastName));
                     }
-                    Team t = null;
-                    if (Client.SelectedCompetition.Team.Any(p => p.CNumber == ((int)cNumber.Value).ToString()))
+                    TeamSet t = null;
+                    if (Client.SelectedCompetition.TeamSet.Any(p => p.CNumber == ((int)cNumber.Value).ToString()))
                     {
-                        t = Client.SelectedCompetition.Team.First(p => p.CNumber == ((int)cNumber.Value).ToString());
+                        t = Client.SelectedCompetition.TeamSet.First(p => p.CNumber == ((int)cNumber.Value).ToString());
                     }
                     else
                     {
-                        t = new Team();
-                        t.Competition = Client.SelectedCompetition;
+                        t = new TeamSet();
+                        t.CompetitionSet = Client.SelectedCompetition;
                         Client.DBContext.TeamSet.Add(t);
                     }
                     t.Pilot = pilotS;
@@ -214,19 +216,19 @@ namespace AirNavigationRaceLive.Comps
                 string route = StartList.Cells[("H" + i)].Value as string;
                 if (date != null && date.HasValue && takeOff != null && start != null && end != null && startId.HasValue && cNumber.HasValue && takeOff.HasValue && start.HasValue && end.HasValue && route != null)
                 {
-                    Flight f = null;
-                    if (item.q.Flight.Any(p => p.StartID == startId.Value))
+                    FlightSet f = null;
+                    if (item.q.FlightSet.Any(p => p.StartID == startId.Value))
                     {
-                        f = item.q.Flight.First(p => p.StartID == startId.Value);
+                        f = item.q.FlightSet.First(p => p.StartID == startId.Value);
                     }
                     else
                     {
-                        f = new Flight();
-                        f.QualificationRound = item.q;
+                        f = new FlightSet();
+                        f.QualificationRoundSet = item.q;
                         f.StartID = ((int)startId.Value);
                         Client.DBContext.FlightSet.Add(f);
                     }
-                    f.Team = Client.SelectedCompetition.Team.First(p => p.CNumber == ((int)cNumber.Value).ToString());
+                    f.TeamSet = Client.SelectedCompetition.TeamSet.First(p => p.CNumber == ((int)cNumber.Value).ToString());
                     f.Route = (int)Enum.Parse(typeof(Route), route, true);
                     DateTime d = date.Value;
                     DateTime to = DateTime.FromOADate(takeOff.Value);
@@ -245,19 +247,19 @@ namespace AirNavigationRaceLive.Comps
             Client.DBContext.SaveChanges();
         }
 
-        private class QualiComboBoxItem
-        {
-            public QualificationRound q;
-            public QualiComboBoxItem(QualificationRound q)
-            {
-                this.q = q;
-            }
+        //private class QualiComboBoxItem
+        //{
+        //    public QualificationRoundSet q;
+        //    public QualiComboBoxItem(QualificationRoundSet q)
+        //    {
+        //        this.q = q;
+        //    }
 
-            public override string ToString()
-            {
-                return q.Name;
-            }
-        }
+        //    public override string ToString()
+        //    {
+        //        return q.Name;
+        //    }
+        //}
 
         private void btnExportGpx_Click(object sender, EventArgs e)
         {
@@ -271,12 +273,12 @@ namespace AirNavigationRaceLive.Comps
                 fbd.RestoreDirectory = true;
                 fbd.Title = "Export Flights";
 
-                QualiComboBoxItem item = comboBoxQualificationRound.SelectedItem as QualiComboBoxItem;
-                QualificationRound q = item.q;
+                ComboQRExtension item = comboBoxQualificationRound.SelectedItem as ComboQRExtension;
+                QualificationRoundSet q = item.q;
                 if (fbd.ShowDialog() == DialogResult.OK )
                 {
                     // Invoke the SaveAsGPX method on a new thread.
-                    Action<string, QualificationRound> invoker = new Action<string, QualificationRound>(SaveAsGPX);
+                    Action<string, QualificationRoundSet> invoker = new Action<string, QualificationRoundSet>(SaveAsGPX);
                     invoker.BeginInvoke(Path.GetDirectoryName(fbd.FileName),q, OnSaveAsGPXCompleted, invoker);
                 }
             }
@@ -284,24 +286,24 @@ namespace AirNavigationRaceLive.Comps
 
         protected void OnSaveSaveAsGPXCompleted(IAsyncResult result)
         {
-            Action<string, QualificationRound> invoker = (Action<string, QualificationRound>)result.AsyncState;
+            Action<string, QualificationRoundSet> invoker = (Action<string, QualificationRoundSet>)result.AsyncState;
             invoker.EndInvoke(result);
             // perform other actions after the file has been saved (also occurs on non-UI thread)
         }
 
-        private void SaveAsGPX( string fileDir, QualificationRound q)
+        private void SaveAsGPX( string fileDir, QualificationRoundSet q)
         {
             // for a selected Qualification Round, save flight data as *.gpx
             CultureInfo ci = CultureInfo.InvariantCulture;
             string _cName = Client.SelectedCompetition.Name;
-            foreach (Team t in Client.SelectedCompetition.Team.OrderBy(p => int.Parse(p.CNumber)))
+            foreach (TeamSet t in Client.SelectedCompetition.TeamSet.OrderBy(p => int.Parse(p.CNumber)))
             {
-                foreach (Flight flt in t.Flight.Where(x=>x.QualificationRound == q))
+                foreach (FlightSet flt in t.FlightSet.Where(x=>x.QualificationRoundSet == q))
                 {
-                   string  _nameQr = _cName + "_" + flt.QualificationRound.Name;
-                    string _nameNav = flt.Team.Navigator != null ? flt.Team.Navigator.LastName : "";
-                    string _name2 = _nameQr + " " + flt.Id + " " + flt.Team.Pilot.LastName + "_" + _nameNav;
-                    string _nameShort = "Crew " + flt.Team.CNumber;
+                   string  _nameQr = _cName + "_" + flt.QualificationRoundSet.Name;
+                    string _nameNav = flt.TeamSet.Navigator != null ? flt.TeamSet.Navigator.LastName : "";
+                    string _name2 = _nameQr + " " + flt.Id + " " + flt.TeamSet.Pilot.LastName + "_" + _nameNav;
+                    string _nameShort = "Crew " + flt.TeamSet.CNumber;
                     var pts = flt.Point;
                     StringBuilder sb = new StringBuilder();
                     sb.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");

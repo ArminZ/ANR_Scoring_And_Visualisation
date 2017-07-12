@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using AirNavigationRaceLive.Comps.Helper;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps
 {
@@ -13,7 +14,7 @@ namespace AirNavigationRaceLive.Comps
         private Client.DataAccess c;
 
         private volatile bool active = false;
-        private Competition compDeleted;
+        private CompetitionSet compDeleted;
         private int Idx = -1;  // index of the added or changed row
 
         public CompetitionControl(Client.DataAccess client)
@@ -33,13 +34,13 @@ namespace AirNavigationRaceLive.Comps
 
         private void reloadCompetitions()
         {
-            List<Competition> list = c.DBContext.CompetitionSet.ToList();
+            List<CompetitionSet> list = c.DBContext.CompetitionSet.ToList();
             dataGridView1.Rows.Clear();
             dataGridView1.AllowUserToAddRows = true;
             dataGridView1.MultiSelect = false;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            foreach (Competition cs in list)
+            foreach (CompetitionSet cs in list)
             {
                 DataGridViewRow dgvr = new DataGridViewRow();
                 dgvr.Tag = cs;
@@ -64,10 +65,10 @@ namespace AirNavigationRaceLive.Comps
                 UpdateEnablement();
                 if (dataGridView1.SelectedRows.Count > 0)
                 {
-                    Competition cs = dataGridView1.SelectedRows[0].Tag as Competition;
+                    CompetitionSet cs = dataGridView1.SelectedRows[0].Tag as CompetitionSet;
                     if (cs != null)
                     {
-                        c.SelectedCompetition = dataGridView1.SelectedRows[0].Tag as Competition;
+                        c.SelectedCompetition = dataGridView1.SelectedRows[0].Tag as CompetitionSet;
                         UpdateEnablement();
                         Status.SetStatus("Connected to Server, download finished");
                         Connected.Invoke(c, e);
@@ -97,7 +98,7 @@ namespace AirNavigationRaceLive.Comps
                     e.Cancel = true;
                     return;
                 }
-                compDeleted = e.Row.Tag as Competition;
+                compDeleted = e.Row.Tag as CompetitionSet;
             }
         }
 
@@ -144,21 +145,21 @@ namespace AirNavigationRaceLive.Comps
 
             if (isDuplicateCompetition(newCompName, idVal.ToString()))
             {
-                dataGridView1.Rows[e.RowIndex].ErrorText = "A competition with this name is already listed";
+                dataGridView1.Rows[e.RowIndex].ErrorText = "A CompetitionSet with this name is already listed";
                 e.Cancel = true;
                 return;
             }
 
             if (string.IsNullOrEmpty(idVal.ToString()))
             {
-                Competition comp = new Competition();
+                CompetitionSet comp = new CompetitionSet();
                 comp.Name = newCompName;
                 c.DBContext.CompetitionSet.Add(comp);
                 c.DBContext.SaveChanges();
             }
             else
             {
-                Competition comp = dataGridView1.Rows[e.RowIndex].Tag as Competition;
+                CompetitionSet comp = dataGridView1.Rows[e.RowIndex].Tag as CompetitionSet;
                 comp.Name = compVal.ToString().Trim();
                 c.DBContext.SaveChanges();
             }
@@ -168,8 +169,8 @@ namespace AirNavigationRaceLive.Comps
         }
 
         private bool isDuplicateCompetition(string name, string id)
-        {  // check if the new or changed competition already exists in the  list
-            List<Competition> competitions = c.DBContext.CompetitionSet.Where(x => x.Name == name && x.Id.ToString() != id).ToList<Competition>();
+        {  // check if the new or changed CompetitionSet already exists in the  list
+            List<CompetitionSet> competitions = c.DBContext.CompetitionSet.Where(x => x.Name == name && x.Id.ToString() != id).ToList<CompetitionSet>();
             return competitions.Count > 0;
         }
     }

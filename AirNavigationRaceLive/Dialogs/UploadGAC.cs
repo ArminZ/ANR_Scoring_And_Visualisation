@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
-using AirNavigationRaceLive.Comps.Client;
+using AirNavigationRaceLive.Client;
 using AirNavigationRaceLive.Comps.Helper;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Dialogs
 {
     public partial class UploadGAC : Form
     {
         private DataAccess Client;
-        private Flight ct;
+        private FlightSet ct;
 
         public EventHandler OnFinish;
-        public UploadGAC(DataAccess Client, Flight ct)
+        public UploadGAC(DataAccess Client, FlightSet ct)
         {
             this.Client = Client;
             this.ct = ct;
             InitializeComponent();
+            dateGAC.Enabled=false;
+
         }
 
         private void btnImportGAC_Click(object sender, EventArgs e)
@@ -39,8 +42,12 @@ namespace AirNavigationRaceLive.Dialogs
             OpenFileDialog ofd = sender as OpenFileDialog;
             try
             {
-                DateTime dt = dateGAC.Value;
-                List<Point> list = Importer.GPSdataFromGAC(dt.Year, dt.Month, dt.Day, ofd.FileName);
+                //DateTime dt = dateGAC.Value;
+                string dt = string.Empty;
+                //dateGAC.Visible=false;
+                //List<Point> list = Importer.GPSdataFromGAC(dt.Year, dt.Month, dt.Day, ofd.FileName);
+                List<Point> list = Importer.GPSdataFromGAC(ofd.FileName, out dt);
+                dateGAC.Text = dt;
                 textBoxPositions.Text = list.Count.ToString();
                 textBoxPositions.Tag = list;
                 if (Importer.lstWarnings.Count>0)
@@ -52,6 +59,8 @@ namespace AirNavigationRaceLive.Dialogs
             catch (Exception ex)
             {
                 MessageBox.Show(null, ex.ToString(), "Error while Parsing File",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                dateGAC.Text = string.Empty;
+                return;
             }
             UpdateEnablement();
         }
@@ -65,7 +74,7 @@ namespace AirNavigationRaceLive.Dialogs
             if (textBoxPositions.Tag != null)
             {
                 List<Point> list = textBoxPositions.Tag as List<Point>;
-                Client.DBContext.PointSet.RemoveRange(ct.Point);
+                Client.DBContext.Point.RemoveRange(ct.Point);
                 foreach (Point point in list)
                 {
                     ct.Point.Add(point);

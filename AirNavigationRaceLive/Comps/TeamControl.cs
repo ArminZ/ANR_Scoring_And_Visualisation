@@ -7,9 +7,11 @@ using System.Windows.Forms;
 using AirNavigationRaceLive.Comps.Helper;
 using System.IO;
 using AirNavigationRaceLive.Dialogs;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps
 {
+
     public partial class TeamControl : UserControl
     {
         private Client.DataAccess Client;
@@ -32,12 +34,12 @@ namespace AirNavigationRaceLive.Comps
 
         private void LoadLists()
         {
-            List<Subscriber> pilots = Client.SelectedCompetition.Subscriber.OrderBy(p => p.LastName).ToList();
-            List<Team> teams = Client.SelectedCompetition.Team.ToList();
+            List<SubscriberSet> pilots = Client.SelectedCompetition.SubscriberSet.OrderBy(p => p.LastName).ToList();
+            List<TeamSet> teams = Client.SelectedCompetition.TeamSet.ToList();
             lstTeamIdPilotNavNames = new List<string>();
             dataGridView1.Rows.Clear();
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            foreach (Team team in teams)
+            foreach (TeamSet team in teams)
             {
                 DataGridViewRow dgvr = new DataGridViewRow();
                 dgvr.Tag = team;   
@@ -54,7 +56,7 @@ namespace AirNavigationRaceLive.Comps
             }
         }
 
-        private string getCrewName(Team team)
+        private string getCrewName(TeamSet team)
         {
             string pilName = team.Pilot != null ? team.Pilot.LastName + " " + team.Pilot.FirstName : " - ";
             string navName = team.Navigator != null ? "|" + team.Navigator.LastName + " " + team.Navigator.FirstName : " - ";
@@ -80,7 +82,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 di.Create();
             }
-            PDFCreator.CreateTeamsPDF(Client.SelectedCompetition.Team.ToList(), Client, dirPath +
+            PDFCreator.CreateTeamsPDF(Client.SelectedCompetition.TeamSet.ToList(), Client, dirPath +
                 @"\CrewsPrintout_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
 
         }
@@ -91,7 +93,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 return;
             }
-            Team team = dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Tag as Team;
+            TeamSet team = dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Tag as TeamSet;
             Client.DBContext.TeamSet.Remove(team);
             Client.DBContext.SaveChanges();
 
@@ -112,13 +114,13 @@ namespace AirNavigationRaceLive.Comps
             {
                 rIdx = dataGridView1.SelectedCells[0].RowIndex;
             }
-            List<Subscriber> lstSubsc = Client.SelectedCompetition.Subscriber.ToList();
-            List<Team> lstCrews = Client.SelectedCompetition.Team.ToList();
-            Team ts = dataGridView1.Rows[rIdx].Tag as Team;
+            List<SubscriberSet> lstSubsc = Client.SelectedCompetition.SubscriberSet.ToList();
+            List<TeamSet> lstCrews = Client.SelectedCompetition.TeamSet.ToList();
+            TeamSet ts = dataGridView1.Rows[rIdx].Tag as TeamSet;
             if (ts == null)
             {
-                ts = new Team();
-                ts.Competition = Client.SelectedCompetition;
+                ts = new TeamSet();
+                ts.CompetitionSet = Client.SelectedCompetition;
                 ts.Color = "Black";
             }
 
@@ -132,7 +134,7 @@ namespace AirNavigationRaceLive.Comps
 
                 if (rRes == DialogResult.OK)
                 {
-                    Team tm = frmTeamDialog.SelectedTeam;
+                    TeamSet tm = frmTeamDialog.SelectedTeam;
                     if (tm.Id == 0)
                     {
                         Client.DBContext.TeamSet.Add(tm);
@@ -143,7 +145,7 @@ namespace AirNavigationRaceLive.Comps
                             tm.CNumber,
                             tm.Nationality != null ? tm.Nationality : "",
                             tm.Pilot.LastName + " " + tm.Pilot.FirstName,
-                            (tm.Navigator != null) ? tm.Navigator.LastName + " " + tm.Navigator.FirstName : "-",
+                            tm.Navigator != null ? tm.Navigator.LastName + " " + tm.Navigator.FirstName : "-",
                             tm.AC,
                             tm.Color);
                         dgvr.Tag = tm;
@@ -162,7 +164,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 if (dataGridView1.SelectedRows[0].Cells[1] != null && dataGridView1.SelectedRows[0].Cells[1].Value != null)
                 {
-                    Team tm = dataGridView1.SelectedRows[0].Tag as Team;
+                    TeamSet tm = dataGridView1.SelectedRows[0].Tag as TeamSet;
                 }
 
                 if (dataGridView1.SelectedRows[0].Index == dataGridView1.NewRowIndex)
