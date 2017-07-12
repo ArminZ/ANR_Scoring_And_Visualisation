@@ -29,6 +29,13 @@ The most important changes (comparing to Luc's latest version) are
 * Additional functionality ('Route Generator')
 * Documentation, including the important subjects map conversion/map import, and parcour creation/import
 
+#### Version 2.0.0
+
+* Move from EF 6.1 database-first to EF 6.1 Code-first and implemented Migration
+* This will allow to keep existing database files from previous version compatible and include more tables/fields as required on code side
+* Removal of unused code, some rework on the grapical side
+* Disabled old Beta-code for Route generation
+
 --- 
 #### What is new in this version?
 
