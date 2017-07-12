@@ -21,7 +21,7 @@ under the technical lead of **Luc Baumann/SharpSoft**. Luc has been maintaining 
 Old code can be found from the google code archive https://code.google.com/archive/p/anrl/downloads. 
 At this time the application was basically a client-server application with a centralized database server. Later on a first stand-alone version was tested. There has been some development in 2015, probably from the 2013 stand-alone version of the 'Anrl.zip (workaround-local-app)' version of above google code. Luc has stored the latest code of the 2015 stand-alone version in a dedicated GitHub repository ( https://github.com/helios57/anrl). This repository served as the starting point for the code presented here.
 
-#### What is new?
+#### What is new (versions 1.013-1.0.22)?
 The most important changes (comparing to Luc's latest version) are
 
 * Entirely revised user interface
@@ -29,9 +29,9 @@ The most important changes (comparing to Luc's latest version) are
 * Additional functionality ('Route Generator')
 * Documentation, including the important subjects map conversion/map import, and parcour creation/import
 
-#### Version 2.0.0
+#### Next version 2.0.0 (Summer/autumn 2017)
 
-* Move from EF 6.1 database-first to EF 6.1 Code-first and implemented Migration
+* Move from Entity Framework (EF) 6.1 database-first to EF 6.1 Code-first, and implemented EF Migration functionality
 * This will allow to keep existing database files from previous version compatible and include more tables/fields as required on code side
 * Removal of unused code, some rework on the grapical side
 * Disabled old Beta-code for Route generation
