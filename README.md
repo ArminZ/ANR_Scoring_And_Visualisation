@@ -32,7 +32,7 @@ The most important changes (comparing to Luc's latest version) are
 #### Next version 2.0.0 (Summer/autumn 2017)
 
 * Move from Entity Framework (EF) 6.1 database-first to EF 6.1 Code-first, and implemented EF Migration functionality
-* This will allow to keep existing database files from previous version compatible and include more tables/fields as required on code side
+* This will allow to keep existing database files from previous versions compatible, and include more tables/fields as required on code side
 * Removal of unused code, some rework on the grapical side
 * Disabled old Beta-code for Route generation
 
