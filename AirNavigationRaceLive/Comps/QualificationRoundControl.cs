@@ -131,8 +131,9 @@ namespace AirNavigationRaceLive.Comps
             if (flights.Count > 0)
             {
                 FlightSet first = flights.OrderBy(x => x.TimeTakeOff).First();
-                timeParcourDuration.Value = new DateTime(first.TimeEndLine - first.TimeStartLine).AddYears(2000);
-                timeTakeOffToStartgateDuration.Value = new DateTime(first.TimeStartLine - first.TimeTakeOff).AddYears(2000);
+                // use absolute difference - for inverted routes
+                timeParcourDuration.Value = new DateTime(Math.Abs(first.TimeEndLine - first.TimeStartLine)).AddYears(2000);
+                timeTakeOffToStartgateDuration.Value = new DateTime(Math.Abs(first.TimeStartLine - first.TimeTakeOff)).AddYears(2000);
                 numericUpDownRoutes.Value = flights.Select(x => x.Route).Distinct().Count();
 
                 if (flights.Count > 1)
