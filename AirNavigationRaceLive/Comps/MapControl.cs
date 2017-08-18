@@ -14,6 +14,7 @@ namespace AirNavigationRaceLive.Comps
         private Client.DataAccess Client;
         private ToolTip Tooltip;
         private MapSet m;
+        private FileStream fileStream; // hack to avoid blocking of loaded map file
 
         public MapControl(Client.DataAccess iClient)
         {
@@ -164,7 +165,10 @@ namespace AirNavigationRaceLive.Comps
         void ofd_FileOk(object sender, CancelEventArgs e)
         {
             OpenFileDialog ofd = sender as OpenFileDialog;
-            PictureBox1.Image = Image.FromFile(ofd.FileName);
+            fileStream = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read);
+            PictureBox1.Image = Image.FromStream(fileStream);
+            // NOTE: must keep the filestream open until the map has been saved.
+
             fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
             btnSave.Enabled = true;
 
@@ -257,21 +261,28 @@ namespace AirNavigationRaceLive.Comps
                 m.XTopLeft = Double.Parse(fldX.Text);
                 m.YTopLeft = Double.Parse(fldY.Text);
 
-                MemoryStream ms = new MemoryStream();
-                PictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                m.PictureSet = new PictureSet();
-                m.PictureSet.Data = ms.ToArray();
-                m.CompetitionSet = Client.SelectedCompetition;
-                if (m.Id == 0)
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    Client.DBContext.MapSet.Add(m);
+                    PictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    m.PictureSet = new PictureSet();
+                    m.PictureSet.Data = ms.ToArray();
+                    m.CompetitionSet = Client.SelectedCompetition;
+                    if (m.Id == 0)
+                    {
+                        Client.DBContext.MapSet.Add(m);
+                    }
+                    Client.DBContext.SaveChanges();
+                    loadMaps();
                 }
-                Client.DBContext.SaveChanges();
-                loadMaps();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error while Saving");
+            }
+            finally
+            {
+                fileStream.Close();
+                // close the filestream will release the locked map file
             }
         }
 
