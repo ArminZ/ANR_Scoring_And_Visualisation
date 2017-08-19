@@ -572,13 +572,6 @@
     <None Include="Resources\ANR_map_Example.JPG" />
     <None Include="Resources\compass1.jpg" />
     <None Include="Resources\Capturex1.JPG" />
-    <Content Include="anrl.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="anrl_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>anrl.mdf</DependentUpon>
-    </Content>
     <Content Include="Resources\default.png" />
     <None Include="Resources\Landing - Copy.JPG" />
     <None Include="Resources\stopwatch.jpg" />
