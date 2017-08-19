@@ -7,21 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using AirNavigationRaceLive.Comps.Client;
+using AirNavigationRaceLive.Client;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Dialogs
 {
     public partial class RankForm : Form
     {
-        private List<Penalty> rankinEntries;
-        private List<Flight> teams;
+        private List<PenaltySet> rankinEntries;
+        private List<FlightSet> teams;
         private DataAccess c;
 
         public RankForm()
         {
             InitializeComponent();
         }
-        public void SetData(List<Penalty> rankinEntries, List<Flight> teams, DataAccess c)
+        public void SetData(List<PenaltySet> rankinEntries, List<FlightSet> teams, DataAccess c)
         {
             this.c = c;
             this.rankinEntries = rankinEntries;
@@ -34,14 +35,14 @@ namespace AirNavigationRaceLive.Dialogs
             if (c != null && rankinEntries != null && teams != null)
             {
                 List<RankedTeam> rankedTeams = new List<RankedTeam>();
-                foreach (Flight t in teams)
+                foreach (FlightSet t in teams)
                 {
                     int sum = 0;
-                    foreach (Penalty p in t.Penalty)
+                    foreach (PenaltySet p in t.PenaltySet)
                     {
                         sum += p.Points;
                     }
-                    rankedTeams.Add(new RankedTeam(t,t.Team,sum));
+                    rankedTeams.Add(new RankedTeam(t,t.TeamSet,sum));
                 }
                 rankedTeams.Sort();
                 for (int i = 0; i < rankedTeams.Count; i++)
@@ -81,14 +82,14 @@ namespace AirNavigationRaceLive.Dialogs
             base.OnPaint(e);
         }
 
-        private string getTeamDsc(Team team)
+        private string getTeamDsc(TeamSet team)
         {
-            Subscriber pilot = team.Pilot;
+            SubscriberSet pilot = team.Pilot;
             StringBuilder sb = new StringBuilder();
             sb.Append(pilot.LastName).Append(" ").Append(pilot.FirstName);
             if (team.Navigator!= null)
             {
-                Subscriber navi = team.Navigator;
+                SubscriberSet navi = team.Navigator;
                 sb.Append(" - ").Append(navi.LastName).Append(" ").Append(navi.FirstName);
             }
             return sb.ToString();
@@ -126,10 +127,10 @@ namespace AirNavigationRaceLive.Dialogs
     }
     class RankedTeam:IComparable<RankedTeam>
     {
-        public Flight t;
+        public FlightSet t;
         public int points;
-        public Team team;
-        public RankedTeam(Flight t,Team team, int points)
+        public TeamSet team;
+        public RankedTeam(FlightSet t,TeamSet team, int points)
         {
             this.t = t;
             this.team = team;

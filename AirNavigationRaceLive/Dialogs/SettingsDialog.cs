@@ -1,16 +1,12 @@
-﻿using AirNavigationRaceLive.Comps;
+﻿using AirNavigationRaceLive.Client;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace AirNavigationRaceLive.Dialogs
 {
     public partial class SettingsDialog : Form
     {
-        public Comps.Client.DataAccess Client;
+        public DataAccess Client;
         public SettingsDialog()
         {
             InitializeComponent();

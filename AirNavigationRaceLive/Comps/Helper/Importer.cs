@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
-using AirNavigationRaceLive.Comps.Model;
-using Facet.Combinatorics;
-using NetworkObjects;
 using System.Xml.Linq;
 using System.Globalization;
 using Microsoft.VisualBasic.FileIO;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {
@@ -19,9 +16,9 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// Imports a DxfFile that is in the specified Format. Any changes on the import schema may cause Errors!
         /// </summary>
         /// <param name="filepath"></param>
-        public static Parcour importFromDxfCH(string filepath)
+        public static ParcourSet importFromDxfCH(string filepath)
         {
-            Parcour result = new Parcour();
+            ParcourSet result = new ParcourSet();
 
             StreamReader sr = new StreamReader(filepath);
             List<string> Line = new List<string>();
@@ -106,13 +103,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Line l = new Line();
                         double Longitude1 = Converter.CHtoWGSlng(res[0] * 1000, res[1] * 1000);
                         double Latitude1 = Converter.CHtoWGSlat(res[0] * 1000, res[1] * 1000);
-                        l.A = new Point();
+                        l.A = new AirNavigationRaceLive.Model.Point();
                         l.A.longitude = Longitude1;
                         l.A.latitude = Latitude1;
 
                         double Longitude2 = Converter.CHtoWGSlng(res[2] * 1000, res[3] * 1000);
                         double Latitude2 = Converter.CHtoWGSlat(res[2] * 1000, res[3] * 1000);
-                        l.B = new Point();
+                        l.B = new AirNavigationRaceLive.Model.Point();
                         l.B.longitude = Longitude2;
                         l.B.latitude = Latitude2;
 
@@ -122,30 +119,6 @@ namespace AirNavigationRaceLive.Comps.Helper
                         l.O = o.toGPSPoint();
                         l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
 
-                        //string gatename = lines[i + 6].Substring(11, 1);
-                        //switch (gatename)
-                        //{
-                        //    case "A":
-                        //        {
-                        //            l.Type = (int)LineType.START_A;
-                        //            break;
-                        //        }
-                        //    case "B":
-                        //        {
-                        //            l.Type = (int)LineType.START_B;
-                        //            break;
-                        //        }
-                        //    case "C":
-                        //        {
-                        //            l.Type = (int)LineType.START_C;
-                        //            break;
-                        //        }
-                        //    case "D":
-                        //        {
-                        //            l.Type = (int)LineType.START_D;
-                        //            break;
-                        //        }
-                        //}
                         result.Line.Add(l);
                     }
                     else if (lines[i + 5] == "  8" && lines[i + 6].Contains("ENDPOINT-"))
@@ -170,13 +143,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Line l = new Line();
                         double Longitude1 = Converter.CHtoWGSlng(res[0] * 1000, res[1] * 1000);
                         double Latitude1 = Converter.CHtoWGSlat(res[0] * 1000, res[1] * 1000);
-                        l.A = new Point();
+                        l.A = new AirNavigationRaceLive.Model.Point();
                         l.A.longitude = Longitude1;
                         l.A.latitude = Latitude1;
 
                         double Longitude2 = Converter.CHtoWGSlng(res[2] * 1000, res[3] * 1000);
                         double Latitude2 = Converter.CHtoWGSlat(res[2] * 1000, res[3] * 1000);
-                        l.B = new Point();
+                        l.B = new AirNavigationRaceLive.Model.Point();
                         l.B.longitude = Longitude2;
                         l.B.latitude = Latitude2;
 
@@ -186,30 +159,6 @@ namespace AirNavigationRaceLive.Comps.Helper
                         l.O = o.toGPSPoint();
                         l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
 
-                        //string gatename = lines[i + 6].Substring(9, 1);
-                        //switch (gatename)
-                        //{
-                        //    case "A":
-                        //        {
-                        //            l.Type = (int)LineType.END_A;
-                        //            break;
-                        //        }
-                        //    case "B":
-                        //        {
-                        //            l.Type = (int)LineType.END_B;
-                        //            break;
-                        //        }
-                        //    case "C":
-                        //        {
-                        //            l.Type = (int)LineType.END_C;
-                        //            break;
-                        //        }
-                        //    case "D":
-                        //        {
-                        //            l.Type = (int)LineType.END_D;
-                        //            break;
-                        //        }
-                        //}
                         result.Line.Add(l);
 
                     }
@@ -221,13 +170,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                             Line l = new Line();
                             double Longitude1 = Converter.CHtoWGSlng(double.Parse(lines[i + 16 + correctur], NumberFormatInfo.InvariantInfo) * 1000, double.Parse(lines[i + 18 + correctur], NumberFormatInfo.InvariantInfo) * 1000);
                             double Latitude1 = Converter.CHtoWGSlat(double.Parse(lines[i + 16 + correctur], NumberFormatInfo.InvariantInfo) * 1000, double.Parse(lines[i + 18 + correctur], NumberFormatInfo.InvariantInfo) * 1000);
-                            l.A = new Point();
+                            l.A = new AirNavigationRaceLive.Model.Point();
                             l.A.longitude = Longitude1;
                             l.A.latitude = Latitude1;
 
                             double Longitude2 = Converter.CHtoWGSlng(double.Parse(lines[i + 20 + correctur], NumberFormatInfo.InvariantInfo) * 1000, double.Parse(lines[i + 22 + correctur], NumberFormatInfo.InvariantInfo) * 1000);
                             double Latitude2 = Converter.CHtoWGSlat(double.Parse(lines[i + 20 + correctur], NumberFormatInfo.InvariantInfo) * 1000, double.Parse(lines[i + 22 + correctur], NumberFormatInfo.InvariantInfo) * 1000);
-                            l.B = new Point();
+                            l.B = new AirNavigationRaceLive.Model.Point();
                             l.B.longitude = Longitude2;
                             l.B.latitude = Latitude2;
 
@@ -247,9 +196,9 @@ namespace AirNavigationRaceLive.Comps.Helper
          /// Imports a DxfFile that is in the specified Format. Any changes on the import schema may cause Errors!
          /// </summary>
          /// <param name="filepath"></param>
-        public static Parcour importFromDxfWGS(string filepath)
+        public static ParcourSet importFromDxfWGS(string filepath)
         {
-            Parcour result = new Parcour();
+            ParcourSet result = new ParcourSet();
 
             StreamReader sr = new StreamReader(filepath);
             List<string> Line = new List<string>();
@@ -334,13 +283,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Line l = new Line();
                         double Longitude1 = res[1];
                         double Latitude1 = res[0];
-                        l.A = new Point();
+                        l.A = new AirNavigationRaceLive.Model.Point();
                         l.A.longitude = Longitude1;
                         l.A.latitude = Latitude1;
 
                         double Longitude2 = res[3];
                         double Latitude2 = res[2];
-                        l.B = new Point();
+                        l.B = new AirNavigationRaceLive.Model.Point();
                         l.B.longitude = Longitude2;
                         l.B.latitude = Latitude2;
 
@@ -350,30 +299,6 @@ namespace AirNavigationRaceLive.Comps.Helper
                         l.O = o.toGPSPoint();
                         l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
 
-                        //string gatename = lines[i + 6].Substring(11, 1);
-                        //switch (gatename)
-                        //{
-                        //    case "A":
-                        //        {
-                        //            l.Type = (int)LineType.START_A;
-                        //            break;
-                        //        }
-                        //    case "B":
-                        //        {
-                        //            l.Type = (int)LineType.START_B;
-                        //            break;
-                        //        }
-                        //    case "C":
-                        //        {
-                        //            l.Type = (int)LineType.START_C;
-                        //            break;
-                        //        }
-                        //    case "D":
-                        //        {
-                        //            l.Type = (int)LineType.START_D;
-                        //            break;
-                        //        }
-                        //}
                         result.Line.Add(l);
                     }
                     else if (lines[i + 5] == "  8" && lines[i + 6].Contains("ENDPOINT-"))
@@ -398,13 +323,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Line l = new Line();
                         double Longitude1 = res[1];
                         double Latitude1 = res[0];
-                        l.A = new Point();
+                        l.A = new AirNavigationRaceLive.Model.Point();
                         l.A.longitude = Longitude1;
                         l.A.latitude = Latitude1;
 
                         double Longitude2 = res[3];
                         double Latitude2 = res[2];
-                        l.B = new Point();
+                        l.B = new AirNavigationRaceLive.Model.Point();
                         l.B.longitude = Longitude2;
                         l.B.latitude = Latitude2;
 
@@ -414,30 +339,6 @@ namespace AirNavigationRaceLive.Comps.Helper
                         l.O = o.toGPSPoint();
                         l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
 
-                        //string gatename = lines[i + 6].Substring(9, 1);
-                        //switch (gatename)
-                        //{
-                        //    case "A":
-                        //        {
-                        //            l.Type = (int)LineType.END_A;
-                        //            break;
-                        //        }
-                        //    case "B":
-                        //        {
-                        //            l.Type = (int)LineType.END_B;
-                        //            break;
-                        //        }
-                        //    case "C":
-                        //        {
-                        //            l.Type = (int)LineType.END_C;
-                        //            break;
-                        //        }
-                        //    case "D":
-                        //        {
-                        //            l.Type = (int)LineType.END_D;
-                        //            break;
-                        //        }
-                        //}
                         result.Line.Add(l);
 
                     }
@@ -449,13 +350,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                             Line l = new Line();
                             double Longitude1 = double.Parse(lines[i + 18 + correctur], NumberFormatInfo.InvariantInfo);
                             double Latitude1 = double.Parse(lines[i + 16 + correctur], NumberFormatInfo.InvariantInfo);
-                            l.A = new Point();
+                            l.A = new AirNavigationRaceLive.Model.Point();
                             l.A.longitude = Longitude1;
                             l.A.latitude = Latitude1;
 
                             double Longitude2 = double.Parse(lines[i + 22 + correctur], NumberFormatInfo.InvariantInfo);
                             double Latitude2 = double.Parse(lines[i + 20 + correctur], NumberFormatInfo.InvariantInfo);
-                            l.B = new Point();
+                            l.B = new AirNavigationRaceLive.Model.Point();
                             l.B.longitude = Longitude2;
                             l.B.latitude = Latitude2;
 
@@ -475,9 +376,9 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// Imports a DxfFile that is in the specified Format. Any changes on the import schema may cause Errors!
         /// </summary>
         /// <param name="filepath"></param>
-        public static Parcour importFromDxfWGSSwitched(string filepath)
+        public static ParcourSet importFromDxfWGSSwitched(string filepath)
         {
-            Parcour result = new Parcour();
+            ParcourSet result = new ParcourSet();
 
             StreamReader sr = new StreamReader(filepath);
             List<string> Line = new List<string>();
@@ -562,13 +463,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Line l = new Line();
                         double Latitude1 = res[1];
                         double Longitude1 = res[0];
-                        l.A = new Point();
+                        l.A = new AirNavigationRaceLive.Model.Point();
                         l.A.longitude = Longitude1;
                         l.A.latitude = Latitude1;
 
                         double Latitude2 = res[3];
                         double Longitude2 = res[2];
-                        l.B = new Point();
+                        l.B = new AirNavigationRaceLive.Model.Point();
                         l.B.longitude = Longitude2;
                         l.B.latitude = Latitude2;
 
@@ -578,30 +479,6 @@ namespace AirNavigationRaceLive.Comps.Helper
                         l.O = o.toGPSPoint();
                         l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
 
-                        //string gatename = lines[i + 6].Substring(11, 1);
-                        //switch (gatename)
-                        //{
-                        //    case "A":
-                        //        {
-                        //            l.Type = (int)LineType.START_A;
-                        //            break;
-                        //        }
-                        //    case "B":
-                        //        {
-                        //            l.Type = (int)LineType.START_B;
-                        //            break;
-                        //        }
-                        //    case "C":
-                        //        {
-                        //            l.Type = (int)LineType.START_C;
-                        //            break;
-                        //        }
-                        //    case "D":
-                        //        {
-                        //            l.Type = (int)LineType.START_D;
-                        //            break;
-                        //        }
-                        //}
                         result.Line.Add(l);
                     }
                     else if (lines[i + 5] == "  8" && lines[i + 6].Contains("ENDPOINT-"))
@@ -626,13 +503,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Line l = new Line();
                         double Latitude1 = res[1];
                         double Longitude1 = res[0];
-                        l.A = new Point();
+                        l.A = new AirNavigationRaceLive.Model.Point();
                         l.A.longitude = Longitude1;
                         l.A.latitude = Latitude1;
 
                         double Latitude2 = res[3];
                         double Longitude2 = res[2];
-                        l.B = new Point();
+                        l.B = new AirNavigationRaceLive.Model.Point();
                         l.B.longitude = Longitude2;
                         l.B.latitude = Latitude2;
 
@@ -642,30 +519,6 @@ namespace AirNavigationRaceLive.Comps.Helper
                         l.O = o.toGPSPoint();
                         l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
 
-                        //string gatename = lines[i + 6].Substring(9, 1);
-                        //switch (gatename)
-                        //{
-                        //    case "A":
-                        //        {
-                        //            l.Type = (int)LineType.END_A;
-                        //            break;
-                        //        }
-                        //    case "B":
-                        //        {
-                        //            l.Type = (int)LineType.END_B;
-                        //            break;
-                        //        }
-                        //    case "C":
-                        //        {
-                        //            l.Type = (int)LineType.END_C;
-                        //            break;
-                        //        }
-                        //    case "D":
-                        //        {
-                        //            l.Type = (int)LineType.END_D;
-                        //            break;
-                        //        }
-                        //}
                         result.Line.Add(l);
 
                     }
@@ -677,13 +530,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                             Line l = new Line();
                             double Latitude1 = double.Parse(lines[i + 18 + correctur], NumberFormatInfo.InvariantInfo);
                             double Longitude1 = double.Parse(lines[i + 16 + correctur], NumberFormatInfo.InvariantInfo);
-                            l.A = new Point();
+                            l.A = new AirNavigationRaceLive.Model.Point();
                             l.A.longitude = Longitude1;
                             l.A.latitude = Latitude1;
 
                             double Latitude2 = double.Parse(lines[i + 22 + correctur], NumberFormatInfo.InvariantInfo);
                             double Longitude2 = double.Parse(lines[i + 20 + correctur], NumberFormatInfo.InvariantInfo);
-                            l.B = new Point();
+                            l.B = new AirNavigationRaceLive.Model.Point();
                             l.B.longitude = Longitude2;
                             l.B.latitude = Latitude2;
 
@@ -705,7 +558,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// Imports the Layer of prohibited data from a KML file that is in a specified Format
         /// </summary>
         /// <param name="filepath"></param>
-        public static Parcour importFromKMLLayer(string filepath)
+        public static ParcourSet importFromKMLLayer(string filepath)
         {
             // parcour generation using GoogleEarth kml file (generated with the Route Generator) as input
             //
@@ -718,7 +571,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             // ENDPOINT-A, ENDPOINT-B, ENDPOINT-C, ENDPOINT-D
             // NBLINE
 
-            Parcour result = new Parcour();
+            ParcourSet result = new ParcourSet();
 
             XNamespace nsKml = XNamespace.Get("http://www.opengis.net/kml/2.2");
             XDocument gpxDoc = XDocument.Load(filepath);
@@ -739,7 +592,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     // create polygon elements
                     foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
                     {
-                        List<Point> lst = getPointsFromKMLCoordinates(coord.Value);
+                        List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
                         int numberOfVertexes = lst.Count;
                         List<Vector> input = new List<Vector>();
                         foreach (var pt in lst)
@@ -785,7 +638,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     // create line elements
                     foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
                     {
-                        List<Point> lst = getPointsFromKMLCoordinates(coord.Value);
+                        List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
                         Line l = new Line();
                         l.A = lst[0];
                         l.B = lst[1];
@@ -803,7 +656,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
                     {
                         Line l = new Line();
-                        List<Point> lst = getPointsFromKMLCoordinates(coord.Value);
+                        List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
                         l.A = lst[0];
                         l.B = lst[1];
 
@@ -822,7 +675,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
                     {
                         Line l = new Line();
-                        List<Point> lst = getPointsFromKMLCoordinates(coord.Value);
+                        List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
                         l.A = lst[0];
                         l.B = lst[1];
 
@@ -864,7 +717,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                 foreach (var coord in pm.Descendants(nsKml + "coordinates"))
                 {
                     Line l = new Line();
-                    List<Point> lst = getPointsFromKMLCoordinates(coord.Value);
+                    List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
                     l.A = lst[0];
                     l.B = lst[1];
 
@@ -886,10 +739,10 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// </summary>
         /// <param name="filepath"></param>
         /// <returns>The created Flight object</returns>
-        public static List<Point> GPSdataFromGAC(int year, int month, int day, string filename)
+        public static List<AirNavigationRaceLive.Model.Point> GPSdataFromGAC(int year, int month, int day, string filename)
         {
             lstWarnings.Clear();
-            List<Point> result = new List<Point>();
+            List<AirNavigationRaceLive.Model.Point> result = new List<AirNavigationRaceLive.Model.Point>();
             StreamReader gacFileStreamReader = new StreamReader(filename);
             string line = string.Empty;
             long iCnt = 0;
@@ -898,6 +751,8 @@ namespace AirNavigationRaceLive.Comps.Helper
             //{
             //    line = gacFileStreamReader.ReadLine();
             //}
+            // Date line at the beginning of the file would be e.g. HFDTE300411
+            // HFDTE300411
             {
                 while (!gacFileStreamReader.EndOfStream)
                 {
@@ -929,7 +784,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                             newPointTimeStamp = newPointTimeStamp.AddMinutes(Convert.ToInt32(line.Substring(3, 2)));
                             newPointTimeStamp = newPointTimeStamp.AddSeconds(Convert.ToInt32(line.Substring(5, 2)));
                             newPointTimeStamp.ToString("HHmmss");
-                            if (Convert.ToInt32(line.Substring(1, 2)) < 0 || Convert.ToInt32(line.Substring(1, 2)) > 23)    
+                            if (Convert.ToInt32(line.Substring(1, 2)) < 0 || Convert.ToInt32(line.Substring(1, 2)) > 23)
                             {
                                 lstWarnings.Add(string.Format("WARNING: data line {0}, time value [{1}] is invalid. [{2}] will be used instead.", iCnt, line.Substring(1, 6), newPointTimeStamp.ToString("HHmmss")));
                             }
@@ -992,13 +847,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                             throw new ApplicationException(String.Format("\nError in Longitude import\ndata line {1}: data value: {0}", line.Substring(15, 9), iCnt));
                         }
 
-                        if (line.Length<46)
+                        if (line.Length < 46)
                         {
                             throw new ApplicationException(String.Format("\nError in import\ndata line {1}: line length: {0}, expected: 46", line.Length, iCnt));
                         }
 
                         double altitude, speed, bearing, acc;
-                        string strFld=string.Empty, strPos=String.Empty;
+                        string strFld = string.Empty, strPos = String.Empty;
                         try
                         {
                             strFld = "altitude"; strPos = line.Substring(30, 5);
@@ -1016,7 +871,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         }
 
 
-                        Point data = new Point();
+                        AirNavigationRaceLive.Model.Point data = new AirNavigationRaceLive.Model.Point();
                         data.Timestamp = newPointTimeStamp.Ticks;
                         data.latitude = newPointLatitude;
                         data.longitude = newPointLongitude;
@@ -1029,15 +884,197 @@ namespace AirNavigationRaceLive.Comps.Helper
         }
 
         /// <summary>
+        /// Imports a GAC File of a flight
+        /// Note that the date is read correctly from the data file
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="strCompDate"></param>
+        /// <returns></returns>
+        public static List<AirNavigationRaceLive.Model.Point> GPSdataFromGAC(string filename, out string strCompDate)
+        {
+            lstWarnings.Clear();
+            List<AirNavigationRaceLive.Model.Point> result = new List<AirNavigationRaceLive.Model.Point>();
+            StreamReader sr = new StreamReader(filename);
+            string line = string.Empty;
+            long iCnt = 0;
+            bool hasDateLine = false;
+            strCompDate = string.Empty;
+            DateTime CompDate = new DateTime();
+            {
+                while (!sr.EndOfStream)
+                {
+                    line = sr.ReadLine();
+                    if (line.Length == 0)
+                    {
+                        continue;
+                    }
+                    #region read Header / recording date (IGC header field HFDTE)
+                    if (line.StartsWith("HFDTE") && line.Length >= 9 && hasDateLine == false)
+                    {
+                        // HFDTE  = UTC date of the recording. H-type record (Header), IGC file standard 
+                        // Example: HFDTE300411, with 300411 = date in format ddMMyy
+                        strCompDate = GACUTCDateParser(line.Substring(5, 6));
+                        if (String.IsNullOrEmpty(strCompDate) || !strCompDate.All(char.IsDigit))
+                        {
+                            //strCompDate = string.Empty;
+                            lstWarnings.Add(String.Format("\nError in date import, line has probably wrong date format.\nExpected 'HFDTE'+ ddMMyy, actual line is: {0}", line.Substring(0, 11)));
+                            sr.Close();
+                            sr.Dispose();
+                            return result;
+                        }
+                        else
+                        {
+                            hasDateLine = true;
+                            CompDate = DateTime.ParseExact(strCompDate, "ddMMyyyy", CultureInfo.InvariantCulture);
+                            strCompDate = CompDate.ToShortDateString();
+                        }
+                    }
+                    #endregion
+
+                    #region read B-records (=the actual data) 
+                    if (line.StartsWith("B"))
+                    {
+                        #region Handle non-existent date
+                        // if we have come here without a valid data, then log an error and return
+                        if (!hasDateLine)
+                        {
+                            sr.Close();
+                            sr.Dispose();
+                            lstWarnings.Add(String.Format("\nError in data import, no date found in file (a line starting with 'HFDTE')\n"));
+                            return result;
+                        }
+                        #endregion
+
+                        iCnt++;
+                        //B082337 4758489N 008 30 945 E A99999 0224901011680001
+                        //B1601114816962N00700724EA003100037007532330012
+                        // timestamp
+                        DateTime newPointTimeStamp = new DateTime(CompDate.Year, CompDate.Month, CompDate.Day);
+                        // in certain cases loggerds may produce a timestamp as 100860 (10:08:60 is basically an invalid timestamp)
+                        // this case can however be handled
+                        try
+                        {
+                            // this would reject a formally invalid timestamp 101160
+                            //newPointTimeStamp = new DateTime(year, month, day,
+                            //Convert.ToInt32(line.Substring(1, 2)),
+                            //Convert.ToInt32(line.Substring(3, 2)),
+                            //Convert.ToInt32(line.Substring(5, 2)));
+
+                            // this will accept also a formally invalid timestamp 101160 --> 101200
+
+                            newPointTimeStamp = newPointTimeStamp.AddHours(Convert.ToInt32(line.Substring(1, 2)));
+                            newPointTimeStamp = newPointTimeStamp.AddMinutes(Convert.ToInt32(line.Substring(3, 2)));
+                            newPointTimeStamp = newPointTimeStamp.AddSeconds(Convert.ToInt32(line.Substring(5, 2)));
+                            newPointTimeStamp.ToString("HHmmss");
+                            if (Convert.ToInt32(line.Substring(1, 2)) < 0 || Convert.ToInt32(line.Substring(1, 2)) > 23)
+                            {
+                                lstWarnings.Add(string.Format("WARNING: data line {0}, time value [{1}] is invalid. [{2}] will be used instead.", iCnt, line.Substring(1, 6), newPointTimeStamp.ToString("HHmmss")));
+                            }
+                            if (Convert.ToInt32(line.Substring(3, 2)) < 0 || Convert.ToInt32(line.Substring(3, 2)) > 59)
+                            {
+                                lstWarnings.Add(string.Format("WARNING: data line {0}, time value [{1}] value is invalid. [{2}] will be used instead.", iCnt, line.Substring(1, 6), newPointTimeStamp.ToString("HHmmss")));
+                            }
+                            if (Convert.ToInt32(line.Substring(5, 2)) < 0 || Convert.ToInt32(line.Substring(5, 2)) > 59)
+                            {
+                                lstWarnings.Add(string.Format("WARNING: data line {0}, time value [{1}] value is invalid. [{2}] will be used instead.", iCnt, line.Substring(1, 6), newPointTimeStamp.ToString("HHmmss")));
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            throw new ApplicationException(String.Format("\nError in time import on data line {1}\ndata {0} is probably not a valid time format (HHmmss)", line.Substring(1, 6), iCnt));
+                        }
+
+                        // latitude
+                        double newPointLatitude;
+                        try
+                        {
+                            newPointLatitude = Convert.ToDouble(line.Substring(7, 2)) + Convert.ToDouble(line.Substring(9, 2) + "." + line.Substring(11, 3), NumberFormatInfo.InvariantInfo) / 60;
+                            switch (line.Substring(14, 1))
+                            {
+                                case "N":
+                                    break;
+                                case "S":
+                                    newPointLatitude *= (-1);
+                                    break;
+                                default:
+                                    // TODO: Error
+                                    break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            throw new ApplicationException(String.Format("\nError in Longitude import\ndata line {1}: data value: {0}", line.Substring(7, 8), iCnt));
+                        }
+
+                        // longitude
+                        double newPointLongitude;
+                        try
+                        {
+                            newPointLongitude = Convert.ToDouble(line.Substring(15, 3)) + Convert.ToDouble(line.Substring(18, 2) + "." + line.Substring(20, 3), NumberFormatInfo.InvariantInfo) / 60;
+                            switch (line.Substring(23, 1))
+                            {
+                                case "E":
+                                    break;
+                                case "W":
+                                    newPointLongitude *= (-1);
+                                    break;
+                                default:
+                                    // ToDo: Error
+                                    break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            throw new ApplicationException(String.Format("\nError in Longitude import\ndata line {1}: data value: {0}", line.Substring(15, 9), iCnt));
+                        }
+
+                        if (line.Length < 46)
+                        {
+                            throw new ApplicationException(String.Format("\nError in import\ndata line {1}: line length: {0}, expected: 46", line.Length, iCnt));
+                        }
+
+                        double altitude, speed, bearing, acc;
+                        string strFld = string.Empty, strPos = String.Empty;
+                        try
+                        {
+                            strFld = "altitude"; strPos = line.Substring(30, 5);
+                            altitude = double.Parse(line.Substring(30, 5), NumberFormatInfo.InvariantInfo) * 0.3048f; //Feet to Meter
+                            strFld = "speed"; strPos = line.Substring(35, 4);
+                            speed = (double.Parse(line.Substring(35, 4), NumberFormatInfo.InvariantInfo) / 10) / 0.514444444f; //Knot to m/s
+                            strFld = "bearing"; strPos = line.Substring(39, 3);
+                            bearing = double.Parse(line.Substring(39, 3), NumberFormatInfo.InvariantInfo);
+                            strFld = "acc"; strPos = line.Substring(42, 4);
+                            acc = double.Parse(line.Substring(42, 4), NumberFormatInfo.InvariantInfo);
+                        }
+                        catch (Exception)
+                        {
+                            throw new ApplicationException(String.Format("\nError in {2} import\ndata line {1}: data value: {0}", strPos, iCnt, strFld));
+                        }
+
+
+                        AirNavigationRaceLive.Model.Point data = new AirNavigationRaceLive.Model.Point();
+                        data.Timestamp = newPointTimeStamp.Ticks;
+                        data.latitude = newPointLatitude;
+                        data.longitude = newPointLongitude;
+                        data.altitude = altitude;
+                        result.Add(data);
+                    } 
+                    #endregion
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Importing data in GPX format
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        internal static List<Point> GPSdataFromGPX(string filename)
+        internal static List<AirNavigationRaceLive.Model.Point> GPSdataFromGPX(string filename)
         {
             // note the namespace can be ...GPX/1/1  but for livetrack24 etc. also GPX/1/0 so do not use a fixed namespace....
             //XNamespace gpx = XNamespace.Get("http://www.topografix.com/GPX/1/1");
-            List<Point> result = new List<Point>();
+            List<AirNavigationRaceLive.Model.Point> result = new List<AirNavigationRaceLive.Model.Point>();
             XDocument gpxDoc = XDocument.Load(filename);
             XNamespace gpx = gpxDoc.Root.Name.Namespace;
             var tracks = from track in gpxDoc.Descendants(gpx + "trk")
@@ -1063,7 +1100,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             {
                 foreach (var trkSeg in trk.Segs)
                 {
-                    Point data = new Point();
+                    AirNavigationRaceLive.Model.Point data = new AirNavigationRaceLive.Model.Point();
                     data.Timestamp = DateTime.Parse(trkSeg.Time).Ticks;
                     data.latitude = Double.Parse(trkSeg.Latitude, NumberFormatInfo.InvariantInfo);
                     data.longitude = Double.Parse(trkSeg.Longitude, NumberFormatInfo.InvariantInfo);
@@ -1081,11 +1118,11 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// </example>
         /// <param name="str"></param>
         /// <returns>A list of points</returns>
-        public static List<Point> getPointsFromKMLCoordinates(string str, bool includeAltitude = false)
+        public static List<AirNavigationRaceLive.Model.Point> getPointsFromKMLCoordinates(string str, bool includeAltitude = false)
         {
             Line l = new Line();
-            Point point = new Point();
-            List<Point> lst = new List<Point>();
+            AirNavigationRaceLive.Model.Point point = new AirNavigationRaceLive.Model.Point();
+            List<AirNavigationRaceLive.Model.Point> lst = new List<AirNavigationRaceLive.Model.Point>();
             string[] pt;
             // NOTE: string may contain linebreaks instead of space
             string[] ptstrings = str.Replace("\n", " ").Split(' ');
@@ -1093,7 +1130,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             foreach (var ptstring in ptstrings)
             {
                 double lon, lat, alt = 0.0;
-                point = new Point();
+                point = new AirNavigationRaceLive.Model.Point();
                 pt = ptstring.Split(',');
                 if (double.TryParse(pt[0].Trim(), System.Globalization.NumberStyles.Float, NumberFormatInfo.InvariantInfo, out lon) &&
                     double.TryParse(pt[1].Trim(), System.Globalization.NumberStyles.Float, NumberFormatInfo.InvariantInfo, out lat) &&
@@ -1159,10 +1196,10 @@ namespace AirNavigationRaceLive.Comps.Helper
             throw new Exception("cannot define Line type for layer");
         }
 
-        internal static List<Subscriber> getPilotsListCSV(string filePath)
+        internal static List<SubscriberSet> getPilotsListCSV(string filePath)
         {
             //var filePath = @"C:\Person.csv"; // Habeeb, "Dubai Media City, Dubai"
-            List<Subscriber> lst = new List<Subscriber>();
+            List<SubscriberSet> lst = new List<SubscriberSet>();
             using (TextFieldParser csvParser = new TextFieldParser(filePath))
             {
                 csvParser.CommentTokens = new string[] { "#" };
@@ -1175,7 +1212,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                 {
                     // Read current line fields, pointer moves to the next line.
                     string[] fields = csvParser.ReadFields();
-                    Subscriber pil = new Subscriber();
+                    SubscriberSet pil = new SubscriberSet();
                     pil.LastName = fields[0].Trim();
                     pil.FirstName = fields[1].Trim();
                     lst.Add(pil);
@@ -1183,6 +1220,32 @@ namespace AirNavigationRaceLive.Comps.Helper
             }
 
             return lst;
+        }
+
+        /// <summary>
+        /// Parsing the date that has been read from the IGC format header field HFDTE.
+        /// Example: 290196
+        /// </summary>
+        /// <param name="strDatePart"></param>
+        /// <returns></returns>
+        internal static string GACUTCDateParser(string strDatePart)
+        {
+            int yyyy = 0;
+            string strDate = string.Empty;
+            string strDDMM = strDatePart.Substring(0, 4);
+            string strYY = strDatePart.Substring(4, 2);
+            if (int.TryParse(strYY, out yyyy))
+            {
+                // parsing was ok
+                // if year is more than 90 then its year 1900+, otherwise its year 2000+                  
+                strDate = yyyy > 80 ? strDDMM + "19" + strYY : strDDMM + "20" + strYY;
+                return strDate;
+            }
+            else
+            {
+                return string.Empty;
+            }
+
         }
     }
 }

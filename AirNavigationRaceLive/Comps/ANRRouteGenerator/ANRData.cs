@@ -358,7 +358,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 XmlNode nodeCoord = nod.SelectSingleNode(xPathCoord);
 
                 string kmlCoordStr = nodeCoord.InnerText.ToString().Trim();
-                List<Point> lstPoint = new List<Point>();
+                List<AirNavigationRaceLive.Model.Point> lstPoint = new List<AirNavigationRaceLive.Model.Point>();
                 lstPoint = Helper.Importer.getPointsFromKMLCoordinates(kmlCoordStr);
                 for (int i = 0; i < lstPoint.Count; i++)
                 {

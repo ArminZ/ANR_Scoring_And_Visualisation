@@ -73,7 +73,7 @@
             this.btnImportANR.Name = "btnImportANR";
             this.btnImportANR.Size = new System.Drawing.Size(111, 28);
             this.btnImportANR.TabIndex = 1;
-            this.btnImportANR.Text = "Import Map File";
+            this.btnImportANR.Text = "Import MapSet File";
             this.btnImportANR.UseVisualStyleBackColor = true;
             this.btnImportANR.Click += new System.EventHandler(this.btnImportANR_Click);
             // 
@@ -109,7 +109,7 @@
             this.groupBoxLegacy.Size = new System.Drawing.Size(857, 409);
             this.groupBoxLegacy.TabIndex = 7;
             this.groupBoxLegacy.TabStop = false;
-            this.groupBoxLegacy.Text = "Legacy Map import (coordinates in file name)";
+            this.groupBoxLegacy.Text = "Legacy MapSet import (coordinates in file name)";
             // 
             // groupBox3
             // 
@@ -123,7 +123,7 @@
             this.groupBox3.Size = new System.Drawing.Size(422, 283);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Legacy map import selection";
+            this.groupBox3.Text = "Legacy MapSet import selection";
             // 
             // rdoBtnWGS84
             // 
@@ -183,7 +183,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(533, 17);
             this.label3.TabIndex = 9;
-            this.label3.Text = "In the Legacy map import, the map coordinates are directly defined in the file na" +
+            this.label3.Text = "In the Legacy MapSet import, the MapSet coordinates are directly defined in the file na" +
     "me.\r\n";
             // 
             // errorProvider1

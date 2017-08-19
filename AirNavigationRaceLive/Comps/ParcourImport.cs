@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using AirNavigationRaceLive.Comps.Helper;
-using NetworkObjects;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps
 {
@@ -15,12 +15,12 @@ namespace AirNavigationRaceLive.Comps
     {
         private Client.DataAccess Client;
         Converter c = null;
-        private Parcour activeParcour;
+        private ParcourSet activeParcour;
         private Line activeLine;
         private ActivePoint ap = ActivePoint.NONE;
         private Line selectedLine = null;
         private Line hoverLine = null;
-        private Map CurrentMap = null;
+        private MapSet CurrentMap = null;
 
         private enum ActivePoint
         {
@@ -33,11 +33,10 @@ namespace AirNavigationRaceLive.Comps
             InitializeComponent();
             lblCompetition.Text = Client.SelectedCompetition.Name + " - parcours";
             PictureBox1.Cursor = new Cursor(@"Resources\GPSCursor.cur");
-            activeParcour = new Parcour();
-            numericUpDownAlpha.Value = 40;
+            activeParcour = new ParcourSet();
+            numericUpDownAlpha.Value = activeParcour.Alpha;
             PictureBox1.SetParcour(activeParcour);
             checkValidationErrors();
-
         }
         #region load
         private void ParcourGen_Load(object sender, EventArgs e)
@@ -47,8 +46,8 @@ namespace AirNavigationRaceLive.Comps
         private void loadMaps()
         {
             comboBoxMaps.Items.Clear();
-            List<Map> maps = Client.SelectedCompetition.Map.ToList();
-            foreach (Map m in maps)
+            List<MapSet> maps = Client.SelectedCompetition.MapSet.ToList();
+            foreach (MapSet m in maps)
             {
                 comboBoxMaps.Items.Add(new ListItem(m));
             }
@@ -56,8 +55,8 @@ namespace AirNavigationRaceLive.Comps
 
         class ListItem
         {
-            private Map map;
-            public ListItem(Map imap)
+            private MapSet map;
+            public ListItem(MapSet imap)
             {
                 map = imap;
             }
@@ -66,7 +65,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 return map.Name;
             }
-            public Map getMap()
+            public MapSet getMap()
             {
                 return map;
             }
@@ -126,7 +125,7 @@ namespace AirNavigationRaceLive.Comps
                 }
                 else
                 {
-                    bool lineSet = false;
+                    bool Line = false;
                     lock (activeParcour)
                     {
                         foreach (Line l in activeParcour.Line)
@@ -144,12 +143,12 @@ namespace AirNavigationRaceLive.Comps
                                 Vector.Abs(Vector.MinDistance(new Vector(midX, midY, 0), new Vector(orientationX, orientationY, 0), mousePos)) < 3)
                             {
                                 SetHoverLine(l);
-                                lineSet = true;
+                                Line = true;
                                 break;
                             }
                         }
                     }
-                    if (!lineSet)
+                    if (!Line)
                     {
                         SetHoverLine(null);
                     }
@@ -226,11 +225,11 @@ namespace AirNavigationRaceLive.Comps
             ListItem li = comboBoxMaps.SelectedItem as ListItem;
             if (li != null)
             {
-                MemoryStream ms = new MemoryStream(li.getMap().Picture.Data);
+                MemoryStream ms = new MemoryStream(li.getMap().PictureSet.Data);
                 PictureBox1.Image = System.Drawing.Image.FromStream(ms);
                 c = new Converter(li.getMap());
                 PictureBox1.SetConverter(c);
-                activeParcour = new Parcour();
+                activeParcour = new ParcourSet();
                 PictureBox1.SetParcour(activeParcour);
                 SetHoverLine(null);
                 SetSelectedLine(null);
@@ -242,14 +241,14 @@ namespace AirNavigationRaceLive.Comps
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Parcour p = new Parcour();
+            ParcourSet p = new ParcourSet();
             p.Name = fldName.Text;
             foreach (Line l in activeParcour.Line)
             {
                 p.Line.Add(l);
             }
-            p.Map = CurrentMap;
-            p.Competition = Client.SelectedCompetition;
+            p.MapSet = CurrentMap;
+            p.CompetitionSet = Client.SelectedCompetition;
             Client.DBContext.ParcourSet.Add(p);
             Client.DBContext.SaveChanges();
             MessageBox.Show("Successfully saved", "Parcour", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -290,7 +289,7 @@ namespace AirNavigationRaceLive.Comps
         }
         private void btnClear_Click(object sender, EventArgs e)
         {
-            activeParcour = new Parcour();
+            activeParcour = new ParcourSet();
             PictureBox1.SetParcour(activeParcour);
             SetHoverLine(null);
             SetSelectedLine(null);
@@ -496,7 +495,7 @@ namespace AirNavigationRaceLive.Comps
             }
             if (CurrentMap == null)
             {
-                errorProviderParcourImport.SetError(fldName, "No Map selected");
+                errorProviderParcourImport.SetError(fldName, "No MapSet selected");
                 hasErrors = true;
             }
             btnSave.Enabled = !hasErrors && !(CurrentMap == null);
@@ -506,7 +505,7 @@ namespace AirNavigationRaceLive.Comps
         {
             if (activeParcour != null)
             {
-                Parcour p = activeParcour;
+                ParcourSet p = activeParcour;
                 p.Alpha = (int)numericUpDownAlpha.Value;
                 //Client.DBContext.SaveChanges();
                 PictureBox1.SetParcour(p);
@@ -521,7 +520,7 @@ namespace AirNavigationRaceLive.Comps
             cd.SolidColorOnly = true;
             cd.ShowDialog();
             btnColorSelect.BackColor = cd.Color;
-            Parcour p = activeParcour;
+            ParcourSet p = activeParcour;
             PictureBox1.ProhZoneColor = cd.Color;
             PictureBox1.SetParcour(p);
             PictureBox1.Invalidate();

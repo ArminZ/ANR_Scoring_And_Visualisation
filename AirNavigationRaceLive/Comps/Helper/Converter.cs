@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NetworkObjects;
 using swisstopo.geodesy.gpsref;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {
@@ -13,7 +10,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         private double topLeftLatitude;
         double sizeLongitude;
         double sizeLatitude;
-        public Converter(Map map)
+        public Converter(MapSet map)
         {
             topLeftLongitude = map.XTopLeft;
             topLeftLatitude = map.YTopLeft;
@@ -60,9 +57,9 @@ namespace AirNavigationRaceLive.Comps.Helper
         {
             return topLeftLatitude + y * sizeLatitude;
         }
-        public int LatitudeToY(double latitdude)
+        public int LatitudeToY(double latitude)
         {
-            return (int)((latitdude - topLeftLatitude) / sizeLatitude);
+            return (int)((latitude - topLeftLatitude) / sizeLatitude);
         }
         public int getStartX(Line l)
         {
@@ -179,6 +176,26 @@ namespace AirNavigationRaceLive.Comps.Helper
         public static double WGStoChNorthX(double longitude, double latitude)
         {
             return ApproxSwissProj.WGStoCHx(latitude, longitude);
+        }
+        public double LongitudeCorrFactor(Line l)
+        {
+            return Math.Cos(Math.PI * (l.A.latitude + l.B.latitude)/2 / 180.0);
+        }
+        public double LongitudeCorrFactor(Point midPoint)
+        {
+            return Math.Cos(Math.PI * midPoint.latitude / 180.0);
+        }
+        public Point PointForRadius(Point CenterPoint)
+        {
+            // fixed line with for start and end line is 0.6 NM
+            // radius should be 0.3 NM
+            // 60.0 NM equals to 1.00 degree in latitude difference
+            // 0.3 NM equals to 0.3 * 1/60 degree in latitude difference
+            const double diff = 1.0 / 60.0 * 0.3;
+            Point x = new Point();
+            x.latitude = CenterPoint.latitude - diff;
+            x.longitude = CenterPoint.longitude;
+            return x;
         }
     }
 }

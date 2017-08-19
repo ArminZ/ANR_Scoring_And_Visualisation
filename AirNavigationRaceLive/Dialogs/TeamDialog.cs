@@ -1,6 +1,9 @@
 ﻿using AirNavigationRaceLive.Comps;
+using AirNavigationRaceLive.Model;
+using AirNavigationRaceLive.ModelExtensions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -12,14 +15,14 @@ namespace AirNavigationRaceLive.Dialogs
     {
         // private DataAccess Client;
         public EventHandler OnFinish;
-        private List<Subscriber> ListParticipants { get; set; }
+        private List<SubscriberSet> ListParticipants { get; set; }
         private List<string> ListTeamIdPilNavNames { get; set; }
-        public List<Team> ListCrews { get; set; }
-        public Team SelectedTeam { get; set; }
+        public List<TeamSet> ListCrews { get; set; }
+        public TeamSet SelectedTeam { get; set; }
         private int TeamId { get; set; }
         private int PilotId { get; set; }
-        private Subscriber Pilot { get; set; }
-        private Subscriber Navigator { get; set; }
+        private SubscriberSet Pilot { get; set; }
+        private SubscriberSet Navigator { get; set; }
         //public string Color { get; set; }
         //public string AC { get; set; }
         private string PilotName { get; set; }
@@ -27,10 +30,10 @@ namespace AirNavigationRaceLive.Dialogs
         private string NavigatorName { get; set; }
         private string CrewNumber { get; set; }
         private string Nationality { get; set; }
-        public TeamDialog(Team team, List<Subscriber> lstParticipants, List<Team> lstCrews, List<string> lstCrewIdPilNavNames)
+        public TeamDialog(TeamSet team, List<SubscriberSet> lstParticipants, List<TeamSet> lstCrews, List<string> lstCrewIdPilNavNames)
         {
             InitializeComponent();
-            List<SubscriberExtended> lstSubscExt = getListOfSubsc(lstParticipants).OrderBy(l => l.LastNameFirstName).ToList();
+            List<SubscriberExtension> lstSubscExt = getListOfSubsc(lstParticipants).OrderBy(l => l.LastNameFirstName).ToList();
             ListTeamIdPilNavNames = lstCrewIdPilNavNames;
             ListCrews = lstCrews;
             ListParticipants = lstParticipants;
@@ -39,7 +42,7 @@ namespace AirNavigationRaceLive.Dialogs
             //Reload();
             if (SelectedTeam == null)
             {
-                SelectedTeam = new Team();
+                SelectedTeam = new TeamSet();
                 textBoxCrewNumber.Text = calculateCrewNumber();
             }
             else
@@ -70,26 +73,26 @@ namespace AirNavigationRaceLive.Dialogs
             UpdateEnablement();
         }
 
-        private List<SubscriberExtended> getListOfSubsc(List<Subscriber> lstBase)
+        private List<SubscriberExtension> getListOfSubsc(List<SubscriberSet> lstBase)
         {
-            List<SubscriberExtended> lstSubscExt = new List<SubscriberExtended>();
-            SubscriberExtended strEx = new SubscriberExtended();
+            List<SubscriberExtension> lstSubscExt = new List<SubscriberExtension>();
+            SubscriberExtension strEx = new SubscriberExtension();
             strEx.LastNameFirstName = "";
             lstSubscExt.Add(strEx);
             foreach (var item in lstBase)
             {
-                strEx = new SubscriberExtended();
+                strEx = new SubscriberExtension();
                 strEx.Id = item.Id;
                 strEx.LastNameFirstName = item.LastName + " " + item.FirstName;
                 lstSubscExt.Add(strEx);
             }
-            lstSubscExt = lstSubscExt.OrderBy(p => p.LastNameFirstName).ToList<SubscriberExtended>();
+            lstSubscExt = lstSubscExt.OrderBy(p => p.LastNameFirstName).ToList<SubscriberExtension>();
             BindComboDataSource(comboBoxPilot, lstSubscExt);
             BindComboDataSource(comboBoxNavigator, lstSubscExt);
             return lstSubscExt;
         }
 
-        private void BindComboDataSource(ComboBox cbo, List<SubscriberExtended> lst)
+        private void BindComboDataSource(ComboBox cbo, List<SubscriberExtension> lst)
         {
             cbo.BindingContext = new BindingContext();
             cbo.DataSource = lst;
@@ -162,7 +165,7 @@ namespace AirNavigationRaceLive.Dialogs
             }
             return ret;
         }
-        private string getPilNavNames(Subscriber pilot, Subscriber navigator)
+        private string getPilNavNames(SubscriberSet pilot, SubscriberSet navigator)
         {
             string pilName = pilot != null ? pilot.LastName + " " + pilot.FirstName : " - ";
             string navName = navigator != null ? "|" + navigator.LastName + " " + navigator.FirstName : " - ";
@@ -179,7 +182,7 @@ namespace AirNavigationRaceLive.Dialogs
             PilotId = -1;
             if (Pilot == null)
             {
-                Pilot = new Subscriber();
+                Pilot = new SubscriberSet();
             }
             if (comboBoxPilot.SelectedIndex > 0)
             {
@@ -201,7 +204,7 @@ namespace AirNavigationRaceLive.Dialogs
             {
                 if (Navigator == null)
                 {
-                    Navigator = new Subscriber();
+                    Navigator = new SubscriberSet();
                 }
                 int _id = -1;
                 NavigatorName = comboBoxNavigator.Text;
@@ -271,13 +274,6 @@ namespace AirNavigationRaceLive.Dialogs
             }
             id++;
             return id.ToString().PadLeft(2, '0');
-        }
-    }
-    class SubscriberExtended : Subscriber
-    {
-        public string LastNameFirstName
-        {
-            get; set;
         }
     }
 }

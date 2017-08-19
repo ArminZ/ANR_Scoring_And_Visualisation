@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps
 {
@@ -12,7 +13,8 @@ namespace AirNavigationRaceLive.Comps
     {
         private Client.DataAccess Client;
         private ToolTip Tooltip;
-        private Map m;
+        private MapSet m;
+        private FileStream fileStream; // hack to avoid blocking of loaded map file
 
         public MapControl(Client.DataAccess iClient)
         {
@@ -28,8 +30,8 @@ namespace AirNavigationRaceLive.Comps
             Tooltip.UseAnimation = true;
             Tooltip.UseFading = true;
             Tooltip.IsBalloon = true;
-            Tooltip.SetToolTip(fldSizeX, "pixel size in the x-direction in map units/pixel; unit is degree as the position! Example: 1.669E-4");
-            Tooltip.SetToolTip(fldSizeY, "pixel size in the y-direction in map units/pixel; unit is degree as the position! Example: -9.278E-5");
+            Tooltip.SetToolTip(fldSizeX, "pixel size in the x-direction in MapSet units/pixel; unit is degree as the position! Example: 1.669E-4");
+            Tooltip.SetToolTip(fldSizeY, "pixel size in the y-direction in MapSet units/pixel; unit is degree as the position! Example: -9.278E-5");
             Tooltip.SetToolTip(fldRotationX, "rotation about x-axis; unit is degree as the position! Example: 0");
             Tooltip.SetToolTip(fldRotationY, "rotation about y-axis; unit is degree as the position! Example: 0");
             Tooltip.SetToolTip(fldX, "x-coordinate of the center of the upper left pixel; unit is degree! Example: 8.491");
@@ -39,8 +41,8 @@ namespace AirNavigationRaceLive.Comps
         private void loadMaps()
         {
             listBox1.Items.Clear();
-            List<Map> maps = Client.SelectedCompetition.Map.ToList();
-            foreach (Map m in maps)
+            List<MapSet> maps = Client.SelectedCompetition.MapSet.ToList();
+            foreach (MapSet m in maps)
             {
                 listBox1.Items.Add(new ListItem(m));
             }
@@ -48,8 +50,8 @@ namespace AirNavigationRaceLive.Comps
 
         class ListItem
         {
-            private Map map;
-            public ListItem(Map imap)
+            private MapSet map;
+            public ListItem(MapSet imap)
             {
                 map = imap;
             }
@@ -58,7 +60,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 return map.Name;
             }
-            public Map getMap()
+            public MapSet getMap()
             {
                 return map;
             }
@@ -95,7 +97,7 @@ namespace AirNavigationRaceLive.Comps
                 fldX.Text = m.XTopLeft.ToString();
                 fldY.Text = m.YTopLeft.ToString();
 
-                MemoryStream ms = new MemoryStream(m.Picture.Data);
+                MemoryStream ms = new MemoryStream(m.PictureSet.Data);
                 PictureBox1.Image = System.Drawing.Image.FromStream(ms);
                 btnDelete.Enabled = true;
                 btnSave.Enabled = true;
@@ -126,7 +128,7 @@ namespace AirNavigationRaceLive.Comps
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            m = new Map();
+            m = new MapSet();
             fldName.Text = "";
             fldSizeX.Text = "";
             fldSizeY.Text = "";
@@ -150,7 +152,7 @@ namespace AirNavigationRaceLive.Comps
                                 + "All Picture Files|*.jpg;*.jpeg;*.jpe;*.jfif;*.bmp;*.gif;*.png;*.tif;*.tiff|"
                                 + "All Files (*.*)|*.*";
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "Import Map picture";
+            ofd.Title = "Import MapSet picture";
             ofd.RestoreDirectory = true;
             ofd.Multiselect = false;
             ofd.Filter = FileFilter;
@@ -163,7 +165,10 @@ namespace AirNavigationRaceLive.Comps
         void ofd_FileOk(object sender, CancelEventArgs e)
         {
             OpenFileDialog ofd = sender as OpenFileDialog;
-            PictureBox1.Image = Image.FromFile(ofd.FileName);
+            fileStream = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read);
+            PictureBox1.Image = Image.FromStream(fileStream);
+            // NOTE: must keep the filestream open until the map has been saved.
+
             fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
             btnSave.Enabled = true;
 
@@ -204,7 +209,7 @@ namespace AirNavigationRaceLive.Comps
         {
             string FileFilter = "World files (*.jgw, *.pgw, *.gfw, *.tfw, *.wld)|*.jgw;*.pgw;*.gfw;*.tfw;*.wld|All Files (*.*)|*.*";
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "t_Picture";
+            ofd.Title = "World File";
             ofd.RestoreDirectory = true;
             ofd.Multiselect = false;
             ofd.Filter = FileFilter;
@@ -218,7 +223,7 @@ namespace AirNavigationRaceLive.Comps
             OpenFileDialog ofd = sender as OpenFileDialog;
             // NOTE: there are numerous ways how a world file can be generated, and the number format / decimal separator may be different
             // So the world file may have a different decimal separator than the system where this application runs.
-            // For a world file with the correct map projection (WGS84) we can however safely assume
+            // For a world file with the correct MapSet projection (WGS84) we can however safely assume
             // the numbers in the world file are smaller than +/- 180 so there are no thousand separators
             // the normal Decimal separator will be either dot or comma.
             var c = System.Threading.Thread.CurrentThread.CurrentCulture;
@@ -256,26 +261,33 @@ namespace AirNavigationRaceLive.Comps
                 m.XTopLeft = Double.Parse(fldX.Text);
                 m.YTopLeft = Double.Parse(fldY.Text);
 
-                MemoryStream ms = new MemoryStream();
-                PictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                m.Picture = new Picture();
-                m.Picture.Data = ms.ToArray();
-                m.Competition = Client.SelectedCompetition;
-                if (m.Id == 0)
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    Client.DBContext.MapSet.Add(m);
+                    PictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    m.PictureSet = new PictureSet();
+                    m.PictureSet.Data = ms.ToArray();
+                    m.CompetitionSet = Client.SelectedCompetition;
+                    if (m.Id == 0)
+                    {
+                        Client.DBContext.MapSet.Add(m);
+                    }
+                    Client.DBContext.SaveChanges();
+                    loadMaps();
                 }
-                Client.DBContext.SaveChanges();
-                loadMaps();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error while Saving");
             }
+            finally
+            {
+                fileStream.Close();
+                // close the filestream will release the locked map file
+            }
         }
 
         /// <summary>
-        /// Performs a validation check on the data fields read from the World file, and on the Map name field.
+        /// Performs a validation check on the data fields read from the World file, and on the MapSet name field.
         /// </summary>
         private void checkMapHasValidationErrors()
         {

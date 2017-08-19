@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using AirNavigationRaceLive.Comps.Helper;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps
 {
@@ -16,7 +17,7 @@ namespace AirNavigationRaceLive.Comps
         {
             Client = iClient;
             InitializeComponent();   
-            groupBoxLegacy.Text = string.Format("{0} - Legacy Map import", Client.SelectedCompetition.Name);
+            groupBoxLegacy.Text = string.Format("{0} - Legacy MapSet import", Client.SelectedCompetition.Name);
 
         }
 
@@ -32,7 +33,7 @@ namespace AirNavigationRaceLive.Comps
                     + "Gif Files (*.gif)|*.gif|"
                     + "Png Files (*.png)|*.png";
             string GraphicFileFilter = "All Picture Files|*.jpg;*.jpeg;*.jpe;*.jfif;*.bmp;*.gif;*.png";
-            ofd.Title = "Legacy map Import";
+            ofd.Title = "Legacy MapSet Import";
             ofd.RestoreDirectory = true;
             ofd.Multiselect = false;
             ofd.Filter = FileFilter + "|" + GraphicFileFilter;
@@ -77,7 +78,7 @@ namespace AirNavigationRaceLive.Comps
         //    OpenFileDialog ofd = sender as OpenFileDialog;
         //    PictureBox p = new PictureBox();
         //    p.Image = Image.FromFile(ofd.FileName);
-        //    Map m = new Map();
+        //    MapSet m = new Map();
         //    m.Name = fldName.Text;
         //    double topLeftLatitude;
         //    double topLeftLongitude;
@@ -109,7 +110,7 @@ namespace AirNavigationRaceLive.Comps
         {
             PictureBox p = new PictureBox();
             p.Image = Image.FromFile(fname);
-            Map m = new Map();
+            MapSet m = new MapSet();
             m.Name = fldName.Text;
             double topLeftLatitude;
             double topLeftLongitude;
@@ -139,9 +140,9 @@ namespace AirNavigationRaceLive.Comps
             m.YTopLeft = topLeftLatitude;
             MemoryStream ms = new MemoryStream();
             p.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-            m.Picture = new Picture();
-            m.Picture.Data = ms.ToArray();
-            m.Competition = Client.SelectedCompetition;
+            m.PictureSet = new PictureSet();
+            m.PictureSet.Data = ms.ToArray();
+            m.CompetitionSet = Client.SelectedCompetition;
             Client.DBContext.MapSet.Add(m);
             Client.DBContext.SaveChanges();
             btnImportANR.Enabled = true;
@@ -151,7 +152,7 @@ namespace AirNavigationRaceLive.Comps
         {
             PictureBox p = new PictureBox();
             p.Image = Image.FromFile(fname);
-            Map m = new Map();
+            MapSet m = new MapSet();
             m.Name = fldName.Text;
             string[] coordinatesFromPath = Path.GetFileNameWithoutExtension(fname).Split("_".ToCharArray());
             foreach (string coordinate in coordinatesFromPath)
@@ -175,9 +176,9 @@ namespace AirNavigationRaceLive.Comps
             m.YTopLeft = topLeftLatitude;
             MemoryStream ms = new MemoryStream();
             p.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-            m.Picture = new Picture();
-            m.Picture.Data = ms.ToArray();
-            m.Competition = Client.SelectedCompetition;
+            m.PictureSet = new PictureSet();
+            m.PictureSet.Data = ms.ToArray();
+            m.CompetitionSet = Client.SelectedCompetition;
             Client.DBContext.MapSet.Add(m);
             Client.DBContext.SaveChanges();
             btnImportANR.Enabled = true;

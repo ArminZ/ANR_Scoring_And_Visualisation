@@ -3,10 +3,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using AirNavigationRaceLive.Comps.Client;
-using NetworkObjects;
+using AirNavigationRaceLive.Client;
 using System.IO;
 using System.Globalization;
+using AirNavigationRaceLive.Model;
+using AirNavigationRaceLive.Comps.Helper;
 
 namespace AirNavigationRaceLive.Dialogs
 {
@@ -49,7 +50,7 @@ namespace AirNavigationRaceLive.Dialogs
         private void ExportKML_Load(object sender, EventArgs e)
         {
             parcour.Items.Clear();
-            foreach (Parcour p in Client.SelectedCompetition.Parcour)
+            foreach (ParcourSet p in Client.SelectedCompetition.ParcourSet)
             {
                 parcour.Items.Add(new Item(p));
             }
@@ -57,8 +58,8 @@ namespace AirNavigationRaceLive.Dialogs
 
         private class Item
         {
-            public Parcour p;
-            public Item(Parcour p)
+            public ParcourSet p;
+            public Item(ParcourSet p)
             {
                 this.p = p;
             }
@@ -69,7 +70,7 @@ namespace AirNavigationRaceLive.Dialogs
             }
         }
 
-        private string GetPolygonKml(Parcour parcour)
+        private string GetPolygonKml(ParcourSet parcour)
         {
             // double values in XML use always dot as decimal separator
             // we must explicitly set the CultureInfo, otherwise this will work onkly for dot as decimal separator

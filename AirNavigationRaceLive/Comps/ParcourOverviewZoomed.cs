@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using AirNavigationRaceLive.Comps.Helper;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps
 {
@@ -11,7 +12,7 @@ namespace AirNavigationRaceLive.Comps
     {
         private Client.DataAccess Client;
         Converter c = null;
-        private Parcour activeParcour = new Parcour();
+        private ParcourSet activeParcour = new ParcourSet();
 
         private enum ActivePoint
         {
@@ -29,8 +30,8 @@ namespace AirNavigationRaceLive.Comps
 
         class ListItem
         {
-            private Parcour parcour;
-            public ListItem(Parcour iParcour)
+            private ParcourSet parcour;
+            public ListItem(ParcourSet iParcour)
             {
                 parcour = iParcour;
             }
@@ -39,7 +40,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 return parcour.Name;
             }
-            public Parcour getParcour()
+            public ParcourSet getParcour()
             {
                 return parcour;
             }
@@ -50,13 +51,13 @@ namespace AirNavigationRaceLive.Comps
             deleteToolStripMenuItem.Enabled = false;
             PictureBox1.SetConverter(c);
             PictureBox1.Image = null;
-            activeParcour = new Parcour();
+            activeParcour = new ParcourSet();
             PictureBox1.SetParcour(activeParcour);
             PictureBox1.Invalidate();
 
             listBox1.Items.Clear();
-            List<Parcour> parcours = Client.SelectedCompetition.Parcour.ToList();
-            foreach (Parcour p in parcours)
+            List<ParcourSet> parcours = Client.SelectedCompetition.ParcourSet.ToList();
+            foreach (ParcourSet p in parcours)
             {
                 listBox1.Items.Add(new ListItem(p));
             }
@@ -77,7 +78,7 @@ namespace AirNavigationRaceLive.Comps
             ListItem li = listBox1.SelectedItem as ListItem;
             if (li != null)
             {
-                Parcour p = li.getParcour();
+                ParcourSet p = li.getParcour();
                 if (p.Id!=0)
                 {
                     Client.DBContext.ParcourSet.Remove(p);
@@ -93,9 +94,9 @@ namespace AirNavigationRaceLive.Comps
             if (li != null)
             {
                 deleteToolStripMenuItem.Enabled = true;
-                Map map = li.getParcour().Map;
+                MapSet map = li.getParcour().MapSet;
 
-                MemoryStream ms = new MemoryStream(map.Picture.Data);
+                MemoryStream ms = new MemoryStream(map.PictureSet.Data);
                 PictureBox1.Image = System.Drawing.Image.FromStream(ms);
                 c = new Converter(map);
                 PictureBox1.SetConverter(c);

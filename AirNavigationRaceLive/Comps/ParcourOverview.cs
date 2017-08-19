@@ -4,8 +4,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using AirNavigationRaceLive.Comps.Helper;
-using NetworkObjects;
 using AirNavigationRaceLive.Dialogs;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps
 {
@@ -17,7 +17,7 @@ namespace AirNavigationRaceLive.Comps
         private ActivePoint ap = ActivePoint.NONE;
         private Line selectedLine = null;
         private Line hoverLine = null;
-        private Parcour activeParcour = new Parcour();
+        private ParcourSet activeParcour = new ParcourSet();
         private bool mustPromptForAdditionalText = Properties.Settings.Default.parcourPDFAdditionalText;
 
         private enum ActivePoint
@@ -36,8 +36,8 @@ namespace AirNavigationRaceLive.Comps
 
         class ListItem : ListViewItem
         {
-            private Parcour parcour;
-            public ListItem(Parcour iParcour) : base(iParcour.Name)
+            private ParcourSet parcour;
+            public ListItem(ParcourSet iParcour) : base(iParcour.Name)
             {
                 parcour = iParcour;
             }
@@ -46,7 +46,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 return parcour.Name;
             }
-            public Parcour getParcour()
+            public ParcourSet getParcour()
             {
                 return parcour;
             }
@@ -58,15 +58,17 @@ namespace AirNavigationRaceLive.Comps
             deleteToolStripMenuItem.Enabled = false;
             PictureBox1.SetConverter(c);
             PictureBox1.Image = null;
-            activeParcour = new Parcour();
+            activeParcour = new ParcourSet();
             PictureBox1.SetParcour(activeParcour);
             SetHoverLine(null);
             SetSelectedLine(null);
             PictureBox1.Invalidate();
 
             listBox1.Items.Clear();
-            List<Parcour> parcours = Client.SelectedCompetition.Parcour.ToList();
-            foreach (Parcour p in parcours)
+            //CompetitionSet cs = Client.SelectedCompetition;
+            //List<ParcourSet> ods = cs.ParcourSet.ToList<ParcourSet>();
+            List<ParcourSet> parcours = Client.SelectedCompetition.ParcourSet.ToList<ParcourSet>();
+            foreach (ParcourSet p in parcours)
             {
                 listBox1.Items.Add(new ListItem(p));
             }
@@ -87,7 +89,7 @@ namespace AirNavigationRaceLive.Comps
             if (listBox1.SelectedItems.Count == 1)
             {
                 ListItem li = listBox1.SelectedItems[0] as ListItem;
-                Parcour parcour = li.getParcour();
+                ParcourSet parcour = li.getParcour();
                 if (parcour.Id != 0)
                 {
                     Client.DBContext.ParcourSet.Remove(parcour);
@@ -103,9 +105,9 @@ namespace AirNavigationRaceLive.Comps
             {
                 ListItem li = listBox1.SelectedItems[0] as ListItem;
                 deleteToolStripMenuItem.Enabled = true;
-                Map map = li.getParcour().Map;
+                MapSet map = li.getParcour().MapSet;
 
-                MemoryStream ms = new MemoryStream(map.Picture.Data);
+                MemoryStream ms = new MemoryStream(map.PictureSet.Data);
                 PictureBox1.Image = System.Drawing.Image.FromStream(ms);
                 c = new Converter(map);
                 PictureBox1.SetConverter(c);
@@ -172,7 +174,7 @@ namespace AirNavigationRaceLive.Comps
                 }
                 else
                 {
-                    bool lineSet = false;
+                    bool Line = false;
                     lock (activeParcour)
                     {
                         foreach (Line l in activeParcour.Line)
@@ -190,12 +192,12 @@ namespace AirNavigationRaceLive.Comps
                                 Vector.Abs(Vector.MinDistance(new Vector(midX, midY, 0), new Vector(orientationX, orientationY, 0), mousePos)) < 3)
                             {
                                 SetHoverLine(l);
-                                lineSet = true;
+                                Line = true;
                                 break;
                             }
                         }
                     }
-                    if (!lineSet)
+                    if (!Line)
                     {
                         SetHoverLine(null);
                     }
@@ -396,7 +398,7 @@ namespace AirNavigationRaceLive.Comps
             if (newName != null && newName != "")
             {
                 ListItem item = listBox1.Items[e.Item] as ListItem;
-                Parcour p = item.getParcour();
+                ParcourSet p = item.getParcour();
                 p.Name = newName;
                 Client.DBContext.SaveChanges();
             }
@@ -408,7 +410,7 @@ namespace AirNavigationRaceLive.Comps
             if (listBox1.SelectedItems.Count == 1)
             {
                 ListItem li = listBox1.SelectedItems[0] as ListItem;
-                Parcour p = li.getParcour();
+                ParcourSet p = li.getParcour();
                 p.Alpha = (int)numericUpDownAlpha.Value;
                 Client.DBContext.SaveChanges();
                 PictureBox1.SetParcour(p);
@@ -423,7 +425,7 @@ namespace AirNavigationRaceLive.Comps
             cd.SolidColorOnly = true;
             cd.ShowDialog();
             btnColorSelect.BackColor = cd.Color;
-            Parcour p = activeParcour;
+            ParcourSet p = activeParcour;
             PictureBox1.ProhZoneColor = cd.Color;
             PictureBox1.SetParcour(p);
             PictureBox1.Invalidate();

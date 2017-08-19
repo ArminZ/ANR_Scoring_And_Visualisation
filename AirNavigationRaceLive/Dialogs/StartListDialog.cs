@@ -1,5 +1,9 @@
-﻿using System;
+﻿using AirNavigationRaceLive.Comps.Helper;
+using AirNavigationRaceLive.Model;
+using AirNavigationRaceLive.ModelExtensions;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Windows.Forms;
 
@@ -9,8 +13,8 @@ namespace AirNavigationRaceLive.Dialogs
     {
        // private DataAccess Client;
         public int selectedIdx;
-        public Flight SelectedFlight;
-        public Team SelectedTeam;
+        public FlightSet SelectedFlight;
+        public TeamSet SelectedTeam;
         public EventHandler OnFinish;
         //private int ParcourLength;
         //private int TakeOffStartgate;
@@ -18,8 +22,8 @@ namespace AirNavigationRaceLive.Dialogs
         //private int ParcourIntervall;
 
         public StartListDialog(
-            List<Team> lstTeams, 
-            Flight selectedFlt, 
+            List<TeamSet> lstTeams, 
+            FlightSet selectedFlt, 
             int maxStartId, 
             long dateQRDate, 
             long timeTKOF0, 
@@ -33,23 +37,23 @@ namespace AirNavigationRaceLive.Dialogs
             // comboBoxTKOFLines.DataSource = bs;
             if (selectedFlt==null)
             {
-                SelectedFlight = new Flight();
+                SelectedFlight = new FlightSet();
             }
             else
             {
                 SelectedFlight = selectedFlt;
             }
-            SelectedTeam = SelectedFlight.Team;
+            SelectedTeam = SelectedFlight.TeamSet;
 
-            List<ComboTeam> lstCboTeam = new List<ComboTeam>();
-            foreach (Team t in lstTeams)
+            List<ComboTeamExtension> lstCboTeam = new List<ComboTeamExtension>();
+            foreach (TeamSet t in lstTeams)
             {
-                comboBoxCrew.Items.Add(new ComboTeam(t, getTeamDsc(t)));
+                comboBoxCrew.Items.Add(new ComboTeamExtension(t, getTeamDsc(t)));
             }
 
             for (int i = 1; i <= nrOfRoutes; i++)
             {
-                NetworkObjects.Route r = (NetworkObjects.Route)i;
+                Route r = (Route)i;
                 comboBoxRoute.Items.Add(new ComboRoute(r));
             }
 
@@ -67,12 +71,12 @@ namespace AirNavigationRaceLive.Dialogs
             }
             else
             {
-                ComboTeam comboTeam = null;
+                ComboTeamExtension comboTeam = null;
                 foreach (Object o in comboBoxCrew.Items)
                 {
-                    if ((o as ComboTeam).p == SelectedTeam)
+                    if ((o as ComboTeamExtension).p == SelectedTeam)
                     {
-                        comboTeam = o as ComboTeam;
+                        comboTeam = o as ComboTeamExtension;
                         comboBoxCrew.SelectedItem = comboTeam;
                         break;
                     }
@@ -152,8 +156,8 @@ namespace AirNavigationRaceLive.Dialogs
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            ComboTeam comboTeam = comboBoxCrew.SelectedItem as ComboTeam;
-            SelectedFlight.Team = comboTeam.p;
+            ComboTeamExtension comboTeam = comboBoxCrew.SelectedItem as ComboTeamExtension;
+            SelectedFlight.TeamSet = comboTeam.p;
             ComboRoute route = comboBoxRoute.SelectedItem as ComboRoute;
             SelectedFlight.TimeTakeOff = mergeDateTime(timeTakeOff.Value, date.Value).Ticks;
             SelectedFlight.TimeStartLine = mergeDateTime(timeStart.Value, date.Value).Ticks;
@@ -163,14 +167,14 @@ namespace AirNavigationRaceLive.Dialogs
             Close();
         }
 
-        private string getTeamDsc(Team team)
+        private string getTeamDsc(TeamSet team)
         {
-            Subscriber pilot = team.Pilot;
+            SubscriberSet pilot = team.Pilot;
             StringBuilder sb = new StringBuilder();
             sb.Append(pilot.LastName).Append(" ").Append(pilot.FirstName);
             if (team.Navigator != null)
             {
-                Subscriber navi = team.Navigator;
+                SubscriberSet navi = team.Navigator;
                 sb.Append(" - ").Append(navi.LastName).Append(" ").Append(navi.FirstName);
             }
             return sb.ToString();
@@ -195,32 +199,33 @@ namespace AirNavigationRaceLive.Dialogs
             UpdateEnablement();
         }
     }
-    class ComboTeam
-    {
-        public Team p;
-        private String toString;
-        public ComboTeam(Team p, String toString)
-        {
-            this.p = p;
-            this.toString = toString;
-        }
+    //[NotMapped]
+    //class ComboTeam
+    //{
+    //    public TeamSet p;
+    //    private String toString;
+    //    public ComboTeam(TeamSet p, String toString)
+    //    {
+    //        this.p = p;
+    //        this.toString = toString;
+    //    }
 
-        public override string ToString()
-        {
-            return toString;
-        }
-    }
-    class ComboRoute
-    {
-        public NetworkObjects.Route p;
-        public ComboRoute(NetworkObjects.Route p)
-        {
-            this.p = p;
-        }
+    //    public override string ToString()
+    //    {
+    //        return toString;
+    //    }
+    //}
+    //class ComboRoute
+    //{
+    //    public NetworkObjects.Route p;
+    //    public ComboRoute(NetworkObjects.Route p)
+    //    {
+    //        this.p = p;
+    //    }
 
-        public override string ToString()
-        {
-            return p.ToString();
-        }
-    }
+    //    public override string ToString()
+    //    {
+    //        return p.ToString();
+    //    }
+    //}
 }

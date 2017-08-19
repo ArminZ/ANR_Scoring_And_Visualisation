@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using AirNavigationRaceLive.Comps.Model;
-using System.Windows.Forms;
 using System.Threading;
-using NetworkObjects;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {
@@ -15,14 +12,14 @@ namespace AirNavigationRaceLive.Comps.Helper
         private const double LineOfNoReturnDist = 1.5;
         private double best = double.MaxValue;
         private volatile ParcourModel bestModel = null;
-        private Parcour parcour;
+        private ParcourSet parcour;
         private Converter c;
         private Comparer comparer = new Comparer();
         public volatile bool finished = false;
         private volatile bool regenerate = false;
         private int count;
 
-        public void GenerateParcour(Parcour parcour, Converter c, double lenght, double channel, int count)
+        public void GenerateParcour(ParcourSet parcour, Converter c, double lenght, double channel, int count)
         {
             this.parcour = parcour;
             this.c = c;
@@ -242,7 +239,7 @@ namespace AirNavigationRaceLive.Comps.Helper
 
         }
 
-        private void CalculateParcour(Parcour parcour, Converter c, double channel)
+        private void CalculateParcour(ParcourSet parcour, Converter c, double channel)
         {
             ParcourModel pm = new ParcourModel(parcour, c, EndLineDist, channel);
             List<List<ParcourModel>> modelList = new List<List<ParcourModel>>();
@@ -370,7 +367,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             }
         }
 
-        internal void RecalcParcour(Parcour parcour, Converter c,double channel)
+        internal void RecalcParcour(ParcourSet parcour, Converter c,double channel)
         {
             this.parcour = parcour;
             this.c = c;

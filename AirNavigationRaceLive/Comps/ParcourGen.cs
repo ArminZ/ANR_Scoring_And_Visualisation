@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using AirNavigationRaceLive.Comps.Model;
 using AirNavigationRaceLive.Comps.Helper;
-using NetworkObjects;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps
 {
@@ -16,13 +12,13 @@ namespace AirNavigationRaceLive.Comps
     {
         private Client.DataAccess Client;
         Converter c = null;
-        private Parcour activeParcour;
+        private ParcourSet activeParcour;
         private Line activeLine;
         private ActivePoint ap = ActivePoint.NONE;
         private Line selectedLine = null;
         private Line hoverLine = null;
         ParcourGenerator pc; Timer t;
-        private Map CurrentMap = null;
+        private MapSet CurrentMap = null;
 
         private enum ActivePoint
         {
@@ -34,7 +30,7 @@ namespace AirNavigationRaceLive.Comps
             Client = iClient;
             InitializeComponent();
             PictureBox1.Cursor = new Cursor(@"Resources\GPSCursor.cur");
-            activeParcour = new Parcour();
+            activeParcour = new ParcourSet();
             PictureBox1.SetParcour(activeParcour);
         }
         #region load
@@ -45,8 +41,8 @@ namespace AirNavigationRaceLive.Comps
         private void loadMaps()
         {
             comboBoxMaps.Items.Clear();
-            List<Map> maps = Client.SelectedCompetition.Map.ToList();
-            foreach (Map m in maps)
+            List<MapSet> maps = Client.SelectedCompetition.MapSet.ToList();
+            foreach (MapSet m in maps)
             {
                 comboBoxMaps.Items.Add(new ListItem(m));
             }
@@ -54,8 +50,8 @@ namespace AirNavigationRaceLive.Comps
 
         class ListItem
         {
-            private Map map;
-            public ListItem(Map imap)
+            private MapSet map;
+            public ListItem(MapSet imap)
             {
                 map = imap;
             }
@@ -64,7 +60,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 return map.Name;
             }
-            public Map getMap()
+            public MapSet getMap()
             {
                 return map;
             }
@@ -124,7 +120,7 @@ namespace AirNavigationRaceLive.Comps
                 }
                 else
                 {
-                    bool lineSet = false;
+                    bool Line = false;
                     lock (activeParcour)
                     {
                         foreach (Line l in activeParcour.Line)
@@ -142,12 +138,12 @@ namespace AirNavigationRaceLive.Comps
                                 Vector.Abs(Vector.MinDistance(new Vector(midX, midY, 0), new Vector(orientationX, orientationY, 0), mousePos)) < 3)
                             {
                                 SetHoverLine(l);
-                                lineSet = true;
+                                Line = true;
                                 break;
                             }
                         }
                     }
-                    if (!lineSet)
+                    if (!Line)
                     {
                         SetHoverLine(null);
                     }
@@ -224,7 +220,7 @@ namespace AirNavigationRaceLive.Comps
             ListItem li = comboBoxMaps.SelectedItem as ListItem;
             if (li != null)
             {
-                MemoryStream ms = new MemoryStream(li.getMap().Picture.Data);
+                MemoryStream ms = new MemoryStream(li.getMap().PictureSet.Data);
                 PictureBox1.Image = System.Drawing.Image.FromStream(ms);
                 c = new Converter(li.getMap());
                 PictureBox1.SetConverter(c);
@@ -277,18 +273,18 @@ namespace AirNavigationRaceLive.Comps
         {
             if (CurrentMap == null)
             {
-                MessageBox.Show("No Map selected", "Incomplete Data");
+                MessageBox.Show("No MapSet selected", "Incomplete Data");
             }
             else
             {
-                Parcour p = new Parcour();
+                ParcourSet p = new ParcourSet();
                 p.Name = fldName.Text;
                 foreach(Line l in activeParcour.Line)
                 {
                     p.Line.Add(l);
                 }
-                p.Map = CurrentMap;
-                p.Competition = Client.SelectedCompetition;
+                p.MapSet = CurrentMap;
+                p.CompetitionSet = Client.SelectedCompetition;
                 Client.DBContext.ParcourSet.Add(p);
                 Client.DBContext.SaveChanges();
                 MessageBox.Show("Successfully saved");
@@ -378,7 +374,7 @@ namespace AirNavigationRaceLive.Comps
         }
         private void btnClear_Click(object sender, EventArgs e)
         {
-            activeParcour = new Parcour();
+            activeParcour = new ParcourSet();
             PictureBox1.SetParcour(activeParcour);
             SetHoverLine(null);
             SetSelectedLine(null);

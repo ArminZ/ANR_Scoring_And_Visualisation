@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
-using AirNavigationRaceLive.Comps.Client;
+using AirNavigationRaceLive.Client;
 using AirNavigationRaceLive.Comps.Helper;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Dialogs
 {
     public partial class UploadGPX : Form
     {
         private DataAccess Client;
-        private Flight ct;
+        private FlightSet ct;
 
         public EventHandler OnFinish;
-        public UploadGPX(DataAccess Client, Flight ct)
+        public UploadGPX(DataAccess Client, FlightSet ct)
         {
             this.Client = Client;
             this.ct = ct;
@@ -24,15 +25,15 @@ namespace AirNavigationRaceLive.Dialogs
 
         public void UpdateEnablement()
         {
-            btnUploadData.Enabled = textBoxPositions.Tag != null;
+            btnUploadData.Enabled = textBoxRecords.Tag != null;
         }
 
         private void btnUploadData_Click(object sender, EventArgs e)
         {
-            if (textBoxPositions.Tag != null)
+            if (textBoxRecords.Tag != null)
             {
-                List<Point> list = textBoxPositions.Tag as List<Point>;
-                Client.DBContext.PointSet.RemoveRange(ct.Point);
+                List<Point> list = textBoxRecords.Tag as List<Point>;
+                Client.DBContext.Point.RemoveRange(ct.Point);
                 this.ct.Point.Clear();
                 foreach (Point point in list)
                 {
@@ -63,8 +64,9 @@ namespace AirNavigationRaceLive.Dialogs
             try
             {
                 List<Point> list = Importer.GPSdataFromGPX(ofd.FileName);
-                textBoxPositions.Text = string.Format("{0} pts ({1})", list.Count.ToString(),new DateTime((long)(list[0].Timestamp)));
-                textBoxPositions.Tag = list;
+                textBoxDate.Text = new DateTime((long)(list[0].Timestamp)).ToShortDateString();
+                textBoxRecords.Text = list.Count.ToString();
+                textBoxRecords.Tag = list;
             }
             catch (Exception ex)
             {

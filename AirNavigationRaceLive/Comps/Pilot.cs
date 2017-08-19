@@ -7,14 +7,15 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using AirNavigationRaceLive.Comps.Helper;
+using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps
 {
     public partial class Pilot : UserControl
     {
         private Client.DataAccess Client;
-        private Subscriber selectedSubscriber = null;
-        private Subscriber subscrDeleted;
+        private SubscriberSet selectedSubscriber = null;
+        private SubscriberSet subscrDeleted;
 
         public Pilot(Client.DataAccess iClient)
         {
@@ -37,8 +38,8 @@ namespace AirNavigationRaceLive.Comps
             //dataGridView1.RowHeadersVisible = false;
             //dataGridView1.RowHeadersWidth = 30;
 
-            List<Subscriber> pilots = Client.SelectedCompetition.Subscriber.ToList();
-            foreach (Subscriber p in pilots)
+            List<SubscriberSet> pilots = Client.SelectedCompetition.SubscriberSet.ToList();
+            foreach (SubscriberSet p in pilots)
             {
                 DataGridViewRow dgvr = new DataGridViewRow();
                 dgvr.CreateCells(dataGridView1);
@@ -100,7 +101,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 return;
             }
-            Subscriber pilot = dataGridView1.SelectedRows[0].Tag as Subscriber;
+            SubscriberSet pilot = dataGridView1.SelectedRows[0].Tag as SubscriberSet;
             if (pilot == null)
             {
                 return;
@@ -110,9 +111,9 @@ namespace AirNavigationRaceLive.Comps
             {
                 MemoryStream ms = new MemoryStream();
                 PictureBox.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                Picture pic = new Picture();
+                PictureSet pic = new PictureSet();
                 pic.Data = ms.ToArray();
-                pilot.Picture = pic;
+                pilot.PictureSet = pic;
             }
             if (pilot.Id == 0)
             {
@@ -120,7 +121,7 @@ namespace AirNavigationRaceLive.Comps
             }
             if (isResetMode)
             {
-                pilot.Picture = null;
+                pilot.PictureSet = null;
                 PictureBox.Image = global::AirNavigationRaceLive.Properties.Resources._default;
             }
             Client.DBContext.SaveChanges();
@@ -157,22 +158,22 @@ namespace AirNavigationRaceLive.Comps
 
         void ofd_PilotsListCSVOk(object sender, CancelEventArgs e)
         {
-            if (Client.DBContext.SubscriberSet.Where(x => x.Competition.Id == Client.SelectedCompetition.Id).Count() > 0)
+            if (Client.DBContext.SubscriberSet.Where(x => x.CompetitionSet.Id == Client.SelectedCompetition.Id).Count() > 0)
             {
                 if (MessageBox.Show("Remove all existing competitors of this competition?", "Competitor List", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     // remove existing competitors of this competition
                     Client.DBContext.SubscriberSet.RemoveRange(
-                        Client.DBContext.SubscriberSet.Where(x => x.Competition.Id == Client.SelectedCompetition.Id)
+                        Client.DBContext.SubscriberSet.Where(x => x.CompetitionSet.Id == Client.SelectedCompetition.Id)
                         );
                 }
             }
 
             OpenFileDialog ofd = sender as OpenFileDialog;
-            List<Subscriber> lst = Importer.getPilotsListCSV(ofd.FileName);
+            List<SubscriberSet> lst = Importer.getPilotsListCSV(ofd.FileName);
             foreach (var item in lst)
             {
-                item.Competition = Client.SelectedCompetition;
+                item.CompetitionSet = Client.SelectedCompetition;
                 Client.DBContext.SubscriberSet.Add(item);
             }
             Client.DBContext.SaveChanges();
@@ -191,13 +192,13 @@ namespace AirNavigationRaceLive.Comps
             {
                 return;
             }
-            Subscriber pilot = dataGridView1.SelectedRows[0].Tag as Subscriber;
+            SubscriberSet pilot = dataGridView1.SelectedRows[0].Tag as SubscriberSet;
             textBoxLastname.Text = pilot.LastName;
             textBoxFirstName.Text = pilot.FirstName;
             selectedSubscriber = pilot;
-            if (pilot.Picture != null)
+            if (pilot.PictureSet != null)
             {
-                MemoryStream ms = new MemoryStream(pilot.Picture.Data);
+                MemoryStream ms = new MemoryStream(pilot.PictureSet.Data);
                 PictureBox.Image = System.Drawing.Image.FromStream(ms);
             }
             else
@@ -217,7 +218,7 @@ namespace AirNavigationRaceLive.Comps
                         e.Cancel = true;
                         return;
                     }
-                    Subscriber pilot = e.Row.Tag as Subscriber;
+                SubscriberSet pilot = e.Row.Tag as SubscriberSet;
                     subscrDeleted = pilot;
                 }
         }
@@ -245,7 +246,7 @@ namespace AirNavigationRaceLive.Comps
             var lastNameVal = dataGridView1.Rows[e.RowIndex].Cells[1].FormattedValue;
             var firstNameVal = dataGridView1.Rows[e.RowIndex].Cells[2].FormattedValue;
             var iDval = dataGridView1.Rows[e.RowIndex].Cells[0].FormattedValue;
-            Subscriber subsc = new Subscriber();
+            SubscriberSet subsc = new SubscriberSet();
             if (string.IsNullOrEmpty(lastNameVal.ToString().Trim()) || string.IsNullOrEmpty(firstNameVal.ToString().Trim()))
             {
                 dataGridView1.Rows[e.RowIndex].ErrorText = "Empty values are not allowed";
@@ -265,14 +266,14 @@ namespace AirNavigationRaceLive.Comps
             {
                 subsc.LastName = lastNameVal.ToString().Trim();
                 subsc.FirstName = firstNameVal.ToString().Trim();
-                subsc.Competition = Client.SelectedCompetition;
+                subsc.CompetitionSet = Client.SelectedCompetition;
                 dataGridView1.Rows[e.RowIndex].Tag = subsc;
                 Client.DBContext.SubscriberSet.Add(subsc);
                 Client.DBContext.SaveChanges();
             }
             else
             {
-                subsc = dataGridView1.Rows[e.RowIndex].Tag as Subscriber;
+                subsc = dataGridView1.Rows[e.RowIndex].Tag as SubscriberSet;
                 subsc.LastName = lastNameVal.ToString().Trim();
                 subsc.FirstName = firstNameVal.ToString().Trim();
                 Client.DBContext.SaveChanges();
@@ -284,7 +285,7 @@ namespace AirNavigationRaceLive.Comps
         private bool isDuplicateParticipant(string firstName, string lastName, string id)
         {  // check if the new or changed participant already exists in the participants list
 
-            List<Subscriber> pilots = Client.SelectedCompetition.Subscriber.Where(p => p.LastName == lastName && p.FirstName == firstName && p.Id.ToString() != id).ToList<Subscriber>();
+            List<SubscriberSet> pilots = Client.SelectedCompetition.SubscriberSet.Where(p => p.LastName == lastName && p.FirstName == firstName && p.Id.ToString() != id).ToList<SubscriberSet>();
             return pilots.Count > 0;
         }
     }

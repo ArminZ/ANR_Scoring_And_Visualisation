@@ -6,15 +6,17 @@ using System.Windows.Forms;
 using AirNavigationRaceLive.Dialogs;
 using AirNavigationRaceLive.Comps.Helper;
 using System.IO;
+using AirNavigationRaceLive.Model;
+using AirNavigationRaceLive.ModelExtensions;
 
 namespace AirNavigationRaceLive.Comps
 {
     public partial class Results : UserControl
     {
         private Client.DataAccess Client;
-        private QualificationRound qualificRound = null;
-        private Parcour parcour;
-        private Penalty pDeleted;
+        private QualificationRoundSet qualificRound = null;
+        private ParcourSet parcour;
+        private PenaltySet pDeleted;
 
 
         public Results(Client.DataAccess iClient)
@@ -32,17 +34,17 @@ namespace AirNavigationRaceLive.Comps
             qualificRound = null;
             if (comboBoxQualificRound.SelectedItem != null)
             {
-                QualificRoundComboEntry cce = comboBoxQualificRound.SelectedItem as QualificRoundComboEntry;
+                ComboQRExtension cce = comboBoxQualificRound.SelectedItem as ComboQRExtension;
                 if (cce != null)
                 {
-                    qualificRound = cce.qualRnd;
+                    qualificRound = cce.q;
                     dataGridView2.Rows.Clear();
                     long min = long.MaxValue;
                     long max = long.MinValue;
-                    List<Flight> CompetitionTeamList = qualificRound.Flight.ToList();
+                    List<FlightSet> CompetitionTeamList = qualificRound.FlightSet.ToList();
                     CompetitionTeamList.Sort((p, q) => p.StartID.CompareTo(q.StartID));
                     List<Point> points = new List<Point>();
-                    foreach (Flight ct in qualificRound.Flight)
+                    foreach (FlightSet ct in qualificRound.FlightSet)
                     {
                         min = Math.Min(ct.TimeTakeOff, min);
                         max = Math.Max(ct.TimeEndLine, max);
@@ -55,9 +57,9 @@ namespace AirNavigationRaceLive.Comps
 
                     }
 
-                    parcour = cce.qualRnd.Parcour;
-                    Map map = parcour.Map;
-                    MemoryStream ms = new MemoryStream(map.Picture.Data);
+                    parcour = cce.q.ParcourSet;
+                    MapSet map = parcour.MapSet;
+                    MemoryStream ms = new MemoryStream(map.PictureSet.Data);
                     visualisationPictureBox1.Image = System.Drawing.Image.FromStream(ms);
                     visualisationPictureBox1.SetConverter(new Converter(map));
                     visualisationPictureBox1.SetParcour(parcour);
@@ -76,22 +78,22 @@ namespace AirNavigationRaceLive.Comps
                 dataGridView2.Rows.Clear();
             }
         }
-        private string getTeamDsc(Flight flight)
+        private string getTeamDsc(FlightSet flight)
         {
-            Team team = flight.Team;
-            Subscriber pilot = team.Pilot;
+            TeamSet team = flight.TeamSet;
+            SubscriberSet pilot = team.Pilot;
             StringBuilder sb = new StringBuilder();
             sb.Append(pilot.LastName).Append(" ").Append(pilot.FirstName);
             if (team.Navigator != null)
             {
-                Subscriber navi = team.Navigator;
+                SubscriberSet navi = team.Navigator;
                 sb.Append(" - ").Append(navi.LastName).Append(" ").Append(navi.FirstName);
             }
             return sb.ToString();
         }
         private string getRouteText(int id)
         {
-            return ((NetworkObjects.Route)id).ToString();
+            return ((Route)id).ToString();
         }
 
         public void updatePoints()
@@ -101,9 +103,9 @@ namespace AirNavigationRaceLive.Comps
 
                 foreach (DataGridViewRow row in dataGridView2.Rows)
                 {
-                    Flight flt = row.Tag as Flight;
+                    FlightSet flt = row.Tag as FlightSet;
                     int sum = 0;
-                    foreach (Penalty p in flt.Penalty)
+                    foreach (PenaltySet p in flt.PenaltySet)
                     {
                         sum += p.Points;
                     }
@@ -133,11 +135,11 @@ namespace AirNavigationRaceLive.Comps
 
         private void Results_Load(object sender, EventArgs e)
         {
-            List<QualificationRound> comps = Client.SelectedCompetition.QualificationRound.ToList();
+            List<QualificationRoundSet> comps = Client.SelectedCompetition.QualificationRoundSet.ToList();
             comboBoxQualificRound.Items.Clear();
-            foreach (QualificationRound c in comps)
+            foreach (QualificationRoundSet c in comps)
             {
-                comboBoxQualificRound.Items.Add(new QualificRoundComboEntry(c));
+                comboBoxQualificRound.Items.Add(new ComboQRExtension(c));
             }
             updateEnablement();
             lblResults.Text = string.Format("{0} - Results", Client.SelectedCompetition.Name);
@@ -161,7 +163,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 return;
             }
-            Penalty p = dataGridView1.SelectedRows[0].Tag as Penalty;
+            PenaltySet p = dataGridView1.SelectedRows[0].Tag as PenaltySet;
             updateEnablement();
         }
 
@@ -173,7 +175,7 @@ namespace AirNavigationRaceLive.Comps
 
                 DataGridViewRow dgvr = dataGridView2.SelectedRows[0];
                 {
-                    Flight flt = dgvr.Tag as Flight;
+                    FlightSet flt = dgvr.Tag as FlightSet;
                     if (flt.Point.Count > 0)  // skip flights without imported logger data
                     {
                         ComboBoxFlights cboFlt = new ComboBoxFlights(flt, new string[] { "--" });
@@ -186,11 +188,11 @@ namespace AirNavigationRaceLive.Comps
                             di.Create();
                         }
                         PDFCreator.CreateResultPDF(visualisationPictureBox1, Client, qualificRound, ctl, dirPath +
-                            @"\Results_" + qualificRound.Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
+                            @"\Results_" + cleanedString(qualificRound.Name) + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
                     }
                     else
                     {
-                        MessageBox.Show("Logger data for the selected flight is missing. The map will not be exported.","Single Map Export",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                        MessageBox.Show("Logger data for the selected flight is missing. The MapSet will not be exported.", "Single MapSet Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -203,7 +205,7 @@ namespace AirNavigationRaceLive.Comps
                 List<ComboBoxFlights> ctl = new List<ComboBoxFlights>();
                 foreach (DataGridViewRow dgvr in dataGridView2.Rows)
                 {
-                    Flight flt = dgvr.Tag as Flight;
+                    FlightSet flt = dgvr.Tag as FlightSet;
                     if (flt.Point.Count == 0)  // skip flights without imported logger data
                     {
                         continue;
@@ -218,20 +220,20 @@ namespace AirNavigationRaceLive.Comps
                     di.Create();
                 }
                 PDFCreator.CreateResultPDF(visualisationPictureBox1, Client, qualificRound, ctl, dirPath +
-                    @"\Results_" + qualificRound.Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
+                    @"\Results_" + cleanedString(qualificRound.Name) + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
             }
         }
 
-        private void btnExportTopList_Click(object sender, EventArgs e)
+        private void ExportResultRanking(bool exportAsPdf = true)
         {
             if (qualificRound != null && dataGridView2.Rows.Count > 0)
             {
-                List<Flight> lstFlt = new List<Flight>();
+                List<FlightSet> lstFlt = new List<FlightSet>();
                 List<ComboBoxFlights> ctl = new List<ComboBoxFlights>();
 
                 foreach (DataGridViewRow dgvr in dataGridView2.Rows)
                 {
-                    Flight flt = dgvr.Tag as Flight;
+                    FlightSet flt = dgvr.Tag as FlightSet;
                     if (flt.Point.Count > 0)
                     {
                         ComboBoxFlights cboFlt = new ComboBoxFlights(flt, new string[] { "--" });
@@ -245,10 +247,39 @@ namespace AirNavigationRaceLive.Comps
                 {
                     di.Create();
                 }
-                PDFCreator.CreateToplistResultPDF(Client, qualificRound, ctl, dirPath +
-                    @"\Results_" + qualificRound.Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
+
+                if (exportAsPdf)
+                {
+                PDFCreator.CreateRankingListPDF(Client, qualificRound, ctl, dirPath +
+                    @"\Results_" + cleanedString(qualificRound.Name) + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
+                }
+                else
+                {
+                    using (SaveFileDialog sfd = new SaveFileDialog())
+                    {
+                        string _fileFilter = "Excel Files (*.xls, *.xlsx)|*.xls;*.xlsx| Csv files (*.csv)|*.csv| All files (*.*)|*.*";
+
+                        sfd.FileName = @"\Results_" + cleanedString(qualificRound.Name) + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".xlsx";
+                        sfd.Filter = _fileFilter;
+                        sfd.FilterIndex = 0;
+                        sfd.OverwritePrompt = true;
+                        if (sfd.ShowDialog() == DialogResult.OK)
+                        {
+                            OpenOfficeCreator.CreateRankingListExcel(Client.SelectedCompetition.Name, qualificRound.Name, ctl, sfd.FileName);
+                            MessageBox.Show("Ranking list saved", "Ranking list saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
             }
         }
+
+        private static string cleanedString(string inputString)
+        {
+            var invalids = System.IO.Path.GetInvalidFileNameChars();
+            var cleanedName = String.Join("_", inputString.Split(invalids, StringSplitOptions.RemoveEmptyEntries)).TrimEnd('.');
+            return cleanedName;
+        }
+
 
         private void btnLoggerImport_Click(object sender, EventArgs e)
         {
@@ -258,14 +289,14 @@ namespace AirNavigationRaceLive.Comps
                           .FirstOrDefault(r => r.Checked);
                 if (checkedButton == radioButtonGACimport)
                 {
-                    Flight selectedTeamFlight = dataGridView2.SelectedRows[0].Tag as Flight;
+                    FlightSet selectedTeamFlight = dataGridView2.SelectedRows[0].Tag as FlightSet;
                     UploadGAC upload = new UploadGAC(Client, selectedTeamFlight);
                     upload.OnFinish += new EventHandler(UploadFinished);
                     upload.Show();
                 }
                 if (checkedButton == radioButtonGPXimport)
                 {
-                    Flight selectedTeamFlight = dataGridView2.SelectedRows[0].Tag as Flight;
+                    FlightSet selectedTeamFlight = dataGridView2.SelectedRows[0].Tag as FlightSet;
                     UploadGPX upload = new UploadGPX(Client, selectedTeamFlight);
                     upload.OnFinish += new EventHandler(UploadFinished);
                     upload.Show();
@@ -287,13 +318,13 @@ namespace AirNavigationRaceLive.Comps
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            List<QualificationRound> comps = Client.SelectedCompetition.QualificationRound.ToList();
+            List<QualificationRoundSet> comps = Client.SelectedCompetition.QualificationRoundSet.ToList();
             comboBoxQualificRound.Items.Clear();
             comboBoxQualificRound.SelectedItem = null;
             comboBoxQualificRound.Text = "";
-            foreach (QualificationRound c in comps)
+            foreach (QualificationRoundSet c in comps)
             {
-                comboBoxQualificRound.Items.Add(new QualificRoundComboEntry(c));
+                comboBoxQualificRound.Items.Add(new ComboQRExtension(c));
             }
             comboBoxQualificRound_SelectedIndexChanged(null, null);
         }
@@ -312,7 +343,8 @@ namespace AirNavigationRaceLive.Comps
                                       .FirstOrDefault(r => r.Checked);
             if (checkedButton == radioButtonSingleRes) { btnExportSingle_Click(sender, e); }
             if (checkedButton == radioButtonAllRes) { btnExportAll_Click(sender, e); }
-            if (checkedButton == radioButtonTopRes) { btnExportTopList_Click(sender, e); }
+            if (checkedButton == radioButtonRankingPDF) { ExportResultRanking(true); }
+            if (checkedButton == radioButtonRankingXLS) { ExportResultRanking(false); }
 
         }
 
@@ -326,7 +358,7 @@ namespace AirNavigationRaceLive.Comps
                     e.Cancel = true;
                     return;
                 }
-                pDeleted = e.Row.Tag as Penalty;
+                pDeleted = e.Row.Tag as PenaltySet;
             }
         }
 
@@ -372,21 +404,21 @@ namespace AirNavigationRaceLive.Comps
             }
 
             dataGridView1.Rows[e.RowIndex].ErrorText = string.Empty;
-            Penalty p = new Penalty();
+            PenaltySet p = new PenaltySet();
             if (string.IsNullOrEmpty(iDval.ToString()))
             {
-                Flight flt = dataGridView2.SelectedRows[0].Tag as Flight;
+                FlightSet flt = dataGridView2.SelectedRows[0].Tag as FlightSet;
                 p.Reason = penaltyReason.ToString().Trim();
                 p.Points = penVal;
-                if (!flt.Penalty.Contains(p))
+                if (!flt.PenaltySet.Contains(p))
                 {
-                    flt.Penalty.Add(p);
+                    flt.PenaltySet.Add(p);
                 }
                 dataGridView1.Rows[e.RowIndex].Tag = p;
             }
             else
             {
-                p = dataGridView1.Rows[e.RowIndex].Tag as Penalty;
+                p = dataGridView1.Rows[e.RowIndex].Tag as PenaltySet;
                 p.Reason = penaltyReason.ToString().Trim();
                 p.Points = penVal;
             }
@@ -406,13 +438,13 @@ namespace AirNavigationRaceLive.Comps
             if (dataGridView2.SelectedRows.Count > 0 && dataGridView2.SelectedRows[0].Tag != null)
             {
                 btnLoggerImport.Enabled = true;
-                List<Flight> flights = new List<Flight>(1);
-                Flight flt = dataGridView2.Rows[rowIdx].Tag as Flight;
+                List<FlightSet> flights = new List<FlightSet>(1);
+                FlightSet flt = dataGridView2.Rows[rowIdx].Tag as FlightSet;
                 flights.Add(flt);
                 visualisationPictureBox1.SetData(flights);
                 visualisationPictureBox1.Invalidate();
                 List<DataGridViewRow> ppd = new List<DataGridViewRow>();
-                foreach (Penalty p in flt.Penalty)
+                foreach (PenaltySet p in flt.PenaltySet)
                 {
                     DataGridViewRow dgvr = new DataGridViewRow();
                     dgvr.CreateCells(dataGridView1);
@@ -451,14 +483,104 @@ namespace AirNavigationRaceLive.Comps
             }
         }
 
+
+
+    //    public static void CreateRankingListExcel(string CompName, string QRName, List<ComboBoxFlights> qRndFlights, String filename)
+    //    {
+
+    //        List<Toplist> toplist = new List<Toplist>();
+    //        foreach (ComboBoxFlights cbct in qRndFlights)
+    //        {
+    //            int sum = 0;
+    //            foreach (PenaltySet penalty in cbct.flight.PenaltySet)
+    //            {
+    //                sum += penalty.Points;
+    //            }
+    //            toplist.Add(new Toplist(cbct.flight, sum));
+    //        }
+    //        toplist.Sort();
+
+    //        var newFile = new FileInfo(filename);
+    //        if (newFile.Exists)
+    //        {
+    //            newFile.Delete();
+    //        }
+    //        using (var pck = new ExcelPackage(newFile))
+    //        {
+    //            ExcelWorksheet ResultList = pck.Workbook.Worksheets.Add("ResultList");
+    //            ResultList.Cells[1, 1].Value = String.Format("Competition: {0}", CompName);
+    //            ResultList.Cells[2, 1].Value = String.Format("Qualification Round: {0}", QRName);
+
+    //            string[] colNamesValues = { "Rank", "Points", "Nationality", "Pilot Lastname", "Pilot Firstname", "Navigator Lastname", "Navigator Firstname" };
+
+    //            for (int jCol = 0; jCol < colNamesValues.Length; jCol++)
+    //            {
+    //                ResultList.Cells[3, jCol + 1].Value = colNamesValues[jCol];
+    //            }
+
+    //            int oldsum = -1;
+    //            int prevRank = 0;
+    //            int rank = 0;
+    //            int i = 0;
+    //            int iBase = 3;
+
+    //            foreach (Toplist top in toplist)
+    //            {
+    //                rank++;
+    //                i++;
+    //                TeamSet t = top.ct.TeamSet;
+    //                if (i > 0 && oldsum == top.sum)  // we have a shared rank
+    //                {
+    //                    ResultList.Cells[i + iBase, 1].Value = prevRank;
+    //                }
+    //                else  // the normal case
+    //                {
+    //                    prevRank = rank;
+    //                    ResultList.Cells[i + iBase, 1].Value = rank;
+    //                }
+    //                ResultList.Cells[i + iBase, 2].Value = top.sum.ToString();
+    //                ResultList.Cells[i + iBase, 3].Value = t.Nationality;
+    //                SubscriberSet pilot = t.Pilot;
+    //                ResultList.Cells[i + iBase, 4].Value = pilot.LastName;
+    //                ResultList.Cells[i + iBase, 5].Value = pilot.FirstName;
+    //                if (t.Navigator != null)
+    //                {
+    //                    SubscriberSet navigator = t.Navigator;
+    //                    ResultList.Cells[i + iBase, 6].Value = navigator.LastName;
+    //                    ResultList.Cells[i + iBase, 7].Value = navigator.FirstName;
+    //                }
+    //                oldsum = top.sum;
+    //            }
+    //            pck.Save();
+    //        }
+    //    }
+}
+
+    class Toplist : IComparable
+    {
+        public Toplist(FlightSet ct,
+        int sum)
+        {
+
+            this.ct = ct;
+            this.sum = sum;
+        }
+        public FlightSet ct = null;
+        public int sum = 0;
+
+        public int CompareTo(object obj)
+        {
+            return sum.CompareTo((obj as Toplist).sum);
+        }
     }
     public class ComboBoxFlights : ListViewItem
     {
-        public readonly Flight flight;
-        public ComboBoxFlights(Flight team, string[] display)
+        public readonly FlightSet flight;
+        public ComboBoxFlights(FlightSet team, string[] display)
             : base(display)
         {
             this.flight = team;
         }
     }
+
 }

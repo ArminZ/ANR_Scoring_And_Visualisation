@@ -41,16 +41,13 @@
             this.overviewZoomedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.generateSingleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pilotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teamsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.qualificationRoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.routeGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.routeEportCoordinatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cH1903converterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visualisationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,7 +56,8 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainPanel = new System.Windows.Forms.Panel();
-            this.routeEportCoordinatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -126,15 +124,15 @@
             // importFromWorldfileToolStripMenuItem
             // 
             this.importFromWorldfileToolStripMenuItem.Name = "importFromWorldfileToolStripMenuItem";
-            this.importFromWorldfileToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.importFromWorldfileToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             this.importFromWorldfileToolStripMenuItem.Text = "Import maps";
             this.importFromWorldfileToolStripMenuItem.Click += new System.EventHandler(this.mapToolStripMenuItem_Click);
             // 
             // legacyToolStripMenuItem
             // 
             this.legacyToolStripMenuItem.Name = "legacyToolStripMenuItem";
-            this.legacyToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
-            this.legacyToolStripMenuItem.Text = "Legacy map import";
+            this.legacyToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            this.legacyToolStripMenuItem.Text = "Legacy MapSet import";
             this.legacyToolStripMenuItem.Click += new System.EventHandler(this.legacyToolStripMenuItem_Click);
             // 
             // parcourToolStripMenuItem
@@ -145,8 +143,6 @@
             this.toolStripSeparator3,
             this.importToolStripMenuItem,
             this.toolStripSeparator1,
-            this.generateSingleToolStripMenuItem,
-            this.generateToolStripMenuItem,
             this.editToolStripMenuItem});
             this.parcourToolStripMenuItem.Enabled = false;
             this.parcourToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
@@ -180,32 +176,6 @@
             this.importToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
             this.importToolStripMenuItem.Text = "Import";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(214, 6);
-            // 
-            // generateSingleToolStripMenuItem
-            // 
-            this.generateSingleToolStripMenuItem.Name = "generateSingleToolStripMenuItem";
-            this.generateSingleToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
-            this.generateSingleToolStripMenuItem.Text = "Generate Single";
-            this.generateSingleToolStripMenuItem.Click += new System.EventHandler(this.generateSingleToolStripMenuItem_Click);
-            // 
-            // generateToolStripMenuItem
-            // 
-            this.generateToolStripMenuItem.Name = "generateToolStripMenuItem";
-            this.generateToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
-            this.generateToolStripMenuItem.Text = "Generate";
-            this.generateToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripMenuItem_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
-            this.editToolStripMenuItem.Text = "Edit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // pilotsToolStripMenuItem
             // 
@@ -260,6 +230,13 @@
             this.routeGeneratorToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
             this.routeGeneratorToolStripMenuItem.Text = "Route Generator";
             this.routeGeneratorToolStripMenuItem.Click += new System.EventHandler(this.routeGeneratorToolStripMenuItem_Click);
+            // 
+            // routeEportCoordinatesToolStripMenuItem
+            // 
+            this.routeEportCoordinatesToolStripMenuItem.Name = "routeEportCoordinatesToolStripMenuItem";
+            this.routeEportCoordinatesToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
+            this.routeEportCoordinatesToolStripMenuItem.Text = "Route Coordinates Exporter";
+            this.routeEportCoordinatesToolStripMenuItem.Click += new System.EventHandler(this.kmlCoordinateExportToolStripMenuItem_Click);
             // 
             // cH1903converterToolStripMenuItem
             // 
@@ -327,14 +304,20 @@
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Size = new System.Drawing.Size(1038, 701);
             this.MainPanel.TabIndex = 2;
+            this.MainPanel.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             this.MainPanel.Resize += new System.EventHandler(this.MainPanel_Resize);
             // 
-            // routeEportCoordinatesToolStripMenuItem
+            // toolStripSeparator1
             // 
-            this.routeEportCoordinatesToolStripMenuItem.Name = "routeEportCoordinatesToolStripMenuItem";
-            this.routeEportCoordinatesToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
-            this.routeEportCoordinatesToolStripMenuItem.Text = "Route Coordinates Exporter";
-            this.routeEportCoordinatesToolStripMenuItem.Click += new System.EventHandler(this.kmlCoordinateExportToolStripMenuItem_Click);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(214, 6);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // AirNavigationRaceLiveMain
             // 
@@ -376,13 +359,10 @@
         private System.Windows.Forms.ToolStripMenuItem resultsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem legacyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem overviewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem generateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem overviewZoomedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem competitionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importFromWorldfileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem generateSingleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem historyToolStripMenuItem;
@@ -390,9 +370,10 @@
         private System.Windows.Forms.ToolStripMenuItem routeGeneratorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cH1903converterToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem routeEportCoordinatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
     }
 }
 
