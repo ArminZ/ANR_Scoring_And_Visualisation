@@ -23,12 +23,13 @@ At this time the application was basically a client-server application with a ce
 
 During 2016 the user interface was entirely renewed and improved, bugs fixed, unused and outdated code removed. The most important new functionality was the Route Generator, allowing parcour generation from Google Earth kml files. Also some documentation was provided, including the important subjects of map conversion/map import, and parcour creation/import.
 
-#### Next version 2.0.0 (Summer/autumn 2017)
+#### version 2.0.0 (August 2017)
 
-* Move from Entity Framework (EF) 6.1 database-first to EF 6.1 Code-first, and implementation of EF Migration functionality
-* This will allow to keep existing database files from previous versions compatible, and include more tables/fields as required on code side
-* Removal of unused code, some rework on the grapical side
-* Disabled old Beta-code for Route generation
+* Move from Entity Framework (EF) 6.1 database-first approach to EF 6.1 Code-first approach.
+* Implementation of EF Migration functionality
+* Table and field changes can be made to the software
+* When a new release includes additional database tables/fields, EF Migration will allow to 'upgrade' database files created with previous releases.
+
 
 --- 
 #### What is new in this version?
