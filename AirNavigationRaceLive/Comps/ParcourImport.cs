@@ -248,6 +248,7 @@ namespace AirNavigationRaceLive.Comps
                 p.Line.Add(l);
             }
             p.MapSet = CurrentMap;
+            p.Alpha = activeParcour.Alpha;
             p.CompetitionSet = Client.SelectedCompetition;
             Client.DBContext.ParcourSet.Add(p);
             Client.DBContext.SaveChanges();
@@ -507,7 +508,6 @@ namespace AirNavigationRaceLive.Comps
             {
                 ParcourSet p = activeParcour;
                 p.Alpha = (int)numericUpDownAlpha.Value;
-                //Client.DBContext.SaveChanges();
                 PictureBox1.SetParcour(p);
                 PictureBox1.Invalidate();
             }
