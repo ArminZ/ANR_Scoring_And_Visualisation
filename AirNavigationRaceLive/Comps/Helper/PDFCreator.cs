@@ -314,7 +314,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             doc.Close();
             Process.Start(pathToPDF);
         }
-        public static void CreateToplistResultPDF(Client.DataAccess c, QualificationRoundSet qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
+        public static void CreateRankingListPDF(Client.DataAccess c, QualificationRoundSet qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
         {
             List<Toplist> toplist = new List<Toplist>();
             foreach (ComboBoxFlights cbct in qRndFlights)
@@ -347,7 +347,7 @@ namespace AirNavigationRaceLive.Comps.Helper
 
             AddCompetitionAndLogo(c, sec);
             sec.AddParagraph("");
-            sec.AddParagraph("Toplist " + qRnd.Name);
+            sec.AddParagraph("Ranking List: " + qRnd.Name);
             sec.AddParagraph("");
 
             Table table = sec.AddTable();
@@ -409,23 +409,24 @@ namespace AirNavigationRaceLive.Comps.Helper
 
             Process.Start(pathToPDF);
         }
-        class Toplist : IComparable
-        {
-            public Toplist(FlightSet ct,
-            int sum)
-            {
 
-                this.ct = ct;
-                this.sum = sum;
-            }
-            public FlightSet ct = null;
-            public int sum = 0;
+        //class Toplist : IComparable
+        //{
+        //    public Toplist(FlightSet ct,
+        //    int sum)
+        //    {
 
-            public int CompareTo(object obj)
-            {
-                return sum.CompareTo((obj as Toplist).sum);
-            }
-        }
+        //        this.ct = ct;
+        //        this.sum = sum;
+        //    }
+        //    public FlightSet ct = null;
+        //    public int sum = 0;
+
+        //    public int CompareTo(object obj)
+        //    {
+        //        return sum.CompareTo((obj as Toplist).sum);
+        //    }
+        //}
 
         public static void CreateResultPDF(VisualisationPictureBox picBox, Client.DataAccess c, QualificationRoundSet qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
         {
@@ -513,6 +514,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             }
         }
 
+
         private static List<String> getWrapped(String s)
         {
             List<String> result = new List<String>();
@@ -559,9 +561,9 @@ namespace AirNavigationRaceLive.Comps.Helper
             Document doc = new Document();
             doc.Info.Author = "Luc.Baumann@sharpsoft.ch";
             doc.Info.Comment = "Generated from ANRL Client on " + DateTime.Now.ToString();
-            doc.Info.Keywords = "ANRL StartList";
-            doc.Info.Subject = "StartList";
-            doc.Info.Title = "StartList";
+            doc.Info.Keywords = "ANRL Start List";
+            doc.Info.Subject = "Start List";
+            doc.Info.Title = "Start List";
             doc.UseCmykColor = true;
             doc.DefaultPageSetup.PageFormat = PageFormat.A4;
             doc.DefaultPageSetup.Orientation = Orientation.Landscape;
@@ -571,7 +573,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             AddCompetitionAndLogo(Client, sec);
 
             sec.AddParagraph("Qualification Round: " + qRnd.Name);
-            sec.AddParagraph("Startlist");
+            sec.AddParagraph("Start List");
             sec.AddParagraph("");
             sec.AddParagraph("");
 

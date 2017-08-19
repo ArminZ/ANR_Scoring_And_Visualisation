@@ -209,7 +209,7 @@ namespace AirNavigationRaceLive.Comps
         {
             string FileFilter = "World files (*.jgw, *.pgw, *.gfw, *.tfw, *.wld)|*.jgw;*.pgw;*.gfw;*.tfw;*.wld|All Files (*.*)|*.*";
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "t_Picture";
+            ofd.Title = "World File";
             ofd.RestoreDirectory = true;
             ofd.Multiselect = false;
             ofd.Filter = FileFilter;

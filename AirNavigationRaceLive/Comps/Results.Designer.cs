@@ -35,8 +35,9 @@
             this.radioButtonGPXimport = new System.Windows.Forms.RadioButton();
             this.radioButtonGACimport = new System.Windows.Forms.RadioButton();
             this.groupBoxExportResults = new System.Windows.Forms.GroupBox();
+            this.radioButtonRankingXLS = new System.Windows.Forms.RadioButton();
             this.btnExportResults = new System.Windows.Forms.Button();
-            this.radioButtonTopRes = new System.Windows.Forms.RadioButton();
+            this.radioButtonRankingPDF = new System.Windows.Forms.RadioButton();
             this.radioButtonAllRes = new System.Windows.Forms.RadioButton();
             this.radioButtonSingleRes = new System.Windows.Forms.RadioButton();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -135,8 +136,9 @@
             // groupBoxExportResults
             // 
             this.groupBoxExportResults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxExportResults.Controls.Add(this.radioButtonRankingXLS);
             this.groupBoxExportResults.Controls.Add(this.btnExportResults);
-            this.groupBoxExportResults.Controls.Add(this.radioButtonTopRes);
+            this.groupBoxExportResults.Controls.Add(this.radioButtonRankingPDF);
             this.groupBoxExportResults.Controls.Add(this.radioButtonAllRes);
             this.groupBoxExportResults.Controls.Add(this.radioButtonSingleRes);
             this.groupBoxExportResults.Location = new System.Drawing.Point(8, 955);
@@ -144,7 +146,17 @@
             this.groupBoxExportResults.Size = new System.Drawing.Size(342, 148);
             this.groupBoxExportResults.TabIndex = 122;
             this.groupBoxExportResults.TabStop = false;
-            this.groupBoxExportResults.Text = "Export Results to PDF";
+            this.groupBoxExportResults.Text = "Export Results";
+            // 
+            // radioButtonRankingXLS
+            // 
+            this.radioButtonRankingXLS.AutoSize = true;
+            this.radioButtonRankingXLS.Location = new System.Drawing.Point(19, 120);
+            this.radioButtonRankingXLS.Name = "radioButtonRankingXLS";
+            this.radioButtonRankingXLS.Size = new System.Drawing.Size(137, 21);
+            this.radioButtonRankingXLS.TabIndex = 124;
+            this.radioButtonRankingXLS.Text = "Ranking List XLS";
+            this.radioButtonRankingXLS.UseVisualStyleBackColor = true;
             // 
             // btnExportResults
             // 
@@ -156,25 +168,25 @@
             this.btnExportResults.UseVisualStyleBackColor = true;
             this.btnExportResults.Click += new System.EventHandler(this.btnExportResults_Click);
             // 
-            // radioButtonTopRes
+            // radioButtonRankingPDF
             // 
-            this.radioButtonTopRes.AutoSize = true;
-            this.radioButtonTopRes.Location = new System.Drawing.Point(20, 96);
-            this.radioButtonTopRes.Name = "radioButtonTopRes";
-            this.radioButtonTopRes.Size = new System.Drawing.Size(136, 21);
-            this.radioButtonTopRes.TabIndex = 122;
-            this.radioButtonTopRes.Text = "List -Top Results";
-            this.radioButtonTopRes.UseVisualStyleBackColor = true;
-            this.radioButtonTopRes.CheckedChanged += new System.EventHandler(this.AllCheckBoxes_CheckedChanged);
+            this.radioButtonRankingPDF.AutoSize = true;
+            this.radioButtonRankingPDF.Location = new System.Drawing.Point(19, 92);
+            this.radioButtonRankingPDF.Name = "radioButtonRankingPDF";
+            this.radioButtonRankingPDF.Size = new System.Drawing.Size(138, 21);
+            this.radioButtonRankingPDF.TabIndex = 122;
+            this.radioButtonRankingPDF.Text = "Ranking List PDF";
+            this.radioButtonRankingPDF.UseVisualStyleBackColor = true;
+            this.radioButtonRankingPDF.CheckedChanged += new System.EventHandler(this.AllCheckBoxes_CheckedChanged);
             // 
             // radioButtonAllRes
             // 
             this.radioButtonAllRes.AutoSize = true;
-            this.radioButtonAllRes.Location = new System.Drawing.Point(20, 66);
+            this.radioButtonAllRes.Location = new System.Drawing.Point(19, 64);
             this.radioButtonAllRes.Name = "radioButtonAllRes";
-            this.radioButtonAllRes.Size = new System.Drawing.Size(135, 21);
+            this.radioButtonAllRes.Size = new System.Drawing.Size(126, 21);
             this.radioButtonAllRes.TabIndex = 121;
-            this.radioButtonAllRes.Text = "Map - All Results";
+            this.radioButtonAllRes.Text = "All Result Maps";
             this.radioButtonAllRes.UseVisualStyleBackColor = true;
             this.radioButtonAllRes.CheckedChanged += new System.EventHandler(this.AllCheckBoxes_CheckedChanged);
             // 
@@ -182,12 +194,12 @@
             // 
             this.radioButtonSingleRes.AutoSize = true;
             this.radioButtonSingleRes.Checked = true;
-            this.radioButtonSingleRes.Location = new System.Drawing.Point(20, 36);
+            this.radioButtonSingleRes.Location = new System.Drawing.Point(19, 36);
             this.radioButtonSingleRes.Name = "radioButtonSingleRes";
-            this.radioButtonSingleRes.Size = new System.Drawing.Size(152, 21);
+            this.radioButtonSingleRes.Size = new System.Drawing.Size(159, 21);
             this.radioButtonSingleRes.TabIndex = 120;
             this.radioButtonSingleRes.TabStop = true;
-            this.radioButtonSingleRes.Text = "Map - Single Result";
+            this.radioButtonSingleRes.Text = "Selected Result Map";
             this.radioButtonSingleRes.UseVisualStyleBackColor = true;
             this.radioButtonSingleRes.CheckedChanged += new System.EventHandler(this.AllCheckBoxes_CheckedChanged);
             // 
@@ -393,7 +405,7 @@
         private System.Windows.Forms.Button btnLoggerImport;
         private System.Windows.Forms.GroupBox groupBoxLoggerImport;
         private System.Windows.Forms.GroupBox groupBoxExportResults;
-        private System.Windows.Forms.RadioButton radioButtonTopRes;
+        private System.Windows.Forms.RadioButton radioButtonRankingPDF;
         private System.Windows.Forms.RadioButton radioButtonAllRes;
         private System.Windows.Forms.RadioButton radioButtonSingleRes;
         private System.Windows.Forms.Button btnExportResults;
@@ -414,5 +426,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton radioButtonGPXimport;
         private System.Windows.Forms.RadioButton radioButtonGACimport;
+        private System.Windows.Forms.RadioButton radioButtonRankingXLS;
     }
 }

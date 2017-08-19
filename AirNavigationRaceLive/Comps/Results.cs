@@ -8,6 +8,7 @@ using AirNavigationRaceLive.Comps.Helper;
 using System.IO;
 using AirNavigationRaceLive.Model;
 using AirNavigationRaceLive.ModelExtensions;
+using OfficeOpenXml;
 
 namespace AirNavigationRaceLive.Comps
 {
@@ -188,11 +189,11 @@ namespace AirNavigationRaceLive.Comps
                             di.Create();
                         }
                         PDFCreator.CreateResultPDF(visualisationPictureBox1, Client, qualificRound, ctl, dirPath +
-                            @"\Results_" + qualificRound.Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
+                            @"\Results_" + cleanedString(qualificRound.Name) + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
                     }
                     else
                     {
-                        MessageBox.Show("Logger data for the selected flight is missing. The MapSet will not be exported.","Single MapSet Export",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                        MessageBox.Show("Logger data for the selected flight is missing. The MapSet will not be exported.", "Single MapSet Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -220,11 +221,11 @@ namespace AirNavigationRaceLive.Comps
                     di.Create();
                 }
                 PDFCreator.CreateResultPDF(visualisationPictureBox1, Client, qualificRound, ctl, dirPath +
-                    @"\Results_" + qualificRound.Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
+                    @"\Results_" + cleanedString(qualificRound.Name) + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
             }
         }
 
-        private void btnExportTopList_Click(object sender, EventArgs e)
+        private void ExportResultRanking(bool exportAsPdf = true)
         {
             if (qualificRound != null && dataGridView2.Rows.Count > 0)
             {
@@ -247,10 +248,39 @@ namespace AirNavigationRaceLive.Comps
                 {
                     di.Create();
                 }
-                PDFCreator.CreateToplistResultPDF(Client, qualificRound, ctl, dirPath +
-                    @"\Results_" + qualificRound.Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
+
+                if (exportAsPdf)
+                {
+                PDFCreator.CreateRankingListPDF(Client, qualificRound, ctl, dirPath +
+                    @"\Results_" + cleanedString(qualificRound.Name) + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
+                }
+                else
+                {
+                    using (SaveFileDialog sfd = new SaveFileDialog())
+                    {
+                        string _fileFilter = "Excel Files (*.xls, *.xlsx)|*.xls;*.xlsx| Csv files (*.csv)|*.csv| All files (*.*)|*.*";
+
+                        sfd.FileName = @"\Results_" + cleanedString(qualificRound.Name) + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".xlsx";
+                        sfd.Filter = _fileFilter;
+                        sfd.FilterIndex = 0;
+                        sfd.OverwritePrompt = true;
+                        if (sfd.ShowDialog() == DialogResult.OK)
+                        {
+                            CreateRankingListExcel(Client.SelectedCompetition.Name, qualificRound.Name, ctl, sfd.FileName);
+                            MessageBox.Show("Ranking list saved", "Ranking list saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
             }
         }
+
+        private static string cleanedString(string inputString)
+        {
+            var invalids = System.IO.Path.GetInvalidFileNameChars();
+            var cleanedName = String.Join("_", inputString.Split(invalids, StringSplitOptions.RemoveEmptyEntries)).TrimEnd('.');
+            return cleanedName;
+        }
+
 
         private void btnLoggerImport_Click(object sender, EventArgs e)
         {
@@ -314,7 +344,8 @@ namespace AirNavigationRaceLive.Comps
                                       .FirstOrDefault(r => r.Checked);
             if (checkedButton == radioButtonSingleRes) { btnExportSingle_Click(sender, e); }
             if (checkedButton == radioButtonAllRes) { btnExportAll_Click(sender, e); }
-            if (checkedButton == radioButtonTopRes) { btnExportTopList_Click(sender, e); }
+            if (checkedButton == radioButtonRankingPDF) { ExportResultRanking(true); }
+            if (checkedButton == radioButtonRankingXLS) { ExportResultRanking(false); }
 
         }
 
@@ -453,6 +484,95 @@ namespace AirNavigationRaceLive.Comps
             }
         }
 
+
+
+        public static void CreateRankingListExcel(string CompName, string QRName, List<ComboBoxFlights> qRndFlights, String filename)
+        {
+
+            List<Toplist> toplist = new List<Toplist>();
+            foreach (ComboBoxFlights cbct in qRndFlights)
+            {
+                int sum = 0;
+                foreach (PenaltySet penalty in cbct.flight.PenaltySet)
+                {
+                    sum += penalty.Points;
+                }
+                toplist.Add(new Toplist(cbct.flight, sum));
+            }
+            toplist.Sort();
+
+            var newFile = new FileInfo(filename);
+            if (newFile.Exists)
+            {
+                newFile.Delete();
+            }
+            using (var pck = new ExcelPackage(newFile))
+            {
+                ExcelWorksheet ResultList = pck.Workbook.Worksheets.Add("ResultList");
+                ResultList.Cells[1, 1].Value = String.Format("Competition: {0}", CompName);
+                ResultList.Cells[2, 1].Value = String.Format("Qualification Round: {0}", QRName);
+
+                string[] colNamesValues = { "Rank", "Points", "Nationality", "Pilot Lastname", "Pilot Firstname", "Navigator Lastname", "Navigator Firstname" };
+
+                for (int jCol = 0; jCol < colNamesValues.Length; jCol++)
+                {
+                    ResultList.Cells[3, jCol + 1].Value = colNamesValues[jCol];
+                }
+
+                int oldsum = -1;
+                int prevRank = 0;
+                int rank = 0;
+                int i = 0;
+                int iBase = 3;
+
+                foreach (Toplist top in toplist)
+                {
+                    rank++;
+                    i++;
+                    TeamSet t = top.ct.TeamSet;
+                    if (i > 0 && oldsum == top.sum)  // we have a shared rank
+                    {
+                        ResultList.Cells[i + iBase, 1].Value = prevRank;
+                    }
+                    else  // the normal case
+                    {
+                        prevRank = rank;
+                        ResultList.Cells[i + iBase, 1].Value = rank;
+                    }
+                    ResultList.Cells[i + iBase, 2].Value = top.sum.ToString();
+                    ResultList.Cells[i + iBase, 3].Value = t.Nationality;
+                    SubscriberSet pilot = t.Pilot;
+                    ResultList.Cells[i + iBase, 4].Value = pilot.LastName;
+                    ResultList.Cells[i + iBase, 5].Value = pilot.FirstName;
+                    if (t.Navigator != null)
+                    {
+                        SubscriberSet navigator = t.Navigator;
+                        ResultList.Cells[i + iBase, 6].Value = navigator.LastName;
+                        ResultList.Cells[i + iBase, 7].Value = navigator.FirstName;
+                    }
+                    oldsum = top.sum;
+                }
+                pck.Save();
+            }
+        }
+    }
+
+    class Toplist : IComparable
+    {
+        public Toplist(FlightSet ct,
+        int sum)
+        {
+
+            this.ct = ct;
+            this.sum = sum;
+        }
+        public FlightSet ct = null;
+        public int sum = 0;
+
+        public int CompareTo(object obj)
+        {
+            return sum.CompareTo((obj as Toplist).sum);
+        }
     }
     public class ComboBoxFlights : ListViewItem
     {
@@ -463,4 +583,5 @@ namespace AirNavigationRaceLive.Comps
             this.flight = team;
         }
     }
+
 }
