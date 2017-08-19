@@ -56,6 +56,8 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainPanel = new System.Windows.Forms.Panel();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -139,7 +141,9 @@
             this.overviewToolStripMenuItem,
             this.overviewZoomedToolStripMenuItem,
             this.toolStripSeparator3,
-            this.importToolStripMenuItem});
+            this.importToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.editToolStripMenuItem});
             this.parcourToolStripMenuItem.Enabled = false;
             this.parcourToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.parcourToolStripMenuItem.Name = "parcourToolStripMenuItem";
@@ -300,7 +304,20 @@
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Size = new System.Drawing.Size(1038, 701);
             this.MainPanel.TabIndex = 2;
+            this.MainPanel.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             this.MainPanel.Resize += new System.EventHandler(this.MainPanel_Resize);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(214, 6);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // AirNavigationRaceLiveMain
             // 
@@ -355,6 +372,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem routeEportCoordinatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
     }
 }
 

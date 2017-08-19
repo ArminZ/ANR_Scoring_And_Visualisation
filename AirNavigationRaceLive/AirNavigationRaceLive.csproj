@@ -212,6 +212,7 @@
     <Compile Include="Comps\Helper\Geometry\CPolygon.cs" />
     <Compile Include="Comps\Helper\Geometry\CPolygonShape.cs" />
     <Compile Include="Comps\Helper\Geometry\Definition.cs" />
+    <Compile Include="Comps\Helper\OpenOfficeCreator.cs" />
     <Compile Include="Comps\Helper\VisualisationPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -229,6 +230,12 @@
     </Compile>
     <Compile Include="Comps\ImportExport.Designer.cs">
       <DependentUpon>ImportExport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comps\ParcourEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\ParcourEdit.Designer.cs">
+      <DependentUpon>ParcourEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Comps\QualificationRoundControl.cs">
       <SubType>UserControl</SubType>
@@ -427,6 +434,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Comps\ImportExport.resx">
       <DependentUpon>ImportExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\ParcourEdit.resx">
+      <DependentUpon>ParcourEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comps\QualificationRoundControl.resx">
       <DependentUpon>QualificationRoundControl.cs</DependentUpon>

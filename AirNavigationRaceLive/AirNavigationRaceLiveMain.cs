@@ -24,7 +24,7 @@ namespace AirNavigationRaceLive
         //private ParcourGen ParcourGen;
         //private Visualisation Visualisation;
         //private ParcourEditSingle ParcourEditSingle;
-        //private ParcourEdit ParcourEdit;
+        private ParcourEdit ParcourEdit;
         //private MapSelection MapSelection;
         //private MapImportFromMaps MapImportFromMaps;  // removed functionality 15.9.2016
         private ImportExport ImportExport;
@@ -82,7 +82,7 @@ namespace AirNavigationRaceLive
                 exportToolStripMenuItem.Enabled = connected;  
                 //generateToolStripMenuItem.Enabled = connected;
                 //visualisationToolStripMenuItem.Enabled = connected;
-                //editToolStripMenuItem.Enabled = connected;
+                editToolStripMenuItem.Enabled = connected;
 
         }
 
@@ -116,7 +116,7 @@ namespace AirNavigationRaceLive
                 Team = null;
                 QualificationRound = null;
                 //Visualisation = null;
-                //ParcourEdit = null;
+                ParcourEdit = null;
                 //ParcourGen = null;
                 Map = null;
                 ParcourImport = null;
@@ -135,7 +135,7 @@ namespace AirNavigationRaceLive
             Team = null;
             QualificationRound = null;
             //Visualisation = null;
-            //ParcourEdit = null;
+            ParcourEdit = null;
             //ParcourGen = null; 
             Map = null;
             ParcourImport = null;
@@ -265,11 +265,11 @@ namespace AirNavigationRaceLive
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //if (ParcourEdit == null)
-            //{
-            //    ParcourEdit = new ParcourEdit(Client);
-            //}
-            //enableControl(ParcourEdit);
+            if (ParcourEdit == null)
+            {
+                ParcourEdit = new ParcourEdit(Client);
+            }
+            enableControl(ParcourEdit);
         }
 
         private void overviewZoomedToolStripMenuItem_Click(object sender, EventArgs e)
