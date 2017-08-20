@@ -418,15 +418,47 @@ namespace AirNavigationRaceLive.Comps
             }
         }
 
-        private void btnColorSelect_Click(object sender, EventArgs e)
+        private void numericUpDownPen_ValueChanged(object sender, EventArgs e)
+        {
+            if (activeParcour != null)
+            {
+                ParcourSet p = activeParcour;
+                PictureBox1.UserLineWidth = (float)numericUpDownPen.Value;
+                PictureBox1.SetParcour(p);
+                PictureBox1.Invalidate();
+            }
+        }
+
+        private void btnColorLayer_Click(object sender, EventArgs e)
         {
             ColorDialog cd = new ColorDialog();
             cd.AnyColor = false;
             cd.SolidColorOnly = true;
             cd.ShowDialog();
-            btnColorSelect.BackColor = cd.Color;
+            btnColorLayer.BackColor = cd.Color;
             ParcourSet p = activeParcour;
             PictureBox1.ProhZoneColor = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void btnColorPen_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnColorPen.BackColor = cd.Color;
+            ParcourSet p = activeParcour;
+            PictureBox1.UserPenColor = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void checkBoxCircle_CheckedChanged(object sender, EventArgs e)
+        {
+            ParcourSet p = activeParcour;
+            PictureBox1.UserCircleWidth = checkBoxCircle.Checked ? 2f : 0f;
             PictureBox1.SetParcour(p);
             PictureBox1.Invalidate();
         }
