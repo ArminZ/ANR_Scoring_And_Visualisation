@@ -26,6 +26,7 @@ namespace AirNavigationRaceLive.Comps
         public Color UserPenColor = Color.FromArgb(255, 0, 0);
         public float UserLineWidth = 6f;
         public float UserCircleWidth = 2f;
+        public bool HasCircle =false;
         private Pen UserPenLine = new Pen(new SolidBrush(Color.Red), 2f);
         private Pen UserPenCircle = new Pen(new SolidBrush(Color.Red), 6f);
 
@@ -109,7 +110,7 @@ namespace AirNavigationRaceLive.Comps
                                 if (l.Type != (int)LineType.PENALTYZONE)
                                 {
                                     //Start_X/End_X
-                                    if (l.Type >= 3 && l.Type <= 10 && !pdf)
+                                    if (l.Type >= 3 && l.Type <= 10 && !pdf && HasCircle)
                                     {
                                         pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
                                         //pe.Graphics.ResetTransform();

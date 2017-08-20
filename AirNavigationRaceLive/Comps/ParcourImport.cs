@@ -553,7 +553,7 @@ namespace AirNavigationRaceLive.Comps
         private void checkBoxCircle_CheckedChanged(object sender, EventArgs e)
         {
             ParcourSet p = activeParcour;
-            PictureBox1.UserCircleWidth = checkBoxCircle.Checked ? 2f : 0f;
+            PictureBox1.HasCircle = checkBoxCircle.Checked;
             PictureBox1.SetParcour(p);
             PictureBox1.Invalidate();
         }
