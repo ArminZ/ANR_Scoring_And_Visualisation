@@ -138,8 +138,8 @@ namespace AirNavigationRaceLive.Comps
                                     pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
                                     if (!pdf)
                                     {
-                                        pe.Graphics.DrawLine(Pen, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
-                                        pe.Graphics.DrawEllipse(Pen, orientationX - 1, orientationY - 1, 2, 2);
+                                        pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
+                                        pe.Graphics.DrawEllipse(UserPenLine, orientationX - 1, orientationY - 1, 2, 2);
                                     }
                                     if (pdf)
                                     {
