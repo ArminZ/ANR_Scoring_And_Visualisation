@@ -149,8 +149,9 @@ namespace AirNavigationRaceLive.Comps
                                         pe.Graphics.DrawEllipse(UserPenCircle, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
                                         pe.Graphics.ResetTransform();
 
-                                        //pe.Graphics.DrawLine(UserPen, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
-                                        //pe.Graphics.DrawEllipse(PenSelected, orientationX - 3, orientationY - 3, 6, 6);
+                                        int orientationYCorr = midY + (int)(LongCorrFactor * (orientationY - midY));
+                                        pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationYCorr));
+                                        pe.Graphics.DrawEllipse(PenSelected, orientationX - 3, orientationYCorr - 3, 6, 6);
                                     }
                                 }
                             }
