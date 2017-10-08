@@ -1149,6 +1149,15 @@ namespace AirNavigationRaceLive.Comps.Helper
             return lst;
         }
 
+        public static string ReversedKMLCoordinateString(string str)
+        {
+            string ReversedCoordinates = string.Empty;
+            // NOTE: string may contain linebreaks instead of space
+            string[] ptstrings = str.Replace("\n", " ").Split(' ');
+            ReversedCoordinates = string.Join(" ", ptstrings.Reverse());
+            return ReversedCoordinates;
+        }
+
         /// <summary>
         /// retrieve the LineType based on the gate name.
         /// </summary>

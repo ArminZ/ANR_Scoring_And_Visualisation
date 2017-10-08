@@ -20,7 +20,7 @@ namespace AirNavigationRaceLive.Comps
         public void SetParcour(ParcourSet iParcour)
         {
             Parcour = iParcour;
-            Brush = new SolidBrush(Color.FromArgb((255*iParcour.Alpha)/100, 255, 0, 0));
+            Brush = new SolidBrush(Color.FromArgb((255 * iParcour.Alpha) / 100, 255, 0, 0));
         }
         public void SetConverter(Converter iConverter)
         {
@@ -102,23 +102,62 @@ namespace AirNavigationRaceLive.Comps
                             int orientationX = x0 + (int)(c.getOrientationX(l) * factor);
                             int orientationY = y0 + (int)(c.getOrientationY(l) * factor);
 
+                            //int midX = startX + (endX - startX) / 2;
+                            //int midY = startY + (endY - startY) / 2;
+                            //Vector start = new Vector(startX, startY, 0);
+                            //Vector midv = new Vector(midX, midY, 0);
+                            //float radius = (float)Vector.Abs(midv - start);
+
+                            Model.Point CenterPoint = new Model.Point();
+                            CenterPoint.latitude = (l.A.latitude + l.B.latitude) / 2.0;
+                            CenterPoint.longitude = (l.A.longitude + l.B.longitude) / 2.0;
+                            // create a dedicated point on the same latitude as the Center point
+                            Model.Point RadiusPoint = c.PointForRadius(CenterPoint);
+
+                            float LongCorrFactor = (float)c.LongitudeCorrFactor(l);
+
                             int midX = startX + (endX - startX) / 2;
                             int midY = startY + (endY - startY) / 2;
+                            int radX = c.LongitudeToX(RadiusPoint.longitude);
+                            int radY = c.LatitudeToY(RadiusPoint.latitude);
+                            //int orientationX = c.getOrientationX(l);
+                            //int orientationY = c.getOrientationY(l);
+                            double tmp = (double)midY + (orientationY - midY) * c.LongitudeCorrFactor(CenterPoint);
+                            orientationY = (int)tmp;
                             Vector start = new Vector(startX, startY, 0);
-                            Vector midv = new Vector(midX, midY, 0);
-                            float radius = (float)Vector.Abs(midv - start);
+                            Vector radv = new Vector(radX, radY, 0);
+                            //float radius = (float)Vector.Abs(midv - start)
+                            float radius = Math.Abs(midY - radY) / LongCorrFactor;
+
                             try
                             {
                                 if (l.Type != (int)LineType.PENALTYZONE && l.Type != (int)LineType.Point && l.Type != (int)LineType.LINEOFNORETURN)
                                 {
                                     //Start_X/End_X
-                                    if (((int)l.Type) >= 3 && ((int)l.Type) <= 10)
+                                    //if (((int)l.Type) >= 3 && ((int)l.Type) <= 10)
+                                    //{
+                                    //    pe.Graphics.DrawEllipse(Pen, midX - radius, midY - radius, radius * 2, radius * 2);
+                                    //}
+
+                                    //Start_X/End_X
+                                    if (l.Type >= 3 && l.Type <= 10)
                                     {
-                                        pe.Graphics.DrawEllipse(Pen, midX - radius, midY - radius, radius * 2, radius * 2);
+                                        pe.Graphics.DrawLine(Pen, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
+                                        //pe.Graphics.ResetTransform();
+                                        pe.Graphics.TranslateTransform(midX - radius, midY - radius * LongCorrFactor);
+                                        pe.Graphics.DrawEllipse(Pen, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
+                                        pe.Graphics.ResetTransform();
+
+                                        int orientationYCorr = midY + (int)(LongCorrFactor * (orientationY - midY));
+                                        pe.Graphics.DrawLine(Pen, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationYCorr));
+                                       // pe.Graphics.DrawEllipse(Pen, orientationX - 3, orientationYCorr - 3, 6, 6);
                                     }
-                                    pe.Graphics.DrawLine(Pen, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
-                                    pe.Graphics.DrawLine(Pen, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
-                                    pe.Graphics.DrawEllipse(Pen, orientationX - 1, orientationY - 1, 2, 2);
+                                    else
+                                    {
+                                        //pe.Graphics.DrawLine(Pen, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
+                                        //pe.Graphics.DrawLine(Pen, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
+                                        //pe.Graphics.DrawEllipse(Pen, orientationX - 1, orientationY - 1, 2, 2);
+                                    }
                                 }
                             }
                             catch
@@ -171,7 +210,7 @@ namespace AirNavigationRaceLive.Comps
                         pe.Graphics.DrawLines(new Pen(new SolidBrush(Color), lineThickness), points.ToArray());
                     }
                 }
-         
+
             }
         }
 
