@@ -92,7 +92,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     {
                         PenaltySet penalty = new PenaltySet();
                         penalty.Points = 200;
-                        penalty.Reason = "Crossed Takeoff-Line at " + new DateTime((Int64)crossTime).ToLongTimeString() + " instead of expected " + new DateTime((Int64)flight.TimeTakeOff).ToLongTimeString();
+                        penalty.Reason = string.Format("Crossed Take-off Line at: {0}, expected: {1}", new DateTime((Int64)crossTime).ToLongTimeString() , new DateTime((Int64)flight.TimeTakeOff).ToLongTimeString());
                         result.Add(penalty);
                     }
                 }
@@ -110,7 +110,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     {
                         PenaltySet penalty = new PenaltySet();
                         penalty.Points = Math.Min((seconds-1) * 3, 200);
-                        penalty.Reason = "Crossed Start-Line at " + new DateTime((Int64)crossTime).ToLongTimeString() + " instead of expected " + new DateTime((Int64)flight.TimeStartLine).ToLongTimeString();
+                        penalty.Reason = string.Format("Crossed SP Line at: {0}, expected: {1}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeStartLine).ToLongTimeString());
                         result.Add(penalty);
                     }
                 }
@@ -128,7 +128,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     {
                         PenaltySet penalty = new PenaltySet();
                         penalty.Points = Math.Min((seconds-1) * 3, 200);
-                        penalty.Reason = "Crossed End-Line at " + new DateTime((Int64)crossTime).ToLongTimeString() + " instead of expected " + new DateTime((Int64)flight.TimeEndLine).ToLongTimeString();
+                        penalty.Reason = string.Format("Crossed FP Line at: {0}, expected: {1}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeEndLine).ToLongTimeString());
                         result.Add(penalty);
                     }
                 }
@@ -150,8 +150,9 @@ namespace AirNavigationRaceLive.Comps.Helper
                             if (sec > 5)
                             {
                                 PenaltySet penalty = new PenaltySet();
-                                penalty.Points = Math.Min((sec-5) * 3, 300);
-                                penalty.Reason = "Inside Penaltyzone for " + sec + " sec from " + new DateTime((Int64)timeSinceInsidePenalty).ToLongTimeString() + " to " + new DateTime((Int64)intersectionPenalty).ToLongTimeString();
+                                // penalty.Points = Math.Min((sec - 5) * 3, 300);
+                                penalty.Points = (sec - 5) * 3;
+                                penalty.Reason = string.Format("Inside Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime((Int64)timeSinceInsidePenalty).ToLongTimeString(), new DateTime((Int64)intersectionPenalty).ToLongTimeString());
                                 result.Add(penalty);
                             }
                         }
@@ -162,7 +163,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             {
                 PenaltySet penalty = new PenaltySet();
                 penalty.Points = 200;
-                penalty.Reason = "Takeoff not passed";
+                penalty.Reason = "Takeoff Line not passed";
                 result.Add(penalty);
 
             }; 
@@ -170,7 +171,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             {
                 PenaltySet penalty = new PenaltySet();
                 penalty.Points = 200;
-                penalty.Reason = "Start not passed";
+                penalty.Reason = "SP Line not passed";
                 result.Add(penalty);
 
             };
@@ -178,7 +179,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             {
                 PenaltySet penalty = new PenaltySet();
                 penalty.Points = 200;
-                penalty.Reason = "End not passed";
+                penalty.Reason = "FP Line not passed";
                 result.Add(penalty);
             };
 
