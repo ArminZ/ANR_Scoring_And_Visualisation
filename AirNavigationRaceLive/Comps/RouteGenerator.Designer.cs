@@ -49,6 +49,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnSaveKML = new System.Windows.Forms.Button();
+            this.btnTEST = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -59,12 +60,12 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(134, 30);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(128, 28);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
             this.refreshToolStripMenuItem.Text = "Refresh";
             // 
             // chkAddAllRoutes
@@ -251,10 +252,21 @@
             this.btnSaveKML.UseVisualStyleBackColor = true;
             this.btnSaveKML.Click += new System.EventHandler(this.btnSaveKML_Click);
             // 
+            // btnTEST
+            // 
+            this.btnTEST.Location = new System.Drawing.Point(737, 125);
+            this.btnTEST.Name = "btnTEST";
+            this.btnTEST.Size = new System.Drawing.Size(140, 47);
+            this.btnTEST.TabIndex = 42;
+            this.btnTEST.Text = "TEST_inverter";
+            this.btnTEST.UseVisualStyleBackColor = true;
+            this.btnTEST.Click += new System.EventHandler(this.btnTEST_Click);
+            // 
             // RouteGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnTEST);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.treeViewSelectedRoutes);
@@ -303,5 +315,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Button btnSaveKML;
+        private System.Windows.Forms.Button btnTEST;
     }
 }

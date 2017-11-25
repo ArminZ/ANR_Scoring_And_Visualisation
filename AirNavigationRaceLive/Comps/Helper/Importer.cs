@@ -1152,8 +1152,9 @@ namespace AirNavigationRaceLive.Comps.Helper
         public static string ReversedKMLCoordinateString(string str)
         {
             string ReversedCoordinates = string.Empty;
-            // NOTE: string may contain linebreaks instead of space
-            string[] ptstrings = str.Replace("\n", " ").Split(' ');
+            // NOTE: string may contain linebreaks, tabs instead of space
+            char[] splitchars = {' '};
+            string[] ptstrings = str.Replace("\n", " ").Replace("\t", " ").Replace("  "," ").Split(splitchars, StringSplitOptions.RemoveEmptyEntries);
             ReversedCoordinates = string.Join(" ", ptstrings.Reverse());
             return ReversedCoordinates;
         }

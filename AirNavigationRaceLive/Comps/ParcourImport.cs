@@ -448,7 +448,6 @@ namespace AirNavigationRaceLive.Comps
 
         private void btnImportLayerKML_Click(object sender, EventArgs e)
         {
-            //not yet implemented
             OpenFileDialog ofd = new OpenFileDialog();
             string FileFilter = "GoogleEarth KML (*.kml)|*.kml|All Files (*.*)|*.*";
             ofd.Title = "Layer Import from KML file";
