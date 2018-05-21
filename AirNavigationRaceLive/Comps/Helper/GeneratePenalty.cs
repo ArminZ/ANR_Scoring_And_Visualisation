@@ -10,6 +10,15 @@ namespace AirNavigationRaceLive.Comps.Helper
         private const long tickOfSecond = 10000000;
         private const long tickOfMinute = tickOfSecond * 60;
 
+        private const int C_PointsPerSec = 3; // PenaltyPoints per second
+        private const int C_TKOF_TimeLower = 0; // lower time limit (sec)n allowed at TKOF
+        private const int C_TKOF_TimeUpper = 60; // upper time limit (sec)n allowed at TKOF
+        private const int C_SPFP_TimeTolerance = 1; // time tolerance (sec) allowed when passing SF, FP
+        private const int C_SPFP_MaxPenalty = 200; // max penalty for not observed/ exceeding time limits on SP/FP 
+        private const int C_TKOF_MaxPenalty = 200; // max penalty for exceeding time limits on TKOF
+        private const int C_PROH_TimeTolerance = 5; // time tolerance (sec) allowed inside PROH area without penalty 
+        private const int C_PROH_MaxPenalty = 300; // max penalty for flying inside PROH area
+
         public static void CalculateAndPersistPenaltyPoints(Client.DataAccess c, FlightSet f)
         {
             List<PenaltySet> penalties = CalculatePenaltyPoints(f);
@@ -88,10 +97,10 @@ namespace AirNavigationRaceLive.Comps.Helper
                     {
                         seconds++;
                     }
-                    if (seconds > 60 || seconds < 0)
+                    if (seconds > C_TKOF_TimeUpper || seconds < C_TKOF_TimeLower)
                     {
                         PenaltySet penalty = new PenaltySet();
-                        penalty.Points = 200;
+                        penalty.Points = C_TKOF_MaxPenalty;
                         penalty.Reason = string.Format("Crossed Take-off Line at: {0}, expected: {1}", new DateTime((Int64)crossTime).ToLongTimeString() , new DateTime((Int64)flight.TimeTakeOff).ToLongTimeString());
                         result.Add(penalty);
                     }
@@ -106,10 +115,10 @@ namespace AirNavigationRaceLive.Comps.Helper
                     {
                         seconds++;
                     }
-                    if (seconds > 1)
+                    if (seconds > C_SPFP_TimeTolerance)
                     {
                         PenaltySet penalty = new PenaltySet();
-                        penalty.Points = Math.Min((seconds-1) * 3, 200);
+                        penalty.Points = Math.Min((seconds- C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
                         penalty.Reason = string.Format("Crossed SP Line at: {0}, expected: {1}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeStartLine).ToLongTimeString());
                         result.Add(penalty);
                     }
@@ -127,7 +136,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     if (seconds>1)
                     {
                         PenaltySet penalty = new PenaltySet();
-                        penalty.Points = Math.Min((seconds-1) * 3, 200);
+                        penalty.Points = Math.Min((seconds- C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
                         penalty.Reason = string.Format("Crossed FP Line at: {0}, expected: {1}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeEndLine).ToLongTimeString());
                         result.Add(penalty);
                     }
@@ -150,8 +159,9 @@ namespace AirNavigationRaceLive.Comps.Helper
                             if (sec > 5)
                             {
                                 PenaltySet penalty = new PenaltySet();
+                                // Max penalty inside PROH zone: disabled after NOV 2017
                                 // penalty.Points = Math.Min((sec - 5) * 3, 300);
-                                penalty.Points = (sec - 5) * 3;
+                                penalty.Points = (sec - C_PROH_TimeTolerance) * C_PointsPerSec;
                                 penalty.Reason = string.Format("Inside Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime((Int64)timeSinceInsidePenalty).ToLongTimeString(), new DateTime((Int64)intersectionPenalty).ToLongTimeString());
                                 result.Add(penalty);
                             }
@@ -162,7 +172,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             if (shouldHaveCrossedTakeOff && !haveCrossedTakeOff)
             {
                 PenaltySet penalty = new PenaltySet();
-                penalty.Points = 200;
+                penalty.Points = C_TKOF_MaxPenalty;
                 penalty.Reason = "Takeoff Line not passed";
                 result.Add(penalty);
 
@@ -170,7 +180,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             if (shouldHaveCrossedStart && !haveCrossedStart)
             {
                 PenaltySet penalty = new PenaltySet();
-                penalty.Points = 200;
+                penalty.Points = C_SPFP_MaxPenalty;
                 penalty.Reason = "SP Line not passed";
                 result.Add(penalty);
 
@@ -178,7 +188,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             if (shouldHaveCrossedEnd && !haveCrossedEnd)
             {
                 PenaltySet penalty = new PenaltySet();
-                penalty.Points = 200;
+                penalty.Points = C_SPFP_MaxPenalty;
                 penalty.Reason = "FP Line not passed";
                 result.Add(penalty);
             };

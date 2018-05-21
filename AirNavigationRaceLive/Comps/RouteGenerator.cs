@@ -322,6 +322,9 @@ namespace AirNavigationRaceLive.Comps
             {
                 throw new ApplicationException("Cannot import kml data.\r\nData is expected to be in a kml folder named 'LiveTracking', but this folder is missing from the imported file.", null);
             }
+            XElement el = new XElement(nsKml + "description", "WARNING: this route has been inverted. The Start- and Final Gates are switched");
+            folders.FirstOrDefault().Add(el);
+
             foreach (var placemark in folders.Elements(nsKml + "Placemark"))
             {
                 string pmName = placemark.Element(nsKml + "name").Value.Trim();

@@ -593,44 +593,75 @@ namespace AirNavigationRaceLive.Comps.Helper
                     foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
                     {
                         List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
-                        int numberOfVertexes = lst.Count;
-                        List<Vector> input = new List<Vector>();
+                       // int numberOfVertexes = lst.Count;
+                        List<Vector> vcts = new List<Vector>();
                         foreach (var pt in lst)
                         {
                             Vector v = new Vector(pt.longitude, pt.latitude, 0);
-                            input.Add(v);
+                            vcts.Add(v);
                         }
-                        if (input.Count > 2)
+
+                        #region New Code (Orientation point will not be used)
+
+                        // see also changes on ParcourPictureBox.OnPaint
+                        for (int j = 0; j < vcts.Count; j++)
                         {
-                            // not very clear what we are doing here, copied from above
-                            List<List<Vector>> konvexLists = Vector.KonvexPolygons(input);
-                            foreach (List<Vector> list in konvexLists)
+                            Line l = new Line();
+                            l.Type = (int)LineType.PENALTYZONE;
+                            if (j > 0)
                             {
-                                double sumX = 0;
-                                double sumY = 0;
-                                double count = 0;
-                                foreach (Vector v in list)
-                                {
-                                    sumX += v.X;
-                                    sumY += v.Y;
-                                    count += 1;
-                                }
-                                Vector o = new Vector(sumX / count, sumY / count, 0);
-                                for (int j = 0; j < list.Count; j++)
-                                {
-                                    Line l = new Line();
-                                    l.Type = (int)LineType.PENALTYZONE;
-                                    int i_a = j % list.Count;
-                                    int i_b = (j + 1) % list.Count;
-                                    Vector a = list[i_a];
-                                    Vector b = list[i_b];
-                                    l.A = a.toGPSPoint();
-                                    l.B = b.toGPSPoint();
-                                    l.O = o.toGPSPoint();
-                                    result.Line.Add(l);
-                                }
+                                Vector a = vcts[j - 1];
+                                Vector b = vcts[j];
+                                Vector o = new Vector((a.X + b.X) / 2.0, (a.Y + b.Y) / 2.0, 0);
+                                o = Vector.Middle(a, b) - Vector.Orthogonal(a - b);
+                                l.A = a.toGPSPoint();
+                                l.B = b.toGPSPoint();
+                                l.O = o.toGPSPoint();
+                                result.Line.Add(l);
                             }
                         }
+                        #endregion
+
+                        #region Old Code (unused)
+                        // this old code splits the polygon into triangles ("ears")
+                        // the orientation point being the third point for a line segment
+                        // with this a triangle is defined which is later printed (see also old code on ParcourPictureBox.OnPaint)
+                        // this will not always work in case of concave / more complex/"bent" parcours
+                        //if (input.Count > 2)
+                        //{
+                        //    // not very clear what we are doing here
+                        //    List<List<Vector>> konvexLists = Vector.KonvexPolygons(input);
+                        //    foreach (List<Vector> list in konvexLists)
+                        //    {
+                        //        double sumX = 0;
+                        //        double sumY = 0;
+                        //        double count = 0;
+                        //        foreach (Vector v in list)
+                        //        {
+                        //            sumX += v.X;
+                        //            sumY += v.Y;
+                        //            count += 1;
+                        //        }
+                        //      // create an 'averaged' vector
+                        //        Vector o = new Vector(sumX / count, sumY / count, 0);
+                        //
+                        //        for (int j = 0; j < list.Count; j++)
+                        //        {
+                        //            Line l = new Line();
+                        //            l.Type = (int)LineType.PENALTYZONE;
+                        //            int i_a = j % list.Count;
+                        //            int i_b = (j + 1) % list.Count;
+                        //            Vector a = list[i_a];
+                        //            Vector b = list[i_b];
+                        //            l.A = a.toGPSPoint();
+                        //            l.B = b.toGPSPoint();
+                        //            l.O = o.toGPSPoint();
+                        //            result.Line.Add(l);
+                        //        }
+                        //    }
+                        //    //
+                        //} 
+                        #endregion
                     }
                 }
                 else if (pmName.StartsWith("STARTPOINT-"))

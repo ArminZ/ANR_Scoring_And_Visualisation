@@ -13,6 +13,8 @@ using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.DocumentObjectModel.Shapes;
 using PdfSharp.Drawing.Layout;
 using AirNavigationRaceLive.Model;
+using System.Drawing.Imaging;
+using System.Drawing;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {
@@ -107,7 +109,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             pg.AddTab();
 
 
-            Image logo = pg.AddImage(@"Resources\ANR_LOGO.jpg");
+            MigraDoc.DocumentObjectModel.Shapes.Image logo = pg.AddImage(@"Resources\ANR_LOGO.jpg");
             logo.Height = Unit.FromCentimeter(1.912);
             logo.Width = Unit.FromCentimeter(2.873);
             logo.LockAspectRatio = true;
@@ -230,7 +232,7 @@ namespace AirNavigationRaceLive.Comps.Helper
 
             for (int i = 3; i < 13; i++)
             {
-                gfx.DrawString("TP" + (i - 3),
+                gfx.DrawString("TP" + (i - 3 + 1),
                     new XFont("Verdana", 14, XFontStyle.Bold), XBrushes.Black,
                     new XPoint(Unit.FromMillimeter(startX + 1), Unit.FromMillimeter(startY + rowHeight * i + 7)));
             }
@@ -244,7 +246,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             if (!string.IsNullOrEmpty(overlayText.Trim()))
             {
                 XRect rect = new XRect(XUnit.FromCentimeter(19.0), XUnit.FromCentimeter(1.5), Unit.FromCentimeter(5.0), Unit.FromCentimeter(2.0));
-  //              XRect rect = new XRect(new XPoint(Unit.FromMillimeter(startX - 80 - 2), Unit.FromMillimeter(startY + rowHeight * 14 + 2 - 16)), new XSize(Unit.FromCentimeter(8), Unit.FromCentimeter(3.6)));
+                //              XRect rect = new XRect(new XPoint(Unit.FromMillimeter(startX - 80 - 2), Unit.FromMillimeter(startY + rowHeight * 14 + 2 - 16)), new XSize(Unit.FromCentimeter(8), Unit.FromCentimeter(3.6)));
                 gfx.DrawRectangle(XBrushes.White, rect);
                 XTextFormatter tf = new XTextFormatter(gfx);
                 tf.DrawString(overlayText, new XFont("Verdana", 10, XFontStyle.Regular), XBrushes.Black, rect, XStringFormats.TopLeft);
@@ -262,7 +264,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         //    string strScFactor = "";
         //    if (scaleFactor == 2.0) { strScFactor = "1:200'000"; }
         //    if (scaleFactor == 2.5) { strScFactor = "1:250'000"; }
-      
+
         //    XRect rect = new XRect(XUnit.FromCentimeter(1.0), XUnit.FromCentimeter(19.5), Unit.FromCentimeter(5.0), Unit.FromCentimeter(1.0));
         //    gfx.DrawRectangle(XBrushes.White, rect);
         //    XTextFormatter tf = new XTextFormatter(gfx);
@@ -379,8 +381,8 @@ namespace AirNavigationRaceLive.Comps.Helper
                 rank++;
                 TeamSet t = top.ct.TeamSet;
                 Row r = table.AddRow();
-                if (rank>1 && oldsum == top.sum)  // we have a shared rank
-                { 
+                if (rank > 1 && oldsum == top.sum)  // we have a shared rank
+                {
                     r.Cells[0].AddParagraph(prevRank + "");
                 }
                 else  // the normal case
@@ -455,7 +457,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                 XGraphics gfx = XGraphics.FromPdfPage(page);
                 AddLogo(gfx, page);
 
-                XImage image = XImage.FromGdiPlusImage(picBox.PrintOutImage);
+                XImage image = XImage.FromGdiPlusImage(picBox.PrintOutImage.VaryQualityLevel());
 
                 double distX = picBox.GetXDistanceKM() / 2;//1:200 000 in cm
                 double distY = picBox.GetYDistanceKM() / 2;//1:200 000 in cm
@@ -606,7 +608,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             row.Cells[9].AddParagraph("End Gate (UTC)");
             row.Cells[10].AddParagraph("Route");
 
-            foreach (FlightSet ct in qRnd.FlightSet.OrderBy(x => x.TimeTakeOff).ThenBy(x=>x.Route))
+            foreach (FlightSet ct in qRnd.FlightSet.OrderBy(x => x.TimeTakeOff).ThenBy(x => x.Route))
             {
                 Row r = table.AddRow();
                 r.Cells[0].AddParagraph(ct.StartID.ToString());

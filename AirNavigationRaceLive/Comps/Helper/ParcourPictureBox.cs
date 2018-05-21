@@ -26,14 +26,14 @@ namespace AirNavigationRaceLive.Comps
         public Color UserPenColor = Color.FromArgb(255, 0, 0);
         public float UserLineWidth = 6f;
         public float UserCircleWidth = 2f;
-        public bool HasCircle =false;
+        public bool HasCircle = false;
         private Pen UserPenLine = new Pen(new SolidBrush(Color.Red), 2f);
         private Pen UserPenCircle = new Pen(new SolidBrush(Color.Red), 6f);
 
         public void SetParcour(ParcourSet iParcour)
         {
             Parcour = iParcour;
-            Brush = new SolidBrush(Color.FromArgb(255*iParcour.Alpha/100, ProhZoneColor));
+            Brush = new SolidBrush(Color.FromArgb(255 * iParcour.Alpha / 100, ProhZoneColor));
             UserPenLine.Width = UserLineWidth;
             UserPenCircle.Width = UserCircleWidth;
             UserPenLine.Color = UserPenColor;
@@ -59,24 +59,72 @@ namespace AirNavigationRaceLive.Comps
                 lock (Parcour)
                 {
                     ICollection<Line> lines = Parcour.Line;
+
+
+                    #region Graphics for PROH zone (new code)
+                    // new code:
+                    // we may have aseveral polygons, but they are saved as small line pieces in the database
+                    // how to distinct different polygons: a polygons end point is identical with the first point
                     List<Line> linespenalty = lines.Where(p => p.Type == (int)LineType.PENALTYZONE).ToList();
+                    List<System.Drawing.Point> pts = new List<System.Drawing.Point>();
+                    bool isPolygonStart = true;
                     foreach (Line l in linespenalty)
                     {
-                        int startXp = c.getStartX(l);
-                        int startYp = c.getStartY(l);
-                        int endXp = c.getEndX(l);
-                        int endYp = c.getEndY(l);
-                        int orientationXp = c.getOrientationX(l);
-                        int orientationYp = c.getOrientationY(l);
-                        try
+                        if (isPolygonStart)
                         {
-                            pe.Graphics.FillPolygon(Brush, new System.Drawing.Point[] { new System.Drawing.Point(startXp, startYp), new System.Drawing.Point(endXp, endYp), new System.Drawing.Point(orientationXp, orientationYp) });
+                            //reset
+                            pts = new List<System.Drawing.Point>();
+                            isPolygonStart = false;
                         }
-                        catch
+                        System.Drawing.Point startPt = new System.Drawing.Point();
+                        System.Drawing.Point endPt = new System.Drawing.Point();
+                        startPt.X = c.getStartX(l);
+                        startPt.Y = c.getStartY(l);
+                        endPt.X = c.getEndX(l);
+                        endPt.Y = c.getEndY(l);
+                        pts.Add(startPt);
+
+                        if (endPt != pts[0]) // line' end point identical with firt point?
                         {
-                            //TODO
+                            pts.Add(endPt);
+                        }
+                        else
+                        {
+                            // handle Graphics
+                            pe.Graphics.FillPolygon(Brush, pts.ToArray<System.Drawing.Point>());
+                            // start a new polygon
+                            isPolygonStart = true;
                         }
                     }
+
+                    #endregion
+
+                    #region Graphics for PROH zone (old code)
+                    // the following old code prints the PROH zone split into multiple triangles.
+                    // the PROH zone is stored in general as line segments (points A,B)  and the Orientation point O is 'abused' to store the third point of the triangle
+                    // this may result in incorrect areas (namely for concave and more complex routes)
+                    // with multiple operlappings etc. -> parcour not usable in ANR software
+
+                    //List<Line> linespenalty = lines.Where(p => p.Type == (int)LineType.PENALTYZONE).ToList();
+                    //foreach (Line l in linespenalty)
+                    //{
+                    //    int startXp = c.getStartX(l);
+                    //    int startYp = c.getStartY(l);
+                    //    int endXp = c.getEndX(l);
+                    //    int endYp = c.getEndY(l);
+                    //    int orientationXp = c.getOrientationX(l);
+                    //    int orientationYp = c.getOrientationY(l);
+                    //    try
+                    //    {
+                    //        pe.Graphics.FillPolygon(Brush, new System.Drawing.Point[] { new System.Drawing.Point(startXp, startYp), new System.Drawing.Point(endXp, endYp), new System.Drawing.Point(orientationXp, orientationYp) });
+                    //    }
+                    //    catch
+                    //    {
+                    //        //TODO
+                    //    }
+                    //} 
+                    #endregion
+
                     foreach (Line l in lines)
                     {
                         if (l.A != null && l.B != null & l.O != null)
@@ -99,12 +147,12 @@ namespace AirNavigationRaceLive.Comps
                             int radY = c.LatitudeToY(RadiusPoint.latitude);
                             int orientationX = c.getOrientationX(l);
                             int orientationY = c.getOrientationY(l);
-                            double tmp = (double)midY + (orientationY - midY) *c.LongitudeCorrFactor(CenterPoint);
+                            double tmp = (double)midY + (orientationY - midY) * c.LongitudeCorrFactor(CenterPoint);
                             orientationY = (int)tmp;
                             Vector start = new Vector(startX, startY, 0);
                             Vector radv = new Vector(radX, radY, 0);
                             //float radius = (float)Vector.Abs(midv - start)
-                            float radius = Math.Abs(midY-radY)/LongCorrFactor;
+                            float radius = Math.Abs(midY - radY) / LongCorrFactor;
                             try
                             {
                                 if (l.Type != (int)LineType.PENALTYZONE)
