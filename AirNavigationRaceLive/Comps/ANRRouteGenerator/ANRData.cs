@@ -15,7 +15,8 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
         private string[] arrNBLNames = { "NBLINE-A", "NBLINE-B", "NBLINE-C", "NBLINE-D" };
 
         const double GATE_WIDTH = 0.3;  // gate width for start and end gate is fixed 0.6 = 2*0.3 NM  
-        const double SHIFT_DIST = 0.4;  // shift border points 'inwards' (away from start- and end gate)
+        //const double SHIFT_DIST = 0.4;  // shift border points 'inwards' (away from start- and end gate)
+        const double SHIFT_DIST = 0.0;  // shift border points 'inwards' (away from start- and end gate)
 
         private Document document = new Document();
         public Document Document
@@ -26,16 +27,19 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             }
         }
 
-        public void generateParcour(List<List<Vector>> listOfRoutes, List<string> ListOfRouteNames, List<List<Vector>> listOfNBL, List<string> listOfNBLNames, bool hasMarkers, bool showForbiddenArea, bool isStandardOrder, double channelWidth, string styleName, double altitude)
+        public void generateParcour(List<List<Vector>> listOfRoutes, List<string> ListOfRouteNames, List<List<Vector>> listOfNBL, List<string> listOfNBLNames, bool hasMarkers, bool showForbiddenArea, bool isStandardOrder, double channelWidth, double altitude)
         {
+            string[] styleNames = { @"PolygonAndLine", @"PolygonAndLineNoFill" };
+
             // Document document = new Document();
-            KMLPolygonStyle.AddStylesForPolygon(document, styleName);
+            KMLPolygonStyle.AddStylesForPolygon(document, styleNames);
 
             GeoData gc = new GeoData();
             List<Feature> lstFeaturesPROHPolygon = new List<Feature>();
             List<Feature> lstFeaturesSP = new List<Feature>();
             List<Feature> lstFeaturesFP = new List<Feature>();
             List<Feature> lstFeaturesNBLine = new List<Feature>();
+            List<Feature> lstFeaturesChannel = new List<Feature>();
 
             Folder folderGeneral = new Folder();
             folderGeneral.Name = "General";
@@ -67,6 +71,8 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 List<double> lstHeadings = gc.CalculateHeadings(routePoints);
                 List<Vector> lstLeftBorder = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth, false, 1);
                 List<Vector> lstRightBorder = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth, true, 1);
+                List<Vector> lstChannel = combineBorderVectorsForPolygon(lstLeftBorder, lstRightBorder);
+
 
                 // shift start and end points of border inwards
                 lstLeftBorder = gc.BorderModification(lstLeftBorder, SHIFT_DIST);
@@ -175,6 +181,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 var polygRightBorderForbiddenArea = makeSimplePolygon(lstRightBorderForbiddenArea, AltitudeMode.ClampToGround);
                 var polySP = makeSimplePolygon(lineStrSP, AltitudeMode.RelativeToGround);
                 var polyFP = makeSimplePolygon(lineStrFP, AltitudeMode.RelativeToGround);
+                var polyChannel = makeSimplePolygon(lstChannel, AltitudeMode.ClampToGround);
                 var polyNBLine = new Polygon();
 
                 if (lstNBLine.Count > 0)
@@ -186,6 +193,9 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 var plm = new SharpKml.Dom.Placemark();
                 plm = makeSimplePlacemark(lineStrRoute, routeName);
                 folderGeneral.AddFeature(plm);
+
+                plm = makeSimplePlacemark(polyChannel, "ROUTE-" + routeName, styleNames[1]);
+                lstFeaturesChannel.Add(plm);
 
                 // original hand-made NBLine
                 if (lstNBLine.Count > 0)
@@ -218,15 +228,15 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     folderBorders.AddFeature(plm);
                 }
 
-                plm = makeSimplePlacemark(polySP, "STARTPOINT-" + routeName, styleName);
+                plm = makeSimplePlacemark(polySP, "STARTPOINT-" + routeName, styleNames[0]);
                 lstFeaturesSP.Add(plm);
 
-                plm = makeSimplePlacemark(polyFP, "ENDPOINT-" + routeName, styleName);
+                plm = makeSimplePlacemark(polyFP, "ENDPOINT-" + routeName, styleNames[0]);
                 lstFeaturesFP.Add(plm);
 
                 if (lstNBLine.Count > 0)
                 {
-                    plm = makeSimplePlacemark(polyNBLine, "NBLINE-" + routeName, styleName);
+                    plm = makeSimplePlacemark(polyNBLine, "NBLINE-" + routeName, styleNames[0]);
                     lstFeaturesNBLine.Add(plm);
                 }
 
@@ -240,16 +250,16 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     // add forbidden Area (Polygon area)
                     if (lstRightBorderForbiddenArea.Count > 0)
                     {
-                        var placemarkPolyg = makeSimplePlacemark(polygRightBorderForbiddenArea, "PROH " + routeName + " Right", styleName);
+                        var placemarkPolyg = makeSimplePlacemark(polygRightBorderForbiddenArea, "PROH " + routeName + " Right", styleNames[0]);
                         lstFeaturesPROHPolygon.Add(placemarkPolyg);
                     }
 
                     if (lstLeftBorderForbiddenArea.Count > 0)
                     {
-                        var placemarkPolyg = makeSimplePlacemark(polygLeftBorderForbiddenArea, "PROH " + routeName + " Left", styleName);
+                        var placemarkPolyg = makeSimplePlacemark(polygLeftBorderForbiddenArea, "PROH " + routeName + " Left", styleNames[0]);
                         lstFeaturesPROHPolygon.Add(placemarkPolyg);
                     }
-                    //document.AddFeature(folder);
+
                 }
 
                 if (hasMarkers)
@@ -298,6 +308,10 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             for (int i = 0; i < lstFeaturesFP.Count; i++)
             {
                 folderLiveTracking.AddFeature(lstFeaturesFP[i].Clone());
+            }
+            for (int i = 0; i < lstFeaturesChannel.Count; i++)
+            {
+                folderLiveTracking.AddFeature(lstFeaturesChannel[i].Clone());
             }
             for (int i = 0; i < lstFeaturesNBLine.Count; i++)
             {

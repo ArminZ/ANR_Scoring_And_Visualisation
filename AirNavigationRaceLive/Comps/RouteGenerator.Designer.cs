@@ -60,12 +60,12 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(128, 28);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(143, 34);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(142, 30);
             this.refreshToolStripMenuItem.Text = "Refresh";
             // 
             // chkAddAllRoutes
@@ -77,7 +77,7 @@
             this.chkAddAllRoutes.Location = new System.Drawing.Point(401, 293);
             this.chkAddAllRoutes.Margin = new System.Windows.Forms.Padding(5);
             this.chkAddAllRoutes.Name = "chkAddAllRoutes";
-            this.chkAddAllRoutes.Size = new System.Drawing.Size(177, 21);
+            this.chkAddAllRoutes.Size = new System.Drawing.Size(197, 24);
             this.chkAddAllRoutes.TabIndex = 3;
             this.chkAddAllRoutes.Text = "Add all available routes";
             this.chkAddAllRoutes.UseVisualStyleBackColor = true;
@@ -90,7 +90,7 @@
             this.label3.Location = new System.Drawing.Point(34, 51);
             this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(813, 85);
+            this.label3.Size = new System.Drawing.Size(903, 100);
             this.label3.TabIndex = 37;
             this.label3.Text = resources.GetString("label3.Text");
             // 
@@ -101,7 +101,7 @@
             this.lblHeight.Location = new System.Drawing.Point(150, 451);
             this.lblHeight.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblHeight.Name = "lblHeight";
-            this.lblHeight.Size = new System.Drawing.Size(210, 17);
+            this.lblHeight.Size = new System.Drawing.Size(233, 20);
             this.lblHeight.TabIndex = 33;
             this.lblHeight.Text = "Height AGL [m] for LiveTracking";
             // 
@@ -110,7 +110,7 @@
             this.txtHeight.Location = new System.Drawing.Point(38, 445);
             this.txtHeight.Margin = new System.Windows.Forms.Padding(5);
             this.txtHeight.Name = "txtHeight";
-            this.txtHeight.Size = new System.Drawing.Size(79, 27);
+            this.txtHeight.Size = new System.Drawing.Size(79, 31);
             this.txtHeight.TabIndex = 31;
             this.txtHeight.Text = "300";
             this.txtHeight.TextChanged += new System.EventHandler(this.txtHeight_TextChanged);
@@ -122,7 +122,7 @@
             this.lblSelectedRoutes.Location = new System.Drawing.Point(630, 190);
             this.lblSelectedRoutes.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblSelectedRoutes.Name = "lblSelectedRoutes";
-            this.lblSelectedRoutes.Size = new System.Drawing.Size(127, 17);
+            this.lblSelectedRoutes.Size = new System.Drawing.Size(141, 20);
             this.lblSelectedRoutes.TabIndex = 36;
             this.lblSelectedRoutes.Text = "Selected routes:";
             this.lblSelectedRoutes.Visible = false;
@@ -160,7 +160,7 @@
             this.lblRoute.Location = new System.Drawing.Point(34, 190);
             this.lblRoute.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblRoute.Name = "lblRoute";
-            this.lblRoute.Size = new System.Drawing.Size(130, 17);
+            this.lblRoute.Size = new System.Drawing.Size(142, 20);
             this.lblRoute.TabIndex = 34;
             this.lblRoute.Text = "Available routes:";
             // 
@@ -169,7 +169,7 @@
             this.txtChannelWidth.Location = new System.Drawing.Point(38, 415);
             this.txtChannelWidth.Margin = new System.Windows.Forms.Padding(5);
             this.txtChannelWidth.Name = "txtChannelWidth";
-            this.txtChannelWidth.Size = new System.Drawing.Size(79, 27);
+            this.txtChannelWidth.Size = new System.Drawing.Size(79, 31);
             this.txtChannelWidth.TabIndex = 29;
             this.txtChannelWidth.TextChanged += new System.EventHandler(this.txtChannelWidth_TextChanged);
             // 
@@ -192,7 +192,7 @@
             this.lblChannelWidth.Location = new System.Drawing.Point(150, 421);
             this.lblChannelWidth.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblChannelWidth.Name = "lblChannelWidth";
-            this.lblChannelWidth.Size = new System.Drawing.Size(195, 17);
+            this.lblChannelWidth.Size = new System.Drawing.Size(218, 20);
             this.lblChannelWidth.TabIndex = 30;
             this.lblChannelWidth.Text = "Channel width [Nautical miles]";
             // 
@@ -220,7 +220,7 @@
             this.label1.Location = new System.Drawing.Point(34, 210);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(379, 17);
+            this.label1.Size = new System.Drawing.Size(421, 20);
             this.label1.TabIndex = 40;
             this.label1.Text = "Only the characters A, B, C, D are allowed as route names.";
             // 
@@ -231,7 +231,7 @@
             this.label2.Location = new System.Drawing.Point(34, 21);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 17);
+            this.label2.Size = new System.Drawing.Size(145, 20);
             this.label2.TabIndex = 41;
             this.label2.Text = "Route Generator";
             // 
@@ -260,11 +260,12 @@
             this.btnTEST.TabIndex = 42;
             this.btnTEST.Text = "TEST_inverter";
             this.btnTEST.UseVisualStyleBackColor = true;
+            this.btnTEST.Visible = false;
             this.btnTEST.Click += new System.EventHandler(this.btnTEST_Click);
             // 
             // RouteGenerator
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnTEST);
             this.Controls.Add(this.label2);

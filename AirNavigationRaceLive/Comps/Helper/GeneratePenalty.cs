@@ -15,7 +15,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         private const int C_TKOF_TimeUpper = 60; // upper time limit (sec)n allowed at TKOF
         private const int C_SPFP_TimeTolerance = 1; // time tolerance (sec) allowed when passing SF, FP
         private const int C_SPFP_MaxPenalty = 200; // max penalty for not observed/ exceeding time limits on SP/FP 
-        private const int C_TKOF_MaxPenalty = 200; // max penalty for exceeding time limits on TKOF
+        private const int C_TKOF_MaxPenalty = 200; // max penalty for not observed/ exceeding time limits on TKOF
         private const int C_PROH_TimeTolerance = 5; // time tolerance (sec) allowed inside PROH area without penalty 
         private const int C_PROH_MaxPenalty = 300; // max penalty for flying inside PROH area
 
@@ -73,6 +73,9 @@ namespace AirNavigationRaceLive.Comps.Helper
             {
                 maxTimestamp = Math.Max(d.Timestamp, maxTimestamp);
             }
+
+            // For TakeOff-, Start- and End Line, assume that these lines should have been passed two minutes after expected passing time 
+            // used in case they are not passed
             bool shouldHaveCrossedTakeOff = (maxTimestamp - 2 * tickOfMinute) > flight.TimeTakeOff;
             bool shouldHaveCrossedStart = (maxTimestamp - 2 * tickOfMinute) > flight.TimeStartLine;
             bool shouldHaveCrossedEnd = (maxTimestamp - 2 * tickOfMinute) > flight.TimeEndLine;
@@ -82,15 +85,18 @@ namespace AirNavigationRaceLive.Comps.Helper
             bool haveCrossedEnd = false;
             bool insidePenalty = false;
             double timeSinceInsidePenalty = 0;
+
             foreach (LineP l in dataLines)
             {
                 double intersectionTakeOff = getIntersection(l, takeOffLine);
                 double intersectionStart = getIntersection(l, startLine);
                 double intersectionEnd = getIntersection(l, endLine);
+
+                #region crossing takeOff line
                 if (intersectionTakeOff != -1)
                 {
                     haveCrossedTakeOff = true;
-                    long crossTime = (long) Math.Floor(l.TimestamStart + (l.TimestamEnd - l.TimestamStart) * intersectionStart);
+                    long crossTime = (long)Math.Floor(l.TimestamStart + (l.TimestamEnd - l.TimestamStart) * intersectionStart);
                     long diff = crossTime - flight.TimeTakeOff;
                     int seconds = (int)(diff / tickOfSecond);
                     if (diff < 0)
@@ -101,10 +107,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                     {
                         PenaltySet penalty = new PenaltySet();
                         penalty.Points = C_TKOF_MaxPenalty;
-                        penalty.Reason = string.Format("Crossed Take-off Line at: {0}, expected: {1}", new DateTime((Int64)crossTime).ToLongTimeString() , new DateTime((Int64)flight.TimeTakeOff).ToLongTimeString());
+                        penalty.Reason = string.Format("Crossed Take-off Line at: {0}, expected: {1}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeTakeOff).ToLongTimeString());
                         result.Add(penalty);
                     }
                 }
+                #endregion
+
+                #region crossing start line
                 if (intersectionStart != -1)
                 {
                     haveCrossedStart = true;
@@ -118,11 +127,14 @@ namespace AirNavigationRaceLive.Comps.Helper
                     if (seconds > C_SPFP_TimeTolerance)
                     {
                         PenaltySet penalty = new PenaltySet();
-                        penalty.Points = Math.Min((seconds- C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
+                        penalty.Points = Math.Min((seconds - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
                         penalty.Reason = string.Format("Crossed SP Line at: {0}, expected: {1}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeStartLine).ToLongTimeString());
                         result.Add(penalty);
                     }
                 }
+                #endregion
+
+                #region crossing end line
                 if (intersectionEnd != -1)
                 {
                     haveCrossedEnd = true;
@@ -133,14 +145,18 @@ namespace AirNavigationRaceLive.Comps.Helper
                     {
                         seconds++;
                     }
-                    if (seconds>1)
+                    if (seconds > 1)
                     {
                         PenaltySet penalty = new PenaltySet();
-                        penalty.Points = Math.Min((seconds- C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
+                        penalty.Points = Math.Min((seconds - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
                         penalty.Reason = string.Format("Crossed FP Line at: {0}, expected: {1}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeEndLine).ToLongTimeString());
                         result.Add(penalty);
                     }
                 }
+                #endregion
+
+                #region entering or leaving prohibited zone
+
                 bool stateChanged = false;
                 double intersectionPenalty = intersectsPenaltyPoint(PenaltyZoneLines, l, out stateChanged);
                 if (intersectionPenalty != -1)
@@ -156,7 +172,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         {
                             insidePenalty = false;
                             int sec = (int)Math.Floor(((intersectionPenalty - timeSinceInsidePenalty) / tickOfSecond));
-                            if (sec > 5)
+                            if (sec > C_PROH_TimeTolerance)
                             {
                                 PenaltySet penalty = new PenaltySet();
                                 // Max penalty inside PROH zone: disabled after NOV 2017
@@ -168,7 +184,10 @@ namespace AirNavigationRaceLive.Comps.Helper
                         }
                     }
                 }
+                #endregion
             }
+
+            #region handling cases where Takeoff-, Start- or End line are not observed/never crossed
             if (shouldHaveCrossedTakeOff && !haveCrossedTakeOff)
             {
                 PenaltySet penalty = new PenaltySet();
@@ -176,7 +195,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                 penalty.Reason = "Takeoff Line not passed";
                 result.Add(penalty);
 
-            }; 
+            };
             if (shouldHaveCrossedStart && !haveCrossedStart)
             {
                 PenaltySet penalty = new PenaltySet();
@@ -192,6 +211,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                 penalty.Reason = "FP Line not passed";
                 result.Add(penalty);
             };
+            #endregion
 
             return result;
         }
@@ -262,7 +282,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                 }
             }
             catch { }
-            LineP l=null;
+            LineP l = null;
             if (nl != null)
             {
                 l = new LineP();
@@ -298,7 +318,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                 }
             }
             catch { }
-            LineP l=null;
+            LineP l = null;
             if (nl != null)
             {
                 l = new LineP();
@@ -307,6 +327,32 @@ namespace AirNavigationRaceLive.Comps.Helper
                 l.orientation = new Vector(nl.O.longitude, nl.O.latitude, 0);
             }
             return l;
+        }
+
+        /// <summary>
+        /// Determines if the given point is inside the polygon
+        /// </summary>
+        /// <param name="polygon">the vertices of polygon</param>
+        /// <param name="testPoint">the given point</param>
+        /// <returns>true if the point is inside the polygon; otherwise, false</returns>
+        public static bool IsPointInPolygon4(Vector[] polygon, Vector testPoint)
+        {
+            // see https://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
+            // NOTE: not yet in use
+            bool result = false;
+            int j = polygon.Length - 1;
+            for (int i = 0; i < polygon.Length; i++)
+            {
+                if (polygon[i].Y < testPoint.Y && polygon[j].Y >= testPoint.Y || polygon[j].Y < testPoint.Y && polygon[i].Y >= testPoint.Y)
+                {
+                    if (polygon[i].X + (testPoint.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < testPoint.X)
+                    {
+                        result = !result;
+                    }
+                }
+                j = i;
+            }
+            return result;
         }
     }
     class LineP

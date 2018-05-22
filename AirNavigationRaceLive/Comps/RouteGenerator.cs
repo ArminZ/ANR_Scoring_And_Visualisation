@@ -154,7 +154,7 @@ namespace AirNavigationRaceLive.Comps
             SaveFileDialog sfd = sender as SaveFileDialog;
             string fname = sfd.FileName;
             ANRData anrData = new ANRData();
-            anrData.generateParcour(ListOfRoutes, ListOfRouteNames, ListOfNBL, ListOfNBLNames, HAS_MARKERS, CREATE_PROH_AREA, USE_STANDARD_ORDER, channelRadius, STYLENAME, altitude);
+            anrData.generateParcour(ListOfRoutes, ListOfRouteNames, ListOfNBL, ListOfNBLNames, HAS_MARKERS, CREATE_PROH_AREA, USE_STANDARD_ORDER, channelRadius, altitude);
             Document document = anrData.Document;
             Kml kml = new Kml();
             kml.Feature = document;
@@ -337,7 +337,7 @@ namespace AirNavigationRaceLive.Comps
                     {
                         string[] splittedPoints = Helper.Importer.ReversedKMLCoordinateString(coord.Value).Split(' ');
                         // re-order points 0 and 1. 
-                        // 2 is technically identical with 0, musta also be replaced
+                        // 2 is technically identical with 0, must also be replaced
                         splittedPoints[2] = splittedPoints[1];
                         splittedPoints[1] = splittedPoints[0];
                         splittedPoints[0] = splittedPoints[2];
@@ -352,7 +352,7 @@ namespace AirNavigationRaceLive.Comps
                     {
                         string[] splittedPoints = Helper.Importer.ReversedKMLCoordinateString(coord.Value).Split(' ');
                         // re-order points 0 and 1. 
-                        // 2 is technically identical with 0, musta also be replaced
+                        // 2 is technically identical with 0, must also be replaced
                         splittedPoints[2] = splittedPoints[1];
                         splittedPoints[1] = splittedPoints[0];
                         splittedPoints[0] = splittedPoints[2];
