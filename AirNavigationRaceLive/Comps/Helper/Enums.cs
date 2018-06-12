@@ -21,6 +21,14 @@ namespace AirNavigationRaceLive.Comps.Helper
         PENALTYZONE = 12,
         Point = 13,
         TakeOff = 14,
+        CHANNEL_A = 15,
+        CHANNEL_B = 16,
+        CHANNEL_C = 17,
+        CHANNEL_D = 18,
+        PROH_A = 19,
+        PROH_B = 20,
+        PROH_C = 21,
+        PROH_D = 22
     }
     public enum Route : int
     {

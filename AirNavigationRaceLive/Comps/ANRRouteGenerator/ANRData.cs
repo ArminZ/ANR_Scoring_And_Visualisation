@@ -410,6 +410,88 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             return lstVct;
         }
 
+        public List<Vector> combineProhZonesForPolygon(List<Vector> lstprohLeft, List<Vector> lstprohRight, List<Vector> lstStart, List<Vector> lstEnd)
+        {
+            // input: two vectors of prohibited zones (left, right of a channel) and start/End point of the channel
+            // task: combine the areas (remove the channel)
+
+            // find left point of SP line on left prohibited zone
+            // find right point of SP line on right prohibited zone
+
+            // find left point of FP line on left prohibited zone
+            // find right point of FP line on right prohibited zone
+
+            // replace the part between left FP and left SP line on left prohibited zone 0 -> pzl
+            // replace the part between right FP and right SP line on right prohibited zone ->pzr 1 + pzr 2
+            // right part before SP right (pzr 1) - SP left - left proh zone after (plz) - FP left, FP right - pzr 2
+
+            List<Vector> lstVct = new List<Vector>();
+            //if (GeoData.GetDist(lstVectors1[0], lstVectors2[0]) < GeoData.GetDist(lstVectors1[0], lstVectors2[lstVectors2.Count - 1]))
+            //{
+            //    //same orientation, so must reverse lstVector2
+            //    lstVectors2.Reverse();
+            //}
+            //lstVct.AddRange(lstVectors1);
+            //lstVct.AddRange(lstVectors2);
+            //lstVct.Add(lstVectors1[0]);
+
+            return lstVct;
+        }
+        public void getIndexOfPoint(List<Vector> lstVectLeft, List<Vector> lstVectRight, List<Vector> lstStart, List<Vector> lstEnd )
+        {
+            int iStart_Left = -1;
+            int iStart_Right = -1;
+            int iEnd_Left = -1;
+            int iEnd_Right = -1;
+            for (int i = 0; i < lstVectLeft.Count; i++)
+            {
+                if (lstVectLeft[i]== lstStart[0])
+                {
+                    //found start
+                    // remove all before start
+                    i = iStart_Left;
+                }
+                if (lstVectLeft[i] == lstEnd[0])
+                {
+                    //found end
+                    // remove all after end
+                    i = iEnd_Left;
+                }
+            }
+
+            for (int i = 0; i < lstVectRight.Count; i++)
+            {
+                if (lstVectLeft[i] == lstStart[1])
+                {
+                    //found start
+                    i = iStart_Right;
+                }
+                if (lstVectLeft[i] == lstEnd[1])
+                {
+                    //found end
+                    i = iEnd_Right;
+                }
+            }
+
+            // store fragments as follows:
+            //: A1: lstVectLeft (iStart_Left_A->iEnd_Left_A)
+            //: B1: lstVectRight (iStart_Left_B->iStartRight_A) + (IEnd_Right_A->iEndLeft_B)
+            //: C1: lstVectRight (iStart_Left_C->iStartRight_B) + (iEnd_Right_B->iEndLeft_C)
+            //: D1: lstVectRight (iStart_Left_D->iStartRight_C) + (iEnd_Right_C->iEndLeft_D)
+            //: D2: lstVectRight (iEnd_Right_D->iStartRight_D)
+
+
+
+            // combine fragments for routes:
+
+            // route A left P: original ProhLeft + right border of A + B1(end) + EndLineB + C1(end) + EndLineC + D(endToStart)
+            // route A right P: 
+            //right border of A + B1(end) + EndLineB + C1(end) + EndLineC + D(end) + EndLineD 
+            // + D(EndToStart)
+            // + StartLineD + C(start) + StartLineC + B(start) + StartLineB
+
+        }
+
         public void setAltitude(List<Vector> lstVct, double Altitude)
         {
             for (int i = 0; i < lstVct.Count; i++)

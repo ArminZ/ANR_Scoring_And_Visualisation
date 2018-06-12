@@ -65,6 +65,11 @@ namespace AirNavigationRaceLive.Comps
                     visualisationPictureBox1.SetParcour(parcour);
                     visualisationPictureBox1.Invalidate();
                     visualisationPictureBox1.Refresh();
+                    //parcourPictureBox1.Image = System.Drawing.Image.FromStream(ms);
+                    //parcourPictureBox1.SetConverter(new Converter(map));
+                    //parcourPictureBox1.SetParcour(parcour);
+                    //parcourPictureBox1.Invalidate();
+                    //parcourPictureBox1.Refresh();
                     this.BeginInvoke(new MethodInvoker(updatePoints));
                     dataGridView2_SelectionChanged(sender, e);
                 }

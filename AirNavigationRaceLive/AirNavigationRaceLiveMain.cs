@@ -244,7 +244,14 @@ namespace AirNavigationRaceLive
             //}
             //enableControl(ParcourGen);
         }
-
+        private void generateSingleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //if (ParcourEditSingle == null)
+            //{
+            //    ParcourEditSingle = new ParcourEditSingle(Client);
+            //}
+            //enableControl(ParcourEditSingle);
+        }
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ParcourImport == null)
@@ -308,15 +315,6 @@ namespace AirNavigationRaceLive
             enableControl(Results);
         }
 
-
-        private void generateSingleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //if (ParcourEditSingle == null)
-            //{
-            //    ParcourEditSingle = new ParcourEditSingle(Client);
-            //}
-            //enableControl(ParcourEditSingle);
-        }
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {

@@ -118,6 +118,7 @@ namespace AirNavigationRaceLive.Comps
                 SetSelectedLine(null);
                 PictureBox1.Invalidate();
                 numericUpDownAlpha.Value = li.getParcour().Alpha;
+                PictureBox1.HasCircle = checkBoxCircle.Checked;
             }
         }
 

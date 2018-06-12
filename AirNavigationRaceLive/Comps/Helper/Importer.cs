@@ -117,7 +117,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(Longitude2, Latitude2, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
+                        l.Type = (int)lineTypeFromLineName(lines[i + 6].ToString().Trim());
 
                         result.Line.Add(l);
                     }
@@ -157,7 +157,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(Longitude2, Latitude2, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
+                        l.Type = (int)lineTypeFromLineName(lines[i + 6].ToString().Trim());
 
                         result.Line.Add(l);
 
@@ -297,7 +297,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(Longitude2, Latitude2, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
+                        l.Type = (int)lineTypeFromLineName(lines[i + 6].ToString().Trim());
 
                         result.Line.Add(l);
                     }
@@ -337,7 +337,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(Longitude2, Latitude2, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
+                        l.Type = (int)lineTypeFromLineName(lines[i + 6].ToString().Trim());
 
                         result.Line.Add(l);
 
@@ -477,7 +477,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(Longitude2, Latitude2, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
+                        l.Type = (int)lineTypeFromLineName(lines[i + 6].ToString().Trim());
 
                         result.Line.Add(l);
                     }
@@ -517,7 +517,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(Longitude2, Latitude2, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
+                        l.Type = (int)lineTypeFromLineName(lines[i + 6].ToString().Trim());
 
                         result.Line.Add(l);
 
@@ -677,7 +677,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(l.B.longitude, l.B.latitude, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(pmName);
+                        l.Type = (int)lineTypeFromLineName(pmName);
                         result.Line.Add(l);
                     }
                 }
@@ -695,9 +695,8 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(l.B.longitude, l.B.latitude, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(pmName);
+                        l.Type = (int)lineTypeFromLineName(pmName);
                         result.Line.Add(l);
-
                     }
                 }
                 else if (pmName.StartsWith("NBLINE"))
@@ -716,6 +715,26 @@ namespace AirNavigationRaceLive.Comps.Helper
                         l.O = o.toGPSPoint();
 
                         l.Type = (int)LineType.LINEOFNORETURN;
+                        result.Line.Add(l);
+                    }
+                }
+
+                else if (pmName.StartsWith("CHANNEL-"))
+                {
+                    // create line elements
+                    foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
+                    {
+                        Line l = new Line();
+                        List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
+                        l.A = lst[0];
+                        l.B = lst[1];
+
+                        Vector start = new Vector(l.A.longitude, l.A.latitude, 0);
+                        Vector end = new Vector(l.B.longitude, l.B.latitude, 0);
+                        Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
+                        l.O = o.toGPSPoint();
+
+                        l.Type = (int)lineTypeFromLineName(pmName);
                         result.Line.Add(l);
                     }
                 }
@@ -1195,8 +1214,11 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// </summary>
         /// <param name="gateName"></param>
         /// <returns>The LineType</returns>
-        internal static LineType gateLineTypeFromGateName(string gateName)
+        internal static LineType lineTypeFromLineName(string gateName)
         {
+            const string CHANNEL = @"CHANNEL-";
+            const string PROH = @"PROH-";
+
             switch (gateName)
             {
                 case "STARTPOINT-A":
@@ -1231,6 +1253,49 @@ namespace AirNavigationRaceLive.Comps.Helper
                 case "ENDPOINT-D":
                     {
                         return LineType.END_D;
+                    }
+                case "NBLINE":
+                    {
+                        return LineType.LINEOFNORETURN;
+                    }
+
+                case CHANNEL + "A":
+                    {
+                        return LineType.CHANNEL_A;
+                    }
+                case CHANNEL + "B":
+                    {
+                        return LineType.CHANNEL_B;
+                    }
+                case CHANNEL + "C":
+                    {
+                        return LineType.CHANNEL_C;
+                    }
+                case CHANNEL + "D":
+                    {
+                        return LineType.CHANNEL_D;
+                    }
+
+                case PROH:
+                    {
+                        return LineType.PENALTYZONE;  //legacy
+                    }
+
+                case PROH + "-A":
+                    {
+                        return LineType.PROH_A;
+                    }
+                case PROH + "-B":
+                    {
+                        return LineType.PROH_B;
+                    }
+                case PROH + "-C":
+                    {
+                        return LineType.PROH_C;
+                    }
+                case PROH + "-D":
+                    {
+                        return LineType.PROH_D;
                     }
             }
             // nothing found...
