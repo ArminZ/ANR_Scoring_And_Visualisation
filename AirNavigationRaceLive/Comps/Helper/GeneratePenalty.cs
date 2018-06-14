@@ -112,7 +112,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     {
                         PenaltySet penalty = new PenaltySet();
                         penalty.Points = C_TKOF_MaxPenalty;
-                        penalty.Reason = string.Format("Crossed Take-off Line at: {0}, expected: {1}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeTakeOff).ToLongTimeString());
+                        penalty.Reason = string.Format("Take-off Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeTakeOff).ToLongTimeString());
                         result.Add(penalty);
                     }
                 }
@@ -133,7 +133,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     {
                         PenaltySet penalty = new PenaltySet();
                         penalty.Points = Math.Min((seconds - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
-                        penalty.Reason = string.Format("Crossed SP Line at: {0}, expected: {1}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeStartLine).ToLongTimeString());
+                        penalty.Reason = string.Format("SP Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeStartLine).ToLongTimeString());
                         result.Add(penalty);
                     }
                 }
@@ -154,7 +154,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     {
                         PenaltySet penalty = new PenaltySet();
                         penalty.Points = Math.Min((seconds - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
-                        penalty.Reason = string.Format("Crossed FP Line at: {0}, expected: {1}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeEndLine).ToLongTimeString());
+                        penalty.Reason = string.Format("FP Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeEndLine).ToLongTimeString());
                         result.Add(penalty);
                     }
                 }
@@ -188,7 +188,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                                 // round times entering/leaving penalty zone) to nearest full second
                                 long pstart = (long)Math.Round(timeSinceInsidePenalty / tickOfSecond, MidpointRounding.AwayFromZero) * tickOfSecond;
                                 long pend = (long)Math.Round(intersectionPenalty/ tickOfSecond,MidpointRounding.AwayFromZero) * tickOfSecond;
-                                penalty.Reason = string.Format("Inside Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToLongTimeString(), new DateTime(pend).ToLongTimeString());
+                                penalty.Reason = string.Format("Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToLongTimeString(), new DateTime(pend).ToLongTimeString());
                                 result.Add(penalty);
                             }
                         }

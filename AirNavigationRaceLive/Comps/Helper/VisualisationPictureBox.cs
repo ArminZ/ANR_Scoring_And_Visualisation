@@ -118,8 +118,8 @@ namespace AirNavigationRaceLive.Comps
 
                             int midX = startX + (endX - startX) / 2;
                             int midY = startY + (endY - startY) / 2;
-                            int radX = c.LongitudeToX(RadiusPoint.longitude);
-                            int radY = c.LatitudeToY(RadiusPoint.latitude);
+                            int radX = (int)(c.LongitudeToX(RadiusPoint.longitude) * factor);
+                            int radY= (int)(c.LatitudeToY(RadiusPoint.latitude) * factor);
                             //int orientationX = c.getOrientationX(l);
                             //int orientationY = c.getOrientationY(l);
                             double tmp = (double)midY + (orientationY - midY) * c.LongitudeCorrFactor(CenterPoint);
@@ -127,7 +127,8 @@ namespace AirNavigationRaceLive.Comps
                             Vector start = new Vector(startX, startY, 0);
                             Vector radv = new Vector(radX, radY, 0);
                             //float radius = (float)Vector.Abs(midv - start)
-                            float radius = Math.Abs(midY - radY) / LongCorrFactor;
+                            float radius = Math.Abs(midY - radY) / LongCorrFactor * (float)(factor/2.0);
+                            //radius = radius * (float)0.08;
 
                             try
                             {
