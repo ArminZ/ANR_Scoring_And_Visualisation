@@ -67,6 +67,7 @@ namespace AirNavigationRaceLive.Comps
                     // how to distinct different polygons: a polygons end point is identical with the first point
                     List<Line> linespenalty = lines.Where(p => p.Type == (int)LineType.PENALTYZONE).ToList();
                     List<System.Drawing.Point> pts = new List<System.Drawing.Point>();
+                    List<System.Drawing.Point> ptsF = new List<System.Drawing.Point>();
                     bool isPolygonStart = true;
                     foreach (Line l in linespenalty)
                     {
@@ -74,6 +75,7 @@ namespace AirNavigationRaceLive.Comps
                         {
                             //reset
                             pts = new List<System.Drawing.Point>();
+                            ptsF = new List<System.Drawing.Point>();
                             isPolygonStart = false;
                         }
                         System.Drawing.Point startPt = new System.Drawing.Point();
@@ -83,15 +85,19 @@ namespace AirNavigationRaceLive.Comps
                         endPt.X = c.getEndX(l);
                         endPt.Y = c.getEndY(l);
                         pts.Add(startPt);
+                        ptsF.Add(startPt);
 
-                        if (endPt != pts[0]) // line' end point identical with firt point?
+                        if (endPt != pts[0]) // line' end point identical with first point?
                         {
                             pts.Add(endPt);
+                            ptsF.Add(endPt);
                         }
                         else
                         {
                             // handle Graphics
                             pe.Graphics.FillPolygon(Brush, pts.ToArray<System.Drawing.Point>());
+                            // draw border of polygon --NOT YET activated
+                            //pe.Graphics.DrawPolygon(UserPenLine, ptsF.ToArray<System.Drawing.Point>());
                             // start a new polygon
                             isPolygonStart = true;
                         }
@@ -161,7 +167,6 @@ namespace AirNavigationRaceLive.Comps
                                     if (l.Type >= 3 && l.Type <= 10 && !pdf && HasCircle)
                                     {
                                         pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
-                                        //pe.Graphics.ResetTransform();
                                         pe.Graphics.TranslateTransform(midX - radius, midY - radius * LongCorrFactor);
                                         pe.Graphics.DrawEllipse(UserPenCircle, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
                                         pe.Graphics.ResetTransform();
@@ -172,7 +177,7 @@ namespace AirNavigationRaceLive.Comps
                                         if (!pdf)
                                         {
                                             pe.Graphics.DrawLine(PenSelected, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
-                                            pe.Graphics.DrawEllipse(PenSelected, orientationX - 3, orientationY - 3, 6, 6);
+                                            //pe.Graphics.DrawEllipse(PenSelected, orientationX - 3, orientationY - 3, 6, 6);
                                         }
                                     }
                                     if (hoverLine == l && !pdf)
@@ -181,14 +186,14 @@ namespace AirNavigationRaceLive.Comps
                                         if (!pdf)
                                         {
                                             pe.Graphics.DrawLine(PenHover, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
-                                            pe.Graphics.DrawEllipse(PenHover, orientationX - 2, orientationY - 2, 4, 4);
+                                            //pe.Graphics.DrawEllipse(PenHover, orientationX - 2, orientationY - 2, 4, 4);
                                         }
                                     }
                                     pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
                                     if (!pdf)
                                     {
                                         pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
-                                        pe.Graphics.DrawEllipse(UserPenLine, orientationX - 1, orientationY - 1, 2, 2);
+                                        //pe.Graphics.DrawEllipse(UserPenLine, orientationX - 1, orientationY - 1, 2, 2);
                                     }
                                     if (pdf)
                                     {
@@ -199,7 +204,7 @@ namespace AirNavigationRaceLive.Comps
 
                                         int orientationYCorr = midY + (int)(LongCorrFactor * (orientationY - midY));
                                         pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationYCorr));
-                                        pe.Graphics.DrawEllipse(PenSelected, orientationX - 3, orientationYCorr - 3, 6, 6);
+                                        //pe.Graphics.DrawEllipse(PenSelected, orientationX - 3, orientationYCorr - 3, 6, 6);
                                     }
                                 }
                             }

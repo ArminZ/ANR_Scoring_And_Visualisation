@@ -369,12 +369,10 @@
             // 
             // visualisationPictureBox1
             // 
-            this.visualisationPictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.visualisationPictureBox1.Location = new System.Drawing.Point(405, 9);
             this.visualisationPictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.visualisationPictureBox1.Name = "visualisationPictureBox1";
-            this.visualisationPictureBox1.Size = new System.Drawing.Size(1256, 1099);
+            this.visualisationPictureBox1.Size = new System.Drawing.Size(1239, 1099);
             this.visualisationPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.visualisationPictureBox1.TabIndex = 97;
             this.visualisationPictureBox1.TabStop = false;

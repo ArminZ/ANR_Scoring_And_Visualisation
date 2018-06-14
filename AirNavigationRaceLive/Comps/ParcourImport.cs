@@ -290,6 +290,7 @@ namespace AirNavigationRaceLive.Comps
         }
         private void btnClear_Click(object sender, EventArgs e)
         {
+            loadMaps();
             activeParcour = new ParcourSet();
             PictureBox1.SetParcour(activeParcour);
             SetHoverLine(null);
@@ -465,6 +466,8 @@ namespace AirNavigationRaceLive.Comps
             {
                 activeParcour = Importer.importFromKMLLayer(ofd.FileName);
                 PictureBox1.SetParcour(activeParcour);
+                PictureBox1.HasCircle = checkBoxCircle.Checked;
+
                 PictureBox1.Invalidate();
                 PictureBox1.Refresh();
                 fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
@@ -507,6 +510,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 ParcourSet p = activeParcour;
                 p.Alpha = (int)numericUpDownAlpha.Value;
+                PictureBox1.HasCircle = checkBoxCircle.Checked;
                 PictureBox1.SetParcour(p);
                 PictureBox1.Invalidate();
             }
