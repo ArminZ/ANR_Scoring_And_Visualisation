@@ -30,6 +30,7 @@ namespace AirNavigationRaceLive
         private ImportExport ImportExport;
         private RouteGenerator RouteGenerator;
         private History History;
+        private UserSettings UserSettings;
 
         public static void SetStatusText(String text)
         {
@@ -358,11 +359,17 @@ namespace AirNavigationRaceLive
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (SettingsDialog settingsDlg = new SettingsDialog())
+            //using (SettingsDialog settingsDlg = new SettingsDialog())
+            //{
+            //    settingsDlg.StartPosition = FormStartPosition.CenterParent;
+            //    settingsDlg.ShowDialog();
+            //}
+
+            if (UserSettings == null)
             {
-                settingsDlg.StartPosition = FormStartPosition.CenterParent;
-                settingsDlg.ShowDialog();
+                UserSettings = new UserSettings();
             }
+            enableControl(UserSettings);
         }
 
         private void kmlCoordinateExportToolStripMenuItem_Click(object sender, EventArgs e)

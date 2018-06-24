@@ -118,7 +118,11 @@ namespace AirNavigationRaceLive.Comps
                 SetSelectedLine(null);
                 PictureBox1.Invalidate();
                 numericUpDownAlpha.Value = li.getParcour().Alpha;
-                PictureBox1.HasCircle = checkBoxCircle.Checked;
+                PictureBox1.UserPenColor = Properties.Settings.Default.PROHColor;
+                PictureBox1.UserLineWidth = (float)Properties.Settings.Default.PROHPenWidth;
+                 //PictureBox1.HasCircle = checkBoxCircle.Checked;
+                PictureBox1.HasCircle = Properties.Settings.Default.SPFPCircle;
+                PictureBox1.UserCircleWidth = PictureBox1.UserLineWidth;
             }
         }
 
@@ -353,9 +357,16 @@ namespace AirNavigationRaceLive.Comps
         {
             double scaleFactor = 2.0;
             string mapScale = "";
-            if (radioButton100.Checked) { scaleFactor = 1.0; mapScale = "1:100 000"; };
+            PDFSize size = PDFSize.A4;
+
             if (radioButton200.Checked) { scaleFactor = 2.0; mapScale = "1:200 000"; };
             if (radioButton250.Checked) { scaleFactor = 2.5; mapScale = "1:250 000"; };
+            if (radioButtonOtherScale.Checked)
+            {
+                scaleFactor = Double.Parse(maskedTextBoxOtherScale.Text.Replace(" ", "")) / 100000.0;
+                mapScale = string.Format("1:{0}", string.Format("{0:### ### ###}", maskedTextBoxOtherScale.Text).TrimStart(' '));
+                size = PDFSize.A3;
+            };
 
             string defaultText = string.Format("Map scale = {0}" + Environment.NewLine + "Parcour length = 00.00 NM" + Environment.NewLine + "Time = 00:00 Min (@80 kt)", mapScale);
             String freitext = string.Empty;
@@ -380,14 +391,14 @@ namespace AirNavigationRaceLive.Comps
                     freitext = Environment.NewLine + Environment.NewLine + string.Format("Map scale = {0}", mapScale);
                 }
 
-                if (radioButton100.Checked)
+                if (radioButtonOtherScale.Checked)
                 {
-                    PDFCreator.CreateParcourPDF100k(PictureBox1, Client, li.getParcour().Name, dirPath +
+                    PDFCreator.CreateParcourPDF(size, chkShowCalcTable.Checked, scaleFactor, PictureBox1, Client, li.getParcour().Name, dirPath +
                         @"\Parcour_" + li.getParcour().Id + "_" + li.getParcour().Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf", freitext);
                 }
                 else
                 {
-                    PDFCreator.CreateParcourPDF(scaleFactor, PictureBox1, Client, li.getParcour().Name, dirPath +
+                    PDFCreator.CreateParcourPDF(size, chkShowCalcTable.Checked, scaleFactor, PictureBox1, Client, li.getParcour().Name, dirPath +
                         @"\Parcour_" + li.getParcour().Id + "_" + li.getParcour().Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf", freitext);
                 }
             }
@@ -462,6 +473,33 @@ namespace AirNavigationRaceLive.Comps
             PictureBox1.HasCircle = checkBoxCircle.Checked;
             PictureBox1.SetParcour(p);
             PictureBox1.Invalidate();
+        }
+
+        private void radioButtonScales_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton btn = sender as RadioButton;
+            if (btn != null && btn.Checked)
+            {
+                switch (btn.Name)
+                {
+                    case "radioButtonOtherScale":
+                        maskedTextBoxOtherScale.Visible = radioButtonOtherScale.Checked;
+                        chkShowCalcTable.Checked = false;
+                        chkShowCalcTable.Visible = false;
+                        break;
+
+                    default:
+                        maskedTextBoxOtherScale.Visible = radioButtonOtherScale.Checked;
+                        chkShowCalcTable.Checked = true;
+                        chkShowCalcTable.Visible = !radioButtonOtherScale.Checked;
+                        break;
+                }
+            }
+        }
+
+        private void layerBox_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -72,6 +72,11 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 List<Vector> lstLeftBorder = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth, false, 1);
                 List<Vector> lstRightBorder = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth, true, 1);
                 List<Vector> lstChannel = combineBorderVectorsForPolygon(lstLeftBorder, lstRightBorder);
+                if (lstChannel.Count>1 )
+                {  // remove duplicate point at the end
+                    lstChannel.RemoveAt(lstChannel.Count - 1);
+                }
+                setAltitude(lstChannel, altitude);
 
 
                 // shift start and end points of border inwards
@@ -166,6 +171,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 var lineStrFP = new SharpKml.Dom.LineString();
                 var lineStrNBLine = new SharpKml.Dom.LineString();
                 var lineStrOrigNBLine = new SharpKml.Dom.LineString();
+                var lineStrChannel = new SharpKml.Dom.LineString();
 
 
                 lineStrRoute.Coordinates = new CoordinateCollection(routePoints);
@@ -176,12 +182,13 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 lineStrFP.Coordinates = new CoordinateCollection(lstFP);
                 lineStrNBLine.Coordinates = new CoordinateCollection(lstNBLine);
                 lineStrOrigNBLine.Coordinates = new CoordinateCollection(lstOrigNBLine);
+                lineStrChannel.Coordinates = new CoordinateCollection(lstChannel);
 
                 var polygLeftBorderForbiddenArea = makeSimplePolygon(lstLeftBorderForbiddenArea, AltitudeMode.ClampToGround);
                 var polygRightBorderForbiddenArea = makeSimplePolygon(lstRightBorderForbiddenArea, AltitudeMode.ClampToGround);
                 var polySP = makeSimplePolygon(lineStrSP, AltitudeMode.RelativeToGround);
                 var polyFP = makeSimplePolygon(lineStrFP, AltitudeMode.RelativeToGround);
-                var polyChannel = makeSimplePolygon(lstChannel, AltitudeMode.ClampToGround);
+                var polyChannel = makeSimplePolygon(lineStrChannel, AltitudeMode.ClampToGround);
                 var polyNBLine = new Polygon();
 
                 if (lstNBLine.Count > 0)
@@ -194,7 +201,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 plm = makeSimplePlacemark(lineStrRoute, routeName);
                 folderGeneral.AddFeature(plm);
 
-                plm = makeSimplePlacemark(polyChannel, "ROUTE-" + routeName, styleNames[1]);
+                plm = makeSimplePlacemark(polyChannel, "CHANNEL-" + routeName, styleNames[1]);
                 lstFeaturesChannel.Add(plm);
 
                 // original hand-made NBLine
@@ -341,7 +348,8 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
            + "or starts-with(./*[local-name()='name'],'PROH') "
            + "or starts-with(./*[local-name()='name'],'STARTPOINT-') "
            + "or starts-with(./*[local-name()='name'],'ENDPOINT-') "
-           + "or starts-with(./*[local-name()='name'],'NBLINE-') "
+           + "or starts-with(./*[local-name()='name'],'NBLINE-') " 
+           + "or starts-with(./*[local-name()='name'],'CHANNEL-') "
            + "or starts-with(./*[local-name()='name'],'TKOF')"
            + "]"
            + " | "

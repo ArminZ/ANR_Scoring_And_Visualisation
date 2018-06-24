@@ -37,4 +37,11 @@ namespace AirNavigationRaceLive.Comps.Helper
         C = 3,
         D = 4
     }
+
+    public enum PDFSize: int
+    {
+        // note: must match with definitions of PDFSharp.PageSize enumerations
+        A3 = 4,
+        A4 = 5
+    }
 }

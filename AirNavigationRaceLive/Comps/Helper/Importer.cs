@@ -573,8 +573,9 @@ namespace AirNavigationRaceLive.Comps.Helper
 
             ParcourSet result = new ParcourSet();
 
-            XNamespace nsKml = XNamespace.Get("http://www.opengis.net/kml/2.2");
+            //XNamespace nsKml = XNamespace.Get("http://www.opengis.net/kml/2.2");
             XDocument gpxDoc = XDocument.Load(filepath);
+            XNamespace nsKml = gpxDoc.Root.Name.Namespace;
             var folders = from flder in gpxDoc.Descendants(nsKml + "Folder")
                           where flder.Element(nsKml + "name").Value.ToString().Trim() == "LiveTracking"
                           select flder;
@@ -751,8 +752,9 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// <param name="filepath"></param>
         public static List<Line> importTKOFLineFromKML(string filepath, out List<string> lstTKOFLineNames)
         {
-            XNamespace nsKml = XNamespace.Get("http://www.opengis.net/kml/2.2");
+            //XNamespace nsKml = XNamespace.Get("http://www.opengis.net/kml/2.2");
             XDocument gpxDoc = XDocument.Load(filepath);
+            XNamespace nsKml = gpxDoc.Root.Name.Namespace;
             var placemark = from plmk in gpxDoc.Descendants(nsKml + "Placemark")
                             where plmk.Element(nsKml + "name").Value.ToString().Trim().StartsWith("TKOF")
                             select plmk;
@@ -1139,7 +1141,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                                       Latitude = trackpoint.Attribute("lat").Value,
                                       Longitude = trackpoint.Attribute("lon").Value,
                                       Elevation = trackpoint.Element(gpx + "ele") != null ?
-                                        trackpoint.Element(gpx + "ele").Value : null,
+                                        trackpoint.Element(gpx + "ele").Value : "0.0",
                                       Time = trackpoint.Element(gpx + "time") != null ?
                                         trackpoint.Element(gpx + "time").Value : null
                                   }

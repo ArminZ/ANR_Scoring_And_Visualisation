@@ -9,10 +9,10 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
         public static void AddStylesForPolygon(Document document, string[] styleNames)
         {
             // adding a stylemap that can be referenced from the elements
-            Color32[] polyColors = { new Color32(80, 0, 0, 255), new Color32(0, 255, 255, 255) };
-            Color32[] lineColors = { new Color32(255, 0, 0, 255), new Color32(0, 255, 255, 255) };
+            Color32[] polyColors = { new Color32(80, 0, 0, 255), new Color32(255, 255, 255, 255) };
+            Color32[] lineColors = { new Color32(255, 0, 0, 255), new Color32(255, 255, 255, 255) };
             bool[] polyFills = { true, false };
-            bool[] polyOutlines = { true, false };
+            bool[] polyOutlines = { true, true };
             // create two styles, both contain definitions for LineStyle and PolygonStyle 
 
             for (int i = 0; i < styleNames.Length; i++)

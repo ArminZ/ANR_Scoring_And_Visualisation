@@ -21,6 +21,9 @@ namespace AirNavigationRaceLive.Comps.Helper
 
         public static void CalculateAndPersistPenaltyPoints(Client.DataAccess c, FlightSet f)
         {
+            // TODO: implement IntersectionPointSet in DBContext
+            // implement IntersectionPointSet as output parameter in method CalculatePenaltyPoints
+            // persist points to DBContext, will be retrieved for printing
             List<PenaltySet> penalties = CalculatePenaltyPoints(f);
             c.DBContext.PenaltySet.RemoveRange(f.PenaltySet);
             f.PenaltySet.Clear();
@@ -36,6 +39,10 @@ namespace AirNavigationRaceLive.Comps.Helper
             Point last = null;
             List<PenaltySet> result = new List<PenaltySet>();
             List<LineP> PenaltyZoneLines = new List<LineP>();
+
+            List<Vector> intersectionPoints = new List<Vector>();
+            // TODO: implement IntersectionPointSet as output parameter
+            // or 
 
             QualificationRoundSet qr = flight.QualificationRoundSet;
             ParcourSet parcour = flight.QualificationRoundSet.ParcourSet;
@@ -163,11 +170,14 @@ namespace AirNavigationRaceLive.Comps.Helper
                 #region entering or leaving prohibited zone
 
                 bool stateChanged = false;
-                double intersectionPenalty = intersectsPenaltyPoint(PenaltyZoneLines, l, out stateChanged);
+                PointP intersectionPoint = intersectsProhAreaPoint(PenaltyZoneLines, l, out stateChanged);
+                //double intersectionPenalty = intersectsProhAreaTimeStamp(PenaltyZoneLines, l, out stateChanged);
+                double intersectionPenalty = intersectionPoint.Timestamp;
                 if (intersectionPenalty != -1)
                 {
                     if (stateChanged)
                     {
+                        intersectionPoints.Add(new Vector(intersectionPoint.X, intersectionPoint.Y, intersectionPoint.Z));
                         if (!insidePenalty)
                         {
                             insidePenalty = true;
@@ -176,9 +186,9 @@ namespace AirNavigationRaceLive.Comps.Helper
                         else
                         {
                             insidePenalty = false;
-                           // int sec = (int)Math.Floor((intersectionPenalty - timeSinceInsidePenalty) / tickOfSecond);
-                           // round time period to nearest full second
-                            int sec = (int)Math.Round((intersectionPenalty - timeSinceInsidePenalty) / tickOfSecond,MidpointRounding.AwayFromZero);
+                            // int sec = (int)Math.Floor((intersectionPenalty - timeSinceInsidePenalty) / tickOfSecond);
+                            // round time period to nearest full second
+                            int sec = (int)Math.Round((intersectionPenalty - timeSinceInsidePenalty) / tickOfSecond,MidpointRounding.AwayFromZero);        
                             if (sec > C_PROH_TimeTolerance)
                             {
                                 PenaltySet penalty = new PenaltySet();
@@ -232,7 +242,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// <param name="line"></param>
         /// <param name="changedState"></param>
         /// <returns></returns>
-        private static double intersectsPenaltyPoint(List<LineP> penaltyZones, LineP line, out bool changedState)
+        private static double intersectsProhAreaTimeStamp(List<LineP> penaltyZones, LineP line, out bool changedState)
         {
             changedState = false;
             double result = -1;
@@ -242,12 +252,39 @@ namespace AirNavigationRaceLive.Comps.Helper
                 if (intersection != -1)
                 {
                     changedState = !changedState;
-                    result = (line.TimestamStart + (line.TimestamEnd - line.TimestamStart) * intersection);
+                    result = line.TimestamStart + (line.TimestamEnd - line.TimestamStart) * intersection;
                 }
             }
-
             return result;
         }
+
+        /// <summary>
+        /// Get interpolated coordinates and timestamp for of the intersection point
+        /// </summary>
+        /// <param name="penaltyZones"></param>
+        /// <param name="line"></param>
+        /// <param name="changedState"></param>
+        /// <returns></returns>
+        private static PointP intersectsProhAreaPoint(List<LineP> penaltyZones, LineP line, out bool changedState)
+        {
+            changedState = false;
+            PointP result= new PointP(0,0,0,0);
+            foreach (LineP nl in penaltyZones)
+            {
+                double intersection = getIntersection(line, nl);
+                if (intersection != -1)
+                {
+                    long timestmp = line.TimestamStart + (long)Math.Truncate((line.TimestamEnd - line.TimestamStart) * intersection);
+                    double x = line.start.X + (line.end.X - line.start.X) * intersection;
+                    double y = line.start.Y + (line.end.Y - line.start.Y) * intersection;
+                    double z = 0;
+                    result = new PointP(x, y, z, timestmp);
+                    changedState = !changedState;
+                }
+            }
+            return result;
+        }
+
         private static LineP getLine(Line nline)
         {
             LineP line = new LineP();
@@ -340,8 +377,48 @@ namespace AirNavigationRaceLive.Comps.Helper
         }
 
         /// <summary>
-        /// selecting the prohibited zones for the channel that is assigned to the competitor
-        /// 
+        /// retrieve channel data for the route that is assigned to the competitor
+        /// </summary>
+        /// <param name="parcour"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private static List<LineP> getAssignedChannelLines(ParcourSet parcour, Route type)
+        {
+            List<LineP> lst = new List<LineP>();
+            switch (type)
+            {
+                case Route.A:
+                    foreach (Line nl in parcour.Line.Where(p => p.Type == (int)LineType.CHANNEL_A))
+                    {
+                        lst.Add(getLine(nl));
+                    }
+                    break;
+                case Route.B:
+                    foreach (Line nl in parcour.Line.Where(p => p.Type == (int)LineType.CHANNEL_B))
+                    {
+                        lst.Add(getLine(nl));
+                    }
+                    break;
+                case Route.C:
+                    foreach (Line nl in parcour.Line.Where(p => p.Type == (int)LineType.CHANNEL_C))
+                    {
+                        lst.Add(getLine(nl));
+                    }
+                    break;
+                case Route.D:
+                    foreach (Line nl in parcour.Line.Where(p => p.Type == (int)LineType.CHANNEL_D))
+                    {
+                        lst.Add(getLine(nl));
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return lst;
+        }
+
+        /// <summary>
+        /// retrieve prohibited zones for the route that is assigned to the competitor
         /// </summary>
         /// <param name="parcour"></param>
         /// <param name="type"></param>
@@ -414,5 +491,21 @@ namespace AirNavigationRaceLive.Comps.Helper
         public Vector orientation;
         public long TimestamStart;
         public long TimestamEnd;
+    }
+
+    class PointP
+    {
+        public double X = 0;
+        public double Y = 0;
+        public double Z = 0;
+        public long Timestamp = 0;
+
+        public PointP(double X, double Y, double Z, long Timestamp)
+        {
+            this.X = X;
+            this.Y = Y;
+            this.Z = Z;
+            this.Timestamp = Timestamp;
+        }
     }
 }

@@ -86,5 +86,10 @@ namespace AirNavigationRaceLive.Dialogs
         {
 
         }
+
+        private void SettingsDialog_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
