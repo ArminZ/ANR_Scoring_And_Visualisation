@@ -372,7 +372,7 @@
             this.visualisationPictureBox1.Location = new System.Drawing.Point(405, 9);
             this.visualisationPictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.visualisationPictureBox1.Name = "visualisationPictureBox1";
-            this.visualisationPictureBox1.Size = new System.Drawing.Size(1239, 1099);
+            this.visualisationPictureBox1.Size = new System.Drawing.Size(1246, 1099);
             this.visualisationPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.visualisationPictureBox1.TabIndex = 97;
             this.visualisationPictureBox1.TabStop = false;

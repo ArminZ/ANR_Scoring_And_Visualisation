@@ -448,6 +448,8 @@ namespace AirNavigationRaceLive.Comps
                 flights.Add(flt);
                 visualisationPictureBox1.SetData(flights);
                 visualisationPictureBox1.Invalidate();
+//                parcourPictureBox1.SetData(flights);
+                //parcourPictureBox1.Invalidate();
                 List<DataGridViewRow> ppd = new List<DataGridViewRow>();
                 foreach (PenaltySet p in flt.PenaltySet)
                 {
