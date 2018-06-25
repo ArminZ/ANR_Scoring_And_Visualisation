@@ -26,6 +26,7 @@ namespace AirNavigationRaceLive.Model
         public virtual DbSet<QualificationRoundSet> QualificationRoundSet { get; set; }
         public virtual DbSet<SubscriberSet> SubscriberSet { get; set; }
         public virtual DbSet<TeamSet> TeamSet { get; set; }
+        public virtual DbSet<IntersectionPoint> IntersectionPointSet { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -62,6 +63,12 @@ namespace AirNavigationRaceLive.Model
 
             modelBuilder.Entity<FlightSet>()
                 .HasMany(e => e.Point)
+                .WithOptional(e => e.FlightSet)
+                .HasForeignKey(e => e.Flight_Id)
+                .WillCascadeOnDelete();
+
+            modelBuilder.Entity<FlightSet>()
+                .HasMany(e => e.IntersectionPointSet)
                 .WithOptional(e => e.FlightSet)
                 .HasForeignKey(e => e.Flight_Id)
                 .WillCascadeOnDelete();

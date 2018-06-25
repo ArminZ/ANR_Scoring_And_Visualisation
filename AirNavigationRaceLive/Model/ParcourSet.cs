@@ -6,6 +6,7 @@ namespace AirNavigationRaceLive.Model
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Drawing;
 
     [Table("ParcourSet")]
     public partial class ParcourSet
@@ -32,6 +33,18 @@ namespace AirNavigationRaceLive.Model
         public int Map_Id { get; set; }
 
         public int Competition_Id { get; set; }
+
+        public decimal PenWidthPROH { get; set; }
+        public decimal PenWidthGates { get; set; }
+        public bool HasCircleOnGates { get; set; }
+
+        public Int32 ColorPROHArgb { get { return ColorPROH.ToArgb(); } set { ColorPROH = Color.FromArgb(value); } }
+        public Int32 ColorGatesArgb { get { return ColorGates.ToArgb(); } set { ColorGates = Color.FromArgb(value); } }
+
+        [NotMapped]
+        public Color ColorPROH { get; set; }
+        [NotMapped]
+        public Color ColorGates { get; set; }
 
         public virtual CompetitionSet CompetitionSet { get; set; }
 

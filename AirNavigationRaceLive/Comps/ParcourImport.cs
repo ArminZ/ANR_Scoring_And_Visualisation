@@ -249,6 +249,10 @@ namespace AirNavigationRaceLive.Comps
             }
             p.MapSet = CurrentMap;
             p.Alpha = activeParcour.Alpha;
+            p.ColorPROH = btnColorPROH.BackColor;
+            p.ColorGates = btnColorGates.BackColor;
+            p.PenWidthGates = numericUpDownPenGates.Value;
+            p.HasCircleOnGates = checkBoxCircle.Checked;
             p.CompetitionSet = Client.SelectedCompetition;
             Client.DBContext.ParcourSet.Add(p);
             Client.DBContext.SaveChanges();
@@ -466,7 +470,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 activeParcour = Importer.importFromKMLLayer(ofd.FileName);
                 PictureBox1.SetParcour(activeParcour);
-                PictureBox1.HasCircle = checkBoxCircle.Checked;
+                PictureBox1.HasCircleOnGates = checkBoxCircle.Checked;
 
                 PictureBox1.Invalidate();
                 PictureBox1.Refresh();
@@ -510,7 +514,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 ParcourSet p = activeParcour;
                 p.Alpha = (int)numericUpDownAlpha.Value;
-                PictureBox1.HasCircle = checkBoxCircle.Checked;
+                PictureBox1.HasCircleOnGates = checkBoxCircle.Checked;
                 PictureBox1.SetParcour(p);
                 PictureBox1.Invalidate();
             }
@@ -521,7 +525,7 @@ namespace AirNavigationRaceLive.Comps
             if (activeParcour != null)
             {
                 ParcourSet p = activeParcour;
-                PictureBox1.UserLineWidth = (float)numericUpDownPen.Value;
+                PictureBox1.PenWidthGates = (float)numericUpDownPenGates.Value;
                 PictureBox1.SetParcour(p);
                 PictureBox1.Invalidate();
             }
@@ -533,9 +537,10 @@ namespace AirNavigationRaceLive.Comps
             cd.AnyColor = false;
             cd.SolidColorOnly = true;
             cd.ShowDialog();
-            btnColorLayer.BackColor = cd.Color;
+            btnColorPROH.BackColor = cd.Color;
             ParcourSet p = activeParcour;
-            PictureBox1.ProhZoneColor = cd.Color;
+            PictureBox1.ColorPROH = cd.Color;
+            p.ColorPROH = cd.Color;
             PictureBox1.SetParcour(p);
             PictureBox1.Invalidate();
         }
@@ -546,9 +551,10 @@ namespace AirNavigationRaceLive.Comps
             cd.AnyColor = false;
             cd.SolidColorOnly = true;
             cd.ShowDialog();
-            btnColorPen.BackColor = cd.Color;
+            btnColorGates.BackColor = cd.Color;
             ParcourSet p = activeParcour;
-            PictureBox1.UserPenColor = cd.Color;
+            p.ColorGates = cd.Color;
+            PictureBox1.ColorGates = cd.Color;
             PictureBox1.SetParcour(p);
             PictureBox1.Invalidate();
         }
@@ -556,7 +562,8 @@ namespace AirNavigationRaceLive.Comps
         private void checkBoxCircle_CheckedChanged(object sender, EventArgs e)
         {
             ParcourSet p = activeParcour;
-            PictureBox1.HasCircle = checkBoxCircle.Checked;
+            PictureBox1.HasCircleOnGates = checkBoxCircle.Checked;
+            p.HasCircleOnGates = checkBoxCircle.Checked;
             PictureBox1.SetParcour(p);
             PictureBox1.Invalidate();
         }

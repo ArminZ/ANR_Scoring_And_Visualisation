@@ -75,18 +75,17 @@
             this.label6 = new System.Windows.Forms.Label();
             this.fldCursorX = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.penBox = new System.Windows.Forms.GroupBox();
             this.checkBoxCircle = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.numericUpDownPen = new System.Windows.Forms.NumericUpDown();
-            this.btnColorPen = new System.Windows.Forms.Button();
+            this.numericUpDownPenGates = new System.Windows.Forms.NumericUpDown();
+            this.btnColorGates = new System.Windows.Forms.Button();
             this.layerBox = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.numericUpDownAlpha = new System.Windows.Forms.NumericUpDown();
-            this.btnColorLayer = new System.Windows.Forms.Button();
+            this.btnColorPROH = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
             this.PictureBox1 = new AirNavigationRaceLive.Comps.ParcourPictureBox();
             this.parcourLength = new System.Windows.Forms.NumericUpDown();
@@ -112,9 +111,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLongA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.penBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenGates)).BeginInit();
             this.layerBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).BeginInit();
             this.panel6.SuspendLayout();
@@ -219,17 +217,18 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(3, 4);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(324, 454);
+            this.tabControl1.Size = new System.Drawing.Size(324, 644);
             this.tabControl1.TabIndex = 5;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.penBox);
+            this.tabPage1.Controls.Add(this.layerBox);
             this.tabPage1.Controls.Add(this.btnSave);
             this.tabPage1.Controls.Add(this.panel4);
             this.tabPage1.Controls.Add(this.panel5);
@@ -237,7 +236,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage1.Size = new System.Drawing.Size(316, 421);
+            this.tabPage1.Size = new System.Drawing.Size(316, 611);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Import";
             // 
@@ -761,31 +760,18 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "X:";
             // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage3.Controls.Add(this.penBox);
-            this.tabPage3.Controls.Add(this.layerBox);
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage3.Size = new System.Drawing.Size(316, 421);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Layer Details";
-            // 
             // penBox
             // 
             this.penBox.Controls.Add(this.checkBoxCircle);
             this.penBox.Controls.Add(this.label19);
             this.penBox.Controls.Add(this.label20);
-            this.penBox.Controls.Add(this.numericUpDownPen);
-            this.penBox.Controls.Add(this.btnColorPen);
-            this.penBox.Location = new System.Drawing.Point(3, 105);
+            this.penBox.Controls.Add(this.numericUpDownPenGates);
+            this.penBox.Controls.Add(this.btnColorGates);
+            this.penBox.Location = new System.Drawing.Point(7, 486);
             this.penBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.penBox.Name = "penBox";
             this.penBox.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.penBox.Size = new System.Drawing.Size(302, 168);
+            this.penBox.Size = new System.Drawing.Size(302, 117);
             this.penBox.TabIndex = 32;
             this.penBox.TabStop = false;
             this.penBox.Text = "Pen for SP and FP";
@@ -800,9 +786,9 @@
             this.checkBoxCircle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBoxCircle.Name = "checkBoxCircle";
             this.checkBoxCircle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBoxCircle.Size = new System.Drawing.Size(236, 24);
+            this.checkBoxCircle.Size = new System.Drawing.Size(176, 24);
             this.checkBoxCircle.TabIndex = 28;
-            this.checkBoxCircle.Text = "I want a Circle on SP and FP";
+            this.checkBoxCircle.Text = "Circle on SP and FP";
             this.checkBoxCircle.UseVisualStyleBackColor = true;
             this.checkBoxCircle.CheckedChanged += new System.EventHandler(this.checkBoxCircle_CheckedChanged);
             // 
@@ -828,46 +814,52 @@
             this.label20.TabIndex = 24;
             this.label20.Text = "Width";
             // 
-            // numericUpDownPen
+            // numericUpDownPenGates
             // 
-            this.numericUpDownPen.Location = new System.Drawing.Point(71, 29);
-            this.numericUpDownPen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.numericUpDownPen.Maximum = new decimal(new int[] {
+            this.numericUpDownPenGates.DecimalPlaces = 1;
+            this.numericUpDownPenGates.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDownPenGates.Location = new System.Drawing.Point(71, 29);
+            this.numericUpDownPenGates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownPenGates.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDownPen.Name = "numericUpDownPen";
-            this.numericUpDownPen.Size = new System.Drawing.Size(64, 26);
-            this.numericUpDownPen.TabIndex = 25;
-            this.numericUpDownPen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDownPen.Value = new decimal(new int[] {
+            this.numericUpDownPenGates.Name = "numericUpDownPenGates";
+            this.numericUpDownPenGates.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownPenGates.TabIndex = 25;
+            this.numericUpDownPenGates.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownPenGates.Value = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.numericUpDownPen.ValueChanged += new System.EventHandler(this.numericUpDownPen_ValueChanged);
+            this.numericUpDownPenGates.ValueChanged += new System.EventHandler(this.numericUpDownPen_ValueChanged);
             // 
-            // btnColorPen
+            // btnColorGates
             // 
-            this.btnColorPen.BackColor = System.Drawing.Color.Red;
-            this.btnColorPen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnColorPen.Location = new System.Drawing.Point(232, 25);
-            this.btnColorPen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnColorPen.Name = "btnColorPen";
-            this.btnColorPen.Size = new System.Drawing.Size(48, 28);
-            this.btnColorPen.TabIndex = 26;
-            this.btnColorPen.Text = "...";
-            this.btnColorPen.UseVisualStyleBackColor = false;
-            this.btnColorPen.Click += new System.EventHandler(this.btnColorPen_Click);
+            this.btnColorGates.BackColor = System.Drawing.Color.Red;
+            this.btnColorGates.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnColorGates.Location = new System.Drawing.Point(232, 25);
+            this.btnColorGates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnColorGates.Name = "btnColorGates";
+            this.btnColorGates.Size = new System.Drawing.Size(48, 28);
+            this.btnColorGates.TabIndex = 26;
+            this.btnColorGates.Text = "...";
+            this.btnColorGates.UseVisualStyleBackColor = false;
+            this.btnColorGates.Click += new System.EventHandler(this.btnColorPen_Click);
             // 
             // layerBox
             // 
             this.layerBox.Controls.Add(this.label17);
             this.layerBox.Controls.Add(this.label18);
             this.layerBox.Controls.Add(this.numericUpDownAlpha);
-            this.layerBox.Controls.Add(this.btnColorLayer);
-            this.layerBox.Location = new System.Drawing.Point(7, 19);
+            this.layerBox.Controls.Add(this.btnColorPROH);
+            this.layerBox.Location = new System.Drawing.Point(6, 399);
             this.layerBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.layerBox.Name = "layerBox";
             this.layerBox.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -908,18 +900,18 @@
             this.numericUpDownAlpha.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownAlpha.ValueChanged += new System.EventHandler(this.numericUpDownAlpha_ValueChanged);
             // 
-            // btnColorLayer
+            // btnColorPROH
             // 
-            this.btnColorLayer.BackColor = System.Drawing.Color.Red;
-            this.btnColorLayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnColorLayer.Location = new System.Drawing.Point(232, 25);
-            this.btnColorLayer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnColorLayer.Name = "btnColorLayer";
-            this.btnColorLayer.Size = new System.Drawing.Size(48, 28);
-            this.btnColorLayer.TabIndex = 26;
-            this.btnColorLayer.Text = "...";
-            this.btnColorLayer.UseVisualStyleBackColor = false;
-            this.btnColorLayer.Click += new System.EventHandler(this.btnColorLayer_Click);
+            this.btnColorPROH.BackColor = System.Drawing.Color.Red;
+            this.btnColorPROH.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnColorPROH.Location = new System.Drawing.Point(232, 25);
+            this.btnColorPROH.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnColorPROH.Name = "btnColorPROH";
+            this.btnColorPROH.Size = new System.Drawing.Size(48, 28);
+            this.btnColorPROH.TabIndex = 26;
+            this.btnColorPROH.Text = "...";
+            this.btnColorPROH.UseVisualStyleBackColor = false;
+            this.btnColorPROH.Click += new System.EventHandler(this.btnColorLayer_Click);
             // 
             // panel6
             // 
@@ -1012,10 +1004,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
             this.penBox.ResumeLayout(false);
             this.penBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenGates)).EndInit();
             this.layerBox.ResumeLayout(false);
             this.layerBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).EndInit();
@@ -1083,18 +1074,17 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.NumericUpDown numericUpDownAlpha;
-        private System.Windows.Forms.Button btnColorLayer;
+        private System.Windows.Forms.Button btnColorPROH;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.GroupBox penBox;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.NumericUpDown numericUpDownPen;
-        private System.Windows.Forms.Button btnColorPen;
+        private System.Windows.Forms.NumericUpDown numericUpDownPenGates;
+        private System.Windows.Forms.Button btnColorGates;
         private System.Windows.Forms.CheckBox checkBoxCircle;
     }
 }

@@ -24,23 +24,37 @@ namespace AirNavigationRaceLive.Comps.Helper
             // TODO: implement IntersectionPointSet in DBContext
             // implement IntersectionPointSet as output parameter in method CalculatePenaltyPoints
             // persist points to DBContext, will be retrieved for printing
-            List<PenaltySet> penalties = CalculatePenaltyPoints(f);
+            List<IntersectionPoint> intersectionPoints = new List<IntersectionPoint>();
+            List<PenaltySet> penalties = CalculatePenaltyPoints(f, out intersectionPoints);
+
             c.DBContext.PenaltySet.RemoveRange(f.PenaltySet);
+            c.DBContext.IntersectionPointSet.RemoveRange(f.IntersectionPointSet);
             f.PenaltySet.Clear();
-            foreach (PenaltySet p in penalties)
+            f.IntersectionPointSet.Clear();
+
+            // TODO: check if this works
+            f.PenaltySet = penalties;
+            //f.IntersectionPointSet = intersectionPoints;
+            //foreach (PenaltySet p in penalties)
+            //{
+            //    f.PenaltySet.Add(p);
+            //}
+            foreach (IntersectionPoint p in intersectionPoints)
             {
-                f.PenaltySet.Add(p);
+                p.Flight_Id = f.Id;
+                f.IntersectionPointSet.Add(p);
             }
+
             c.DBContext.SaveChanges();
         }
 
-        public static List<PenaltySet> CalculatePenaltyPoints(FlightSet flight)
+        public static List<PenaltySet> CalculatePenaltyPoints(FlightSet flight, out List<IntersectionPoint> lstIntersectionPoints)
         {
             Point last = null;
             List<PenaltySet> result = new List<PenaltySet>();
             List<LineP> PenaltyZoneLines = new List<LineP>();
 
-            List<Vector> intersectionPoints = new List<Vector>();
+            List<IntersectionPoint> intersectionPoints = new List<IntersectionPoint>();
             // TODO: implement IntersectionPointSet as output parameter
             // or 
 
@@ -72,6 +86,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             LineP endLine = getEndLine(parcour, (Route)flight.Route);
             if (startLine == null || endLine == null)
             {
+                lstIntersectionPoints = intersectionPoints;
                 return result;
             }
             LineP takeOffLine = new LineP();
@@ -170,14 +185,14 @@ namespace AirNavigationRaceLive.Comps.Helper
                 #region entering or leaving prohibited zone
 
                 bool stateChanged = false;
-                PointP intersectionPoint = intersectsProhAreaPoint(PenaltyZoneLines, l, out stateChanged);
+                IntersectionPoint intersectionPoint = intersectsProhAreaPoint(PenaltyZoneLines, l, out stateChanged);
                 //double intersectionPenalty = intersectsProhAreaTimeStamp(PenaltyZoneLines, l, out stateChanged);
                 double intersectionPenalty = intersectionPoint.Timestamp;
                 if (intersectionPenalty != -1)
                 {
                     if (stateChanged)
                     {
-                        intersectionPoints.Add(new Vector(intersectionPoint.X, intersectionPoint.Y, intersectionPoint.Z));
+                        intersectionPoints.Add(intersectionPoint);
                         if (!insidePenalty)
                         {
                             insidePenalty = true;
@@ -232,7 +247,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                 result.Add(penalty);
             };
             #endregion
-
+            lstIntersectionPoints = intersectionPoints;
             return result;
         }
         /// <summary>
@@ -265,10 +280,13 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// <param name="line"></param>
         /// <param name="changedState"></param>
         /// <returns></returns>
-        private static PointP intersectsProhAreaPoint(List<LineP> penaltyZones, LineP line, out bool changedState)
+        private static IntersectionPoint intersectsProhAreaPoint(List<LineP> penaltyZones, LineP line, out bool changedState)
         {
+            //TODO: find a way out of here. Time interpolation is done obviously on local coordinates
+            // finally for printing out we rather want (?) WGS coordinates (or maybe not?)
+
             changedState = false;
-            PointP result= new PointP(0,0,0,0);
+            IntersectionPoint result = new IntersectionPoint();
             foreach (LineP nl in penaltyZones)
             {
                 double intersection = getIntersection(line, nl);
@@ -278,7 +296,11 @@ namespace AirNavigationRaceLive.Comps.Helper
                     double x = line.start.X + (line.end.X - line.start.X) * intersection;
                     double y = line.start.Y + (line.end.Y - line.start.Y) * intersection;
                     double z = 0;
-                    result = new PointP(x, y, z, timestmp);
+                    result.longitude = x;
+                    result.latitude = y;
+                    result.altitude = z;
+                    result.Timestamp = timestmp;
+
                     changedState = !changedState;
                 }
             }

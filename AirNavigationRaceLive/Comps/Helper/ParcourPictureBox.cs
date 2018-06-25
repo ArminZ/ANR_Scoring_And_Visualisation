@@ -21,23 +21,20 @@ namespace AirNavigationRaceLive.Comps
         private SolidBrush Brush = new SolidBrush(Color.FromArgb(70, 255, 0, 0));
         // user may modify prohibited zone color
         private volatile bool pdf = false;
-        public Color ProhZoneColor = Color.FromArgb(255, 0, 0);
 
-        public Color UserPenColor = Color.FromArgb(255, 0, 0);
-        public float UserLineWidth = 6f;
-        public float UserCircleWidth = 2f;
-        public bool HasCircle = false;
-        private Pen UserPenLine = new Pen(new SolidBrush(Color.Red), 2f);
-        private Pen UserPenCircle = new Pen(new SolidBrush(Color.Red), 6f);
+        public Color ColorPROH;// = Color.FromArgb(255, 0, 0);
+        public Color ColorGates;// = Color.FromArgb(255, 0, 0);
+        public float PenWidthGates; // = 6f;
+        public bool HasCircleOnGates;// = false;
+
+        private Pen UserPenGates = new Pen(new SolidBrush(Color.Red), 1f);
 
         public void SetParcour(ParcourSet iParcour)
         {
             Parcour = iParcour;
-            Brush = new SolidBrush(Color.FromArgb(255 * iParcour.Alpha / 100, ProhZoneColor));
-            UserPenLine.Width = UserLineWidth;
-            UserPenCircle.Width = UserCircleWidth;
-            UserPenLine.Color = UserPenColor;
-            UserPenCircle.Color = UserPenColor;
+            Brush = new SolidBrush(Color.FromArgb(255 * iParcour.Alpha / 100, iParcour.ColorPROH));
+            UserPenGates.Width = (float)iParcour.PenWidthGates;
+            UserPenGates.Color = iParcour.ColorGates;
         }
         public void SetConverter(Converter iConverter)
         {
@@ -59,7 +56,6 @@ namespace AirNavigationRaceLive.Comps
                 lock (Parcour)
                 {
                     ICollection<Line> lines = Parcour.Line;
-
 
                     #region Graphics for PROH zone (new code)
                     // new code:
@@ -164,11 +160,11 @@ namespace AirNavigationRaceLive.Comps
                                 if (l.Type != (int)LineType.PENALTYZONE)
                                 {
                                     //Start_X/End_X
-                                    if (l.Type >= 3 && l.Type <= 10 && !pdf && HasCircle)
+                                    if (l.Type >= 3 && l.Type <= 10 && !pdf && HasCircleOnGates)
                                     {
-                                        pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
+                                        pe.Graphics.DrawLine(UserPenGates, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
                                         pe.Graphics.TranslateTransform(midX - radius, midY - radius * LongCorrFactor);
-                                        pe.Graphics.DrawEllipse(UserPenCircle, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
+                                        pe.Graphics.DrawEllipse(UserPenGates, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
                                         pe.Graphics.ResetTransform();
                                     }
                                     if (selectedLine == l && !pdf)
@@ -189,21 +185,21 @@ namespace AirNavigationRaceLive.Comps
                                             //pe.Graphics.DrawEllipse(PenHover, orientationX - 2, orientationY - 2, 4, 4);
                                         }
                                     }
-                                    pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
+                                    pe.Graphics.DrawLine(UserPenGates, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
                                     if (!pdf)
                                     {
-                                        pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
+                                        pe.Graphics.DrawLine(UserPenGates, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
                                         //pe.Graphics.DrawEllipse(UserPenLine, orientationX - 1, orientationY - 1, 2, 2);
                                     }
                                     if (pdf)
                                     {
                                         pe.Graphics.ResetTransform();
                                         pe.Graphics.TranslateTransform(midX - radius, midY - radius * LongCorrFactor);
-                                        pe.Graphics.DrawEllipse(UserPenCircle, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
+                                        pe.Graphics.DrawEllipse(UserPenGates, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
                                         pe.Graphics.ResetTransform();
 
                                         int orientationYCorr = midY + (int)(LongCorrFactor * (orientationY - midY));
-                                        pe.Graphics.DrawLine(UserPenLine, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationYCorr));
+                                        pe.Graphics.DrawLine(UserPenGates, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationYCorr));
                                         //pe.Graphics.DrawEllipse(PenSelected, orientationX - 3, orientationYCorr - 3, 6, 6);
                                     }
                                 }

@@ -44,8 +44,8 @@
             this.checkBoxCircle = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.numericUpDownPen = new System.Windows.Forms.NumericUpDown();
-            this.btnColorPen = new System.Windows.Forms.Button();
+            this.numericUpDownPenGates = new System.Windows.Forms.NumericUpDown();
+            this.btnColorGates = new System.Windows.Forms.Button();
             this.groupBoxMapScale = new System.Windows.Forms.GroupBox();
             this.chkShowCalcTable = new System.Windows.Forms.CheckBox();
             this.maskedTextBoxOtherScale = new System.Windows.Forms.MaskedTextBox();
@@ -57,7 +57,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.numericUpDownAlpha = new System.Windows.Forms.NumericUpDown();
-            this.btnColorLayer = new System.Windows.Forms.Button();
+            this.btnColorPROH = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -94,7 +94,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.penBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenGates)).BeginInit();
             this.groupBoxMapScale.SuspendLayout();
             this.layerBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).BeginInit();
@@ -251,8 +251,8 @@
             this.penBox.Controls.Add(this.checkBoxCircle);
             this.penBox.Controls.Add(this.label19);
             this.penBox.Controls.Add(this.label20);
-            this.penBox.Controls.Add(this.numericUpDownPen);
-            this.penBox.Controls.Add(this.btnColorPen);
+            this.penBox.Controls.Add(this.numericUpDownPenGates);
+            this.penBox.Controls.Add(this.btnColorGates);
             this.penBox.Location = new System.Drawing.Point(7, 120);
             this.penBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.penBox.Name = "penBox";
@@ -300,44 +300,44 @@
             this.label20.TabIndex = 24;
             this.label20.Text = "Width";
             // 
-            // numericUpDownPen
+            // numericUpDownPenGates
             // 
-            this.numericUpDownPen.DecimalPlaces = 1;
-            this.numericUpDownPen.Increment = new decimal(new int[] {
+            this.numericUpDownPenGates.DecimalPlaces = 1;
+            this.numericUpDownPenGates.Increment = new decimal(new int[] {
             5,
             0,
             0,
             65536});
-            this.numericUpDownPen.Location = new System.Drawing.Point(71, 29);
-            this.numericUpDownPen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.numericUpDownPen.Maximum = new decimal(new int[] {
+            this.numericUpDownPenGates.Location = new System.Drawing.Point(71, 29);
+            this.numericUpDownPenGates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownPenGates.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDownPen.Name = "numericUpDownPen";
-            this.numericUpDownPen.Size = new System.Drawing.Size(64, 26);
-            this.numericUpDownPen.TabIndex = 25;
-            this.numericUpDownPen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDownPen.Value = new decimal(new int[] {
+            this.numericUpDownPenGates.Name = "numericUpDownPenGates";
+            this.numericUpDownPenGates.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownPenGates.TabIndex = 25;
+            this.numericUpDownPenGates.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownPenGates.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownPen.ValueChanged += new System.EventHandler(this.numericUpDownPen_ValueChanged);
+            this.numericUpDownPenGates.ValueChanged += new System.EventHandler(this.numericUpDownPen_ValueChanged);
             // 
-            // btnColorPen
+            // btnColorGates
             // 
-            this.btnColorPen.BackColor = System.Drawing.Color.Red;
-            this.btnColorPen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnColorPen.Location = new System.Drawing.Point(223, 29);
-            this.btnColorPen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnColorPen.Name = "btnColorPen";
-            this.btnColorPen.Size = new System.Drawing.Size(48, 28);
-            this.btnColorPen.TabIndex = 26;
-            this.btnColorPen.Text = "...";
-            this.btnColorPen.UseVisualStyleBackColor = false;
-            this.btnColorPen.Click += new System.EventHandler(this.btnColorPen_Click);
+            this.btnColorGates.BackColor = System.Drawing.Color.Red;
+            this.btnColorGates.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnColorGates.Location = new System.Drawing.Point(223, 29);
+            this.btnColorGates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnColorGates.Name = "btnColorGates";
+            this.btnColorGates.Size = new System.Drawing.Size(48, 28);
+            this.btnColorGates.TabIndex = 26;
+            this.btnColorGates.Text = "...";
+            this.btnColorGates.UseVisualStyleBackColor = false;
+            this.btnColorGates.Click += new System.EventHandler(this.btnColorPen_Click);
             // 
             // groupBoxMapScale
             // 
@@ -432,7 +432,7 @@
             this.layerBox.Controls.Add(this.label1);
             this.layerBox.Controls.Add(this.label17);
             this.layerBox.Controls.Add(this.numericUpDownAlpha);
-            this.layerBox.Controls.Add(this.btnColorLayer);
+            this.layerBox.Controls.Add(this.btnColorPROH);
             this.layerBox.Location = new System.Drawing.Point(7, 35);
             this.layerBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.layerBox.Name = "layerBox";
@@ -441,7 +441,6 @@
             this.layerBox.TabIndex = 27;
             this.layerBox.TabStop = false;
             this.layerBox.Text = "Layer Transparency and Color";
-            this.layerBox.Enter += new System.EventHandler(this.layerBox_Enter);
             // 
             // label1
             // 
@@ -475,18 +474,18 @@
             this.numericUpDownAlpha.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownAlpha.ValueChanged += new System.EventHandler(this.numericUpDownAlpha_ValueChanged);
             // 
-            // btnColorLayer
+            // btnColorPROH
             // 
-            this.btnColorLayer.BackColor = System.Drawing.Color.Red;
-            this.btnColorLayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnColorLayer.Location = new System.Drawing.Point(223, 29);
-            this.btnColorLayer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnColorLayer.Name = "btnColorLayer";
-            this.btnColorLayer.Size = new System.Drawing.Size(48, 28);
-            this.btnColorLayer.TabIndex = 26;
-            this.btnColorLayer.Text = "...";
-            this.btnColorLayer.UseVisualStyleBackColor = false;
-            this.btnColorLayer.Click += new System.EventHandler(this.btnColorLayer_Click);
+            this.btnColorPROH.BackColor = System.Drawing.Color.Red;
+            this.btnColorPROH.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnColorPROH.Location = new System.Drawing.Point(223, 29);
+            this.btnColorPROH.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnColorPROH.Name = "btnColorPROH";
+            this.btnColorPROH.Size = new System.Drawing.Size(48, 28);
+            this.btnColorPROH.TabIndex = 26;
+            this.btnColorPROH.Text = "...";
+            this.btnColorPROH.UseVisualStyleBackColor = false;
+            this.btnColorPROH.Click += new System.EventHandler(this.btnColorLayer_Click);
             // 
             // tabPage1
             // 
@@ -915,7 +914,7 @@
             this.tabPage2.ResumeLayout(false);
             this.penBox.ResumeLayout(false);
             this.penBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenGates)).EndInit();
             this.groupBoxMapScale.ResumeLayout(false);
             this.groupBoxMapScale.PerformLayout();
             this.layerBox.ResumeLayout(false);
@@ -980,7 +979,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownAlpha;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.Label lblCompetition;
-        private System.Windows.Forms.Button btnColorLayer;
+        private System.Windows.Forms.Button btnColorPROH;
         private System.Windows.Forms.GroupBox layerBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tabControl1;
@@ -996,8 +995,8 @@
         private System.Windows.Forms.CheckBox checkBoxCircle;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.NumericUpDown numericUpDownPen;
-        private System.Windows.Forms.Button btnColorPen;
+        private System.Windows.Forms.NumericUpDown numericUpDownPenGates;
+        private System.Windows.Forms.Button btnColorGates;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxOtherScale;
         private System.Windows.Forms.CheckBox chkShowCalcTable;
     }

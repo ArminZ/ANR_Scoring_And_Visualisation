@@ -13,6 +13,7 @@ namespace AirNavigationRaceLive.Comps
         private ParcourSet Parcour;
         private Converter c;
         private List<FlightSet> flights;
+        private List<IntersectionPoint> intersectionPoints;
         private System.Drawing.Pen Pen = new Pen(new SolidBrush(Color.Red), 2f);
         private System.Drawing.Pen PenHover = new Pen(new SolidBrush(Color.White), 4f);
         private System.Drawing.Pen PenSelected = new Pen(new SolidBrush(Color.Blue), 6f);
@@ -210,8 +211,15 @@ namespace AirNavigationRaceLive.Comps
                     {
                         pe.Graphics.DrawLines(new Pen(new SolidBrush(Color), lineThickness), points.ToArray());
                     }
-                }
 
+                    foreach (IntersectionPoint gd in flight.IntersectionPointSet)
+                    {
+                        int startXp = x0 + (int)(c.LongitudeToX(gd.longitude) * factor);
+                        int startYp = y0 + (int)(c.LatitudeToY(gd.latitude) * factor);
+                        int r = 6;
+                        pe.Graphics.DrawEllipse(new Pen(new SolidBrush(Color), lineThickness), startXp-r, startYp-r, 2*r,2*r);
+                    }
+                }
             }
         }
 

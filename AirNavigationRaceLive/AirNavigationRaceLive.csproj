@@ -387,6 +387,10 @@
     <Compile Include="Migrations\201707062315137_InitialOldFiles.Designer.cs">
       <DependentUpon>201707062315137_InitialOldFiles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806242000317_AddIntersectionPointSet.cs" />
+    <Compile Include="Migrations\201806242000317_AddIntersectionPointSet.Designer.cs">
+      <DependentUpon>201806242000317_AddIntersectionPointSet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelExtensions\ComboParcourExtension.cs" />
     <Compile Include="ModelExtensions\ComboTeamExtension.cs" />
@@ -397,6 +401,7 @@
     <Compile Include="Model\AnrlModel.cs" />
     <Compile Include="Model\CompetitionSet.cs" />
     <Compile Include="Model\FlightSet.cs" />
+    <Compile Include="Model\IntersectionPointSet.cs" />
     <Compile Include="Model\LineSet.cs" />
     <Compile Include="Model\MapSet.cs" />
     <Compile Include="Model\ParcourSet.cs" />
@@ -505,6 +510,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707062315137_InitialOldFiles.resx">
       <DependentUpon>201707062315137_InitialOldFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806242000317_AddIntersectionPointSet.resx">
+      <DependentUpon>201806242000317_AddIntersectionPointSet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
