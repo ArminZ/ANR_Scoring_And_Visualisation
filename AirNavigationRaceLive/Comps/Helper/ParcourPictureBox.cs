@@ -160,7 +160,7 @@ namespace AirNavigationRaceLive.Comps
                                 if (l.Type != (int)LineType.PENALTYZONE)
                                 {
                                     //Start_X/End_X
-                                    if (l.Type >= 3 && l.Type <= 10 && !pdf && HasCircleOnGates)
+                                    if (l.Type >= (int)LineType.START_A && l.Type <= (int)LineType.END_D && !pdf && HasCircleOnGates)
                                     {
                                         pe.Graphics.DrawLine(UserPenGates, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
                                         pe.Graphics.TranslateTransform(midX - radius, midY - radius * LongCorrFactor);

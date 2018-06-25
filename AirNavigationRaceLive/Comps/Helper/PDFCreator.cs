@@ -459,7 +459,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         private static List<String> getWrapped(String s)
         {
             List<String> result = new List<String>();
-            string[] splitted = s.Split(new char[] { ' ' });
+            string[] splitted = s.Split(new char[] { ' ',',' });
             int currentLength = 0;
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < splitted.Length; i++)

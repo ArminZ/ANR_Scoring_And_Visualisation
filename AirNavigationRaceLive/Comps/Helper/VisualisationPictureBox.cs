@@ -13,15 +13,19 @@ namespace AirNavigationRaceLive.Comps
         private ParcourSet Parcour;
         private Converter c;
         private List<FlightSet> flights;
-        private List<IntersectionPoint> intersectionPoints;
-        private System.Drawing.Pen Pen = new Pen(new SolidBrush(Color.Red), 2f);
-        private System.Drawing.Pen PenHover = new Pen(new SolidBrush(Color.White), 4f);
-        private System.Drawing.Pen PenSelected = new Pen(new SolidBrush(Color.Blue), 6f);
+        //private List<IntersectionPoint> intersectionPoints;
+        private Pen Pen = new Pen(new SolidBrush(Color.Red), 2f);
+        private Pen PenHover = new Pen(new SolidBrush(Color.White), 4f);
+        private Pen PenSelected = new Pen(new SolidBrush(Color.Blue), 6f);
         private SolidBrush Brush = new SolidBrush(Color.FromArgb(100, 255, 0, 0));
+        private Pen PenFlight = new Pen(new SolidBrush(Color.Black), 7f);
+        private Pen PenIntersection = new Pen(new SolidBrush(Color.Black), 7f);
         public void SetParcour(ParcourSet iParcour)
         {
             Parcour = iParcour;
-            Brush = new SolidBrush(Color.FromArgb((255 * iParcour.Alpha) / 100, 255, 0, 0));
+            Brush = new SolidBrush(Color.FromArgb((255 * iParcour.Alpha) / 100, iParcour.ColorPROH));
+            Pen.Width = (float)iParcour.PenWidthGates;
+            Pen.Color = iParcour.ColorGates;
         }
         public void SetConverter(Converter iConverter)
         {
@@ -43,23 +47,28 @@ namespace AirNavigationRaceLive.Comps
             {
                 return;
             }
-            float lineThickness = 2f;
-            if (pe != null && pe.ClipRectangle.Bottom == -4)
-            {
-                lineThickness = 7f;
-            }
-            Pen.Width = lineThickness;
+            //float lineThickness = 2f;
+            //if (pe != null && pe.ClipRectangle.Bottom == -4)
+            //{
+            //    lineThickness = 7f;
+            //}
+            // Pen.Width = lineThickness;
+
             #region parcour
             if (Parcour != null && c != null)
             {
                 int y0 = 0;
                 int x0 = 0;
                 double factor = 1;
+                PenFlight.Width = 7f;
+                PenIntersection.Width = 7f;
+                Pen.Width = (float)Parcour.PenWidthGates;
                 if (rescale)
                 {
                     double widthFactor = (double)Width / Image.Width;
                     double heightFactor = (double)Height / Image.Height;
                     factor = Math.Min(widthFactor, heightFactor);
+                    Pen.Width = Pen.Width * (float)factor;
                     double factorDiff = Math.Abs(widthFactor - heightFactor);
 
                     if (widthFactor < heightFactor)
@@ -92,6 +101,9 @@ namespace AirNavigationRaceLive.Comps
                             //TODO
                         }
                     }
+
+                    // SP and FP lines
+                    lines = lines.Where(l => l.Type >= (int)LineType.START_A && l.Type <= (int)LineType.END_D).ToList();
                     foreach (Line l in lines)
                     {
                         if (l.A != null && l.B != null & l.O != null)
@@ -102,12 +114,6 @@ namespace AirNavigationRaceLive.Comps
                             int endY = y0 + (int)(c.getEndY(l) * factor);
                             int orientationX = x0 + (int)(c.getOrientationX(l) * factor);
                             int orientationY = y0 + (int)(c.getOrientationY(l) * factor);
-
-                            //int midX = startX + (endX - startX) / 2;
-                            //int midY = startY + (endY - startY) / 2;
-                            //Vector start = new Vector(startX, startY, 0);
-                            //Vector midv = new Vector(midX, midY, 0);
-                            //float radius = (float)Vector.Abs(midv - start);
 
                             Model.Point CenterPoint = new Model.Point();
                             CenterPoint.latitude = (l.A.latitude + l.B.latitude) / 2.0;
@@ -120,7 +126,7 @@ namespace AirNavigationRaceLive.Comps
                             int midX = startX + (endX - startX) / 2;
                             int midY = startY + (endY - startY) / 2;
                             int radX = (int)(c.LongitudeToX(RadiusPoint.longitude) * factor);
-                            int radY= (int)(c.LatitudeToY(RadiusPoint.latitude) * factor);
+                            int radY = (int)(c.LatitudeToY(RadiusPoint.latitude) * factor);
                             //int orientationX = c.getOrientationX(l);
                             //int orientationY = c.getOrientationY(l);
                             double tmp = (double)midY + (orientationY - midY) * c.LongitudeCorrFactor(CenterPoint);
@@ -128,39 +134,25 @@ namespace AirNavigationRaceLive.Comps
                             Vector start = new Vector(startX, startY, 0);
                             Vector radv = new Vector(radX, radY, 0);
                             //float radius = (float)Vector.Abs(midv - start)
-                            float radius = Math.Abs(midY - radY) / LongCorrFactor * (float)(factor/2.0);
-                            //radius = radius * (float)0.08;
+                            float radius;
+                            if (rescale)
+                            {
+                                radius = Math.Abs(midY - radY) * LongCorrFactor * (float)factor;  
+                            }
+                            else
+                            {
+                                radius = Math.Abs(midY - radY) / LongCorrFactor / (float)factor;
+                            }
 
                             try
                             {
-                                if (l.Type != (int)LineType.PENALTYZONE && l.Type != (int)LineType.Point && l.Type != (int)LineType.LINEOFNORETURN)
-                                {
-                                    //Start_X/End_X
-                                    //if (((int)l.Type) >= 3 && ((int)l.Type) <= 10)
-                                    //{
-                                    //    pe.Graphics.DrawEllipse(Pen, midX - radius, midY - radius, radius * 2, radius * 2);
-                                    //}
+                                pe.Graphics.DrawLine(Pen, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
+                                pe.Graphics.TranslateTransform(midX - radius, midY - radius * LongCorrFactor);
+                                pe.Graphics.DrawEllipse(Pen, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
+                                pe.Graphics.ResetTransform();
 
-                                    //Start_X/End_X
-                                    if (l.Type >= 3 && l.Type <= 10)
-                                    {
-                                        pe.Graphics.DrawLine(Pen, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
-                                        //pe.Graphics.ResetTransform();
-                                        pe.Graphics.TranslateTransform(midX - radius, midY - radius * LongCorrFactor);
-                                        pe.Graphics.DrawEllipse(Pen, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
-                                        pe.Graphics.ResetTransform();
-
-                                        int orientationYCorr = midY + (int)(LongCorrFactor * (orientationY - midY));
-                                        pe.Graphics.DrawLine(Pen, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationYCorr));
-                                       // pe.Graphics.DrawEllipse(Pen, orientationX - 3, orientationYCorr - 3, 6, 6);
-                                    }
-                                    else
-                                    {
-                                        //pe.Graphics.DrawLine(Pen, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
-                                        //pe.Graphics.DrawLine(Pen, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
-                                        //pe.Graphics.DrawEllipse(Pen, orientationX - 1, orientationY - 1, 2, 2);
-                                    }
-                                }
+                                int orientationYCorr = midY + (int)(LongCorrFactor * (orientationY - midY));
+                                pe.Graphics.DrawLine(Pen, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationYCorr));
                             }
                             catch
                             {
@@ -177,7 +169,9 @@ namespace AirNavigationRaceLive.Comps
                 int y0 = 0;
                 int x0 = 0;
                 double factor = 1;
-
+                PenFlight.Width = 7f;
+                PenIntersection.Width = 7f;
+                float radiusIntersection = 30;
 
                 if (rescale)
                 {
@@ -185,6 +179,10 @@ namespace AirNavigationRaceLive.Comps
                     double heightFactor = (double)Height / Image.Height;
                     factor = Math.Min(widthFactor, heightFactor);
                     double factorDiff = Math.Abs(widthFactor - heightFactor);
+
+                    PenFlight.Width = PenFlight.Width * (float)factor;
+                    PenIntersection.Width = PenIntersection.Width * (float)factor;
+                    radiusIntersection = 30 * (float)factor;
 
                     if (widthFactor < heightFactor)
                     {
@@ -198,8 +196,6 @@ namespace AirNavigationRaceLive.Comps
 
                 foreach (FlightSet flight in flights)
                 {
-                    //Color Color = Color.FromName(flight.Team.Color);
-                    Color Color = Color.Black;
                     List<System.Drawing.Point> points = new List<System.Drawing.Point>();
                     foreach (AirNavigationRaceLive.Model.Point gd in flight.Point)
                     {
@@ -209,15 +205,18 @@ namespace AirNavigationRaceLive.Comps
                     }
                     if (points.Count > 2)
                     {
-                        pe.Graphics.DrawLines(new Pen(new SolidBrush(Color), lineThickness), points.ToArray());
+                        pe.Graphics.DrawLines(PenFlight, points.ToArray());
                     }
 
                     foreach (IntersectionPoint gd in flight.IntersectionPointSet)
                     {
                         int startXp = x0 + (int)(c.LongitudeToX(gd.longitude) * factor);
                         int startYp = y0 + (int)(c.LatitudeToY(gd.latitude) * factor);
-                        int r = 6;
-                        pe.Graphics.DrawEllipse(new Pen(new SolidBrush(Color), lineThickness), startXp-r, startYp-r, 2*r,2*r);
+                        Model.Point p = new Model.Point();
+                        p.latitude = gd.latitude;
+                        float corrFact = (float)c.LongitudeCorrFactor(p);
+                        int r = (int)radiusIntersection;
+                        pe.Graphics.DrawEllipse(PenIntersection, startXp - r, startYp - r * corrFact, 2 * r, 2 * r * corrFact);
                     }
                 }
             }
