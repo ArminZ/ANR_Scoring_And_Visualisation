@@ -570,6 +570,8 @@ namespace AirNavigationRaceLive.Comps.Helper
             // STARTPOINT-A, STARTPOINT-B, STARTPOINT-C, STARTPOINT-D
             // ENDPOINT-A, ENDPOINT-B, ENDPOINT-C, ENDPOINT-D
             // NBLINE
+            // CHANNEL-A to CHANNEL-D
+            // PROH-A to PROH-D
 
             ParcourSet result = new ParcourSet();
 
@@ -608,7 +610,9 @@ namespace AirNavigationRaceLive.Comps.Helper
                         for (int j = 0; j < vcts.Count; j++)
                         {
                             Line l = new Line();
-                            l.Type = (int)LineType.PENALTYZONE;
+                            // the below function handles also channel-specific Prohibited areas (PROH-A, ....)
+                            l.Type = (int)lineTypeFromLineName(pmName);
+
                             if (j > 0)
                             {
                                 Vector a = vcts[j - 1];
