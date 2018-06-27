@@ -553,7 +553,6 @@ namespace AirNavigationRaceLive.Comps.Helper
             return result;
         }
 
-
         /// <summary> 
         /// Imports the Layer of prohibited data from a KML file that is in a specified Format
         /// </summary>
@@ -590,9 +589,12 @@ namespace AirNavigationRaceLive.Comps.Helper
             {
                 string pmName = placemark.Element(nsKml + "name").Value.Trim();
 
-                if (pmName.StartsWith("PROH") || pmName.StartsWith("CHANNEL-"))
-                {
-                    int lType = (int)lineTypeFromLineName(pmName);
+                if (pmName.StartsWith("PROH"))
+                    //if (pmName.StartsWith("PROH") || pmName.StartsWith("CHANNEL-"))
+                    {
+                        // the below function handles also channel-specific Prohibited areas (PROH-A, ....)
+                        int lType = (int)lineTypeFromLineName(pmName);
+                    bool isChannel = pmName.StartsWith("CHANNEL-");
                     // create polygon elements
                     foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
                     {
@@ -611,7 +613,6 @@ namespace AirNavigationRaceLive.Comps.Helper
                         for (int j = 0; j < vcts.Count; j++)
                         {
                             Line l = new Line();
-                            // the below function handles also channel-specific Prohibited areas (PROH-A, ....)
                             l.Type = lType;
 
                             if (j > 0)
@@ -619,7 +620,10 @@ namespace AirNavigationRaceLive.Comps.Helper
                                 Vector a = vcts[j - 1];
                                 Vector b = vcts[j];
                                 Vector o = new Vector((a.X + b.X) / 2.0, (a.Y + b.Y) / 2.0, 0);
-                                o = Vector.Middle(a, b) - Vector.Orthogonal(a - b);
+                                if (!isChannel)
+                                {
+                                    o = Vector.Middle(a, b) - Vector.Orthogonal(a - b);
+                                }
                                 l.A = a.toGPSPoint();
                                 l.B = b.toGPSPoint();
                                 l.O = o.toGPSPoint();
@@ -670,7 +674,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         #endregion
                     }
                 }
-                else if (pmName.StartsWith("STARTPOINT-"))
+                else if (pmName.StartsWith("STARTPOINT-") || pmName.StartsWith("ENDPOINT-") || pmName.StartsWith("NBLINE"))
                 {
                     int lType = (int)lineTypeFromLineName(pmName);
                     // create line elements
@@ -684,45 +688,6 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(l.B.longitude, l.B.latitude, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = lType;
-                        result.Line.Add(l);
-                    }
-                }
-                else if (pmName.StartsWith("ENDPOINT-"))
-                {
-                    int lType = (int)lineTypeFromLineName(pmName);
-                    // create line elements
-                    foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
-                    {
-                        Line l = new Line();
-                        List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
-                        l.A = lst[0];
-                        l.B = lst[1];
-
-                        Vector start = new Vector(l.A.longitude, l.A.latitude, 0);
-                        Vector end = new Vector(l.B.longitude, l.B.latitude, 0);
-                        Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
-                        l.O = o.toGPSPoint();
-                        l.Type = lType;
-                        result.Line.Add(l);
-                    }
-                }
-                else if (pmName.StartsWith("NBLINE"))
-                {
-                    int lType = (int)lineTypeFromLineName(pmName);
-                    // create line elements
-                    foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
-                    {
-                        Line l = new Line();
-                        List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
-                        l.A = lst[0];
-                        l.B = lst[1];
-
-                        Vector start = new Vector(l.A.longitude, l.A.latitude, 0);
-                        Vector end = new Vector(l.B.longitude, l.B.latitude, 0);
-                        Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
-                        l.O = o.toGPSPoint();
-
                         l.Type = lType;
                         result.Line.Add(l);
                     }
@@ -1206,41 +1171,44 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// <returns>The LineType</returns>
         internal static LineType lineTypeFromLineName(string gateName)
         {
+            const string STARTPT = @"STARTPOINT-";
+            const string ENDPT = @"ENDPOINT-";
             const string CHANNEL = @"CHANNEL-";
             const string PROH = @"PROH-";
-
-            switch (gateName)
+            // handle the generig PROH case (can be 'PROH A xxxxx' etc)
+            string gteName = (gateName.StartsWith("PROH") && !gateName.StartsWith("PROH-")) ? "PROH" : gateName;
+            switch (gteName)
             {
-                case "STARTPOINT-A":
+                case STARTPT + "A":
                     {
                         return LineType.START_A;
                     }
-                case "STARTPOINT-B":
+                case STARTPT + "B":
                     {
                         return LineType.START_B;
                     }
-                case "STARTPOINT-C":
+                case STARTPT + "C":
                     {
                         return LineType.START_C;
                     }
-                case "STARTPOINT-D":
+                case STARTPT + "D":
                     {
                         return LineType.START_D;
                     }
 
-                case "ENDPOINT-A":
+                case ENDPT + "A":
                     {
                         return LineType.END_A;
                     }
-                case "ENDPOINT-B":
+                case ENDPT + "B":
                     {
                         return LineType.END_B;
                     }
-                case "ENDPOINT-C":
+                case ENDPT + "C":
                     {
                         return LineType.END_C;
                     }
-                case "ENDPOINT-D":
+                case ENDPT + "D":
                     {
                         return LineType.END_D;
                     }
@@ -1266,9 +1234,9 @@ namespace AirNavigationRaceLive.Comps.Helper
                         return LineType.CHANNEL_D;
                     }
 
-                case PROH:
+                case "PROH":
                     {
-                        return LineType.PENALTYZONE;  //legacy
+                        return LineType.PENALTYZONE;  //generic prohibited zone, not route-specific.
                     }
 
                 case PROH + "-A":
