@@ -65,11 +65,6 @@ namespace AirNavigationRaceLive.Comps
                     visualisationPictureBox1.SetParcour(parcour);
                     visualisationPictureBox1.Invalidate();
                     visualisationPictureBox1.Refresh();
-                    //parcourPictureBox1.Image = System.Drawing.Image.FromStream(ms);
-                    //parcourPictureBox1.SetConverter(new Converter(map));
-                    //parcourPictureBox1.SetParcour(parcour);
-                    //parcourPictureBox1.Invalidate();
-                    //parcourPictureBox1.Refresh();
                     this.BeginInvoke(new MethodInvoker(updatePoints));
                     dataGridView2_SelectionChanged(sender, e);
                 }
@@ -448,8 +443,6 @@ namespace AirNavigationRaceLive.Comps
                 flights.Add(flt);
                 visualisationPictureBox1.SetData(flights);
                 visualisationPictureBox1.Invalidate();
-//                parcourPictureBox1.SetData(flights);
-                //parcourPictureBox1.Invalidate();
                 List<DataGridViewRow> ppd = new List<DataGridViewRow>();
                 foreach (PenaltySet p in flt.PenaltySet)
                 {

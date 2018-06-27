@@ -19,31 +19,13 @@ namespace AirNavigationRaceLive.Comps
             getSettings();
         }
 
-        private void btnPROHColorLayer_Click(object sender, EventArgs e)
+        private void ColorButtonGeneric_Click(object sender, EventArgs e)
         {
             ColorDialog cd = new ColorDialog();
             cd.AnyColor = false;
             cd.SolidColorOnly = true;
             cd.ShowDialog();
-            btnPROHColorLayer.BackColor = cd.Color;
-        }
-
-        private void btnSPFPColor_Click(object sender, EventArgs e)
-        {
-            ColorDialog cd = new ColorDialog();
-            cd.AnyColor = false;
-            cd.SolidColorOnly = true;
-            cd.ShowDialog();
-            btnSPFPColor.BackColor = cd.Color;
-        }
-
-        private void btnChannelColor_Click(object sender, EventArgs e)
-        {
-            ColorDialog cd = new ColorDialog();
-            cd.AnyColor = false;
-            cd.SolidColorOnly = true;
-            cd.ShowDialog();
-            btnChannelColor.BackColor = cd.Color;
+            ((Button)(sender)).BackColor = cd.Color;
         }
 
         private void saveSettings()
@@ -62,7 +44,10 @@ namespace AirNavigationRaceLive.Comps
 
             Properties.Settings.Default.ChannelColor = btnChannelColor.BackColor;
             Properties.Settings.Default.ChannelPenWidth = numericUpDownChannelPen.Value;
-            chkChannelShowCL.Checked = Properties.Settings.Default.ChannelShowCL;
+            Properties.Settings.Default.ChannelShowCL = chkChannelShowCL.Checked;
+
+            Properties.Settings.Default.IntersectionColor = btnIntersectColor.BackColor;
+            Properties.Settings.Default.IntersectionPenWidth = numericUpDownIntersect.Value;
 
             Properties.Settings.Default.Save();
         }
@@ -85,6 +70,9 @@ namespace AirNavigationRaceLive.Comps
             btnChannelColor.BackColor = Properties.Settings.Default.ChannelColor;
             numericUpDownChannelPen.Value = Properties.Settings.Default.ChannelPenWidth;
             chkChannelShowCL.Checked = Properties.Settings.Default.ChannelShowCL;
+
+            btnIntersectColor.BackColor = Properties.Settings.Default.IntersectionColor;
+            numericUpDownIntersect.Value = Properties.Settings.Default.IntersectionPenWidth;
         }
 
         private void btnSave_Click(object sender, EventArgs e)

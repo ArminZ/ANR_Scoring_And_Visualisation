@@ -26,6 +26,8 @@ namespace AirNavigationRaceLive.Comps
             Brush = new SolidBrush(Color.FromArgb((255 * iParcour.Alpha) / 100, iParcour.ColorPROH));
             Pen.Width = (float)iParcour.PenWidthGates;
             Pen.Color = iParcour.ColorGates;
+            PenIntersection.Color = Properties.Settings.Default.IntersectionColor;
+            PenIntersection.Width = (float)Properties.Settings.Default.IntersectionPenWidth;
         }
         public void SetConverter(Converter iConverter)
         {
@@ -61,7 +63,7 @@ namespace AirNavigationRaceLive.Comps
                 int x0 = 0;
                 double factor = 1;
                 PenFlight.Width = 7f;
-                PenIntersection.Width = 7f;
+                PenIntersection.Width = (float)Properties.Settings.Default.IntersectionPenWidth;
                 Pen.Width = (float)Parcour.PenWidthGates;
                 if (rescale)
                 {
@@ -170,7 +172,7 @@ namespace AirNavigationRaceLive.Comps
                 int x0 = 0;
                 double factor = 1;
                 PenFlight.Width = 7f;
-                PenIntersection.Width = 7f;
+                PenIntersection.Width = (float)Properties.Settings.Default.IntersectionPenWidth;
                 float radiusIntersection = 30;
 
                 if (rescale)

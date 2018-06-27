@@ -590,8 +590,9 @@ namespace AirNavigationRaceLive.Comps.Helper
             {
                 string pmName = placemark.Element(nsKml + "name").Value.Trim();
 
-                if (pmName.StartsWith("PROH"))
+                if (pmName.StartsWith("PROH") || pmName.StartsWith("CHANNEL-"))
                 {
+                    int lType = (int)lineTypeFromLineName(pmName);
                     // create polygon elements
                     foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
                     {
@@ -604,14 +605,14 @@ namespace AirNavigationRaceLive.Comps.Helper
                             vcts.Add(v);
                         }
 
-                        #region New Code (Orientation point will not be used)
+                        #region New Code (Orientation point will not be used, only one closed poygon for each PROH area)
 
                         // see also changes on ParcourPictureBox.OnPaint
                         for (int j = 0; j < vcts.Count; j++)
                         {
                             Line l = new Line();
                             // the below function handles also channel-specific Prohibited areas (PROH-A, ....)
-                            l.Type = (int)lineTypeFromLineName(pmName);
+                            l.Type = lType;
 
                             if (j > 0)
                             {
@@ -627,7 +628,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         }
                         #endregion
 
-                        #region Old Code (unused)
+                        #region Old Code (unused) with lots of polygons for each PROH area
                         // this old code splits the polygon into triangles ("ears")
                         // the orientation point being the third point for a line segment
                         // with this a triangle is defined which is later printed (see also old code on ParcourPictureBox.OnPaint)
@@ -671,6 +672,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                 }
                 else if (pmName.StartsWith("STARTPOINT-"))
                 {
+                    int lType = (int)lineTypeFromLineName(pmName);
                     // create line elements
                     foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
                     {
@@ -682,12 +684,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(l.B.longitude, l.B.latitude, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)lineTypeFromLineName(pmName);
+                        l.Type = lType;
                         result.Line.Add(l);
                     }
                 }
                 else if (pmName.StartsWith("ENDPOINT-"))
                 {
+                    int lType = (int)lineTypeFromLineName(pmName);
                     // create line elements
                     foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
                     {
@@ -700,12 +703,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(l.B.longitude, l.B.latitude, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)lineTypeFromLineName(pmName);
+                        l.Type = lType;
                         result.Line.Add(l);
                     }
                 }
                 else if (pmName.StartsWith("NBLINE"))
                 {
+                    int lType = (int)lineTypeFromLineName(pmName);
                     // create line elements
                     foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
                     {
@@ -719,27 +723,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
 
-                        l.Type = (int)LineType.LINEOFNORETURN;
-                        result.Line.Add(l);
-                    }
-                }
-
-                else if (pmName.StartsWith("CHANNEL-"))
-                {
-                    // create line elements
-                    foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
-                    {
-                        Line l = new Line();
-                        List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
-                        l.A = lst[0];
-                        l.B = lst[1];
-
-                        Vector start = new Vector(l.A.longitude, l.A.latitude, 0);
-                        Vector end = new Vector(l.B.longitude, l.B.latitude, 0);
-                        Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
-                        l.O = o.toGPSPoint();
-
-                        l.Type = (int)lineTypeFromLineName(pmName);
+                        l.Type = lType;
                         result.Line.Add(l);
                     }
                 }

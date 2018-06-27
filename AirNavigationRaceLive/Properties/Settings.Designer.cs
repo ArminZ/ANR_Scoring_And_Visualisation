@@ -176,5 +176,28 @@ namespace AirNavigationRaceLive.Properties {
                 this["ChannelShowCL"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal IntersectionPenWidth {
+            get {
+                return ((decimal)(this["IntersectionPenWidth"]));
+            }
+            set {
+                this["IntersectionPenWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color IntersectionColor {
+            get {
+                return ((global::System.Drawing.Color)(this["IntersectionColor"]));
+            }
+            set {
+                this["IntersectionColor"] = value;
+            }
+        }
     }
 }

@@ -71,6 +71,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 List<double> lstHeadings = gc.CalculateHeadings(routePoints);
                 List<Vector> lstLeftBorder = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth, false, 1);
                 List<Vector> lstRightBorder = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth, true, 1);
+                List<Vector> lstRightBorderMod = lstRightBorder; // used in PROH area calcs
                 List<Vector> lstChannel = combineBorderVectorsForPolygon(lstLeftBorder, lstRightBorder);
                 if (lstChannel.Count>1 )
                 {  // remove duplicate point at the end
@@ -96,9 +97,9 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 lstFP = new List<Vector>();
                 lstFP.Add(new Vector(lstGateRight[lstGateRight.Count - 1].Latitude, lstGateRight[lstGateRight.Count - 1].Longitude, altitude));
                 lstFP.Add(new Vector(lstGateLeft[lstGateLeft.Count - 1].Latitude, lstGateLeft[lstGateLeft.Count - 1].Longitude, altitude));
+
+
                 lstNBLine = new List<Vector>();
-
-
                 // check if we have a NBLINE for this route
                 if (listOfNBLNames.IndexOf(String.Format("NBLINE-{0}", routeName)) >= 0)
                 {
@@ -133,13 +134,22 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     {
                         // calculate LeftBorder PROH for first route 
                         List<Vector> lstLeftBorderPROH = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth * 10, false, 1);
+                        //TODO: add Gate Point as first/last point to lstLeftBorderPROH
+                        lstLeftBorderPROH.Insert(0, lstGateLeft[0]);
+                        lstLeftBorderPROH.Add(lstGateLeft[lstGateLeft.Count - 1]);
                         lstLeftBorderForbiddenArea = combineBorderVectorsForPolygon(lstLeftBorderPROH, lstLeftBorder);
                         setAltitude(lstLeftBorderForbiddenArea, altitude);
+
+                        //TODO: add Gate Point as first/last point to lstRightBorderMod
+                        lstRightBorderMod.Add(lstGateRight[0]);
+                        lstRightBorderMod.Insert(0, lstGateRight[lstGateRight.Count - 1]);
 
                     }
                     else
                     {
                         // calculate LeftBorder PROH area from LeftBorder[j] and RightBorder[j-1]
+                        lstOldRightBorder.Add(lstGateLeft[0]);
+                        lstOldRightBorder.Insert(0, lstGateLeft[lstGateLeft.Count - 1]);
                         lstLeftBorderForbiddenArea = combineBorderVectorsForPolygon(lstOldRightBorder, lstLeftBorder);
                         setAltitude(lstLeftBorderForbiddenArea, altitude);
                     }
@@ -148,6 +158,9 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     if (j == listOfRoutes.Count - 1)
                     {
                         List<Vector> lstRightBorderPROH = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth * 10, true, 1);
+                        //TODO: add Gate Point as first/last point to lstRightBorderPROH
+                        lstRightBorderPROH.Insert(0, lstGateRight[0]);
+                        lstRightBorderPROH.Add(lstGateRight[lstGateRight.Count - 1]);
                         lstRightBorderForbiddenArea = combineBorderVectorsForPolygon(lstRightBorderPROH, lstRightBorder);
                         setAltitude(lstRightBorderForbiddenArea, altitude);
                     }
@@ -162,7 +175,9 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     setAltitude(lstRightBorderForbiddenArea, altitude);
                 }
 
-                lstOldRightBorder = lstRightBorder;
+                lstOldRightBorder = lstRightBorderMod;
+
+                #region Creation of KML objects
 
                 var lineStrRoute = new SharpKml.Dom.LineString();
                 var lineStrRightBorder = new SharpKml.Dom.LineString();
@@ -302,7 +317,11 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     }
                     folderGeneral.AddFeature(folder);
                 }
+
+                #endregion
             }
+
+            #region Create Kml document
 
             for (int i = 0; i < lstFeaturesPROHPolygon.Count; i++)
             {
@@ -326,8 +345,9 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             }
 
             document.AddFeature(folderGeneral);
-            document.AddFeature(folderLiveTracking);
-            //return document;
+            document.AddFeature(folderLiveTracking); 
+            #endregion
+
         }
 
         /// <summary>
