@@ -15,6 +15,8 @@ using PdfSharp.Drawing.Layout;
 using AirNavigationRaceLive.Model;
 using System.Drawing.Imaging;
 using System.Drawing;
+using AirNavigationRaceLive.ModelExtensions;
+using System.Text.RegularExpressions;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {
@@ -411,7 +413,8 @@ namespace AirNavigationRaceLive.Comps.Helper
                     //gfx.DrawString(penalty.Points.ToString(), verdana9Reg, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine), XUnit.FromCentimeter(3 + line * 0.4)));
                     
                     // Penalty explanation, aligned left
-                    List<String> reason = getWrapped(penalty.Reason);
+                    //List<String> reason = getWrapped(penalty.Reason);
+                    List<string> reason = penalty.Reason.SplitOn(40);
                     foreach (String s in reason)
                     {
                         rect = new XRect(
@@ -451,36 +454,6 @@ namespace AirNavigationRaceLive.Comps.Helper
             }
         }
 
-        /// <summary>
-        /// split lengthy lines into multiple lines
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        private static List<String> getWrapped(String s)
-        {
-            List<String> result = new List<String>();
-            string[] splitted = s.Split(new char[] { ' ',',' });
-            int currentLength = 0;
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < splitted.Length; i++)
-            {
-                if (currentLength + splitted[i].Length < 45)
-                {
-                    currentLength += splitted.Length;
-                    sb.Append(splitted[i]);
-                    sb.Append(" ");
-                }
-                else
-                {
-                    currentLength = 0;
-                    result.Add(sb.ToString());
-                    sb = new StringBuilder();
-                    i--;
-                }
-            }
-            result.Add(sb.ToString());
-            return result;
-        }
         private static string getTeamDsc(Client.DataAccess c, FlightSet flight)
         {
             TeamSet team = flight.TeamSet;
@@ -670,6 +643,74 @@ namespace AirNavigationRaceLive.Comps.Helper
         //    }
         //}
 
+        ///// <summary>
+        ///// split lengthy lines into multiple lines
+        ///// </summary>
+        ///// <param name="s"></param>
+        ///// <returns></returns>
+        //private static List<String> getWrapped(String s)
+        //{
+        //    List<String> result = new List<String>();
+        //    string[] splitted = s.Split(new char[] { ' ', ',' });
+        //    int currentLength = 0;
+        //    StringBuilder sb = new StringBuilder();
+        //    for (int i = 0; i < splitted.Length; i++)
+        //    {
+        //        if (currentLength + splitted[i].Length < 45)
+        //        {
+        //            currentLength += splitted.Length;
+        //            sb.Append(splitted[i]);
+        //            sb.Append(" ");
+        //        }
+        //        else
+        //        {
+        //            currentLength = 0;
+        //            result.Add(sb.ToString());
+        //            sb = new StringBuilder();
+        //            i--;
+        //        }
+        //    }
+        //    result.Add(sb.ToString());
+        //    return result;
+        //}
+    }
 
+    public static class StringExtensions
+    {
+
+        /// <summary>Use this function like string.Split but instead of a character to split on, 
+        /// use a maximum line width size. This is similar to a Word Wrap where no words will be split.</summary>
+        /// Note if the a word is longer than the maxcharactes it will be trimmed from the start.
+        /// <param name="initial">The string to parse.</param>
+        /// <param name="MaxCharacters">The maximum size.</param>
+        /// <remarks>This function will remove some white space at the end of a line, but allow for a blank line.</remarks>
+        /// 
+        /// <returns>An array of strings.</returns>
+        public static List<string> SplitOn(this string initial, int MaxCharacters)
+        {
+            // example: The rain in spain falls mainly on the plain of Jabberwocky falls.
+
+            // List<string> lines = text.SplitOn( 20 );
+            /*
+            The rain in spain
+            falls mainly on the
+            plain of Jabberwocky
+            falls.
+             */
+
+            List<string> lines = new List<string>();
+
+            if (string.IsNullOrEmpty(initial) == false)
+            {
+                string targetGroup = "Line";
+                string pattern = string.Format(@"(?<{0}>.{{1,{1}}})(?:[^\S]+|$)", targetGroup, MaxCharacters);
+
+                lines = Regex.Matches(initial, pattern, RegexOptions.Multiline | RegexOptions.CultureInvariant)
+                             .OfType<Match>()
+                             .Select(mt => mt.Groups[targetGroup].Value)
+                             .ToList();
+            }
+            return lines;
+        }
     }
 }

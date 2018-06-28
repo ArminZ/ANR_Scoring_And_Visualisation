@@ -34,14 +34,20 @@ namespace AirNavigationRaceLive.Comps
             lblCompetition.Text = Client.SelectedCompetition.Name + " - parcours";
             PictureBox1.Cursor = new Cursor(@"Resources\GPSCursor.cur");
             activeParcour = new ParcourSet();
-            numericUpDownAlpha.Value = activeParcour.Alpha;
-            PictureBox1.SetParcour(activeParcour);
+            numericUpDownAlpha.Value = Properties.Settings.Default.PROHTransp;
+            btnColorPROH.BackColor = Properties.Settings.Default.PROHColor;
+            btnColorGates.BackColor = Properties.Settings.Default.SPFPColor;
+            //PictureBox1.SetParcour(activeParcour);
+            //PictureBox1.ColorPROH = Properties.Settings.Default.PROHColor;
+            //PictureBox1.ColorGates = Properties.Settings.Default.PROHColor;
             checkValidationErrors();
         }
         #region load
         private void ParcourGen_Load(object sender, EventArgs e)
         {
             loadMaps();
+            numericUpDownAlpha.Value = Properties.Settings.Default.PROHTransp;
+            btnColorPROH.BackColor = Properties.Settings.Default.PROHColor;
         }
         private void loadMaps()
         {
@@ -469,9 +475,12 @@ namespace AirNavigationRaceLive.Comps
             try
             {
                 activeParcour = Importer.importFromKMLLayer(ofd.FileName);
+                ParcourSet p = activeParcour;
+                p.ColorPROH = Properties.Settings.Default.PROHColor;
+                p.ColorGates = Properties.Settings.Default.SPFPColor;
+                p.Alpha = (int)Properties.Settings.Default.PROHTransp;
+                p.HasCircleOnGates = Properties.Settings.Default.SPFPCircle;
                 PictureBox1.SetParcour(activeParcour);
-                PictureBox1.HasCircleOnGates = checkBoxCircle.Checked;
-
                 PictureBox1.Invalidate();
                 PictureBox1.Refresh();
                 fldName.Text = Path.GetFileNameWithoutExtension(ofd.FileName);
