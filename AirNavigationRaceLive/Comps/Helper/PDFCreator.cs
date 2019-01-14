@@ -336,7 +336,124 @@ namespace AirNavigationRaceLive.Comps.Helper
 
             Process.Start(pathToPDF);
         }
-        public static void CreateResultPDF(VisualisationPictureBox picBox, Client.DataAccess c, QualificationRoundSet qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
+        //public static void CreateResultPDF(VisualisationPictureBox picBox, Client.DataAccess c, QualificationRoundSet qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
+        //{
+        //    int counter = 0;
+        //    List<FlightSet> tempList = new List<FlightSet>();
+        //    foreach (ComboBoxFlights cbct in qRndFlights)
+        //    {
+        //        GC.Collect();
+        //        PdfDocument doc = new PdfDocument();
+        //        doc.Info.Author = "Luc.Baumann@sharpsoft.ch";
+        //        doc.Info.Keywords = "ANRL Results Printout";
+        //        doc.Info.Subject = "Results Printout generated from ANRL Client on " + DateTime.Now.ToString();
+        //        doc.Info.Title = "Results Printout";
+        //        doc.Options.ColorMode = PdfColorMode.Cmyk;
+        //        doc.Language = "EN";
+        //        doc.PageLayout = PdfPageLayout.SinglePage;
+
+        //        tempList.Clear();
+        //        tempList.Add(cbct.flight);
+        //        picBox.SetData(tempList);
+
+        //        PdfPage page = doc.AddPage();
+        //        page.Orientation = PdfSharp.PageOrientation.Landscape;
+        //        page.Size = PdfSharp.PageSize.A4;
+        //        double scaleFactor = 2.0;
+
+        //        XGraphics gfx = XGraphics.FromPdfPage(page);
+        //        XTextFormatter tf = new XTextFormatter(gfx);
+        //        XRect rect = new XRect();
+
+        //        AddLogo(gfx, page);
+
+        //        XImage image = XImage.FromGdiPlusImage(picBox.PrintOutImage.VaryQualityLevel());
+
+        //        double distX = picBox.GetXDistanceKM() / scaleFactor;//1:200 000 in cm
+        //        double distY = picBox.GetYDistanceKM() / scaleFactor;//1:200 000 in cm
+
+        //        gfx.DrawImage(image, XUnit.FromCentimeter(2).Point, XUnit.FromCentimeter(3).Point, page.Width.Point * (distX / page.Width.Centimeter), page.Height.Point * (distY / page.Height.Centimeter));
+
+        //        #region Header data (Competition, Qualification round, Crew)
+
+        //        gfx.DrawString("Competition: " + c.SelectedCompetition.Name,
+        //            verdana13Bold, XBrushes.Black,
+        //            new XPoint(XUnit.FromCentimeter(2), XUnit.FromCentimeter(1.5)));
+
+        //        gfx.DrawString("Q-Round: " + qRnd.Name,
+        //            verdana11Bold, XBrushes.Black,
+        //            new XPoint(XUnit.FromCentimeter(2), XUnit.FromCentimeter(2.1)));
+
+        //        gfx.DrawString("Crew: " + getTeamDsc(c, cbct.flight),
+        //            verdana11Bold, XBrushes.Black,
+        //            new XPoint(XUnit.FromCentimeter(2), XUnit.FromCentimeter(2.7)));
+
+        //        #endregion
+
+        //        #region Write table with Penalty points
+
+        //        int sum = 0;
+        //        int line = 0;
+        //        int offsetLine = 20;
+        //        gfx.DrawString("Points ", verdana11Bold, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine), XUnit.FromCentimeter(3)));
+        //        gfx.DrawString("Reason ", verdana11Bold, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine + 2), XUnit.FromCentimeter(3)));
+
+        //        line++;
+        //        foreach (PenaltySet penalty in cbct.flight.PenaltySet)
+        //        {
+        //            sum += penalty.Points;
+
+        //            // Penalty points, aligned right
+        //            rect = new XRect(
+        //                new XPoint(XUnit.FromCentimeter(offsetLine), XUnit.FromCentimeter(3 + line * 0.4)),
+        //                new XPoint(XUnit.FromCentimeter(offsetLine + 1.3), XUnit.FromCentimeter(3.0 + line * 0.4 + 0.4)));
+        //            //gfx.DrawRectangle(XBrushes.Yellow, rect);
+        //            tf.Alignment = XParagraphAlignment.Right;
+        //            tf.DrawString(penalty.Points.ToString(), verdana9Reg, XBrushes.Black, rect, XStringFormats.TopLeft);
+        //            //gfx.DrawString(penalty.Points.ToString(), verdana9Reg, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine), XUnit.FromCentimeter(3 + line * 0.4)));
+                    
+        //            // Penalty explanation, aligned left
+        //            //List<String> reason = getWrapped(penalty.Reason);
+        //            List<string> reason = penalty.Reason.SplitOn(40);
+        //            foreach (String s in reason)
+        //            {
+        //                rect = new XRect(
+        //                          new XPoint(XUnit.FromCentimeter(offsetLine + 2), XUnit.FromCentimeter(3.0 + line * 0.4)),
+        //                          new XPoint(XUnit.FromCentimeter(offsetLine + 9), XUnit.FromCentimeter(3.0 + line * 0.4 + 0.4)));
+        //                tf.Alignment = XParagraphAlignment.Left;
+        //                //gfx.DrawRectangle(XBrushes.Yellow, rect);
+        //                tf.DrawString(s, verdana9Reg, XBrushes.Black, rect, XStringFormats.TopLeft);
+        //                //gfx.DrawString(s, verdana9Reg, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine + 2), XUnit.FromCentimeter(3 + line * 0.4)));
+        //                line++;
+        //            }
+        //        }
+        //        line++;
+
+        //        // Penalty total points, aligned right
+        //        rect = new XRect(
+        //           new XPoint(XUnit.FromCentimeter(offsetLine), XUnit.FromCentimeter(3 + line * 0.4)),
+        //           new XPoint(XUnit.FromCentimeter(offsetLine + 1.3), XUnit.FromCentimeter(3.0 + line * 0.4 + 0.4)));
+        //        tf.Alignment = XParagraphAlignment.Right;
+        //        tf.DrawString(sum.ToString(), verdana9Bold, XBrushes.Black, rect, XStringFormats.TopLeft);
+        //        // gfx.DrawString(sum.ToString(), verdana10Bold, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine), XUnit.FromCentimeter(3 + line * 0.4)));
+
+        //        // Penalty text, aligned left
+        //        rect = new XRect(
+        //           new XPoint(XUnit.FromCentimeter(offsetLine + 2), XUnit.FromCentimeter(3.0 + line * 0.4)),
+        //           new XPoint(XUnit.FromCentimeter(offsetLine + 9), XUnit.FromCentimeter(3.0 + line * 0.4 + 0.4)));
+        //        tf.Alignment = XParagraphAlignment.Left;
+        //        tf.DrawString("Total Points", verdana9Bold, XBrushes.Black, rect, XStringFormats.TopLeft);
+        //        //gfx.DrawString("Total Points", verdana10Bold, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine + 2), XUnit.FromCentimeter(3 + line * 0.4)));
+
+        //        #endregion
+
+        //        String path = pathToPDF.Replace(".pdf", (counter++ + "_" + getTeamDsc(c, cbct.flight) + ".pdf"));
+        //        doc.Save(path);
+        //        doc.Close();
+        //        Process.Start(path);
+        //    }
+        //}
+        public static void CreateResultPDF(ParcourPictureBox picBox, Client.DataAccess c, QualificationRoundSet qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
         {
             int counter = 0;
             List<FlightSet> tempList = new List<FlightSet>();
@@ -411,7 +528,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                     tf.Alignment = XParagraphAlignment.Right;
                     tf.DrawString(penalty.Points.ToString(), verdana9Reg, XBrushes.Black, rect, XStringFormats.TopLeft);
                     //gfx.DrawString(penalty.Points.ToString(), verdana9Reg, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine), XUnit.FromCentimeter(3 + line * 0.4)));
-                    
+
                     // Penalty explanation, aligned left
                     //List<String> reason = getWrapped(penalty.Reason);
                     List<string> reason = penalty.Reason.SplitOn(40);

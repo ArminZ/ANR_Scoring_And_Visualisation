@@ -187,7 +187,6 @@
     <Compile Include="Comps\Helper\Enums.cs" />
     <Compile Include="Comps\Helper\ComboRoute.cs" />
     <Compile Include="Comps\Helper\ExtensionMethods.cs" />
-    <Compile Include="Comps\Helper\GEControl.cs" />
     <Compile Include="Comps\Helper\Geometry\AnalyticGeometryException.cs" />
     <Compile Include="Comps\Helper\Geometry\CLine.cs" />
     <Compile Include="Comps\Helper\Geometry\CPoint2D.cs" />
@@ -195,9 +194,6 @@
     <Compile Include="Comps\Helper\Geometry\CPolygonShape.cs" />
     <Compile Include="Comps\Helper\Geometry\Definition.cs" />
     <Compile Include="Comps\Helper\OpenOfficeCreator.cs" />
-    <Compile Include="Comps\Helper\VisualisationPictureBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Comps\History.cs">
       <SubType>UserControl</SubType>
     </Compile>

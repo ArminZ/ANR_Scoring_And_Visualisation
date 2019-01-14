@@ -316,14 +316,14 @@ namespace AirNavigationRaceLive.Comps
         private void btnAddLineOfNoReturn_Click(object sender, EventArgs e)
         {
             SetSelectedLine(null);
-            if (activeParcour.Line.Any(p => p.Type == (int)LineType.LINEOFNORETURN))
+            if (activeParcour.Line.Any(p => p.Type == (int)LineType.NOBACKTRACKLINE))
             {
-                activeLine = activeParcour.Line.Single(p => p.Type == (int)LineType.LINEOFNORETURN);
+                activeLine = activeParcour.Line.Single(p => p.Type == (int)LineType.NOBACKTRACKLINE);
             }
             else
             {
                 activeLine = new Line();
-                activeLine.Type = (int)LineType.LINEOFNORETURN;
+                activeLine.Type = (int)LineType.NOBACKTRACKLINE;
                 activeParcour.Line.Add(activeLine);
             }
             ap = ActivePoint.A;

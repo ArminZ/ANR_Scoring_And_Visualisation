@@ -295,7 +295,7 @@ namespace AirNavigationRaceLive.Comps
 
         private void btnTEST_Click(object sender, EventArgs e)
         {
-            string filepath = @"E:\Fliegen\ANR\Routes\ANR Tikkakoski 2017\ANR_Tikkakoski_05_out.kml";
+            string filepath = @"C:\Users\zugerarm1\Documents\_Private\ANR\ANR Joroinen 2018\Joroinen_00_out.kml";
             SwitchedSPFP(filepath);
 
         }

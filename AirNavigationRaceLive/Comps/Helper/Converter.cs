@@ -187,7 +187,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         }
         public Point PointForRadius(Point CenterPoint)
         {
-            // fixed line with for start and end line is 0.6 NM
+            // fixed line width for start and end line is 0.6 NM
             // radius should be 0.3 NM
             // 60.0 NM equals to 1.00 degree in latitude difference
             // 0.3 NM equals to 0.3 * 1/60 degree in latitude difference

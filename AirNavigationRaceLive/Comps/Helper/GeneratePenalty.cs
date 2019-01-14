@@ -1,6 +1,7 @@
 ﻿using AirNavigationRaceLive.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace AirNavigationRaceLive.Comps.Helper
@@ -28,29 +29,45 @@ namespace AirNavigationRaceLive.Comps.Helper
             List<PenaltySet> penalties = CalculatePenaltyPoints(f, out intersectionPoints);
 
             c.DBContext.PenaltySet.RemoveRange(f.PenaltySet);
-            c.DBContext.IntersectionPointSet.RemoveRange(f.IntersectionPointSet);
+            if (f.IntersectionPointSet != null)
+            {
+                c.DBContext.IntersectionPointSet.RemoveRange(f.IntersectionPointSet);
+                f.IntersectionPointSet.Clear();
+            }
             f.PenaltySet.Clear();
-            f.IntersectionPointSet.Clear();
+            c.DBContext.PenaltySet.AddRange(penalties);
             f.PenaltySet = penalties;
+
             foreach (IntersectionPoint p in intersectionPoints)
             {
                 p.Flight_Id = f.Id; // must add the Flight Id
-                f.IntersectionPointSet.Add(p);
+                                    // f.IntersectionPointSet.Add(p);
             }
 
+            c.DBContext.IntersectionPointSet.AddRange(intersectionPoints);
+            f.IntersectionPointSet = intersectionPoints;
             c.DBContext.SaveChanges();
         }
 
         public static List<PenaltySet> CalculatePenaltyPoints(FlightSet flight, out List<IntersectionPoint> lstIntersectionPoints)
         {
+            bool useProhZoneCalculation = false;
+
             Point last = null;
             List<PenaltySet> result = new List<PenaltySet>();
             List<LineP> PenaltyZoneLines = new List<LineP>();
             // intersectionPoints will contain the intersection poinst of the flight path with SP, FP, PROH areas
             List<IntersectionPoint> intersectionPoints = new List<IntersectionPoint>();
-
             QualificationRoundSet qr = flight.QualificationRoundSet;
             ParcourSet parcour = flight.QualificationRoundSet.ParcourSet;
+            // arrChannel Array contains the array for the channel
+            //Vector[] arrChannel = getAssignedChannelLines(parcour, (Route)flight.Route);
+
+            List<LineP> ChannelZoneLines = new List<LineP>();
+            foreach (Line nl in parcour.Line.Where(p => p.Type == (int)LineType.CHANNEL_B))
+            {
+                ChannelZoneLines = getAssignedChannelLineP(parcour, (Route)flight.Route);
+            }
 
             foreach (Line nl in parcour.Line.Where(p => p.Type == (int)LineType.PENALTYZONE))
             {
@@ -99,25 +116,30 @@ namespace AirNavigationRaceLive.Comps.Helper
             bool haveCrossedEnd = false;
             bool insidePenalty = false;
             long timeSinceInsidePenalty = 0;
+            bool outsideOwnChannel = true;
+            long timeSinceOutsideOwnChannel = 0;
+            bool isFirstTimeIntoChannel = true;
+
+            IntersectionPoint ipTakeOff = new IntersectionPoint();
+            IntersectionPoint ipStart = new IntersectionPoint();
+            IntersectionPoint ipEnd = new IntersectionPoint();
 
             foreach (LineP l in dataLines)
             {
                 double intersectionTakeOff = getIntersection(l, takeOffLine);
                 double intersectionStart = getIntersection(l, startLine);
                 double intersectionEnd = getIntersection(l, endLine);
-
-                IntersectionPoint ipTakeOff = new IntersectionPoint();
-                IntersectionPoint ipStart = new IntersectionPoint();
-                IntersectionPoint ipEnd = new IntersectionPoint();
+                IntersectionPoint ip = new IntersectionPoint();
 
                 #region crossing takeOff line
-                if (getIntersection(l, takeOffLine, out ipTakeOff))
+                if (getIntersection(l, takeOffLine, out ip) && !haveCrossedTakeOff)
                 {
                     haveCrossedTakeOff = true;
-                    intersectionPoints.Add(ipTakeOff);
-                    long crossTime = ipTakeOff.Timestamp;
-                    long diff = crossTime - flight.TimeTakeOff;
-                    if (diff > C_TKOF_TimeUpper* tickOfSecond || diff < C_TKOF_TimeLower* tickOfSecond)
+                    intersectionPoints.Add(ip);
+                    long crossTime = ip.Timestamp;
+                    ipTakeOff = ip;
+                    long diff = Math.Abs(crossTime - flight.TimeTakeOff);
+                    if (diff > C_TKOF_TimeUpper * tickOfSecond || diff < C_TKOF_TimeLower * tickOfSecond)
                     {
                         crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
                         PenaltySet penalty = new PenaltySet();
@@ -129,16 +151,17 @@ namespace AirNavigationRaceLive.Comps.Helper
                 #endregion
 
                 #region crossing start line
-                if (getIntersection(l, startLine, out ipStart))
+                if (getIntersection(l, startLine, out ip) & !haveCrossedStart)
                 {
                     haveCrossedStart = true;
-                    intersectionPoints.Add(ipStart);
-                    long crossTime = ipStart.Timestamp;
-                    long diff = crossTime - flight.TimeStartLine;
+                    intersectionPoints.Add(ip);
+                    long crossTime = ip.Timestamp;
+                    ipStart = ip;
+                    long diff = Math.Abs(crossTime - flight.TimeStartLine);
                     if (diff > C_SPFP_TimeTolerance * tickOfSecond)
                     {
                         crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
-                        diff = crossTime - flight.TimeStartLine;
+                        //diff = crossTime - flight.TimeStartLine;
                         int sec = (int)((diff + (tickOfSecond / 2) + 1) / tickOfSecond);
                         PenaltySet penalty = new PenaltySet();
                         penalty.Points = Math.Min((sec - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
@@ -148,13 +171,152 @@ namespace AirNavigationRaceLive.Comps.Helper
                 }
                 #endregion
 
+                //#region crossing end line
+                //if (getIntersection(l, endLine, out ip))
+                //{
+                //    haveCrossedEnd = true;
+                //    intersectionPoints.Add(ip);
+                //    long crossTime = ip.Timestamp;
+                //    ipEnd = ip;
+                //    long diff = Math.Abs(crossTime - flight.TimeEndLine);
+                //    if (diff > C_SPFP_TimeTolerance * tickOfSecond)
+                //    {
+                //        crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
+                //        int sec = (int)((diff + (tickOfSecond / 2) + 1) / tickOfSecond);
+                //        PenaltySet penalty = new PenaltySet();
+                //        penalty.Points = Math.Min((sec - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
+                //        penalty.Reason = string.Format("FP Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeEndLine).ToLongTimeString());
+                //        result.Add(penalty);
+                //    }
+                //}
+                //#endregion
+
+                if (useProhZoneCalculation || ChannelZoneLines.Count == 0)
+                {
+                    #region entering or leaving prohibited zone
+
+                    bool stateChanged = false;
+                    //IntersectionPoint ip = new IntersectionPoint();
+                    if (intersectsProhAreaPoint(PenaltyZoneLines, l, out stateChanged, out ip))
+                    {
+                        if (stateChanged)
+                        {
+                            intersectionPoints.Add(ip);
+                            if (!insidePenalty)
+                            {
+                                insidePenalty = true;
+                                timeSinceInsidePenalty = ip.Timestamp;
+                            }
+                            else
+                            {
+                                insidePenalty = false;
+                                long diff = ip.Timestamp - timeSinceInsidePenalty;
+                                if (diff > tickOfSecond * C_PROH_TimeTolerance)
+                                {
+                                    PenaltySet penalty = new PenaltySet();
+                                    // round times for entering/leaving penalty zone to nearest full second
+                                    long pstart = ((timeSinceInsidePenalty + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // rounded
+                                    long pend = ((ip.Timestamp + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // rounded
+                                    int sec = (int)((pend - pstart) / tickOfSecond);
+                                    penalty.Points = (sec - C_PROH_TimeTolerance) * C_PointsPerSec;
+                                    // Max penalty inside PROH zone: ======>> NOTE: disabled after NOV 2017
+                                    // penalty.Points = Math.Min((sec - 5) * 3, 300);
+                                    penalty.Reason = string.Format("Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToLongTimeString(), new DateTime(pend).ToLongTimeString());
+                                    result.Add(penalty);
+                                }
+                            }
+                        }
+                    }
+                    #endregion
+                }
+                else
+                {
+                    #region entering or leaving channel
+
+                    bool stateChanged = false;
+                    if (intersectsOwnChannel(ChannelZoneLines, l, out stateChanged, out ip))
+                    {
+                        if (stateChanged)
+                        {
+                            intersectionPoints.Add(ip);
+                            if (!outsideOwnChannel)
+                            {
+                                outsideOwnChannel = true;
+                                timeSinceOutsideOwnChannel = ip.Timestamp;
+                            }
+                            else
+                            {
+                                if (isFirstTimeIntoChannel)
+                                {
+                                    isFirstTimeIntoChannel = false;
+                                    if (haveCrossedStart)
+                                    {
+                                        timeSinceOutsideOwnChannel = ipStart.Timestamp;
+                                    }
+                                    else
+                                    {
+                                        timeSinceOutsideOwnChannel = flight.TimeStartLine;
+                                    }
+                                }
+                                outsideOwnChannel = false;
+                                long diff = ip.Timestamp - timeSinceOutsideOwnChannel;
+                                if (diff > tickOfSecond * C_PROH_TimeTolerance)
+                                {
+                                    PenaltySet penalty = new PenaltySet();
+                                    // round times for entering/leaving penalty zone to nearest full second
+                                    long pstart = ((timeSinceOutsideOwnChannel + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // rounded
+                                    long pend = ((ip.Timestamp + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // rounded
+                                    int sec = (int)((pend - pstart) / tickOfSecond);
+                                    penalty.Points = (sec - C_PROH_TimeTolerance) * C_PointsPerSec;
+                                    // Max penalty inside PROH zone: ======>> NOTE: disabled after NOV 2017
+                                    // penalty.Points = Math.Min((sec - 5) * 3, 300);
+                                    penalty.Reason = string.Format("outside channel for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToLongTimeString(), new DateTime(pend).ToLongTimeString());
+                                    result.Add(penalty);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // check if start line is passed now but outside the cannel. if yes, set outSideOwnChannel = true
+                        //if (getIntersection(l, startLine, out ip))
+                        //{
+                        //    outsideOwnChannel = true;
+                        //    //timeSinceOutsideOwnChannel = ipStart.Timestamp;
+                        //}
+
+                        // check if end line is passed now but outside the cannel. if yes, set outSideOwnChannel = false
+                        if (getIntersection(l, endLine, out ip))
+                        {
+                            outsideOwnChannel = false;
+                            long diff = ip.Timestamp - timeSinceOutsideOwnChannel;
+                            if (diff > tickOfSecond * C_PROH_TimeTolerance)
+                            {
+                                PenaltySet penalty = new PenaltySet();
+                                // round times for entering/leaving penalty zone to nearest full second
+                                long pstart = ((timeSinceOutsideOwnChannel + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // rounded
+                                long pend = ((ip.Timestamp + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // rounded
+                                int sec = (int)((pend - pstart) / tickOfSecond);
+                                penalty.Points = (sec - C_PROH_TimeTolerance) * C_PointsPerSec;
+                                // Max penalty inside PROH zone: ======>> NOTE: disabled after NOV 2017
+                                // penalty.Points = Math.Min((sec - 5) * 3, 300);
+                                penalty.Reason = string.Format("Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToLongTimeString(), new DateTime(pend).ToLongTimeString());
+                                result.Add(penalty);
+                            }
+                        }
+                    }
+
+                    #endregion
+                }
+
                 #region crossing end line
-                if (getIntersection(l, endLine, out ipEnd))
+                if (getIntersection(l, endLine, out ip) & !haveCrossedEnd)
                 {
                     haveCrossedEnd = true;
-                    intersectionPoints.Add(ipEnd);
-                    long crossTime = ipEnd.Timestamp;
-                    long diff = crossTime - flight.TimeEndLine;
+                    intersectionPoints.Add(ip);
+                    long crossTime = ip.Timestamp;
+                    ipEnd = ip;
+                    long diff = Math.Abs(crossTime - flight.TimeEndLine);
                     if (diff > C_SPFP_TimeTolerance * tickOfSecond)
                     {
                         crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
@@ -167,124 +329,57 @@ namespace AirNavigationRaceLive.Comps.Helper
                 }
                 #endregion
 
-                #region entering or leaving prohibited zone
-
-                bool stateChanged = false;
-                IntersectionPoint ip = new IntersectionPoint();
-                if (intersectsProhAreaPoint(PenaltyZoneLines, l, out stateChanged, out ip))
-                {
-                    if (stateChanged)
-                    {
-                        intersectionPoints.Add(ip);
-                        if (!insidePenalty)
-                        {
-                            insidePenalty = true;
-                            timeSinceInsidePenalty = ip.Timestamp;
-                        }
-                        else
-                        {
-                            insidePenalty = false;
-                            long diff = ip.Timestamp - timeSinceInsidePenalty;
-                            if (diff > tickOfSecond *C_PROH_TimeTolerance)
-                            {
-                                PenaltySet penalty = new PenaltySet();
-                                // round times for entering/leaving penalty zone to nearest full second
-                                long pstart =((timeSinceInsidePenalty + (tickOfSecond / 2) + 1) / tickOfSecond)* tickOfSecond; // rounded
-                                long pend = ((ip.Timestamp + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // rounded
-                                int sec = (int)((pend-pstart) / tickOfSecond);
-                                penalty.Points = (sec - C_PROH_TimeTolerance) * C_PointsPerSec; 
-                                // Max penalty inside PROH zone: ======>> NOTE: disabled after NOV 2017
-                                // penalty.Points = Math.Min((sec - 5) * 3, 300);
-                                penalty.Reason = string.Format("Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToLongTimeString(), new DateTime(pend).ToLongTimeString());
-                                result.Add(penalty);
-                            }
-                        }
-                    }
-                }
-                #endregion
             }
 
             #region handling cases where Takeoff-, Start- or End line are not observed/never crossed
-            if (shouldHaveCrossedTakeOff && !haveCrossedTakeOff)
-            {
-                PenaltySet penalty = new PenaltySet();
-                penalty.Points = C_TKOF_MaxPenalty;
-                penalty.Reason = "Takeoff Line not passed";
-                result.Add(penalty);
 
-            };
             if (shouldHaveCrossedStart && !haveCrossedStart)
             {
                 PenaltySet penalty = new PenaltySet();
                 penalty.Points = C_SPFP_MaxPenalty;
                 penalty.Reason = "SP Line not passed";
-                result.Add(penalty);
+                result.Insert(0, penalty); // add to begin of list
+
+            };
+            if (shouldHaveCrossedTakeOff && !haveCrossedTakeOff)
+            {
+                PenaltySet penalty = new PenaltySet();
+                penalty.Points = C_TKOF_MaxPenalty;
+                penalty.Reason = "Takeoff Line not passed";
+                result.Insert(0, penalty); // add to begin of list
 
             };
             if (shouldHaveCrossedEnd && !haveCrossedEnd)
             {
                 PenaltySet penalty = new PenaltySet();
+                // TODO: handle the case where we have channel calculation but no FP line
+                if (!(useProhZoneCalculation || ChannelZoneLines.Count == 0) && outsideOwnChannel)
+                {
+                    outsideOwnChannel = false;
+                    long crossTime = flight.TimeEndLine;
+                    long diff = Math.Abs(crossTime - timeSinceOutsideOwnChannel);
+                    if (diff > C_SPFP_TimeTolerance * tickOfSecond)
+                    {
+                        crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
+                        int sec = (int)((diff + (tickOfSecond / 2) + 1) / tickOfSecond);
+                        penalty.Points = Math.Min((sec - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
+                        penalty.Reason = string.Format("Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(timeSinceOutsideOwnChannel).ToLongTimeString(), new DateTime(crossTime).ToLongTimeString());
+                        result.Add(penalty);
+                    }
+
+                }
+                penalty = new PenaltySet();
                 penalty.Points = C_SPFP_MaxPenalty;
                 penalty.Reason = "FP Line not passed";
                 result.Add(penalty);
             };
             #endregion
+
+
+
             lstIntersectionPoints = intersectionPoints;
             return result;
         }
-        /// <summary>
-        /// Return timestamp in ticks of relevant intersection
-        /// </summary>
-        /// <param name="penaltyZones"></param>
-        /// <param name="line"></param>
-        /// <param name="changedState"></param>
-        /// <returns></returns>
-        //private static double intersectsProhAreaTimeStamp(List<LineP> penaltyZones, LineP line, out bool changedState)
-        //{
-        //    changedState = false;
-        //    double result = -1;
-        //    foreach (LineP nl in penaltyZones)
-        //    {
-        //        double intersection = getIntersection(line, nl);
-        //        if (intersection != -1)
-        //        {
-        //            changedState = !changedState;
-        //            result = line.TimestamStart + (line.TimestamEnd - line.TimestamStart) * intersection;
-        //        }
-        //    }
-        //    return result;
-        //}
-
-        /// <summary>
-        /// Get interpolated coordinates and timestamp for of the intersection point
-        /// </summary>
-        /// <param name="penaltyZones"></param>
-        /// <param name="line"></param>
-        /// <param name="changedState"></param>
-        /// <returns></returns>
-        //private static IntersectionPoint intersectsProhAreaPoint(List<LineP> penaltyZones, LineP line, out bool changedState)
-        //{
-        //    changedState = false;
-        //    IntersectionPoint result = new IntersectionPoint();
-        //    foreach (LineP nl in penaltyZones)
-        //    {
-        //        double intersection = getIntersection(line, nl);
-        //        if (intersection != -1)
-        //        {
-        //            long timestmp = line.TimestamStart + (long)Math.Truncate((line.TimestamEnd - line.TimestamStart) * intersection);
-        //            double x = line.start.X + (line.end.X - line.start.X) * intersection;
-        //            double y = line.start.Y + (line.end.Y - line.start.Y) * intersection;
-        //            double z = 0;
-        //            result.longitude = x;
-        //            result.latitude = y;
-        //            result.altitude = z;
-        //            result.Timestamp = timestmp;
-
-        //            changedState = !changedState;
-        //        }
-        //    }
-        //    return result;
-        //}
 
         private static bool intersectsProhAreaPoint(List<LineP> penaltyZones, LineP data, out bool changedState, out IntersectionPoint ip)
         {
@@ -303,6 +398,25 @@ namespace AirNavigationRaceLive.Comps.Helper
             }
             return result;
         }
+
+        private static bool intersectsOwnChannel(List<LineP> ownChannel, LineP data, out bool changedState, out IntersectionPoint ip)
+        {
+            changedState = false;
+            bool result = false;
+            ip = new IntersectionPoint();
+            foreach (LineP nl in ownChannel)
+            {
+                IntersectionPoint ip1 = new IntersectionPoint();
+                if (getIntersection(data, nl, out ip1))
+                {
+                    ip = ip1;
+                    result = true;
+                    changedState = !changedState;
+                }
+            }
+            return result;
+        }
+
 
         private static LineP getLine(Line nline)
         {
@@ -436,7 +550,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// <param name="parcour"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        private static List<LineP> getAssignedChannelLines(ParcourSet parcour, Route type)
+        private static List<LineP> getAssignedChannelLineP(ParcourSet parcour, Route type)
         {
             List<LineP> lst = new List<LineP>();
             switch (type)
@@ -512,31 +626,139 @@ namespace AirNavigationRaceLive.Comps.Helper
             return lst;
         }
 
-        /// <summary>
-        /// Determines if the given point is inside the polygon
-        /// </summary>
-        /// <param name="polygon">the vertices of polygon</param>
-        /// <param name="testPoint">the given point</param>
-        /// <returns>true if the point is inside the polygon; otherwise, false</returns>
-        public static bool IsPointInPolygon4(Vector[] polygon, Vector testPoint)
-        {
-            // see https://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
-            // NOTE: not yet in use
-            bool result = false;
-            int j = polygon.Length - 1;
-            for (int i = 0; i < polygon.Length; i++)
-            {
-                if (polygon[i].Y < testPoint.Y && polygon[j].Y >= testPoint.Y || polygon[j].Y < testPoint.Y && polygon[i].Y >= testPoint.Y)
-                {
-                    if (polygon[i].X + (testPoint.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < testPoint.X)
-                    {
-                        result = !result;
-                    }
-                }
-                j = i;
-            }
-            return result;
-        }
+        #region Unused
+
+        ///// <summary>
+        ///// Return timestamp in ticks of relevant intersection
+        ///// </summary>
+        ///// <param name="penaltyZones"></param>
+        ///// <param name="line"></param>
+        ///// <param name="changedState"></param>
+        ///// <returns></returns>
+        //private static double intersectsProhAreaTimeStamp(List<LineP> penaltyZones, LineP line, out bool changedState)
+        //{
+        //    changedState = false;
+        //    double result = -1;
+        //    foreach (LineP nl in penaltyZones)
+        //    {
+        //        double intersection = getIntersection(line, nl);
+        //        if (intersection != -1)
+        //        {
+        //            changedState = !changedState;
+        //            result = line.TimestamStart + (line.TimestamEnd - line.TimestamStart) * intersection;
+        //        }
+        //    }
+        //    return result;
+        //}
+
+        ///// <summary>
+        ///// Get interpolated coordinates and timestamp for of the intersection point
+        ///// </summary>
+        ///// <param name="penaltyZones"></param>
+        ///// <param name="line"></param>
+        ///// <param name="changedState"></param>
+        ///// <returns></returns>
+        //private static IntersectionPoint intersectsProhAreaPoint(List<LineP> penaltyZones, LineP line, out bool changedState)
+        //{
+        //    changedState = false;
+        //    IntersectionPoint result = new IntersectionPoint();
+        //    foreach (LineP nl in penaltyZones)
+        //    {
+        //        double intersection = getIntersection(line, nl);
+        //        if (intersection != -1)
+        //        {
+        //            long timestmp = line.TimestamStart + (long)Math.Truncate((line.TimestamEnd - line.TimestamStart) * intersection);
+        //            double x = line.start.X + (line.end.X - line.start.X) * intersection;
+        //            double y = line.start.Y + (line.end.Y - line.start.Y) * intersection;
+        //            double z = 0;
+        //            result.longitude = x;
+        //            result.latitude = y;
+        //            result.altitude = z;
+        //            result.Timestamp = timestmp;
+
+        //            changedState = !changedState;
+        //        }
+        //    }
+        //    return result;
+        //}
+
+        //private static List<Vector> GetVectors(Line nline)
+        //{
+        //    // generate list of vectors from line. Used for Channel penalty calculation
+        //    List<Vector> lst = new List<Vector>();
+        //    lst.Add(new Vector(nline.A.longitude, nline.A.latitude, 0));
+        //    lst.Add(new Vector(nline.B.longitude, nline.B.latitude, 0));
+        //    return lst;
+        //}
+        //private static Vector[] getAssignedChannelLines(ParcourSet parcour, Route type)
+        //{
+        //    List<Vector> lst = new List<Vector>();
+        //    switch (type)
+        //    {
+        //        case Route.A:
+        //            foreach (Line nl in parcour.Line.Where(p => p.Type == (int)LineType.CHANNEL_A))
+        //            {
+        //                lst.AddRange(GetVectors(nl));
+        //            }
+        //            break;
+        //        case Route.B:
+        //            foreach (Line nl in parcour.Line.Where(p => p.Type == (int)LineType.CHANNEL_B))
+        //            {
+        //                lst.AddRange(GetVectors(nl));
+        //            }
+        //            break;
+        //        case Route.C:
+        //            foreach (Line nl in parcour.Line.Where(p => p.Type == (int)LineType.CHANNEL_C))
+        //            {
+        //                lst.AddRange(GetVectors(nl));
+        //            }
+        //            break;
+        //        case Route.D:
+        //            foreach (Line nl in parcour.Line.Where(p => p.Type == (int)LineType.CHANNEL_D))
+        //            {
+        //                lst.AddRange(GetVectors(nl));
+        //            }
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //    // TODO: generate array of Vectors from list of line
+        //    return lst.ToArray();
+        //}
+
+        ///// <summary>
+        ///// Determines if the given point is inside the polygon
+        ///// </summary>
+        ///// <param name="polygon">the vertices of polygon</param>
+        ///// <param name="PointToBeTested">the given point</param>
+        ///// <returns>true if the point is inside the polygon; otherwise, false</returns>
+        //public static bool IsPointInPolygon(Vector[] polygon, Vector PointToBeTested)
+        //{
+        //    // see https://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
+        //    // NOTE: not yet in use
+        //    bool result = false;
+        //    int j = polygon.Length - 1;
+        //    for (int i = 0; i < polygon.Length; i++)
+        //    {
+        //        if (polygon[i].Y < PointToBeTested.Y && polygon[j].Y >= PointToBeTested.Y || polygon[j].Y < PointToBeTested.Y && polygon[i].Y >= PointToBeTested.Y)
+        //        {
+        //            if (polygon[i].X + (PointToBeTested.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < PointToBeTested.X)
+        //            {
+        //                result = !result;
+        //            }
+        //        }
+        //        j = i;
+        //    }
+        //    return result;
+        //}
+        //public static bool IsPointInPolygon(Vector[] polygon, Line LineToBeTested)
+        //{
+        //    Vector PointToBeTested = new Vector(LineToBeTested.A.longitude, LineToBeTested.A.latitude, 0);
+        //    return IsPointInPolygon(polygon, PointToBeTested);
+        //}
+
+        #endregion
+
     }
     class LineP
     {

@@ -35,10 +35,13 @@ namespace AirNavigationRaceLive.Dialogs
                 List<Point> list = textBoxRecords.Tag as List<Point>;
                 Client.DBContext.Point.RemoveRange(ct.Point);
                 this.ct.Point.Clear();
-                foreach (Point point in list)
-                {
-                    this.ct.Point.Add(point);
-                }
+                //foreach (Point point in list)
+                //{
+                //    this.ct.Point.Add(point);
+                //}
+               // this.ct.Point = list;
+                Client.DBContext.Point.AddRange(list);
+                this.ct.Point = list;
                 Client.DBContext.SaveChanges();
                 GeneratePenalty.CalculateAndPersistPenaltyPoints(Client, ct);
                 OnFinish.Invoke(null, null);

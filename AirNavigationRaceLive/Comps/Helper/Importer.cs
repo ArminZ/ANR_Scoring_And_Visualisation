@@ -185,7 +185,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                             Vector end = new Vector(Longitude2, Latitude2, 0);
                             Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                             l.O = o.toGPSPoint();
-                            l.Type = (int)LineType.LINEOFNORETURN;
+                            l.Type = (int)LineType.NOBACKTRACKLINE;
                             result.Line.Add(l);
                         }
                     }
@@ -364,7 +364,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                             Vector end = new Vector(Longitude2, Latitude2, 0);
                             Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                             l.O = o.toGPSPoint();
-                            l.Type = (int)LineType.LINEOFNORETURN;
+                            l.Type = (int)LineType.NOBACKTRACKLINE;
                             result.Line.Add(l);
                         }
                     }
@@ -544,7 +544,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                             Vector end = new Vector(Longitude2, Latitude2, 0);
                             Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                             l.O = o.toGPSPoint();
-                            l.Type = (int)LineType.LINEOFNORETURN;
+                            l.Type = (int)LineType.NOBACKTRACKLINE;
                             result.Line.Add(l);
                         }
                     }
@@ -589,17 +589,17 @@ namespace AirNavigationRaceLive.Comps.Helper
             {
                 string pmName = placemark.Element(nsKml + "name").Value.Trim();
 
-                if (pmName.StartsWith("PROH"))
-                    //if (pmName.StartsWith("PROH") || pmName.StartsWith("CHANNEL-"))
-                    {
-                        // the below function handles also channel-specific Prohibited areas (PROH-A, ....)
-                        int lType = (int)lineTypeFromLineName(pmName);
+                //if (pmName.StartsWith("PROH"))
+                if (pmName.StartsWith("PROH") || pmName.StartsWith("CHANNEL-"))
+                {
+                    // the below function handles also channel-specific Prohibited areas (PROH-A, ....)
+                    int lType = (int)lineTypeFromLineName(pmName);
                     bool isChannel = pmName.StartsWith("CHANNEL-");
                     // create polygon elements
                     foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
                     {
                         List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
-                       // int numberOfVertexes = lst.Count;
+                        // int numberOfVertexes = lst.Count;
                         List<Vector> vcts = new List<Vector>();
                         foreach (var pt in lst)
                         {
@@ -913,7 +913,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         data.longitude = newPointLongitude;
                         data.altitude = altitude;
                         result.Add(data);
-                    } 
+                    }
                     #endregion
                 }
             }
@@ -1008,8 +1008,8 @@ namespace AirNavigationRaceLive.Comps.Helper
         {
             string ReversedCoordinates = string.Empty;
             // NOTE: string may contain linebreaks, tabs instead of space
-            char[] splitchars = {' '};
-            string[] ptstrings = str.Replace("\n", " ").Replace("\t", " ").Replace("  "," ").Split(splitchars, StringSplitOptions.RemoveEmptyEntries);
+            char[] splitchars = { ' ' };
+            string[] ptstrings = str.Replace("\n", " ").Replace("\t", " ").Replace("  ", " ").Split(splitchars, StringSplitOptions.RemoveEmptyEntries);
             ReversedCoordinates = string.Join(" ", ptstrings.Reverse());
             return ReversedCoordinates;
         }
@@ -1025,7 +1025,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             const string ENDPT = @"ENDPOINT-";
             const string CHANNEL = @"CHANNEL-";
             const string PROH = @"PROH-";
-            // handle the generig PROH case (can be 'PROH A xxxxx' etc)
+            // handle the generic PROH case (can be 'PROH A xxxxx' etc)
             string gteName = (gateName.StartsWith("PROH") && !gateName.StartsWith("PROH-")) ? "PROH" : gateName;
             switch (gteName)
             {
@@ -1064,14 +1064,14 @@ namespace AirNavigationRaceLive.Comps.Helper
                     }
                 case "NBLINE":
                     {
-                        return LineType.LINEOFNORETURN;
+                        return LineType.NOBACKTRACKLINE;
                     }
 
                 case "PROH":
                     {
                         return LineType.PENALTYZONE;  //generic prohibited zone, not route-specific.
                     }
-// the following added in version 2.1.0
+                // the following added in version 2.1.0
                 case PROH + "-A":
                     {
                         return LineType.PROH_A;

@@ -89,5 +89,10 @@ namespace AirNavigationRaceLive.Comps
         {
             textBoxDatabasePath.Text = Comps.Helper.Utils.getDbPath(true);
         }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

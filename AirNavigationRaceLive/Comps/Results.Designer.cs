@@ -55,7 +55,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblResults = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.visualisationPictureBox1 = new AirNavigationRaceLive.Comps.VisualisationPictureBox();
+            this.visualisationPictureBox1 = new AirNavigationRaceLive.Comps.ParcourPictureBox();
             this.groupBoxLoggerImport.SuspendLayout();
             this.groupBoxExportResults.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -373,7 +373,7 @@
             this.visualisationPictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.visualisationPictureBox1.Name = "visualisationPictureBox1";
             this.visualisationPictureBox1.Size = new System.Drawing.Size(1246, 1099);
-            this.visualisationPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.visualisationPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.visualisationPictureBox1.TabIndex = 97;
             this.visualisationPictureBox1.TabStop = false;
             // 
@@ -381,6 +381,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblResults);
@@ -411,7 +412,7 @@
         #endregion
 
         private System.Windows.Forms.ComboBox comboBoxQualificRound;
-        private VisualisationPictureBox visualisationPictureBox1;
+        private ParcourPictureBox visualisationPictureBox1;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnLoggerImport;
         private System.Windows.Forms.GroupBox groupBoxLoggerImport;
