@@ -387,9 +387,9 @@
     <Compile Include="Migrations\201806242000317_AddIntersectionPointSet.Designer.cs">
       <DependentUpon>201806242000317_AddIntersectionPointSet.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901190106199_ChannelFunctionality.cs" />
-    <Compile Include="Migrations\201901190106199_ChannelFunctionality.Designer.cs">
-      <DependentUpon>201901190106199_ChannelFunctionality.cs</DependentUpon>
+    <Compile Include="Migrations\201901190149518_ChannelFunctionality.cs" />
+    <Compile Include="Migrations\201901190149518_ChannelFunctionality.Designer.cs">
+      <DependentUpon>201901190149518_ChannelFunctionality.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelExtensions\ComboParcourExtension.cs" />
@@ -514,8 +514,8 @@
     <EmbeddedResource Include="Migrations\201806242000317_AddIntersectionPointSet.resx">
       <DependentUpon>201806242000317_AddIntersectionPointSet.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901190106199_ChannelFunctionality.resx">
-      <DependentUpon>201901190106199_ChannelFunctionality.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901190149518_ChannelFunctionality.resx">
+      <DependentUpon>201901190149518_ChannelFunctionality.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

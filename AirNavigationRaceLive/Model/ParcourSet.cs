@@ -37,13 +37,17 @@ namespace AirNavigationRaceLive.Model
         public decimal PenWidthPROH { get; set; }
         public decimal PenWidthGates { get; set; }
         public bool HasCircleOnGates { get; set; }
-
         public Int32 ColorPROHArgb { get { return ColorPROH.ToArgb(); } set { ColorPROH = Color.FromArgb(value); } }
         public Int32 ColorGatesArgb { get { return ColorGates.ToArgb(); } set { ColorGates = Color.FromArgb(value); } }
+
+        // model update 2019-01-19
         public Int32 ColorIntersectionArgb { get { return ColorIntersection.ToArgb(); } set { ColorIntersection = Color.FromArgb(value); } }
         public Int32 ColorChannelArgb { get { return ColorChannel.ToArgb(); } set { ColorChannel = Color.FromArgb(value); } }
         public Int32 ColorChannelFillArgb { get { return ColorChannelFill.ToArgb(); } set { ColorChannelFill = Color.FromArgb(value); } }
         public decimal PenWidthChannel { get; set; }
+        public decimal PenWidthIntersection { get; set; }
+        public decimal IntersectionCircleRadius { get; set; }
+        public bool HasIntersectionCircles { get; set; }
         public int PenaltyCalcType { get; set; }
 
 

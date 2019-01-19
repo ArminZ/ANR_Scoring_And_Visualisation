@@ -13,7 +13,7 @@ namespace AirNavigationRaceLive.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201901190106199_ChannelFunctionality"; }
+            get { return "201901190149518_ChannelFunctionality"; }
         }
         
         string IMigrationMetadata.Source
