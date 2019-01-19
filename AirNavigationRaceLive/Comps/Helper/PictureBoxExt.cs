@@ -33,25 +33,34 @@ namespace AirNavigationRaceLive.Comps
         private List<FlightSet> flights;
         private Pen PenFlight = new Pen(new SolidBrush(Color.Black), 7f);
         private Pen PenIntersection = new Pen(new SolidBrush(Color.Black), 7f);
-        public float PenWidthIntersection; // = 6f;
-        public Color ColorIntersection;// = Color.FromArgb(255, 0, 0);
-        public float PenWidthChannel; // = 6f;
-        public Color ColorChannel;// = Color.FromArgb(255, 0, 0);
+        private Pen PenChannel = new Pen(new SolidBrush(Color.Black), 7f);
 
+        private float IntersectionCircleRadius = 20;
+        private bool ShowIntersectionCircle = false;
         private bool FillChannel = false;
 
         public void SetParcour(ParcourSet iParcour)
         {
             Parcour = iParcour;
             Brush = new SolidBrush(Color.FromArgb((255 * iParcour.Alpha) / 100, iParcour.ColorPROH));
+
             PenGates.Width = (float)iParcour.PenWidthGates;
             PenGates.Color = iParcour.ColorGates;
-            PenIntersection.Color = Properties.Settings.Default.IntersectionColor;
-            PenIntersection.Width = (float)Properties.Settings.Default.IntersectionPenWidth;
+            HasCircleOnGates = iParcour.HasCircleOnGates;
+
+            PenIntersection.Color = iParcour.ColorIntersection == Color.FromArgb(0, 0, 0, 0) ? Properties.Settings.Default.IntersectionColor : iParcour.ColorIntersection;
+            PenIntersection.Width = iParcour.PenWidthIntersection == 0 ? (float)Properties.Settings.Default.IntersectionPenWidth : (float)iParcour.PenWidthIntersection;
+            IntersectionCircleRadius = iParcour.IntersectionCircleRadius == 0 ? (float)20.0 : (float)iParcour.IntersectionCircleRadius;
+            ShowIntersectionCircle = true; //  iParcour.HasIntersectionCircles;
+
+            Color c = iParcour.ColorChannel;
+            PenChannel.Color = iParcour.ColorChannel == Color.FromArgb(0, 0, 0, 0) ? Properties.Settings.Default.ChannelColor : iParcour.ColorChannel;
+            PenChannel.Width = iParcour.PenWidthChannel == 0 ? (float)Properties.Settings.Default.ChannelPenWidth : (float)iParcour.PenWidthChannel;
+
 
             Pen.Width = (float)iParcour.PenWidthGates;
             Pen.Color = iParcour.ColorGates;
-            HasCircleOnGates = iParcour.HasCircleOnGates;
+
         }
         public void SetConverter(Converter iConverter)
         {
@@ -117,8 +126,6 @@ namespace AirNavigationRaceLive.Comps
                 return;
             }
 
-            //HasCircleOnGates = true;  //TODO
-            //bool fillChannel = false;  //TODO
 
             #region parcour
             if (Parcour != null && c != null)
@@ -135,7 +142,7 @@ namespace AirNavigationRaceLive.Comps
                     List<Line> linesClosedPolygon = lines.Where(p => (p.Type == (int)LineType.PENALTYZONE) || (p.Type >= (int)LineType.PROH_A && p.Type <= (int)LineType.PROH_D)).ToList();
                     PolygonFiller(linesClosedPolygon, Pen, Brush, pe);
 
-               
+
                     if (FillChannel)
                     {
                         // Polygons filling: channels
@@ -161,24 +168,45 @@ namespace AirNavigationRaceLive.Comps
                             Model.Point CenterPoint = new Model.Point();
                             CenterPoint.latitude = (l.A.latitude + l.B.latitude) / 2.0;
                             CenterPoint.longitude = (l.A.longitude + l.B.longitude) / 2.0;
+                            Model.Point ArrowPoint = new Model.Point();
+                            ArrowPoint.latitude = l.O.latitude;
+                            ArrowPoint.longitude = l.O.longitude;
+                            Line Arrowpoint_l = new Line();
+                            Arrowpoint_l.A = CenterPoint;
+                            Arrowpoint_l.B = ArrowPoint;
+                            //Arrowpoint_l.B.latitude = l.O.latitude;
+                            //Arrowpoint_l.B.longitude = l.O.longitude;
+
+                            int oriX = c.LongitudeToX(ArrowPoint.longitude);
+                            int oriY = c.LatitudeToY(ArrowPoint.latitude);
+                            int oriXA = c.getStartX(Arrowpoint_l);
+                            int oriYA = c.getStartY(Arrowpoint_l);
+                            int oriXB = c.getEndX(Arrowpoint_l);
+                            int oriYB = c.getEndY(Arrowpoint_l);
+
+
                             // create a dedicated point on the same latitude as the Center point
                             Model.Point RadiusPoint = c.PointForRadius(CenterPoint);
+
 
                             int midX = startX + (endX - startX) / 2;
                             int midY = startY + (endY - startY) / 2;
                             int radX = c.LongitudeToX(RadiusPoint.longitude);
                             int radY = c.LatitudeToY(RadiusPoint.latitude);
-                            int orientationX = c.getOrientationX(l);
-                            int orientationY = c.getOrientationY(l);
-                            double tmp = (double)midY + (orientationY - midY) * c.LongitudeCorrFactor(CenterPoint);
-                            orientationY = (int)tmp;
+                            //int orientationX = c.getOrientationX(l);
+                            //int orientationY = c.getOrientationY(l);
+                            //double tmp = (double)midY + (orientationY - midY) * c.LongitudeCorrFactor(CenterPoint);
+                            //orientationY = (int)tmp;
                             Vector start = new Vector(startX, startY, 0);
                             Vector radv = new Vector(radX, radY, 0);
                             //float radius = (float)Vector.Abs(midv - start)
                             float radius = Math.Abs(midY - radY) / LongCorrFactor;
+
+                            oriY = midY + (int)(((double)oriY - (double)midY) * LongCorrFactor / 2.0);
+
                             try
                             {
-                                int orientationYCorr = pdf == true ? midY + (int)(LongCorrFactor * (orientationY - midY)) : orientationY;
+                                //int orientationYCorr = pdf == true ? midY + (int)(LongCorrFactor * (orientationY - midY)) : orientationY;
 
                                 if (l.Type == (int)LineType.PENALTYZONE)
                                 {
@@ -204,7 +232,7 @@ namespace AirNavigationRaceLive.Comps
 
                                 if (l.Type >= (int)LineType.CHANNEL_A && l.Type <= (int)LineType.CHANNEL_D)
                                 {
-                                    pe.Graphics.DrawLine(PenGates, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
+                                    pe.Graphics.DrawLine(PenChannel, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
                                     pe.Graphics.ResetTransform();
                                 }
 
@@ -219,7 +247,9 @@ namespace AirNavigationRaceLive.Comps
                                         pe.Graphics.DrawEllipse(PenGates, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
                                         pe.Graphics.ResetTransform();
                                         // draw orientation line 
-                                        pe.Graphics.DrawLine(PenGates, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationYCorr));
+
+                                        pe.Graphics.DrawLine(PenGates, new System.Drawing.Point(midX, midY), new System.Drawing.Point(oriX, oriY));
+                                        //  pe.Graphics.DrawLine(PenGates, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationYCorr));
                                         pe.Graphics.ResetTransform();
                                     }
 
@@ -231,13 +261,13 @@ namespace AirNavigationRaceLive.Comps
                                         if (selectedLine == l)
                                         {
                                             pe.Graphics.DrawLine(PenSelected, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
-                                            pe.Graphics.DrawLine(PenSelected, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
+                                            pe.Graphics.DrawLine(PenSelected, new System.Drawing.Point(midX, midY), new System.Drawing.Point(oriX, oriY));
                                         }
 
                                         if (hoverLine == l)
                                         {
                                             pe.Graphics.DrawLine(PenHover, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
-                                            pe.Graphics.DrawLine(PenHover, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationY));
+                                            pe.Graphics.DrawLine(PenHover, new System.Drawing.Point(midX, midY), new System.Drawing.Point(oriX, oriY));
                                         }
                                     }
                                     #endregion
@@ -257,38 +287,33 @@ namespace AirNavigationRaceLive.Comps
 
             if (flights != null)
             {
-                int y0 = 0;
-                int x0 = 0;
-                double factor = 1;
                 //PenFlight.Width = 7f;
                 //PenIntersection.Width = (float)Properties.Settings.Default.IntersectionPenWidth;
-                float radiusIntersection = 20;
+                int r = (int)IntersectionCircleRadius;
 
                 foreach (FlightSet flight in flights)
                 {
                     List<System.Drawing.Point> points = new List<System.Drawing.Point>();
                     foreach (AirNavigationRaceLive.Model.Point gd in flight.Point)
                     {
-                        int startXp = x0 + (int)(c.LongitudeToX(gd.longitude) * factor);
-                        int startYp = y0 + (int)(c.LatitudeToY(gd.latitude) * factor);
+                        int startXp = (int)c.LongitudeToX(gd.longitude);
+                        int startYp = (int)c.LatitudeToY(gd.latitude);
                         points.Add(new System.Drawing.Point(startXp, startYp));
                     }
                     if (points.Count > 2)
                     {
                         pe.Graphics.DrawLines(PenFlight, points.ToArray());
                     }
-
-                    if (flight.IntersectionPointSet != null)
+                    if (flight.IntersectionPointSet != null && ShowIntersectionCircle)
                     {
 
                         foreach (IntersectionPoint gd in flight.IntersectionPointSet)
                         {
-                            int startXp = x0 + (int)(c.LongitudeToX(gd.longitude) * factor);
-                            int startYp = y0 + (int)(c.LatitudeToY(gd.latitude) * factor);
+                            int startXp = (int)c.LongitudeToX(gd.longitude);
+                            int startYp = (int)c.LatitudeToY(gd.latitude);
                             Model.Point p = new Model.Point();
                             p.latitude = gd.latitude;
                             float corrFact = (float)c.LongitudeCorrFactor(p);
-                            int r = (int)radiusIntersection;
                             pe.Graphics.DrawEllipse(PenIntersection, startXp - r, startYp - r * corrFact, 2 * r, 2 * r * corrFact);
                         }
                     }
