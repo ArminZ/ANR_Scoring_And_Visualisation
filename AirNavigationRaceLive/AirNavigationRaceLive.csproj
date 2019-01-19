@@ -194,6 +194,9 @@
     <Compile Include="Comps\Helper\Geometry\CPolygonShape.cs" />
     <Compile Include="Comps\Helper\Geometry\Definition.cs" />
     <Compile Include="Comps\Helper\OpenOfficeCreator.cs" />
+    <Compile Include="Comps\Helper\PictureBoxExt.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Comps\History.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -252,9 +255,6 @@
     <Compile Include="Comps\Helper\Importer.cs" />
     <Compile Include="Comps\Helper\ParcourGenerator.cs" />
     <Compile Include="Comps\Helper\ParcourModel.cs" />
-    <Compile Include="Comps\Helper\ParcourPictureBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Comps\Helper\Utils.cs" />
     <Compile Include="Comps\Helper\Vector.cs" />
     <Compile Include="Comps\Helper\wgs84_ch1903.cs" />

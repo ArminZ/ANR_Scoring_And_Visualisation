@@ -104,7 +104,7 @@ namespace AirNavigationRaceLive.Comps.Helper
 
             Process.Start(pathToPDF);
         }
-        public static void CreateParcourPDF(PDFSize pdfSize, bool showCalcTable, double scaleFactor, ParcourPictureBox picBox, Client.DataAccess c, String parcourName, String pathToPDF, String overlayText)
+        public static void CreateParcourPDF(PDFSize pdfSize, bool showCalcTable, double scaleFactor, PictureBoxExt picBox, Client.DataAccess c, String parcourName, String pathToPDF, String overlayText)
         {
             //PdfDocument doc = new PdfDocument(@"Resources\PDFTemplates\Competition_Map.pdf");
             PdfDocument doc = new PdfDocument();
@@ -453,7 +453,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         //        Process.Start(path);
         //    }
         //}
-        public static void CreateResultPDF(ParcourPictureBox picBox, Client.DataAccess c, QualificationRoundSet qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
+        public static void CreateResultPDF(PictureBoxExt picBox, Client.DataAccess c, QualificationRoundSet qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
         {
             int counter = 0;
             List<FlightSet> tempList = new List<FlightSet>();

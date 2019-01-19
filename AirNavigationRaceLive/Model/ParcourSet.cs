@@ -40,11 +40,24 @@ namespace AirNavigationRaceLive.Model
 
         public Int32 ColorPROHArgb { get { return ColorPROH.ToArgb(); } set { ColorPROH = Color.FromArgb(value); } }
         public Int32 ColorGatesArgb { get { return ColorGates.ToArgb(); } set { ColorGates = Color.FromArgb(value); } }
+        //public Int32 ColorIntersectionArgb { get { return ColorIntersection.ToArgb(); } set { ColorIntersection = Color.FromArgb(value); } }
+        //public Int32 ColorChannelArgb { get { return ColorChannel.ToArgb(); } set { ColorChannel = Color.FromArgb(value); } }
+        //public Int32 ColorChannelFillArgb { get { return ColorChannelFill.ToArgb(); } set { ColorChannelFill = Color.FromArgb(value); } }
+        //public decimal PenWidthChannel { get; set; }
+        //public int? PenaltyCalcType_Id { get; set; }
+
+
 
         [NotMapped]
         public Color ColorPROH { get; set; }
         [NotMapped]
         public Color ColorGates { get; set; }
+        //[NotMapped]
+        //public Color ColorIntersection { get; set; }
+        //[NotMapped]
+        //public Color ColorChannel { get; set; }
+        //[NotMapped]
+        //public Color ColorChannelFill { get; set; }
 
         public virtual CompetitionSet CompetitionSet { get; set; }
 

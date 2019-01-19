@@ -8,7 +8,7 @@ using AirNavigationRaceLive.Model;
 
 namespace AirNavigationRaceLive.Comps
 {
-    public class VisualisationPictureBox : PictureBox
+    public class UnusedPictureBox : PictureBox
     {
         private ParcourSet Parcour;
         private Converter c;
@@ -17,7 +17,7 @@ namespace AirNavigationRaceLive.Comps
         private Pen Pen = new Pen(new SolidBrush(Color.Red), 2f);
         private Pen PenHover = new Pen(new SolidBrush(Color.White), 4f);
         private Pen PenSelected = new Pen(new SolidBrush(Color.Blue), 6f);
-        private SolidBrush Brush = new SolidBrush(Color.FromArgb(100, 255, 0, 0));
+        private SolidBrush Brush = new SolidBrush(Color.FromArgb(70, 255, 0, 0));
 
         private bool rescale = false;
 
@@ -33,19 +33,25 @@ namespace AirNavigationRaceLive.Comps
         private List<FlightSet> flights;
         private Pen PenFlight = new Pen(new SolidBrush(Color.Black), 7f);
         private Pen PenIntersection = new Pen(new SolidBrush(Color.Black), 7f);
+        bool fillChannel = false;  //TODO
+        bool showChannel = true;  //TODO
+        bool showProh = false;  //TODO
 
 
         public void SetParcour(ParcourSet iParcour)
         {
             Parcour = iParcour;
-            Brush = new SolidBrush(Color.FromArgb((255 * iParcour.Alpha) / 100, iParcour.ColorPROH));
+            Brush = new SolidBrush(Color.FromArgb(255 * iParcour.Alpha / 100, iParcour.ColorPROH));
             UserPenGates.Width = (float)iParcour.PenWidthGates;
             UserPenGates.Color = iParcour.ColorGates;
+
             PenIntersection.Color = Properties.Settings.Default.IntersectionColor;
             PenIntersection.Width = (float)Properties.Settings.Default.IntersectionPenWidth;
 
             Pen.Width = (float)iParcour.PenWidthGates;
             Pen.Color = iParcour.ColorGates;
+            HasCircleOnGates = iParcour.HasCircleOnGates;
+
         }
         public void SetConverter(Converter iConverter)
         {
@@ -55,7 +61,7 @@ namespace AirNavigationRaceLive.Comps
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
-            PaintParcourAndData(pe, true);
+            PaintParcourAndData(pe, rescale);
         }
 
         public System.Drawing.Image PrintOutImage { get { return GeneratePrintOut(); } }
@@ -64,13 +70,14 @@ namespace AirNavigationRaceLive.Comps
         {
             if (Parcour != null && c != null)
             {
-                pdf = true;
                 Bitmap bt = new Bitmap(Image.Width, Image.Height);
                 Graphics gr = Graphics.FromImage(bt);
                 Rectangle rc = new Rectangle(0, 0, Image.Width, Image.Height);
                 gr.DrawImage(Image, rc);
-                PaintEventArgs pe = new PaintEventArgs(gr, new Rectangle(-2, -2, -2, -2));
-                PaintParcourAndData(pe, rescale);
+                PaintEventArgs pe = new PaintEventArgs(gr, new Rectangle());
+                pdf = true;
+                OnPaint(pe);
+                pdf = false;
                 return bt;
             }
             return null;
@@ -106,73 +113,66 @@ namespace AirNavigationRaceLive.Comps
         }
         private void PaintParcourAndData(PaintEventArgs pe, bool rescale)
         {
-            if (Image == null)
-            {
-                return;
-            }
 
-            HasCircleOnGates = true;  //TODO
-            bool fillChannel = false;  //TODO
-
-            #region parcour
             if (Parcour != null && c != null)
             {
-                int y0 = 0;
-                int x0 = 0;
-                double factor = 1;
-                //PenFlight.Width = 7f;
-                //PenIntersection.Width = (float)Properties.Settings.Default.IntersectionPenWidth;
-                Pen.Width = (float)Parcour.PenWidthGates;
-
                 lock (Parcour)
                 {
                     ICollection<Line> lines = Parcour.Line;
 
-                    #region Polygons filling:  PROH zone, channel-specific PROH zones (new code)
-
-                    // new code:
-                    // we may have aseveral polygons, but they are saved as small line pieces in the database
-                    // how to distinct different polygons: a polygons end point is identical with the first point
-                    // consider the common type PENALRTZONE but also channel-specific Penalty zones PROH_A yo PROH_D
-                    List<Line> linesClosedPolygon = lines.Where(p => (p.Type == (int)LineType.PENALTYZONE) || (p.Type >= (int)LineType.PROH_A && p.Type <= (int)LineType.PROH_D)).ToList();
+                    List<Line> linesClosedPolygon = new List<Line>();
                     List<System.Drawing.Point> pts = new List<System.Drawing.Point>();
                     List<System.Drawing.Point> ptsF = new List<System.Drawing.Point>();
                     bool isPolygonStart = true;
-                    foreach (Line l in linesClosedPolygon)
+
+                    if (showProh)
                     {
-                        if (isPolygonStart)
-                        {
-                            //reset
-                            pts = new List<System.Drawing.Point>();
-                            ptsF = new List<System.Drawing.Point>();
-                            isPolygonStart = false;
-                        }
-                        System.Drawing.Point startPt = new System.Drawing.Point();
-                        System.Drawing.Point endPt = new System.Drawing.Point();
-                        startPt.X = c.getStartX(l);
-                        startPt.Y = c.getStartY(l);
-                        endPt.X = c.getEndX(l);
-                        endPt.Y = c.getEndY(l);
-                        pts.Add(startPt);
-                        ptsF.Add(startPt);
 
-                        if (endPt != pts[0]) // line' end point identical with first point?
+                        #region Polygons filling:  PROH zone, channel-specific PROH zones (new code)
+
+                        // new code:
+                        // we may have aseveral polygons, but they are saved as small line pieces in the database
+                        // how to distinct different polygons: a polygons end point is identical with the first point
+                        // consider the common type PENALRTZONE but also channel-specific Penalty zones PROH_A yo PROH_D
+                        linesClosedPolygon = lines.Where(p => (p.Type == (int)LineType.PENALTYZONE) || (p.Type >= (int)LineType.PROH_A && p.Type <= (int)LineType.PROH_D)).ToList();
+
+                        foreach (Line l in linesClosedPolygon)
                         {
-                            pts.Add(endPt);
-                            ptsF.Add(endPt);
+                            if (isPolygonStart)
+                            {
+                                //reset
+                                pts = new List<System.Drawing.Point>();
+                                ptsF = new List<System.Drawing.Point>();
+                                isPolygonStart = false;
+                            }
+                            System.Drawing.Point startPt = new System.Drawing.Point();
+                            System.Drawing.Point endPt = new System.Drawing.Point();
+                            startPt.X = c.getStartX(l);
+                            startPt.Y = c.getStartY(l);
+                            endPt.X = c.getEndX(l);
+                            endPt.Y = c.getEndY(l);
+                            pts.Add(startPt);
+                            ptsF.Add(startPt);
+
+                            if (endPt != pts[0]) // line' end point identical with first point?
+                            {
+                                pts.Add(endPt);
+                                ptsF.Add(endPt);
+                            }
+                            else
+                            {
+                                // handle Graphics
+                                pe.Graphics.FillPolygon(Brush, pts.ToArray<System.Drawing.Point>());
+                                // draw border of polygon --NOT YET activated
+                                //pe.Graphics.DrawPolygon(UserPenLine, ptsF.ToArray<System.Drawing.Point>());
+                                // start a new polygon
+                                isPolygonStart = true;
+                            }
                         }
-                        else
-                        {
-                            // handle Graphics
-                            pe.Graphics.FillPolygon(Brush, pts.ToArray<System.Drawing.Point>());
-                            // draw border of polygon --NOT YET activated
-                            //pe.Graphics.DrawPolygon(UserPenLine, ptsF.ToArray<System.Drawing.Point>());
-                            // start a new polygon
-                            isPolygonStart = true;
-                        }
+
+                        #endregion
+
                     }
-
-                    #endregion
 
                     if (fillChannel)
                     {
@@ -219,10 +219,9 @@ namespace AirNavigationRaceLive.Comps
                                 isPolygonStart = true;
                             }
                         }
-                        
+
                         #endregion
                     }
-
 
                     //List<Line> linesL = lines.Where(p => (p.Type >= (int)LineType.CHANNEL_A && p.Type <= (int)LineType.CHANNEL_A) || (p.Type >= (int)LineType.CHANNEL_A && p.Type <= (int)LineType.CHANNEL_A)).ToList();
                     //foreach (Line l in linesL)
@@ -282,7 +281,7 @@ namespace AirNavigationRaceLive.Comps
                                     // Centerline is not yet implemented on Route import, and therefore not yet implemented here
                                 }
 
-                                if (l.Type >= (int)LineType.CHANNEL_A && l.Type <= (int)LineType.CHANNEL_D)
+                                if (l.Type >= (int)LineType.CHANNEL_A && l.Type <= (int)LineType.CHANNEL_D && showChannel)
                                 {
                                     pe.Graphics.DrawLine(UserPenGates, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
                                     pe.Graphics.ResetTransform();
@@ -295,11 +294,15 @@ namespace AirNavigationRaceLive.Comps
 
                                     if (HasCircleOnGates)
                                     { // draw ellipse
+                                        // https://docs.microsoft.com/en-us/dotnet/api/system.drawing.graphics.translatetransform?view=netframework-4.7.2
+                                        float theta = Convert.ToSingle(Math.Atan2(endY - startY, endX - startX)*180.0/Math.PI);
+                                        pe.Graphics.DrawLine(UserPenGates, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationYCorr));
                                         pe.Graphics.TranslateTransform(midX - radius, midY - radius * LongCorrFactor);
+                                       // pe.Graphics.RotateTransform(theta, System.Drawing.Drawing2D.MatrixOrder.Prepend);
                                         pe.Graphics.DrawEllipse(UserPenGates, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
                                         pe.Graphics.ResetTransform();
                                         // draw orientation line 
-                                        pe.Graphics.DrawLine(UserPenGates, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationYCorr));
+                                        //pe.Graphics.DrawLine(UserPenGates, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationYCorr));
                                         pe.Graphics.ResetTransform();
                                     }
 
@@ -328,14 +331,13 @@ namespace AirNavigationRaceLive.Comps
                     }
 
                     #endregion
+
                 }
             }
-            #endregion
 
             if (flights != null)
             {
-                int y0 = 0;
-                int x0 = 0;
+
                 double factor = 1;
                 //PenFlight.Width = 7f;
                 //PenIntersection.Width = (float)Properties.Settings.Default.IntersectionPenWidth;
@@ -346,8 +348,8 @@ namespace AirNavigationRaceLive.Comps
                     List<System.Drawing.Point> points = new List<System.Drawing.Point>();
                     foreach (AirNavigationRaceLive.Model.Point gd in flight.Point)
                     {
-                        int startXp = x0 + (int)(c.LongitudeToX(gd.longitude) * factor);
-                        int startYp = y0 + (int)(c.LatitudeToY(gd.latitude) * factor);
+                        int startXp = (int)(c.LongitudeToX(gd.longitude) * factor);
+                        int startYp = (int)(c.LatitudeToY(gd.latitude) * factor);
                         points.Add(new System.Drawing.Point(startXp, startYp));
                     }
                     if (points.Count > 2)
@@ -360,8 +362,8 @@ namespace AirNavigationRaceLive.Comps
 
                         foreach (IntersectionPoint gd in flight.IntersectionPointSet)
                         {
-                            int startXp = x0 + (int)(c.LongitudeToX(gd.longitude) * factor);
-                            int startYp = y0 + (int)(c.LatitudeToY(gd.latitude) * factor);
+                            int startXp = (int)(c.LongitudeToX(gd.longitude) * factor);
+                            int startYp = (int)(c.LatitudeToY(gd.latitude) * factor);
                             Model.Point p = new Model.Point();
                             p.latitude = gd.latitude;
                             float corrFact = (float)c.LongitudeCorrFactor(p);
@@ -371,6 +373,7 @@ namespace AirNavigationRaceLive.Comps
                     }
                 }
             }
+
         }
 
     }
