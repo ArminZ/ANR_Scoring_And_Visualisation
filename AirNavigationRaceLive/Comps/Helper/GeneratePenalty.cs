@@ -60,6 +60,8 @@ namespace AirNavigationRaceLive.Comps.Helper
             List<IntersectionPoint> intersectionPoints = new List<IntersectionPoint>();
             QualificationRoundSet qr = flight.QualificationRoundSet;
             ParcourSet parcour = flight.QualificationRoundSet.ParcourSet;
+            useProhZoneCalculation = parcour.PenaltyCalcType < 1;
+
             // arrChannel Array contains the array for the channel
             //Vector[] arrChannel = getAssignedChannelLines(parcour, (Route)flight.Route);
 

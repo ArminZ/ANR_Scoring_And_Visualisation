@@ -73,6 +73,8 @@ namespace AirNavigationRaceLive.Client
                 }
 
                 // see  https://galleryserverpro.com/using-entity-framework-code-first-migrations-to-auto-create-and-auto-update-an-application/
+                // change first the DB conn string to SQL server express
+                // then run the package manager with command: Add-Migration myMigrationName 
                 Configuration cf = new Configuration();
                 var migrator = new System.Data.Entity.Migrations.DbMigrator(cf);
                 if (migrator.GetPendingMigrations().Any())
