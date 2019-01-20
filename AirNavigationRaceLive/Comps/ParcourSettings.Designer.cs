@@ -1,6 +1,6 @@
 ﻿namespace AirNavigationRaceLive.Comps
 {
-    partial class UserSettings
+    partial class ParcourSettings
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,16 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.chkParcourAdditionalText = new System.Windows.Forms.CheckBox();
-            this.chkDefaultDBDirectory = new System.Windows.Forms.CheckBox();
-            this.textBoxDatabasePath = new System.Windows.Forms.TextBox();
             this.groupBoxChannel = new System.Windows.Forms.GroupBox();
             this.chkChannelShowCL = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDownChannelPen = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.btnChannelColor = new System.Windows.Forms.Button();
-            this.btnDB = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSPFPColor = new System.Windows.Forms.Button();
@@ -51,7 +47,10 @@
             this.numericUpDownPROHPen = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBoxLayer = new System.Windows.Forms.GroupBox();
+            this.checkShowPROHBorders = new System.Windows.Forms.CheckBox();
+            this.btnPROHColorBorder = new System.Windows.Forms.Button();
             this.groupBoxIntersect = new System.Windows.Forms.GroupBox();
+            this.chkIntersectionPointsShow = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownIntersect = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
@@ -59,9 +58,6 @@
             this.groupBoxCalculationType = new System.Windows.Forms.GroupBox();
             this.radioButtonPenaltyCalcTypeChannel = new System.Windows.Forms.RadioButton();
             this.radioButtonPenaltyCalcTypePROH = new System.Windows.Forms.RadioButton();
-            this.chkIntersectionPointsShow = new System.Windows.Forms.CheckBox();
-            this.btnPROHColorBorder = new System.Windows.Forms.Button();
-            this.checkShowPROHBorders = new System.Windows.Forms.CheckBox();
             this.groupBoxChannel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelPen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSPFPPen)).BeginInit();
@@ -73,35 +69,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersect)).BeginInit();
             this.groupBoxCalculationType.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // chkParcourAdditionalText
-            // 
-            this.chkParcourAdditionalText.AutoSize = true;
-            this.chkParcourAdditionalText.Location = new System.Drawing.Point(30, 109);
-            this.chkParcourAdditionalText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chkParcourAdditionalText.Name = "chkParcourAdditionalText";
-            this.chkParcourAdditionalText.Size = new System.Drawing.Size(358, 24);
-            this.chkParcourAdditionalText.TabIndex = 11;
-            this.chkParcourAdditionalText.Text = "Parcour PDF export: Prompt for additional text";
-            this.chkParcourAdditionalText.UseVisualStyleBackColor = true;
-            // 
-            // chkDefaultDBDirectory
-            // 
-            this.chkDefaultDBDirectory.AutoSize = true;
-            this.chkDefaultDBDirectory.Location = new System.Drawing.Point(30, 46);
-            this.chkDefaultDBDirectory.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chkDefaultDBDirectory.Name = "chkDefaultDBDirectory";
-            this.chkDefaultDBDirectory.Size = new System.Drawing.Size(349, 24);
-            this.chkDefaultDBDirectory.TabIndex = 10;
-            this.chkDefaultDBDirectory.Text = "Database File: use a default DB file directory";
-            this.chkDefaultDBDirectory.UseVisualStyleBackColor = true;
-            // 
-            // textBoxDatabasePath
-            // 
-            this.textBoxDatabasePath.Location = new System.Drawing.Point(427, 46);
-            this.textBoxDatabasePath.Name = "textBoxDatabasePath";
-            this.textBoxDatabasePath.Size = new System.Drawing.Size(503, 26);
-            this.textBoxDatabasePath.TabIndex = 12;
             // 
             // groupBoxChannel
             // 
@@ -183,16 +150,6 @@
             this.btnChannelColor.Text = "...";
             this.btnChannelColor.UseVisualStyleBackColor = false;
             this.btnChannelColor.Click += new System.EventHandler(this.ColorButtonGeneric_Click);
-            // 
-            // btnDB
-            // 
-            this.btnDB.Location = new System.Drawing.Point(936, 42);
-            this.btnDB.Name = "btnDB";
-            this.btnDB.Size = new System.Drawing.Size(75, 35);
-            this.btnDB.TabIndex = 31;
-            this.btnDB.Text = "...";
-            this.btnDB.UseVisualStyleBackColor = true;
-            this.btnDB.Click += new System.EventHandler(this.btnDB_Click);
             // 
             // btnSave
             // 
@@ -365,6 +322,28 @@
             this.groupBoxLayer.TabStop = false;
             this.groupBoxLayer.Text = "PROH Layer Properties for new Parcour";
             // 
+            // checkShowPROHBorders
+            // 
+            this.checkShowPROHBorders.AutoSize = true;
+            this.checkShowPROHBorders.Location = new System.Drawing.Point(11, 84);
+            this.checkShowPROHBorders.Name = "checkShowPROHBorders";
+            this.checkShowPROHBorders.Size = new System.Drawing.Size(223, 24);
+            this.checkShowPROHBorders.TabIndex = 31;
+            this.checkShowPROHBorders.Text = "Draw PROH Layer borders";
+            this.checkShowPROHBorders.UseVisualStyleBackColor = true;
+            // 
+            // btnPROHColorBorder
+            // 
+            this.btnPROHColorBorder.BackColor = System.Drawing.Color.Red;
+            this.btnPROHColorBorder.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPROHColorBorder.Location = new System.Drawing.Point(370, 116);
+            this.btnPROHColorBorder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnPROHColorBorder.Name = "btnPROHColorBorder";
+            this.btnPROHColorBorder.Size = new System.Drawing.Size(43, 28);
+            this.btnPROHColorBorder.TabIndex = 30;
+            this.btnPROHColorBorder.Text = "...";
+            this.btnPROHColorBorder.UseVisualStyleBackColor = false;
+            // 
             // groupBoxIntersect
             // 
             this.groupBoxIntersect.Controls.Add(this.chkIntersectionPointsShow);
@@ -380,6 +359,16 @@
             this.groupBoxIntersect.TabIndex = 34;
             this.groupBoxIntersect.TabStop = false;
             this.groupBoxIntersect.Text = "Intersection Point Properties";
+            // 
+            // chkIntersectionPointsShow
+            // 
+            this.chkIntersectionPointsShow.AutoSize = true;
+            this.chkIntersectionPointsShow.Location = new System.Drawing.Point(7, 119);
+            this.chkIntersectionPointsShow.Name = "chkIntersectionPointsShow";
+            this.chkIntersectionPointsShow.Size = new System.Drawing.Size(211, 24);
+            this.chkIntersectionPointsShow.TabIndex = 31;
+            this.chkIntersectionPointsShow.Text = "Show Intersection Points";
+            this.chkIntersectionPointsShow.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -470,39 +459,7 @@
             this.radioButtonPenaltyCalcTypePROH.UseVisualStyleBackColor = true;
             this.radioButtonPenaltyCalcTypePROH.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // chkIntersectionPointsShow
-            // 
-            this.chkIntersectionPointsShow.AutoSize = true;
-            this.chkIntersectionPointsShow.Location = new System.Drawing.Point(7, 119);
-            this.chkIntersectionPointsShow.Name = "chkIntersectionPointsShow";
-            this.chkIntersectionPointsShow.Size = new System.Drawing.Size(211, 24);
-            this.chkIntersectionPointsShow.TabIndex = 31;
-            this.chkIntersectionPointsShow.Text = "Show Intersection Points";
-            this.chkIntersectionPointsShow.UseVisualStyleBackColor = true;
-            // 
-            // btnPROHColorBorder
-            // 
-            this.btnPROHColorBorder.BackColor = System.Drawing.Color.Red;
-            this.btnPROHColorBorder.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPROHColorBorder.Location = new System.Drawing.Point(370, 116);
-            this.btnPROHColorBorder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnPROHColorBorder.Name = "btnPROHColorBorder";
-            this.btnPROHColorBorder.Size = new System.Drawing.Size(43, 28);
-            this.btnPROHColorBorder.TabIndex = 30;
-            this.btnPROHColorBorder.Text = "...";
-            this.btnPROHColorBorder.UseVisualStyleBackColor = false;
-            // 
-            // checkShowPROHBorders
-            // 
-            this.checkShowPROHBorders.AutoSize = true;
-            this.checkShowPROHBorders.Location = new System.Drawing.Point(11, 84);
-            this.checkShowPROHBorders.Name = "checkShowPROHBorders";
-            this.checkShowPROHBorders.Size = new System.Drawing.Size(223, 24);
-            this.checkShowPROHBorders.TabIndex = 31;
-            this.checkShowPROHBorders.Text = "Draw PROH Layer borders";
-            this.checkShowPROHBorders.UseVisualStyleBackColor = true;
-            // 
-            // UserSettings
+            // ParcourSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -510,14 +467,10 @@
             this.Controls.Add(this.groupBoxIntersect);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnDB);
             this.Controls.Add(this.groupBoxChannel);
             this.Controls.Add(this.groupBoxSPFP);
             this.Controls.Add(this.groupBoxLayer);
-            this.Controls.Add(this.textBoxDatabasePath);
-            this.Controls.Add(this.chkParcourAdditionalText);
-            this.Controls.Add(this.chkDefaultDBDirectory);
-            this.Name = "UserSettings";
+            this.Name = "ParcourSettings";
             this.Size = new System.Drawing.Size(1094, 802);
             this.groupBoxChannel.ResumeLayout(false);
             this.groupBoxChannel.PerformLayout();
@@ -535,22 +488,16 @@
             this.groupBoxCalculationType.ResumeLayout(false);
             this.groupBoxCalculationType.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox chkParcourAdditionalText;
-        private System.Windows.Forms.CheckBox chkDefaultDBDirectory;
-        private System.Windows.Forms.TextBox textBoxDatabasePath;
         private System.Windows.Forms.GroupBox groupBoxChannel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDownChannelPen;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnChannelColor;
         private System.Windows.Forms.CheckBox chkChannelShowCL;
-        private System.Windows.Forms.Button btnDB;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSPFPColor;

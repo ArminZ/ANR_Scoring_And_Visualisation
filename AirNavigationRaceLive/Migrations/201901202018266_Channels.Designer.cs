@@ -7,13 +7,13 @@ namespace AirNavigationRaceLive.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ChannelFunctionality : IMigrationMetadata
+    public sealed partial class Channels : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ChannelFunctionality));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Channels));
         
         string IMigrationMetadata.Id
         {
-            get { return "201901190149518_ChannelFunctionality"; }
+            get { return "201901202018266_Channels"; }
         }
         
         string IMigrationMetadata.Source

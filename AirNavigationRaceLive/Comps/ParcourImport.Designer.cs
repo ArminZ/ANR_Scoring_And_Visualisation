@@ -37,7 +37,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageImport = new System.Windows.Forms.TabPage();
             this.btnSave = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.fldName = new System.Windows.Forms.TextBox();
@@ -48,7 +48,7 @@
             this.btnImport = new System.Windows.Forms.Button();
             this.btnImportSwitched = new System.Windows.Forms.Button();
             this.btnImportDxfWGS = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageCoordinates = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.lineBox = new System.Windows.Forms.GroupBox();
             this.fldLineTyp = new System.Windows.Forms.TextBox();
@@ -75,6 +75,14 @@
             this.label6 = new System.Windows.Forms.Label();
             this.fldCursorX = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.PictureBox1 = new AirNavigationRaceLive.Comps.PictureBoxExt();
+            this.parcourLength = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.channelWide = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.errorProviderParcourImport = new System.Windows.Forms.ErrorProvider(this.components);
+            this.tabPageDisplay = new System.Windows.Forms.TabPage();
             this.penBox = new System.Windows.Forms.GroupBox();
             this.checkBoxCircle = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -86,22 +94,36 @@
             this.label18 = new System.Windows.Forms.Label();
             this.numericUpDownAlpha = new System.Windows.Forms.NumericUpDown();
             this.btnColorPROH = new System.Windows.Forms.Button();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.PictureBox1 = new AirNavigationRaceLive.Comps.PictureBoxExt();
-            this.parcourLength = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.channelWide = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.errorProviderParcourImport = new System.Windows.Forms.ErrorProvider(this.components);
+            this.groupBoxCalculationType = new System.Windows.Forms.GroupBox();
+            this.radioButtonPenaltyCalcTypeChannel = new System.Windows.Forms.RadioButton();
+            this.radioButtonPenaltyCalcTypePROH = new System.Windows.Forms.RadioButton();
+            this.groupBoxIntersect = new System.Windows.Forms.GroupBox();
+            this.chkIntersectionPointsShow = new System.Windows.Forms.CheckBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.numericUpDownIntersect = new System.Windows.Forms.NumericUpDown();
+            this.label22 = new System.Windows.Forms.Label();
+            this.btnIntersectColor = new System.Windows.Forms.Button();
+            this.groupBoxChannel = new System.Windows.Forms.GroupBox();
+            this.chkChannelShowCL = new System.Windows.Forms.CheckBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.numericUpDownChannelPen = new System.Windows.Forms.NumericUpDown();
+            this.label24 = new System.Windows.Forms.Label();
+            this.btnChannelColor = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
+            this.btnChannelFillColor = new System.Windows.Forms.Button();
+            this.label26 = new System.Windows.Forms.Label();
+            this.numericUpDownChannelAlpha = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownIntersectionCircleRadius = new System.Windows.Forms.NumericUpDown();
+            this.label27 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPageImport.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPageCoordinates.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.lineBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numLongO)).BeginInit();
@@ -111,15 +133,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLongA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.penBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenGates)).BeginInit();
-            this.layerBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).BeginInit();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.parcourLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelWide)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderParcourImport)).BeginInit();
+            this.tabPageDisplay.SuspendLayout();
+            this.penBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenGates)).BeginInit();
+            this.layerBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).BeginInit();
+            this.groupBoxCalculationType.SuspendLayout();
+            this.groupBoxIntersect.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersect)).BeginInit();
+            this.groupBoxChannel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelPen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelAlpha)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectionCircleRadius)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -215,30 +245,29 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPageImport);
+            this.tabControl1.Controls.Add(this.tabPageDisplay);
+            this.tabControl1.Controls.Add(this.tabPageCoordinates);
             this.tabControl1.Location = new System.Drawing.Point(3, 4);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(324, 644);
+            this.tabControl1.Size = new System.Drawing.Size(324, 743);
             this.tabControl1.TabIndex = 5;
             // 
-            // tabPage1
+            // tabPageImport
             // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.penBox);
-            this.tabPage1.Controls.Add(this.layerBox);
-            this.tabPage1.Controls.Add(this.btnSave);
-            this.tabPage1.Controls.Add(this.panel4);
-            this.tabPage1.Controls.Add(this.panel5);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage1.Size = new System.Drawing.Size(316, 611);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Import";
+            this.tabPageImport.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageImport.Controls.Add(this.btnSave);
+            this.tabPageImport.Controls.Add(this.panel4);
+            this.tabPageImport.Controls.Add(this.panel5);
+            this.tabPageImport.Location = new System.Drawing.Point(4, 29);
+            this.tabPageImport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPageImport.Name = "tabPageImport";
+            this.tabPageImport.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPageImport.Size = new System.Drawing.Size(316, 611);
+            this.tabPageImport.TabIndex = 0;
+            this.tabPageImport.Text = "Import";
             // 
             // btnSave
             // 
@@ -366,17 +395,17 @@
             this.btnImportDxfWGS.UseVisualStyleBackColor = true;
             this.btnImportDxfWGS.Click += new System.EventHandler(this.btnImportDxfWGS_Click);
             // 
-            // tabPage2
+            // tabPageCoordinates
             // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.tableLayoutPanel2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage2.Size = new System.Drawing.Size(316, 421);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Coordinates";
+            this.tabPageCoordinates.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageCoordinates.Controls.Add(this.tableLayoutPanel2);
+            this.tabPageCoordinates.Location = new System.Drawing.Point(4, 29);
+            this.tabPageCoordinates.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPageCoordinates.Name = "tabPageCoordinates";
+            this.tabPageCoordinates.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPageCoordinates.Size = new System.Drawing.Size(316, 611);
+            this.tabPageCoordinates.TabIndex = 1;
+            this.tabPageCoordinates.Text = "Coordinates";
             // 
             // tableLayoutPanel2
             // 
@@ -760,159 +789,6 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "X:";
             // 
-            // penBox
-            // 
-            this.penBox.Controls.Add(this.checkBoxCircle);
-            this.penBox.Controls.Add(this.label19);
-            this.penBox.Controls.Add(this.label20);
-            this.penBox.Controls.Add(this.numericUpDownPenGates);
-            this.penBox.Controls.Add(this.btnColorGates);
-            this.penBox.Location = new System.Drawing.Point(7, 486);
-            this.penBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.penBox.Name = "penBox";
-            this.penBox.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.penBox.Size = new System.Drawing.Size(302, 117);
-            this.penBox.TabIndex = 32;
-            this.penBox.TabStop = false;
-            this.penBox.Text = "Pen for SP and FP";
-            // 
-            // checkBoxCircle
-            // 
-            this.checkBoxCircle.AutoSize = true;
-            this.checkBoxCircle.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBoxCircle.Checked = true;
-            this.checkBoxCircle.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCircle.Location = new System.Drawing.Point(17, 75);
-            this.checkBoxCircle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.checkBoxCircle.Name = "checkBoxCircle";
-            this.checkBoxCircle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBoxCircle.Size = new System.Drawing.Size(176, 24);
-            this.checkBoxCircle.TabIndex = 28;
-            this.checkBoxCircle.Text = "Circle on SP and FP";
-            this.checkBoxCircle.UseVisualStyleBackColor = true;
-            this.checkBoxCircle.CheckedChanged += new System.EventHandler(this.checkBoxCircle_CheckedChanged);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(172, 22);
-            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label19.Name = "label19";
-            this.label19.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
-            this.label19.Size = new System.Drawing.Size(50, 25);
-            this.label19.TabIndex = 27;
-            this.label19.Text = "Color";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(3, 29);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
-            this.label20.Size = new System.Drawing.Size(54, 25);
-            this.label20.TabIndex = 24;
-            this.label20.Text = "Width";
-            // 
-            // numericUpDownPenGates
-            // 
-            this.numericUpDownPenGates.DecimalPlaces = 1;
-            this.numericUpDownPenGates.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.numericUpDownPenGates.Location = new System.Drawing.Point(71, 29);
-            this.numericUpDownPenGates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.numericUpDownPenGates.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDownPenGates.Name = "numericUpDownPenGates";
-            this.numericUpDownPenGates.Size = new System.Drawing.Size(64, 26);
-            this.numericUpDownPenGates.TabIndex = 25;
-            this.numericUpDownPenGates.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDownPenGates.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownPenGates.ValueChanged += new System.EventHandler(this.numericUpDownPen_ValueChanged);
-            // 
-            // btnColorGates
-            // 
-            this.btnColorGates.BackColor = System.Drawing.Color.Red;
-            this.btnColorGates.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnColorGates.Location = new System.Drawing.Point(232, 25);
-            this.btnColorGates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnColorGates.Name = "btnColorGates";
-            this.btnColorGates.Size = new System.Drawing.Size(48, 28);
-            this.btnColorGates.TabIndex = 26;
-            this.btnColorGates.Text = "...";
-            this.btnColorGates.UseVisualStyleBackColor = false;
-            this.btnColorGates.Click += new System.EventHandler(this.btnColorPen_Click);
-            // 
-            // layerBox
-            // 
-            this.layerBox.Controls.Add(this.label17);
-            this.layerBox.Controls.Add(this.label18);
-            this.layerBox.Controls.Add(this.numericUpDownAlpha);
-            this.layerBox.Controls.Add(this.btnColorPROH);
-            this.layerBox.Location = new System.Drawing.Point(6, 399);
-            this.layerBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.layerBox.Name = "layerBox";
-            this.layerBox.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.layerBox.Size = new System.Drawing.Size(302, 66);
-            this.layerBox.TabIndex = 31;
-            this.layerBox.TabStop = false;
-            this.layerBox.Text = "Layer Transparency and Color";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(172, 22);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label17.Name = "label17";
-            this.label17.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
-            this.label17.Size = new System.Drawing.Size(50, 25);
-            this.label17.TabIndex = 27;
-            this.label17.Text = "Color";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(3, 29);
-            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label18.Name = "label18";
-            this.label18.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
-            this.label18.Size = new System.Drawing.Size(62, 25);
-            this.label18.TabIndex = 24;
-            this.label18.Text = "Transp";
-            // 
-            // numericUpDownAlpha
-            // 
-            this.numericUpDownAlpha.Location = new System.Drawing.Point(71, 29);
-            this.numericUpDownAlpha.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.numericUpDownAlpha.Name = "numericUpDownAlpha";
-            this.numericUpDownAlpha.Size = new System.Drawing.Size(64, 26);
-            this.numericUpDownAlpha.TabIndex = 25;
-            this.numericUpDownAlpha.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDownAlpha.ValueChanged += new System.EventHandler(this.numericUpDownAlpha_ValueChanged);
-            // 
-            // btnColorPROH
-            // 
-            this.btnColorPROH.BackColor = System.Drawing.Color.Red;
-            this.btnColorPROH.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnColorPROH.Location = new System.Drawing.Point(232, 25);
-            this.btnColorPROH.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnColorPROH.Name = "btnColorPROH";
-            this.btnColorPROH.Size = new System.Drawing.Size(48, 28);
-            this.btnColorPROH.TabIndex = 26;
-            this.btnColorPROH.Text = "...";
-            this.btnColorPROH.UseVisualStyleBackColor = false;
-            this.btnColorPROH.Click += new System.EventHandler(this.btnColorLayer_Click);
-            // 
             // panel6
             // 
             this.panel6.AutoScroll = true;
@@ -971,6 +847,442 @@
             this.errorProviderParcourImport.ContainerControl = this;
             this.errorProviderParcourImport.RightToLeft = true;
             // 
+            // tabPageDisplay
+            // 
+            this.tabPageDisplay.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageDisplay.Controls.Add(this.groupBoxIntersect);
+            this.tabPageDisplay.Controls.Add(this.groupBoxChannel);
+            this.tabPageDisplay.Controls.Add(this.groupBoxCalculationType);
+            this.tabPageDisplay.Controls.Add(this.penBox);
+            this.tabPageDisplay.Controls.Add(this.layerBox);
+            this.tabPageDisplay.Location = new System.Drawing.Point(4, 29);
+            this.tabPageDisplay.Name = "tabPageDisplay";
+            this.tabPageDisplay.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDisplay.Size = new System.Drawing.Size(316, 710);
+            this.tabPageDisplay.TabIndex = 2;
+            this.tabPageDisplay.Text = "Display";
+            // 
+            // penBox
+            // 
+            this.penBox.Controls.Add(this.checkBoxCircle);
+            this.penBox.Controls.Add(this.label19);
+            this.penBox.Controls.Add(this.label20);
+            this.penBox.Controls.Add(this.numericUpDownPenGates);
+            this.penBox.Controls.Add(this.btnColorGates);
+            this.penBox.Location = new System.Drawing.Point(6, 256);
+            this.penBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.penBox.Name = "penBox";
+            this.penBox.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.penBox.Size = new System.Drawing.Size(302, 117);
+            this.penBox.TabIndex = 34;
+            this.penBox.TabStop = false;
+            this.penBox.Text = "Pen for SP and FP";
+            // 
+            // checkBoxCircle
+            // 
+            this.checkBoxCircle.AutoSize = true;
+            this.checkBoxCircle.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBoxCircle.Checked = true;
+            this.checkBoxCircle.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxCircle.Location = new System.Drawing.Point(17, 75);
+            this.checkBoxCircle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkBoxCircle.Name = "checkBoxCircle";
+            this.checkBoxCircle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxCircle.Size = new System.Drawing.Size(176, 24);
+            this.checkBoxCircle.TabIndex = 28;
+            this.checkBoxCircle.Text = "Circle on SP and FP";
+            this.checkBoxCircle.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(172, 22);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label19.Size = new System.Drawing.Size(50, 25);
+            this.label19.TabIndex = 27;
+            this.label19.Text = "Color";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(3, 29);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label20.Size = new System.Drawing.Size(54, 25);
+            this.label20.TabIndex = 24;
+            this.label20.Text = "Width";
+            // 
+            // numericUpDownPenGates
+            // 
+            this.numericUpDownPenGates.DecimalPlaces = 1;
+            this.numericUpDownPenGates.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDownPenGates.Location = new System.Drawing.Point(71, 29);
+            this.numericUpDownPenGates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownPenGates.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownPenGates.Name = "numericUpDownPenGates";
+            this.numericUpDownPenGates.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownPenGates.TabIndex = 25;
+            this.numericUpDownPenGates.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownPenGates.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // btnColorGates
+            // 
+            this.btnColorGates.BackColor = System.Drawing.Color.Red;
+            this.btnColorGates.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnColorGates.Location = new System.Drawing.Point(232, 25);
+            this.btnColorGates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnColorGates.Name = "btnColorGates";
+            this.btnColorGates.Size = new System.Drawing.Size(48, 28);
+            this.btnColorGates.TabIndex = 26;
+            this.btnColorGates.Text = "...";
+            this.btnColorGates.UseVisualStyleBackColor = false;
+            // 
+            // layerBox
+            // 
+            this.layerBox.Controls.Add(this.label17);
+            this.layerBox.Controls.Add(this.label18);
+            this.layerBox.Controls.Add(this.numericUpDownAlpha);
+            this.layerBox.Controls.Add(this.btnColorPROH);
+            this.layerBox.Location = new System.Drawing.Point(3, 182);
+            this.layerBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.layerBox.Name = "layerBox";
+            this.layerBox.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.layerBox.Size = new System.Drawing.Size(302, 66);
+            this.layerBox.TabIndex = 33;
+            this.layerBox.TabStop = false;
+            this.layerBox.Text = "Layer Transparency and Color";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(172, 22);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Name = "label17";
+            this.label17.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label17.Size = new System.Drawing.Size(50, 25);
+            this.label17.TabIndex = 27;
+            this.label17.Text = "Color";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(3, 29);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Name = "label18";
+            this.label18.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label18.Size = new System.Drawing.Size(62, 25);
+            this.label18.TabIndex = 24;
+            this.label18.Text = "Transp";
+            // 
+            // numericUpDownAlpha
+            // 
+            this.numericUpDownAlpha.Location = new System.Drawing.Point(71, 29);
+            this.numericUpDownAlpha.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownAlpha.Name = "numericUpDownAlpha";
+            this.numericUpDownAlpha.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownAlpha.TabIndex = 25;
+            this.numericUpDownAlpha.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnColorPROH
+            // 
+            this.btnColorPROH.BackColor = System.Drawing.Color.Red;
+            this.btnColorPROH.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnColorPROH.Location = new System.Drawing.Point(232, 25);
+            this.btnColorPROH.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnColorPROH.Name = "btnColorPROH";
+            this.btnColorPROH.Size = new System.Drawing.Size(48, 28);
+            this.btnColorPROH.TabIndex = 26;
+            this.btnColorPROH.Text = "...";
+            this.btnColorPROH.UseVisualStyleBackColor = false;
+            // 
+            // groupBoxCalculationType
+            // 
+            this.groupBoxCalculationType.Controls.Add(this.radioButtonPenaltyCalcTypeChannel);
+            this.groupBoxCalculationType.Controls.Add(this.radioButtonPenaltyCalcTypePROH);
+            this.groupBoxCalculationType.Location = new System.Drawing.Point(6, 15);
+            this.groupBoxCalculationType.Name = "groupBoxCalculationType";
+            this.groupBoxCalculationType.Size = new System.Drawing.Size(282, 146);
+            this.groupBoxCalculationType.TabIndex = 36;
+            this.groupBoxCalculationType.TabStop = false;
+            this.groupBoxCalculationType.Text = "Penalty Calculation Type";
+            // 
+            // radioButtonPenaltyCalcTypeChannel
+            // 
+            this.radioButtonPenaltyCalcTypeChannel.AutoSize = true;
+            this.radioButtonPenaltyCalcTypeChannel.Location = new System.Drawing.Point(17, 96);
+            this.radioButtonPenaltyCalcTypeChannel.Name = "radioButtonPenaltyCalcTypeChannel";
+            this.radioButtonPenaltyCalcTypeChannel.Size = new System.Drawing.Size(244, 44);
+            this.radioButtonPenaltyCalcTypeChannel.TabIndex = 1;
+            this.radioButtonPenaltyCalcTypeChannel.TabStop = true;
+            this.radioButtonPenaltyCalcTypeChannel.Text = "Channel-based:\r\nLeaving the assigned channel";
+            this.radioButtonPenaltyCalcTypeChannel.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonPenaltyCalcTypePROH
+            // 
+            this.radioButtonPenaltyCalcTypePROH.AutoSize = true;
+            this.radioButtonPenaltyCalcTypePROH.Location = new System.Drawing.Point(17, 39);
+            this.radioButtonPenaltyCalcTypePROH.Name = "radioButtonPenaltyCalcTypePROH";
+            this.radioButtonPenaltyCalcTypePROH.Size = new System.Drawing.Size(215, 44);
+            this.radioButtonPenaltyCalcTypePROH.TabIndex = 0;
+            this.radioButtonPenaltyCalcTypePROH.TabStop = true;
+            this.radioButtonPenaltyCalcTypePROH.Text = "Prohibited zones: \r\nEntering prohibited zones";
+            this.radioButtonPenaltyCalcTypePROH.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxIntersect
+            // 
+            this.groupBoxIntersect.Controls.Add(this.label27);
+            this.groupBoxIntersect.Controls.Add(this.numericUpDownIntersectionCircleRadius);
+            this.groupBoxIntersect.Controls.Add(this.chkIntersectionPointsShow);
+            this.groupBoxIntersect.Controls.Add(this.label21);
+            this.groupBoxIntersect.Controls.Add(this.numericUpDownIntersect);
+            this.groupBoxIntersect.Controls.Add(this.label22);
+            this.groupBoxIntersect.Controls.Add(this.btnIntersectColor);
+            this.groupBoxIntersect.Location = new System.Drawing.Point(8, 525);
+            this.groupBoxIntersect.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxIntersect.Name = "groupBoxIntersect";
+            this.groupBoxIntersect.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxIntersect.Size = new System.Drawing.Size(302, 155);
+            this.groupBoxIntersect.TabIndex = 38;
+            this.groupBoxIntersect.TabStop = false;
+            this.groupBoxIntersect.Text = "Intersection Point Properties";
+            // 
+            // chkIntersectionPointsShow
+            // 
+            this.chkIntersectionPointsShow.AutoSize = true;
+            this.chkIntersectionPointsShow.Location = new System.Drawing.Point(7, 119);
+            this.chkIntersectionPointsShow.Name = "chkIntersectionPointsShow";
+            this.chkIntersectionPointsShow.Size = new System.Drawing.Size(211, 24);
+            this.chkIntersectionPointsShow.TabIndex = 31;
+            this.chkIntersectionPointsShow.Text = "Show Intersection Points";
+            this.chkIntersectionPointsShow.UseVisualStyleBackColor = true;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(14, 36);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label21.Name = "label21";
+            this.label21.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label21.Size = new System.Drawing.Size(86, 25);
+            this.label21.TabIndex = 28;
+            this.label21.Text = "Pen Width";
+            // 
+            // numericUpDownIntersect
+            // 
+            this.numericUpDownIntersect.DecimalPlaces = 1;
+            this.numericUpDownIntersect.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDownIntersect.Location = new System.Drawing.Point(122, 34);
+            this.numericUpDownIntersect.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownIntersect.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownIntersect.Name = "numericUpDownIntersect";
+            this.numericUpDownIntersect.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownIntersect.TabIndex = 26;
+            this.numericUpDownIntersect.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(189, 34);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Name = "label22";
+            this.label22.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label22.Size = new System.Drawing.Size(50, 25);
+            this.label22.TabIndex = 27;
+            this.label22.Text = "Color";
+            // 
+            // btnIntersectColor
+            // 
+            this.btnIntersectColor.BackColor = System.Drawing.Color.Red;
+            this.btnIntersectColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIntersectColor.Location = new System.Drawing.Point(239, 31);
+            this.btnIntersectColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnIntersectColor.Name = "btnIntersectColor";
+            this.btnIntersectColor.Size = new System.Drawing.Size(48, 28);
+            this.btnIntersectColor.TabIndex = 29;
+            this.btnIntersectColor.Text = "...";
+            this.btnIntersectColor.UseVisualStyleBackColor = false;
+            // 
+            // groupBoxChannel
+            // 
+            this.groupBoxChannel.Controls.Add(this.label26);
+            this.groupBoxChannel.Controls.Add(this.numericUpDownChannelAlpha);
+            this.groupBoxChannel.Controls.Add(this.label25);
+            this.groupBoxChannel.Controls.Add(this.btnChannelFillColor);
+            this.groupBoxChannel.Controls.Add(this.chkChannelShowCL);
+            this.groupBoxChannel.Controls.Add(this.label23);
+            this.groupBoxChannel.Controls.Add(this.numericUpDownChannelPen);
+            this.groupBoxChannel.Controls.Add(this.label24);
+            this.groupBoxChannel.Controls.Add(this.btnChannelColor);
+            this.groupBoxChannel.Location = new System.Drawing.Point(12, 380);
+            this.groupBoxChannel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxChannel.Name = "groupBoxChannel";
+            this.groupBoxChannel.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxChannel.Size = new System.Drawing.Size(298, 137);
+            this.groupBoxChannel.TabIndex = 37;
+            this.groupBoxChannel.TabStop = false;
+            this.groupBoxChannel.Text = "Channel Properties";
+            // 
+            // chkChannelShowCL
+            // 
+            this.chkChannelShowCL.AutoSize = true;
+            this.chkChannelShowCL.Location = new System.Drawing.Point(23, 106);
+            this.chkChannelShowCL.Name = "chkChannelShowCL";
+            this.chkChannelShowCL.Size = new System.Drawing.Size(151, 24);
+            this.chkChannelShowCL.TabIndex = 30;
+            this.chkChannelShowCL.Text = "Show Centerline";
+            this.chkChannelShowCL.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(19, 36);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Name = "label23";
+            this.label23.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label23.Size = new System.Drawing.Size(86, 25);
+            this.label23.TabIndex = 28;
+            this.label23.Text = "Pen Width";
+            // 
+            // numericUpDownChannelPen
+            // 
+            this.numericUpDownChannelPen.DecimalPlaces = 1;
+            this.numericUpDownChannelPen.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDownChannelPen.Location = new System.Drawing.Point(118, 36);
+            this.numericUpDownChannelPen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownChannelPen.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownChannelPen.Name = "numericUpDownChannelPen";
+            this.numericUpDownChannelPen.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownChannelPen.TabIndex = 26;
+            this.numericUpDownChannelPen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(185, 37);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Name = "label24";
+            this.label24.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label24.Size = new System.Drawing.Size(50, 25);
+            this.label24.TabIndex = 27;
+            this.label24.Text = "Color";
+            // 
+            // btnChannelColor
+            // 
+            this.btnChannelColor.BackColor = System.Drawing.Color.Red;
+            this.btnChannelColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChannelColor.Location = new System.Drawing.Point(235, 36);
+            this.btnChannelColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnChannelColor.Name = "btnChannelColor";
+            this.btnChannelColor.Size = new System.Drawing.Size(48, 28);
+            this.btnChannelColor.TabIndex = 29;
+            this.btnChannelColor.Text = "...";
+            this.btnChannelColor.UseVisualStyleBackColor = false;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(185, 74);
+            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label25.Name = "label25";
+            this.label25.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label25.Size = new System.Drawing.Size(50, 25);
+            this.label25.TabIndex = 31;
+            this.label25.Text = "Color";
+            // 
+            // btnChannelFillColor
+            // 
+            this.btnChannelFillColor.BackColor = System.Drawing.Color.Red;
+            this.btnChannelFillColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChannelFillColor.Location = new System.Drawing.Point(235, 74);
+            this.btnChannelFillColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnChannelFillColor.Name = "btnChannelFillColor";
+            this.btnChannelFillColor.Size = new System.Drawing.Size(48, 28);
+            this.btnChannelFillColor.TabIndex = 32;
+            this.btnChannelFillColor.Text = "...";
+            this.btnChannelFillColor.UseVisualStyleBackColor = false;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(19, 73);
+            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Name = "label26";
+            this.label26.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label26.Size = new System.Drawing.Size(62, 25);
+            this.label26.TabIndex = 33;
+            this.label26.Text = "Transp";
+            // 
+            // numericUpDownChannelAlpha
+            // 
+            this.numericUpDownChannelAlpha.Location = new System.Drawing.Point(120, 72);
+            this.numericUpDownChannelAlpha.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownChannelAlpha.Name = "numericUpDownChannelAlpha";
+            this.numericUpDownChannelAlpha.Size = new System.Drawing.Size(62, 26);
+            this.numericUpDownChannelAlpha.TabIndex = 34;
+            this.numericUpDownChannelAlpha.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // numericUpDownIntersectionCircleRadius
+            // 
+            this.numericUpDownIntersectionCircleRadius.DecimalPlaces = 1;
+            this.numericUpDownIntersectionCircleRadius.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDownIntersectionCircleRadius.Location = new System.Drawing.Point(122, 70);
+            this.numericUpDownIntersectionCircleRadius.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownIntersectionCircleRadius.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownIntersectionCircleRadius.Name = "numericUpDownIntersectionCircleRadius";
+            this.numericUpDownIntersectionCircleRadius.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownIntersectionCircleRadius.TabIndex = 32;
+            this.numericUpDownIntersectionCircleRadius.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(14, 69);
+            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label27.Name = "label27";
+            this.label27.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label27.Size = new System.Drawing.Size(106, 25);
+            this.label27.TabIndex = 33;
+            this.label27.Text = "Circle Radius";
+            // 
             // ParcourImport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -988,11 +1300,11 @@
             this.panel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.tabPageImport.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
+            this.tabPageCoordinates.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.lineBox.ResumeLayout(false);
             this.lineBox.PerformLayout();
@@ -1004,18 +1316,29 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.penBox.ResumeLayout(false);
-            this.penBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenGates)).EndInit();
-            this.layerBox.ResumeLayout(false);
-            this.layerBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.parcourLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelWide)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderParcourImport)).EndInit();
+            this.tabPageDisplay.ResumeLayout(false);
+            this.penBox.ResumeLayout(false);
+            this.penBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenGates)).EndInit();
+            this.layerBox.ResumeLayout(false);
+            this.layerBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).EndInit();
+            this.groupBoxCalculationType.ResumeLayout(false);
+            this.groupBoxCalculationType.PerformLayout();
+            this.groupBoxIntersect.ResumeLayout(false);
+            this.groupBoxIntersect.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersect)).EndInit();
+            this.groupBoxChannel.ResumeLayout(false);
+            this.groupBoxChannel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelPen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelAlpha)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectionCircleRadius)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1070,21 +1393,43 @@
         private System.Windows.Forms.TextBox fldName;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPageImport;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.TabPage tabPageCoordinates;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TabPage tabPageDisplay;
+        private System.Windows.Forms.GroupBox penBox;
+        private System.Windows.Forms.CheckBox checkBoxCircle;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.NumericUpDown numericUpDownPenGates;
+        private System.Windows.Forms.Button btnColorGates;
         private System.Windows.Forms.GroupBox layerBox;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.NumericUpDown numericUpDownAlpha;
         private System.Windows.Forms.Button btnColorPROH;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.GroupBox penBox;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.NumericUpDown numericUpDownPenGates;
-        private System.Windows.Forms.Button btnColorGates;
-        private System.Windows.Forms.CheckBox checkBoxCircle;
+        private System.Windows.Forms.GroupBox groupBoxCalculationType;
+        private System.Windows.Forms.RadioButton radioButtonPenaltyCalcTypeChannel;
+        private System.Windows.Forms.RadioButton radioButtonPenaltyCalcTypePROH;
+        private System.Windows.Forms.GroupBox groupBoxIntersect;
+        private System.Windows.Forms.CheckBox chkIntersectionPointsShow;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.NumericUpDown numericUpDownIntersect;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button btnIntersectColor;
+        private System.Windows.Forms.GroupBox groupBoxChannel;
+        private System.Windows.Forms.CheckBox chkChannelShowCL;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.NumericUpDown numericUpDownChannelPen;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Button btnChannelColor;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.NumericUpDown numericUpDownIntersectionCircleRadius;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.NumericUpDown numericUpDownChannelAlpha;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Button btnChannelFillColor;
     }
 }
