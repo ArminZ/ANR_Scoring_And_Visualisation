@@ -35,11 +35,11 @@ namespace AirNavigationRaceLive.Migrations
             DropIndex("dbo.IntersectionPointSet", new[] { "Flight_Id" });
             DropTable("dbo.IntersectionPointSet");
 
-            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__Color__2CF2ADDF");
-            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__Color__2BFE89A6");
-            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__HasCi__2B0A656D");
-            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__PenWi__2A164134");
-            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__PenWi__29221CFB");
+            this.DeleteDefaultConstraint("dbo.ParcourSet", "ColorGatesArgb");
+            this.DeleteDefaultConstraint("dbo.ParcourSet", "ColorPROHArgb");
+            this.DeleteDefaultConstraint("dbo.ParcourSet", "HasCircleOnGates");
+            this.DeleteDefaultConstraint("dbo.ParcourSet", "PenWidthGates");
+            this.DeleteDefaultConstraint("dbo.ParcourSet", "PenWidthPROH");
  
             DropColumn("dbo.ParcourSet", "ColorGatesArgb");
             DropColumn("dbo.ParcourSet", "ColorPROHArgb");

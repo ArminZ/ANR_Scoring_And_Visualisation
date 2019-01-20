@@ -7,8 +7,11 @@ namespace AirNavigationRaceLive.Migrations
 
     static internal class MigrationExtensions
     {
-        public static void DeleteDefaultContraint(this IDbMigration migration, string tableName, string colName, bool suppressTransaction = false)
+        public static void DeleteDefaultConstraint(this IDbMigration migration, string tableName, string colName, bool suppressTransaction = false)
         {
+            // see https://stackoverflow.com/questions/17894906/ef-migration-for-changing-data-type-of-columns
+            // (function name there with typo: DeleteDefaultContraint)
+
             var sql = new SqlOperation(String.Format(@"DECLARE @SQL varchar(1000)
         SET @SQL='ALTER TABLE {0} DROP CONSTRAINT ['+(SELECT name
         FROM sys.default_constraints
