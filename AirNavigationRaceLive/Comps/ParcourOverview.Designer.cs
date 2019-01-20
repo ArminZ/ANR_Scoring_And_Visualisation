@@ -79,7 +79,6 @@
             this.numLatA = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.PictureBox1 = new AirNavigationRaceLive.Comps.PictureBoxExt();
             this.tabPageExport = new System.Windows.Forms.TabPage();
             this.groupBoxMapScale = new System.Windows.Forms.GroupBox();
             this.chkShowCalcTable = new System.Windows.Forms.CheckBox();
@@ -88,6 +87,7 @@
             this.radioButton200 = new System.Windows.Forms.RadioButton();
             this.radioButton250 = new System.Windows.Forms.RadioButton();
             this.btnExport = new System.Windows.Forms.Button();
+            this.PictureBox1 = new AirNavigationRaceLive.Comps.PictureBoxExt();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -109,9 +109,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLongA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).BeginInit();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.tabPageExport.SuspendLayout();
             this.groupBoxMapScale.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -797,18 +797,6 @@
             this.panel6.Size = new System.Drawing.Size(1302, 807);
             this.panel6.TabIndex = 3;
             // 
-            // PictureBox1
-            // 
-            this.PictureBox1.Location = new System.Drawing.Point(4, 5);
-            this.PictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.PictureBox1.Name = "PictureBox1";
-            this.PictureBox1.Size = new System.Drawing.Size(500, 500);
-            this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.PictureBox1.TabIndex = 1;
-            this.PictureBox1.TabStop = false;
-            this.PictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_Click);
-            this.PictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
-            // 
             // tabPageExport
             // 
             this.tabPageExport.BackColor = System.Drawing.SystemColors.Control;
@@ -868,6 +856,7 @@
             this.radioButtonOtherScale.TabIndex = 2;
             this.radioButtonOtherScale.Text = "1:";
             this.radioButtonOtherScale.UseVisualStyleBackColor = true;
+            this.radioButtonOtherScale.CheckedChanged += new System.EventHandler(this.radioButtonScales_CheckedChanged);
             // 
             // radioButton200
             // 
@@ -881,6 +870,7 @@
             this.radioButton200.TabStop = true;
             this.radioButton200.Text = "1:200 000";
             this.radioButton200.UseVisualStyleBackColor = true;
+            this.radioButton200.CheckedChanged += new System.EventHandler(this.radioButtonScales_CheckedChanged);
             // 
             // radioButton250
             // 
@@ -892,6 +882,7 @@
             this.radioButton250.TabIndex = 0;
             this.radioButton250.Text = "1:250 000";
             this.radioButton250.UseVisualStyleBackColor = true;
+            this.radioButton250.CheckedChanged += new System.EventHandler(this.radioButtonScales_CheckedChanged);
             // 
             // btnExport
             // 
@@ -902,6 +893,19 @@
             this.btnExport.TabIndex = 20;
             this.btnExport.Text = "Export Map";
             this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // PictureBox1
+            // 
+            this.PictureBox1.Location = new System.Drawing.Point(4, 5);
+            this.PictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.PictureBox1.Name = "PictureBox1";
+            this.PictureBox1.Size = new System.Drawing.Size(500, 500);
+            this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.PictureBox1.TabIndex = 1;
+            this.PictureBox1.TabStop = false;
+            this.PictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_Click);
+            this.PictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
             // 
             // ParcourOverview
             // 
@@ -940,10 +944,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.tabPageExport.ResumeLayout(false);
             this.groupBoxMapScale.ResumeLayout(false);
             this.groupBoxMapScale.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
