@@ -375,6 +375,7 @@
     <Compile Include="Dialogs\Calculator.Designer.cs">
       <DependentUpon>Calculator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\MigrationExtensions.cs" />
     <Compile Include="Migrations\201707062312047_Initial.cs" />
     <Compile Include="Migrations\201707062312047_Initial.Designer.cs">
       <DependentUpon>201707062312047_Initial.cs</DependentUpon>

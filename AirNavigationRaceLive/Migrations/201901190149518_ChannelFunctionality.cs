@@ -2,7 +2,9 @@ namespace AirNavigationRaceLive.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+    using System.Data.Entity.Migrations.Infrastructure;
+    using System.Data.Entity.Migrations.Model;
+
     public partial class ChannelFunctionality : DbMigration
     {
         public override void Up()
@@ -19,6 +21,14 @@ namespace AirNavigationRaceLive.Migrations
         
         public override void Down()
         {
+            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__Penal__540C7B00");
+            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__HasIn__531856C7");
+            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__Inter__5224328E");
+            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__PenWi__51300E55");
+            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__PenWi__503BEA1C");
+            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__Color__4F47C5E3");
+            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__Color__4E53A1AA");
+            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__Color__4D5F7D71");
             DropColumn("dbo.ParcourSet", "PenaltyCalcType");
             DropColumn("dbo.ParcourSet", "HasIntersectionCircles");
             DropColumn("dbo.ParcourSet", "IntersectionCircleRadius");

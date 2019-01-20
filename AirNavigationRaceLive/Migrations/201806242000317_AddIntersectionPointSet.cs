@@ -33,12 +33,19 @@ namespace AirNavigationRaceLive.Migrations
         {
             DropForeignKey("dbo.IntersectionPointSet", "Flight_Id", "dbo.FlightSet");
             DropIndex("dbo.IntersectionPointSet", new[] { "Flight_Id" });
+            DropTable("dbo.IntersectionPointSet");
+
+            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__Color__2CF2ADDF");
+            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__Color__2BFE89A6");
+            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__HasCi__2B0A656D");
+            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__PenWi__2A164134");
+            this.DeleteDefaultContraint("dbo.ParcourSet", "DF__ParcourSe__PenWi__29221CFB");
+ 
             DropColumn("dbo.ParcourSet", "ColorGatesArgb");
             DropColumn("dbo.ParcourSet", "ColorPROHArgb");
             DropColumn("dbo.ParcourSet", "HasCircleOnGates");
             DropColumn("dbo.ParcourSet", "PenWidthGates");
             DropColumn("dbo.ParcourSet", "PenWidthPROH");
-            DropTable("dbo.IntersectionPointSet");
         }
     }
 }
