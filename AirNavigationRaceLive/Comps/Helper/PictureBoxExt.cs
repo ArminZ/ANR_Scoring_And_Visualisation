@@ -39,6 +39,7 @@ namespace AirNavigationRaceLive.Comps
         private bool ShowIntersectionCircle = false;
         private bool FillChannel = false;
 
+        const double GateOrientationArrowLength = 0.3;   // gatewidth in NM, used when/if plotting the SP/FP orientation
         public void SetParcour(ParcourSet iParcour)
         {
             Parcour = iParcour;
@@ -126,6 +127,7 @@ namespace AirNavigationRaceLive.Comps
                 return;
             }
 
+ 
 
             #region parcour
             if (Parcour != null && c != null)
@@ -168,22 +170,6 @@ namespace AirNavigationRaceLive.Comps
                             Model.Point CenterPoint = new Model.Point();
                             CenterPoint.latitude = (l.A.latitude + l.B.latitude) / 2.0;
                             CenterPoint.longitude = (l.A.longitude + l.B.longitude) / 2.0;
-                            Model.Point ArrowPoint = new Model.Point();
-                            ArrowPoint.latitude = l.O.latitude;
-                            ArrowPoint.longitude = l.O.longitude;
-                            Line Arrowpoint_l = new Line();
-                            Arrowpoint_l.A = CenterPoint;
-                            Arrowpoint_l.B = ArrowPoint;
-                            //Arrowpoint_l.B.latitude = l.O.latitude;
-                            //Arrowpoint_l.B.longitude = l.O.longitude;
-
-                            int oriX = c.LongitudeToX(ArrowPoint.longitude);
-                            int oriY = c.LatitudeToY(ArrowPoint.latitude);
-                            int oriXA = c.getStartX(Arrowpoint_l);
-                            int oriYA = c.getStartY(Arrowpoint_l);
-                            int oriXB = c.getEndX(Arrowpoint_l);
-                            int oriYB = c.getEndY(Arrowpoint_l);
-
 
                             // create a dedicated point on the same latitude as the Center point
                             Model.Point RadiusPoint = c.PointForRadius(CenterPoint);
@@ -193,16 +179,10 @@ namespace AirNavigationRaceLive.Comps
                             int midY = startY + (endY - startY) / 2;
                             int radX = c.LongitudeToX(RadiusPoint.longitude);
                             int radY = c.LatitudeToY(RadiusPoint.latitude);
-                            //int orientationX = c.getOrientationX(l);
-                            //int orientationY = c.getOrientationY(l);
-                            //double tmp = (double)midY + (orientationY - midY) * c.LongitudeCorrFactor(CenterPoint);
-                            //orientationY = (int)tmp;
+
                             Vector start = new Vector(startX, startY, 0);
                             Vector radv = new Vector(radX, radY, 0);
-                            //float radius = (float)Vector.Abs(midv - start)
                             float radius = Math.Abs(midY - radY) / LongCorrFactor;
-
-                            oriY = midY + (int)(((double)oriY - (double)midY) * LongCorrFactor / 2.0);
 
                             try
                             {
@@ -241,14 +221,22 @@ namespace AirNavigationRaceLive.Comps
                                     pe.Graphics.DrawLine(PenGates, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
                                     pe.Graphics.ResetTransform();
 
+
                                     if (HasCircleOnGates)
-                                    { // draw ellipse
+                                    {
+                                        // draw ellipse
                                         pe.Graphics.TranslateTransform(midX - radius, midY - radius * LongCorrFactor);
                                         pe.Graphics.DrawEllipse(PenGates, 0, 0, radius * 2, radius * 2 * LongCorrFactor);
                                         pe.Graphics.ResetTransform();
                                         // draw orientation line 
+                                        // http://www.movable-type.co.uk/scripts/latlong.html?from=48.619,-120.412&to=48.59617,-120.4020
 
-                                        pe.Graphics.DrawLine(PenGates, new System.Drawing.Point(midX, midY), new System.Drawing.Point(oriX, oriY));
+                                        Vector a = new Vector(l.A.longitude, l.A.latitude, 0);
+                                        Vector b = new Vector(l.B.longitude, l.B.latitude, 0);
+                                        Vector o = Vector.ArrowPointFromGivenLine(a, b, GateOrientationArrowLength);
+                                        int HeadingX = c.LongitudeToX(o.X);
+                                        int HeadingY = c.LatitudeToY(o.Y);
+                                        pe.Graphics.DrawLine(PenGates, new System.Drawing.Point(midX, midY), new System.Drawing.Point(HeadingX, HeadingY));
                                         //  pe.Graphics.DrawLine(PenGates, new System.Drawing.Point(midX, midY), new System.Drawing.Point(orientationX, orientationYCorr));
                                         pe.Graphics.ResetTransform();
                                     }
@@ -261,13 +249,13 @@ namespace AirNavigationRaceLive.Comps
                                         if (selectedLine == l)
                                         {
                                             pe.Graphics.DrawLine(PenSelected, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
-                                            pe.Graphics.DrawLine(PenSelected, new System.Drawing.Point(midX, midY), new System.Drawing.Point(oriX, oriY));
+                                         //   pe.Graphics.DrawLine(PenSelected, new System.Drawing.Point(midX, midY), new System.Drawing.Point(oriX, oriY));
                                         }
 
                                         if (hoverLine == l)
                                         {
                                             pe.Graphics.DrawLine(PenHover, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
-                                            pe.Graphics.DrawLine(PenHover, new System.Drawing.Point(midX, midY), new System.Drawing.Point(oriX, oriY));
+                                          //  pe.Graphics.DrawLine(PenHover, new System.Drawing.Point(midX, midY), new System.Drawing.Point(oriX, oriY));
                                         }
                                     }
                                     #endregion

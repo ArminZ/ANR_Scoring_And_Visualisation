@@ -687,6 +687,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector start = new Vector(l.A.longitude, l.A.latitude, 0);
                         Vector end = new Vector(l.B.longitude, l.B.latitude, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
+                        //o = Vector.ArrowPointFromGivenLine(start, end);
                         l.O = o.toGPSPoint();
                         l.Type = lType;
                         result.Line.Add(l);

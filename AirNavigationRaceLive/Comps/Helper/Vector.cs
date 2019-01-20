@@ -84,7 +84,63 @@ namespace AirNavigationRaceLive.Comps.Helper
         {
             return new Vector(-a.Y, a.X, 0);
         }
+        /// <summary>
+        /// Initial bearing
+        /// see http://www.movable-type.co.uk/scripts/latlong.html?from=48.619,-120.412&to=48.59617,-120.4020
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>initial bearing (as angle)</returns>
+        public static double Bearing(Vector a, Vector b)
+        {
+            double radiansCorr = Math.PI / 180.0;
+            double dlong = (b.X - a.X)* radiansCorr;
+            var y = Math.Sin(dlong) * Math.Cos(b.Y * radiansCorr);
+            var x = Math.Cos(a.Y * radiansCorr) * Math.Sin(b.Y * radiansCorr) -
+                    Math.Sin(a.Y * radiansCorr) * Math.Cos(b.Y * radiansCorr) * Math.Cos(dlong);
+            var brng = Math.Atan2(y, x);
+            var brngDegree = (Math.Atan2(y, x) / radiansCorr +360.0) % 360.0;
+            return brngDegree;
+        }
 
+        /// <summary>
+        /// Destination point given distance and bearing from start point
+        /// used to calculate a correct ortogonal vector
+        /// see  http://www.movable-type.co.uk/scripts/latlong.html?from=48.619,-120.412&to=48.59617,-120.4020
+        /// </summary>
+        /// <returns></returns>
+        public static Vector destinationPointByBearingAndDistance( Vector a, double brng, double d)
+        {
+            double radiansCorr = Math.PI / 180.0;
+            const double R = 6371;
+            var lat2 = Math.Asin(Math.Sin(a.Y * radiansCorr) * Math.Cos(d / R) + Math.Cos(a.Y * radiansCorr) * Math.Sin(d / R) * Math.Cos(brng));
+            var lon2 = a.X *radiansCorr + Math.Atan2(
+                                    Math.Sin(brng) * Math.Sin(d / R) * Math.Cos(a.Y * radiansCorr),
+                                    Math.Cos(d / R) - Math.Sin(a.Y * radiansCorr) * Math.Sin(lat2)
+                                    );
+            lat2 = lat2 / radiansCorr;
+            lon2 = lon2 / radiansCorr;
+            lon2 = (lon2 + 540) % 360 -180.0;
+
+            return new Vector(lon2, lat2, 0);
+        }
+        /// <summary>
+        ///  used to calculate the orienation arrow on SP and FP
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="dist"></param>
+        /// <returns></returns>
+        public static Vector ArrowPointFromGivenLine(Vector a, Vector b, double dist)
+        {
+            // dist is in NM
+            double radiansCorr = Math.PI / 180.0;
+            Vector c = Middle(a, b);
+            // calculate Bearing, change by + 90 degrees
+            double brng = (Bearing(a, b) + 90.0) * radiansCorr;
+            Vector d = destinationPointByBearingAndDistance(c, brng, dist * 1.852); //dist in Km
+            return d;
+        }
         /// <summary>
         /// returns the Ortsvektor of the middle
         /// </summary>
