@@ -272,17 +272,5 @@ namespace AirNavigationRaceLive.Properties {
                 this["ShowIntersectionCircles"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool HasPROHFill {
-            get {
-                return ((bool)(this["HasPROHFill"]));
-            }
-            set {
-                this["HasPROHFill"] = value;
-            }
-        }
     }
 }

@@ -32,7 +32,7 @@ namespace AirNavigationRaceLive.Comps
             Properties.Settings.Default.PROHBorderPenWidth = numericUpDownPROHBorderPen.Value;
             Properties.Settings.Default.PROHBorderColor = btnPROHBorderColor.BackColor;
             Properties.Settings.Default.ShowPROHBorder = chkShowPROHBorders.Checked;
-            Properties.Settings.Default.HasPROHFill = chkHasPROHFill.Checked;
+            //Properties.Settings.Default.HasPROHFill = chkHasPROHFill.Checked;
 
             Properties.Settings.Default.SPFPColor = btnSPFPColor.BackColor;
             Properties.Settings.Default.SPFPenWidth = numericUpDownSPFPPen.Value;
@@ -63,7 +63,7 @@ namespace AirNavigationRaceLive.Comps
             btnPROHBorderColor.BackColor = Properties.Settings.Default.PROHBorderColor;
             numericUpDownPROHBorderPen.Value = Properties.Settings.Default.PROHBorderPenWidth;
             chkShowPROHBorders.Checked = Properties.Settings.Default.ShowPROHBorder;
-            chkHasPROHFill.Checked = Properties.Settings.Default.HasPROHFill;
+            //chkHasPROHFill.Checked = Properties.Settings.Default.HasPROHFill;
 
             btnSPFPColor.BackColor = Properties.Settings.Default.SPFPColor;
             numericUpDownSPFPPen.Value = Properties.Settings.Default.SPFPenWidth;

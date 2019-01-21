@@ -53,7 +53,6 @@
             this.numericUpDownPROHBorderPen = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBoxLayer = new System.Windows.Forms.GroupBox();
-            this.chkHasPROHFill = new System.Windows.Forms.CheckBox();
             this.chkShowPROHBorders = new System.Windows.Forms.CheckBox();
             this.btnPROHBorderColor = new System.Windows.Forms.Button();
             this.groupBoxIntersect = new System.Windows.Forms.GroupBox();
@@ -381,7 +380,6 @@
             // 
             // groupBoxLayer
             // 
-            this.groupBoxLayer.Controls.Add(this.chkHasPROHFill);
             this.groupBoxLayer.Controls.Add(this.chkShowPROHBorders);
             this.groupBoxLayer.Controls.Add(this.btnPROHBorderColor);
             this.groupBoxLayer.Controls.Add(this.label2);
@@ -397,17 +395,6 @@
             this.groupBoxLayer.TabIndex = 28;
             this.groupBoxLayer.TabStop = false;
             this.groupBoxLayer.Text = "PROH Layer Properties for new Parcour";
-            // 
-            // chkHasPROHFill
-            // 
-            this.chkHasPROHFill.AutoSize = true;
-            this.chkHasPROHFill.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkHasPROHFill.Location = new System.Drawing.Point(204, 107);
-            this.chkHasPROHFill.Name = "chkHasPROHFill";
-            this.chkHasPROHFill.Size = new System.Drawing.Size(158, 24);
-            this.chkHasPROHFill.TabIndex = 32;
-            this.chkHasPROHFill.Text = "Use PROH Filling";
-            this.chkHasPROHFill.UseVisualStyleBackColor = true;
             // 
             // chkShowPROHBorders
             // 
@@ -647,6 +634,5 @@
         private System.Windows.Forms.Button btnChannelFillColor;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown numericUpDownIntersectRadius;
-        private System.Windows.Forms.CheckBox chkHasPROHFill;
     }
 }
