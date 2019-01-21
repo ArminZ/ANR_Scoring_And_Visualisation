@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AirNavigationRaceLive.Comps
@@ -36,7 +29,10 @@ namespace AirNavigationRaceLive.Comps
 
             Properties.Settings.Default.PROHColor = btnPROHColorLayer.BackColor;
             Properties.Settings.Default.PROHTransp = numericUpDownPROHAlpha.Value;
-            Properties.Settings.Default.PROHPenWidth = numericUpDownPROHPen.Value;
+            Properties.Settings.Default.PROHBorderPenWidth = numericUpDownPROHBorderPen.Value;
+            Properties.Settings.Default.PROHBorderColor = btnPROHBorderColor.BackColor;
+            Properties.Settings.Default.ShowPROHBorder = chkShowPROHBorders.Checked;
+            Properties.Settings.Default.HasPROHFill = chkHasPROHFill.Checked;
 
             Properties.Settings.Default.SPFPColor = btnSPFPColor.BackColor;
             Properties.Settings.Default.SPFPenWidth = numericUpDownSPFPPen.Value;
@@ -44,10 +40,13 @@ namespace AirNavigationRaceLive.Comps
 
             Properties.Settings.Default.ChannelColor = btnChannelColor.BackColor;
             Properties.Settings.Default.ChannelPenWidth = numericUpDownChannelPen.Value;
-            Properties.Settings.Default.ChannelShowCL = chkChannelShowCL.Checked;
+            Properties.Settings.Default.ChannelFillColor = btnChannelFillColor.BackColor;
+            Properties.Settings.Default.HasChannelFill = chkHasChannelFill.Checked;
 
             Properties.Settings.Default.IntersectionColor = btnIntersectColor.BackColor;
-            Properties.Settings.Default.IntersectionPenWidth = numericUpDownIntersect.Value;
+            Properties.Settings.Default.IntersectionPenWidth = numericUpDownIntersectPen.Value;
+            Properties.Settings.Default.ShowIntersectionCircles = chkShowIntersectionCircles.Checked;
+            Properties.Settings.Default.IntersectionCircleRadius = numericUpDownIntersectRadius.Value;
 
             Properties.Settings.Default.Save();
         }
@@ -61,7 +60,10 @@ namespace AirNavigationRaceLive.Comps
 
             btnPROHColorLayer.BackColor = Properties.Settings.Default.PROHColor;
             numericUpDownPROHAlpha.Value = Properties.Settings.Default.PROHTransp;
-            numericUpDownPROHPen.Value = Properties.Settings.Default.PROHPenWidth;
+            btnPROHBorderColor.BackColor = Properties.Settings.Default.PROHBorderColor;
+            numericUpDownPROHBorderPen.Value = Properties.Settings.Default.PROHBorderPenWidth;
+            chkShowPROHBorders.Checked = Properties.Settings.Default.ShowPROHBorder;
+            chkHasPROHFill.Checked = Properties.Settings.Default.HasPROHFill;
 
             btnSPFPColor.BackColor = Properties.Settings.Default.SPFPColor;
             numericUpDownSPFPPen.Value = Properties.Settings.Default.SPFPenWidth;
@@ -69,10 +71,13 @@ namespace AirNavigationRaceLive.Comps
 
             btnChannelColor.BackColor = Properties.Settings.Default.ChannelColor;
             numericUpDownChannelPen.Value = Properties.Settings.Default.ChannelPenWidth;
-            chkChannelShowCL.Checked = Properties.Settings.Default.ChannelShowCL;
+            btnChannelFillColor.BackColor = Properties.Settings.Default.ChannelFillColor;
+            chkHasChannelFill.Checked = Properties.Settings.Default.HasChannelFill;
 
             btnIntersectColor.BackColor = Properties.Settings.Default.IntersectionColor;
-            numericUpDownIntersect.Value = Properties.Settings.Default.IntersectionPenWidth;
+            numericUpDownIntersectPen.Value = Properties.Settings.Default.IntersectionPenWidth;
+            numericUpDownIntersectRadius.Value = Properties.Settings.Default.IntersectionCircleRadius;
+            chkShowIntersectionCircles.Checked = Properties.Settings.Default.ShowIntersectionCircles;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -88,11 +93,6 @@ namespace AirNavigationRaceLive.Comps
         private void btnDB_Click(object sender, EventArgs e)
         {
             textBoxDatabasePath.Text = Comps.Helper.Utils.getDbPath(true);
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

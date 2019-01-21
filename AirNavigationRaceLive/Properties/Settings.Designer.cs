@@ -12,7 +12,7 @@ namespace AirNavigationRaceLive.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -66,18 +66,6 @@ namespace AirNavigationRaceLive.Properties {
             }
             set {
                 this["parcourPDFAdditionalText"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public decimal PROHPenWidth {
-            get {
-                return ((decimal)(this["PROHPenWidth"]));
-            }
-            set {
-                this["PROHPenWidth"] = value;
             }
         }
         
@@ -167,19 +155,7 @@ namespace AirNavigationRaceLive.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ChannelShowCL {
-            get {
-                return ((bool)(this["ChannelShowCL"]));
-            }
-            set {
-                this["ChannelShowCL"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public decimal IntersectionPenWidth {
             get {
                 return ((decimal)(this["IntersectionPenWidth"]));
@@ -191,12 +167,121 @@ namespace AirNavigationRaceLive.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Blue")]
         public global::System.Drawing.Color IntersectionColor {
             get {
                 return ((global::System.Drawing.Color)(this["IntersectionColor"]));
             }
             set {
                 this["IntersectionColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HasChannelFill {
+            get {
+                return ((bool)(this["HasChannelFill"]));
+            }
+            set {
+                this["HasChannelFill"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color ChannelFillColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ChannelFillColor"]));
+            }
+            set {
+                this["ChannelFillColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal ChannelTransp {
+            get {
+                return ((decimal)(this["ChannelTransp"]));
+            }
+            set {
+                this["ChannelTransp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public decimal IntersectionCircleRadius {
+            get {
+                return ((decimal)(this["IntersectionCircleRadius"]));
+            }
+            set {
+                this["IntersectionCircleRadius"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowPROHBorder {
+            get {
+                return ((bool)(this["ShowPROHBorder"]));
+            }
+            set {
+                this["ShowPROHBorder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal PROHBorderPenWidth {
+            get {
+                return ((decimal)(this["PROHBorderPenWidth"]));
+            }
+            set {
+                this["PROHBorderPenWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public global::System.Drawing.Color PROHBorderColor {
+            get {
+                return ((global::System.Drawing.Color)(this["PROHBorderColor"]));
+            }
+            set {
+                this["PROHBorderColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowIntersectionCircles {
+            get {
+                return ((bool)(this["ShowIntersectionCircles"]));
+            }
+            set {
+                this["ShowIntersectionCircles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool HasPROHFill {
+            get {
+                return ((bool)(this["HasPROHFill"]));
+            }
+            set {
+                this["HasPROHFill"] = value;
             }
         }
     }
