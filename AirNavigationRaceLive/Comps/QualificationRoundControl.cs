@@ -208,10 +208,18 @@ namespace AirNavigationRaceLive.Comps
             Vector end = new Vector(double.Parse(takeOffRightLongitude.Text), double.Parse(takeOffRightLatitude.Text), 0);
             Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
             Line line = new Line();
+             if (c.TakeOffLine !=null)
+            {
+                // update the existing TKOF line
+                line = c.TakeOffLine;
+            }
+            line.Type = (int)LineType.TKOF;
+            line.ParcourLine_Line_Id = c.ParcourSet.Id;
             line.A = Factory.newGPSPoint(start.X, start.Y, start.Z);
             line.B = Factory.newGPSPoint(end.X, end.Y, end.Z);
             line.O = Factory.newGPSPoint(o.X, o.Y, o.Z);
             c.TakeOffLine = line;
+
             //List<Flight> toDelete = new List<Flight>();
             //toDelete.AddRange(c.Flight);
             //Client.DBContext.FlightSet.RemoveRange(toDelete);

@@ -315,12 +315,6 @@
     <Compile Include="Dialogs\StartListDialog.Designer.cs">
       <DependentUpon>StartListDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\SettingsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\SettingsDialog.Designer.cs">
-      <DependentUpon>SettingsDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\TeamDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -476,9 +470,6 @@
     <EmbeddedResource Include="Dialogs\StartListDialog.resx">
       <DependentUpon>StartListDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\SettingsDialog.resx">
-      <DependentUpon>SettingsDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\TeamDialog.resx">
       <DependentUpon>TeamDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -559,15 +550,9 @@
     <None Include="Resources\compass.jpg" />
     <None Include="Resources\ANR_0003.JPG" />
     <None Include="Resources\ANR_00031.JPG" />
-    <None Include="Resources\Capturex.JPG" />
-    <None Include="Resources\ANR_map_Example.JPG" />
-    <None Include="Resources\compass1.jpg" />
-    <None Include="Resources\Capturex1.JPG" />
     <Content Include="Migrations\ReadMe.txt" />
     <Content Include="Resources\default.png" />
-    <None Include="Resources\Landing - Copy.JPG" />
     <None Include="Resources\stopwatch.jpg" />
-    <None Include="Resources\Landing - Copy1.JPG" />
     <Content Include="Resources\Summe.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
