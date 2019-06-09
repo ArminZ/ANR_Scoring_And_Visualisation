@@ -28,6 +28,7 @@ namespace AirNavigationRaceLive.Comps
         public float PenWidthGates; // = 6f;
         private Pen PenGates = new Pen(new SolidBrush(Color.Red), 1f);
         public bool HasCircleOnGates;// = false;
+        public int ParcourT;
 
         // -- visualisation picture box --       
         private List<FlightSet> flights;
@@ -51,8 +52,9 @@ namespace AirNavigationRaceLive.Comps
 
             PenIntersection.Color = iParcour.ColorIntersection == Color.FromArgb(0, 0, 0, 0) ? Properties.Settings.Default.IntersectionColor : iParcour.ColorIntersection;
             PenIntersection.Width = iParcour.PenWidthIntersection == 0 ? (float)Properties.Settings.Default.IntersectionPenWidth : (float)iParcour.PenWidthIntersection;
+            //           IntersectionCircleRadius = iParcour.IntersectionCircleRadius == 0 ? (float)20.0 : (float)iParcour.IntersectionCircleRadius;
             IntersectionCircleRadius = iParcour.IntersectionCircleRadius == 0 ? (float)20.0 : (float)iParcour.IntersectionCircleRadius;
-            ShowIntersectionCircle = true; //  iParcour.HasIntersectionCircles;
+            ShowIntersectionCircle = iParcour.HasIntersectionCircles;
 
             Color c = iParcour.ColorChannel;
             PenChannel.Color = iParcour.ColorChannel == Color.FromArgb(0, 0, 0, 0) ? Properties.Settings.Default.ChannelColor : iParcour.ColorChannel;
@@ -61,6 +63,8 @@ namespace AirNavigationRaceLive.Comps
 
             Pen.Width = (float)iParcour.PenWidthGates;
             Pen.Color = iParcour.ColorGates;
+
+            ParcourT = Parcour.PenaltyCalcType;
 
         }
         public void SetConverter(Converter iConverter)
@@ -127,7 +131,7 @@ namespace AirNavigationRaceLive.Comps
                 return;
             }
 
- 
+
 
             #region parcour
             if (Parcour != null && c != null)
@@ -139,18 +143,25 @@ namespace AirNavigationRaceLive.Comps
                 lock (Parcour)
                 {
                     ICollection<Line> lines = Parcour.Line;
-
-                    // Polygons filling:  PROH zone, channel-specific PROH zones
-                    List<Line> linesClosedPolygon = lines.Where(p => (p.Type == (int)LineType.PENALTYZONE) || (p.Type >= (int)LineType.PROH_A && p.Type <= (int)LineType.PROH_D)).ToList();
-                    PolygonFiller(linesClosedPolygon, Pen, Brush, pe);
-
-
-                    if (FillChannel)
+                    List<Line> linesClosedPolygon = new List<Line>();
+                    switch (ParcourT)
                     {
-                        // Polygons filling: channels
-                        linesClosedPolygon = lines.Where(p => p.Type >= (int)LineType.CHANNEL_A && p.Type <= (int)LineType.CHANNEL_D).ToList();
-                        PolygonFiller(linesClosedPolygon, Pen, Brush, pe);
+                        case (int)ParcourType.PROHZONES:
+                            linesClosedPolygon = lines.Where(p => (p.Type == (int)LineType.PENALTYZONE) || (p.Type >= (int)LineType.PROH_A && p.Type <= (int)LineType.PROH_D)).ToList();
+                            PolygonFiller(linesClosedPolygon, Pen, Brush, pe);
+                            break;
+                        case (int)ParcourType.CHANNELS:
+                            if (FillChannel)
+                            {
+                                linesClosedPolygon = lines.Where(p => p.Type >= (int)LineType.CHANNEL_A && p.Type <= (int)LineType.CHANNEL_D).ToList();
+                                PolygonFiller(linesClosedPolygon, Pen, Brush, pe);
+                            }
+                            break;
+                        default:
+                            break;
                     }
+                    // Polygons filling:  PROH zone, channel-specific PROH zones
+                    PolygonFiller(linesClosedPolygon, Pen, Brush, pe);
 
 
                     //List<Line> linesL = lines.Where(p => (p.Type >= (int)LineType.CHANNEL_A && p.Type <= (int)LineType.CHANNEL_A) || (p.Type >= (int)LineType.CHANNEL_A && p.Type <= (int)LineType.CHANNEL_A)).ToList();
@@ -210,7 +221,7 @@ namespace AirNavigationRaceLive.Comps
                                     // Centerline is not yet implemented on Route import, and therefore not yet implemented here
                                 }
 
-                                if (l.Type >= (int)LineType.CHANNEL_A && l.Type <= (int)LineType.CHANNEL_D)
+                                if (l.Type >= (int)LineType.CHANNEL_A && l.Type <= (int)LineType.CHANNEL_D && ParcourT == (int)ParcourType.CHANNELS)
                                 {
                                     pe.Graphics.DrawLine(PenChannel, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
                                     pe.Graphics.ResetTransform();
@@ -249,13 +260,13 @@ namespace AirNavigationRaceLive.Comps
                                         if (selectedLine == l)
                                         {
                                             pe.Graphics.DrawLine(PenSelected, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
-                                         //   pe.Graphics.DrawLine(PenSelected, new System.Drawing.Point(midX, midY), new System.Drawing.Point(oriX, oriY));
+                                            //   pe.Graphics.DrawLine(PenSelected, new System.Drawing.Point(midX, midY), new System.Drawing.Point(oriX, oriY));
                                         }
 
                                         if (hoverLine == l)
                                         {
                                             pe.Graphics.DrawLine(PenHover, new System.Drawing.Point(startX, startY), new System.Drawing.Point(endX, endY));
-                                          //  pe.Graphics.DrawLine(PenHover, new System.Drawing.Point(midX, midY), new System.Drawing.Point(oriX, oriY));
+                                            //  pe.Graphics.DrawLine(PenHover, new System.Drawing.Point(midX, midY), new System.Drawing.Point(oriX, oriY));
                                         }
                                     }
                                     #endregion
@@ -277,7 +288,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 //PenFlight.Width = 7f;
                 //PenIntersection.Width = (float)Properties.Settings.Default.IntersectionPenWidth;
-                int r = (int)IntersectionCircleRadius;
+                int r = (int)(IntersectionCircleRadius*30.0);  //45.0
 
                 foreach (FlightSet flight in flights)
                 {
@@ -294,7 +305,6 @@ namespace AirNavigationRaceLive.Comps
                     }
                     if (flight.IntersectionPointSet != null && ShowIntersectionCircle)
                     {
-
                         foreach (IntersectionPoint gd in flight.IntersectionPointSet)
                         {
                             int startXp = (int)c.LongitudeToX(gd.longitude);

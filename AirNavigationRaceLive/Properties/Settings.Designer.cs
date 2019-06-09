@@ -272,5 +272,17 @@ namespace AirNavigationRaceLive.Properties {
                 this["ShowIntersectionCircles"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int MaxPenaltyPerEvent {
+            get {
+                return ((int)(this["MaxPenaltyPerEvent"]));
+            }
+            set {
+                this["MaxPenaltyPerEvent"] = value;
+            }
+        }
     }
 }

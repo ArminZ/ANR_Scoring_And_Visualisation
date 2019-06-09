@@ -521,6 +521,7 @@
             this.btnIntersectColor.TabIndex = 29;
             this.btnIntersectColor.Text = "...";
             this.btnIntersectColor.UseVisualStyleBackColor = false;
+            this.btnIntersectColor.Click += new System.EventHandler(this.btnIntersectColor_Click);
             // 
             // groupBoxChannel
             // 
@@ -560,6 +561,7 @@
             this.numericUpDownChannelAlpha.Size = new System.Drawing.Size(62, 26);
             this.numericUpDownChannelAlpha.TabIndex = 34;
             this.numericUpDownChannelAlpha.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownChannelAlpha.ValueChanged += new System.EventHandler(this.numericUpDownChannelAlpha_ValueChanged);
             // 
             // label25
             // 
@@ -583,6 +585,7 @@
             this.btnChannelFillColor.TabIndex = 32;
             this.btnChannelFillColor.Text = "...";
             this.btnChannelFillColor.UseVisualStyleBackColor = false;
+            this.btnChannelFillColor.Click += new System.EventHandler(this.btnChannelFillColor_Click);
             // 
             // label23
             // 
@@ -637,6 +640,7 @@
             this.btnChannelColor.TabIndex = 29;
             this.btnChannelColor.Text = "...";
             this.btnChannelColor.UseVisualStyleBackColor = false;
+            this.btnChannelColor.Click += new System.EventHandler(this.btnChannelColor_Click);
             // 
             // groupBoxCalculationType
             // 
@@ -659,6 +663,7 @@
             this.radioButtonPenaltyCalcTypeChannel.TabStop = true;
             this.radioButtonPenaltyCalcTypeChannel.Text = "Channel-based:\r\nLeaving the assigned channel";
             this.radioButtonPenaltyCalcTypeChannel.UseVisualStyleBackColor = true;
+            this.radioButtonPenaltyCalcTypeChannel.CheckedChanged += new System.EventHandler(this.radioButtonPenaltyCalcTypeChannel_CheckedChanged);
             // 
             // radioButtonPenaltyCalcTypePROH
             // 
@@ -670,6 +675,7 @@
             this.radioButtonPenaltyCalcTypePROH.TabStop = true;
             this.radioButtonPenaltyCalcTypePROH.Text = "Prohibited zones: \r\nEntering prohibited zones";
             this.radioButtonPenaltyCalcTypePROH.UseVisualStyleBackColor = true;
+            this.radioButtonPenaltyCalcTypePROH.CheckedChanged += new System.EventHandler(this.radioButtonPenaltyCalcTypePROH_CheckedChanged);
             // 
             // penBox
             // 
@@ -748,6 +754,7 @@
             0,
             0,
             0});
+            this.numericUpDownPenGates.ValueChanged += new System.EventHandler(this.numericUpDownPenGates_ValueChanged);
             // 
             // btnColorGates
             // 
@@ -760,6 +767,7 @@
             this.btnColorGates.TabIndex = 26;
             this.btnColorGates.Text = "...";
             this.btnColorGates.UseVisualStyleBackColor = false;
+            this.btnColorGates.Click += new System.EventHandler(this.btnColorGates_Click);
             // 
             // layerBox
             // 
@@ -806,6 +814,7 @@
             this.numericUpDownAlpha.Size = new System.Drawing.Size(64, 26);
             this.numericUpDownAlpha.TabIndex = 25;
             this.numericUpDownAlpha.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownAlpha.ValueChanged += new System.EventHandler(this.numericUpDownAlpha_ValueChanged);
             // 
             // btnColorPROH
             // 
@@ -818,6 +827,7 @@
             this.btnColorPROH.TabIndex = 26;
             this.btnColorPROH.Text = "...";
             this.btnColorPROH.UseVisualStyleBackColor = false;
+            this.btnColorPROH.Click += new System.EventHandler(this.btnColorPROH_Click);
             // 
             // tabPageCoordinates
             // 

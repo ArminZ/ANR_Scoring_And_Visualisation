@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Forms;
 using AirNavigationRaceLive.Client;
 using AirNavigationRaceLive.Comps.Helper;
@@ -67,7 +68,7 @@ namespace AirNavigationRaceLive.Dialogs
             try
             {
                 List<Point> list = Importer.GPSdataFromGPX(ofd.FileName);
-                textBoxDate.Text = new DateTime((long)(list[0].Timestamp)).ToShortDateString();
+                textBoxDate.Text = new DateTime((long)(list[0].Timestamp)).ToString("yyyy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
                 textBoxRecords.Text = list.Count.ToString();
                 textBoxRecords.Tag = list;
             }

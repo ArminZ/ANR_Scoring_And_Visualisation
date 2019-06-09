@@ -48,6 +48,8 @@ namespace AirNavigationRaceLive.Comps
             Properties.Settings.Default.ShowIntersectionCircles = chkShowIntersectionCircles.Checked;
             Properties.Settings.Default.IntersectionCircleRadius = numericUpDownIntersectRadius.Value;
 
+            Properties.Settings.Default.MaxPenaltyPerEvent = (int)numericUpDownMaxPenalty.Value;
+
             Properties.Settings.Default.Save();
         }
 
@@ -78,6 +80,9 @@ namespace AirNavigationRaceLive.Comps
             numericUpDownIntersectPen.Value = Properties.Settings.Default.IntersectionPenWidth;
             numericUpDownIntersectRadius.Value = Properties.Settings.Default.IntersectionCircleRadius;
             chkShowIntersectionCircles.Checked = Properties.Settings.Default.ShowIntersectionCircles;
+
+            numericUpDownMaxPenalty.Value = Properties.Settings.Default.MaxPenaltyPerEvent;
+
         }
 
         private void btnSave_Click(object sender, EventArgs e)

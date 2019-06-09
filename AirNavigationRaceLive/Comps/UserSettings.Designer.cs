@@ -65,6 +65,9 @@
             this.groupBoxCalculationType = new System.Windows.Forms.GroupBox();
             this.radioButtonPenaltyCalcTypeChannel = new System.Windows.Forms.RadioButton();
             this.radioButtonPenaltyCalcTypePROH = new System.Windows.Forms.RadioButton();
+            this.groupBoxMaxPenalty = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.numericUpDownMaxPenalty = new System.Windows.Forms.NumericUpDown();
             this.groupBoxChannel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelFillAlpha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelPen)).BeginInit();
@@ -77,6 +80,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectRadius)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectPen)).BeginInit();
             this.groupBoxCalculationType.SuspendLayout();
+            this.groupBoxMaxPenalty.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenalty)).BeginInit();
             this.SuspendLayout();
             // 
             // chkParcourAdditionalText
@@ -556,10 +561,54 @@
             this.radioButtonPenaltyCalcTypePROH.Text = "Penalty when entering prohibited zones";
             this.radioButtonPenaltyCalcTypePROH.UseVisualStyleBackColor = true;
             // 
+            // groupBoxMaxPenalty
+            // 
+            this.groupBoxMaxPenalty.Controls.Add(this.label8);
+            this.groupBoxMaxPenalty.Controls.Add(this.numericUpDownMaxPenalty);
+            this.groupBoxMaxPenalty.Location = new System.Drawing.Point(23, 528);
+            this.groupBoxMaxPenalty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxMaxPenalty.Name = "groupBoxMaxPenalty";
+            this.groupBoxMaxPenalty.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxMaxPenalty.Size = new System.Drawing.Size(491, 121);
+            this.groupBoxMaxPenalty.TabIndex = 38;
+            this.groupBoxMaxPenalty.TabStop = false;
+            this.groupBoxMaxPenalty.Text = "Penalty points upper limit (per penalty event)";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(13, 45);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label8.Size = new System.Drawing.Size(218, 25);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "max Penalty (0= unrestricted)";
+            // 
+            // numericUpDownMaxPenalty
+            // 
+            this.numericUpDownMaxPenalty.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxPenalty.Location = new System.Drawing.Point(304, 45);
+            this.numericUpDownMaxPenalty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownMaxPenalty.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxPenalty.Name = "numericUpDownMaxPenalty";
+            this.numericUpDownMaxPenalty.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownMaxPenalty.TabIndex = 26;
+            this.numericUpDownMaxPenalty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // UserSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBoxMaxPenalty);
             this.Controls.Add(this.groupBoxCalculationType);
             this.Controls.Add(this.groupBoxIntersect);
             this.Controls.Add(this.btnCancel);
@@ -590,6 +639,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectPen)).EndInit();
             this.groupBoxCalculationType.ResumeLayout(false);
             this.groupBoxCalculationType.PerformLayout();
+            this.groupBoxMaxPenalty.ResumeLayout(false);
+            this.groupBoxMaxPenalty.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenalty)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -634,5 +686,8 @@
         private System.Windows.Forms.Button btnChannelFillColor;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown numericUpDownIntersectRadius;
+        private System.Windows.Forms.GroupBox groupBoxMaxPenalty;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxPenalty;
     }
 }

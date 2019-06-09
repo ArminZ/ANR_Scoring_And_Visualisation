@@ -48,4 +48,11 @@ namespace AirNavigationRaceLive.Comps.Helper
         A3 = 4,
         A4 = 5
     }
+
+    public enum ParcourType : int
+    {
+        // note: must match with definitions of PDFSharp.PageSize enumerations
+        PROHZONES = 0,
+        CHANNELS = 1
+    }
 }

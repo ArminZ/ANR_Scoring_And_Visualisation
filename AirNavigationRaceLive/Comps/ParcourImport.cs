@@ -540,7 +540,100 @@ namespace AirNavigationRaceLive.Comps
             }
         }
 
-        private void btnColorLayer_Click(object sender, EventArgs e)
+        //private void btnColorLayer_Click(object sender, EventArgs e)
+        //{
+        //    ColorDialog cd = new ColorDialog();
+        //    cd.AnyColor = false;
+        //    cd.SolidColorOnly = true;
+        //    cd.ShowDialog();
+        //    btnColorPROH.BackColor = cd.Color;
+        //    ParcourSet p = activeParcour;
+        //    PictureBox1.ColorPROH = cd.Color;
+        //    p.ColorPROH = cd.Color;
+        //    PictureBox1.SetParcour(p);
+        //    PictureBox1.Invalidate();
+        //}
+
+        //private void btnColorPen_Click(object sender, EventArgs e)
+        //{
+        //    ColorDialog cd = new ColorDialog();
+        //    cd.AnyColor = false;
+        //    cd.SolidColorOnly = true;
+        //    cd.ShowDialog();
+        //    btnColorGates.BackColor = cd.Color;
+        //    ParcourSet p = activeParcour;
+        //    p.ColorGates = cd.Color;
+        //    PictureBox1.ColorGates = cd.Color;
+        //    PictureBox1.SetParcour(p);
+        //    PictureBox1.Invalidate();
+        //}
+
+        private void checkBoxCircle_CheckedChanged(object sender, EventArgs e)
+        {
+            ParcourSet p = activeParcour;
+            PictureBox1.HasCircleOnGates = checkBoxCircle.Checked;
+            p.HasCircleOnGates = checkBoxCircle.Checked;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void btnColorGates_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnColorGates.BackColor = cd.Color;
+            ParcourSet p = activeParcour;
+            //PictureBox1.ColorPROH = cd.Color;
+            p.ColorGates = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void btnChannelColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnChannelColor.BackColor = cd.Color;
+            ParcourSet p = activeParcour;
+            //PictureBox1.ColorPROH = cd.Color;
+            p.ColorChannel = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void btnChannelFillColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnChannelFillColor.BackColor = cd.Color;
+            ParcourSet p = activeParcour;
+            //PictureBox1.ColorPROH = cd.Color;
+            p.ColorChannelFill = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void btnIntersectColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnIntersectColor.BackColor = cd.Color;
+            ParcourSet p = activeParcour;
+            //PictureBox1.ColorPROH = cd.Color;
+            p.ColorIntersection = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void btnColorPROH_Click(object sender, EventArgs e)
         {
             ColorDialog cd = new ColorDialog();
             cd.AnyColor = false;
@@ -554,27 +647,38 @@ namespace AirNavigationRaceLive.Comps
             PictureBox1.Invalidate();
         }
 
-        private void btnColorPen_Click(object sender, EventArgs e)
+        private void radioButtonPenaltyCalcTypePROH_CheckedChanged(object sender, EventArgs e)
         {
-            ColorDialog cd = new ColorDialog();
-            cd.AnyColor = false;
-            cd.SolidColorOnly = true;
-            cd.ShowDialog();
-            btnColorGates.BackColor = cd.Color;
-            ParcourSet p = activeParcour;
-            p.ColorGates = cd.Color;
-            PictureBox1.ColorGates = cd.Color;
-            PictureBox1.SetParcour(p);
-            PictureBox1.Invalidate();
+            radioButtonPenaltyCalcTypeChannel.Checked = !radioButtonPenaltyCalcTypePROH.Checked;
+
+            layerBox.Visible = radioButtonPenaltyCalcTypePROH.Checked;
+            groupBoxChannel.Visible = radioButtonPenaltyCalcTypeChannel.Checked;
         }
 
-        private void checkBoxCircle_CheckedChanged(object sender, EventArgs e)
+        private void radioButtonPenaltyCalcTypeChannel_CheckedChanged(object sender, EventArgs e)
         {
-            ParcourSet p = activeParcour;
-            PictureBox1.HasCircleOnGates = checkBoxCircle.Checked;
-            p.HasCircleOnGates = checkBoxCircle.Checked;
-            PictureBox1.SetParcour(p);
-            PictureBox1.Invalidate();
+            radioButtonPenaltyCalcTypePROH.Checked = !radioButtonPenaltyCalcTypeChannel.Checked;
+
+            layerBox.Visible = radioButtonPenaltyCalcTypePROH.Checked;
+            groupBoxChannel.Visible = radioButtonPenaltyCalcTypeChannel.Checked;
+        }
+
+        private void numericUpDownChannelAlpha_ValueChanged(object sender, EventArgs e)
+        {
+            if (activeParcour != null)
+            {
+                ParcourSet p = activeParcour;
+                //p. = (int)numericUpDownAlpha.Value;
+                //PictureBox1.HasCircleOnGates = checkBoxCircle.Checked;
+                PictureBox1.SetParcour(p);
+                PictureBox1.Invalidate();
+            }
+
+        }
+
+        private void numericUpDownPenGates_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

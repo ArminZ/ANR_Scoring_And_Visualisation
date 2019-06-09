@@ -40,6 +40,26 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageDisplay = new System.Windows.Forms.TabPage();
+            this.groupBoxCalculationType = new System.Windows.Forms.GroupBox();
+            this.radioButtonPenaltyCalcTypeChannel = new System.Windows.Forms.RadioButton();
+            this.radioButtonPenaltyCalcTypePROH = new System.Windows.Forms.RadioButton();
+            this.groupBoxIntersect = new System.Windows.Forms.GroupBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.numericUpDownIntersectionCircleRadius = new System.Windows.Forms.NumericUpDown();
+            this.chkIntersectionPointsShow = new System.Windows.Forms.CheckBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.numericUpDownPenWidthIntersect = new System.Windows.Forms.NumericUpDown();
+            this.label22 = new System.Windows.Forms.Label();
+            this.btnIntersectColor = new System.Windows.Forms.Button();
+            this.groupBoxChannel = new System.Windows.Forms.GroupBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.numericUpDownChannelAlpha = new System.Windows.Forms.NumericUpDown();
+            this.label25 = new System.Windows.Forms.Label();
+            this.btnChannelFillColor = new System.Windows.Forms.Button();
+            this.label23 = new System.Windows.Forms.Label();
+            this.numericUpDownChannelPen = new System.Windows.Forms.NumericUpDown();
+            this.label24 = new System.Windows.Forms.Label();
+            this.btnChannelColor = new System.Windows.Forms.Button();
             this.penBox = new System.Windows.Forms.GroupBox();
             this.checkBoxCircle = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -51,6 +71,14 @@
             this.label17 = new System.Windows.Forms.Label();
             this.numericUpDownAlpha = new System.Windows.Forms.NumericUpDown();
             this.btnColorPROH = new System.Windows.Forms.Button();
+            this.tabPageExport = new System.Windows.Forms.TabPage();
+            this.groupBoxMapScale = new System.Windows.Forms.GroupBox();
+            this.chkShowCalcTable = new System.Windows.Forms.CheckBox();
+            this.maskedTextBoxOtherScale = new System.Windows.Forms.MaskedTextBox();
+            this.radioButtonOtherScale = new System.Windows.Forms.RadioButton();
+            this.radioButton200 = new System.Windows.Forms.RadioButton();
+            this.radioButton250 = new System.Windows.Forms.RadioButton();
+            this.btnExport = new System.Windows.Forms.Button();
             this.tabPageCoordinates = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -79,14 +107,6 @@
             this.numLatA = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.tabPageExport = new System.Windows.Forms.TabPage();
-            this.groupBoxMapScale = new System.Windows.Forms.GroupBox();
-            this.chkShowCalcTable = new System.Windows.Forms.CheckBox();
-            this.maskedTextBoxOtherScale = new System.Windows.Forms.MaskedTextBox();
-            this.radioButtonOtherScale = new System.Windows.Forms.RadioButton();
-            this.radioButton200 = new System.Windows.Forms.RadioButton();
-            this.radioButton250 = new System.Windows.Forms.RadioButton();
-            this.btnExport = new System.Windows.Forms.Button();
             this.PictureBox1 = new AirNavigationRaceLive.Comps.PictureBoxExt();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
@@ -94,10 +114,19 @@
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageDisplay.SuspendLayout();
+            this.groupBoxCalculationType.SuspendLayout();
+            this.groupBoxIntersect.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectionCircleRadius)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenWidthIntersect)).BeginInit();
+            this.groupBoxChannel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelAlpha)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelPen)).BeginInit();
             this.penBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenGates)).BeginInit();
             this.layerBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).BeginInit();
+            this.tabPageExport.SuspendLayout();
+            this.groupBoxMapScale.SuspendLayout();
             this.tabPageCoordinates.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -109,8 +138,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLongA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).BeginInit();
             this.panel6.SuspendLayout();
-            this.tabPageExport.SuspendLayout();
-            this.groupBoxMapScale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -187,7 +214,7 @@
             this.listBox1.MultiSelect = false;
             this.listBox1.Name = "listBox1";
             this.listBox1.ShowGroups = false;
-            this.listBox1.Size = new System.Drawing.Size(312, 296);
+            this.listBox1.Size = new System.Drawing.Size(312, 69);
             this.listBox1.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listBox1.TabIndex = 19;
             this.listBox1.UseCompatibleStateImageBehavior = false;
@@ -228,25 +255,295 @@
             this.tabControl1.Controls.Add(this.tabPageDisplay);
             this.tabControl1.Controls.Add(this.tabPageExport);
             this.tabControl1.Controls.Add(this.tabPageCoordinates);
-            this.tabControl1.Location = new System.Drawing.Point(3, 310);
+            this.tabControl1.Location = new System.Drawing.Point(3, 83);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(305, 472);
+            this.tabControl1.Size = new System.Drawing.Size(305, 711);
             this.tabControl1.TabIndex = 6;
             // 
             // tabPageDisplay
             // 
             this.tabPageDisplay.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageDisplay.Controls.Add(this.groupBoxCalculationType);
+            this.tabPageDisplay.Controls.Add(this.groupBoxIntersect);
+            this.tabPageDisplay.Controls.Add(this.groupBoxChannel);
             this.tabPageDisplay.Controls.Add(this.penBox);
             this.tabPageDisplay.Controls.Add(this.layerBox);
             this.tabPageDisplay.Location = new System.Drawing.Point(4, 29);
             this.tabPageDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageDisplay.Name = "tabPageDisplay";
             this.tabPageDisplay.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPageDisplay.Size = new System.Drawing.Size(297, 439);
+            this.tabPageDisplay.Size = new System.Drawing.Size(297, 678);
             this.tabPageDisplay.TabIndex = 2;
             this.tabPageDisplay.Text = "Display";
+            // 
+            // groupBoxCalculationType
+            // 
+            this.groupBoxCalculationType.Controls.Add(this.radioButtonPenaltyCalcTypeChannel);
+            this.groupBoxCalculationType.Controls.Add(this.radioButtonPenaltyCalcTypePROH);
+            this.groupBoxCalculationType.Location = new System.Drawing.Point(6, 27);
+            this.groupBoxCalculationType.Name = "groupBoxCalculationType";
+            this.groupBoxCalculationType.Size = new System.Drawing.Size(282, 146);
+            this.groupBoxCalculationType.TabIndex = 37;
+            this.groupBoxCalculationType.TabStop = false;
+            this.groupBoxCalculationType.Text = "Penalty Calculation Type";
+            // 
+            // radioButtonPenaltyCalcTypeChannel
+            // 
+            this.radioButtonPenaltyCalcTypeChannel.AutoSize = true;
+            this.radioButtonPenaltyCalcTypeChannel.Location = new System.Drawing.Point(17, 96);
+            this.radioButtonPenaltyCalcTypeChannel.Name = "radioButtonPenaltyCalcTypeChannel";
+            this.radioButtonPenaltyCalcTypeChannel.Size = new System.Drawing.Size(244, 44);
+            this.radioButtonPenaltyCalcTypeChannel.TabIndex = 1;
+            this.radioButtonPenaltyCalcTypeChannel.TabStop = true;
+            this.radioButtonPenaltyCalcTypeChannel.Text = "Channel-based:\r\nLeaving the assigned channel";
+            this.radioButtonPenaltyCalcTypeChannel.UseVisualStyleBackColor = true;
+            this.radioButtonPenaltyCalcTypeChannel.CheckedChanged += new System.EventHandler(this.radioButtonPenaltyCalcTypeChannel_CheckedChanged);
+            // 
+            // radioButtonPenaltyCalcTypePROH
+            // 
+            this.radioButtonPenaltyCalcTypePROH.AutoSize = true;
+            this.radioButtonPenaltyCalcTypePROH.Location = new System.Drawing.Point(17, 39);
+            this.radioButtonPenaltyCalcTypePROH.Name = "radioButtonPenaltyCalcTypePROH";
+            this.radioButtonPenaltyCalcTypePROH.Size = new System.Drawing.Size(215, 44);
+            this.radioButtonPenaltyCalcTypePROH.TabIndex = 0;
+            this.radioButtonPenaltyCalcTypePROH.TabStop = true;
+            this.radioButtonPenaltyCalcTypePROH.Text = "Prohibited zones: \r\nEntering prohibited zones";
+            this.radioButtonPenaltyCalcTypePROH.UseVisualStyleBackColor = true;
+            this.radioButtonPenaltyCalcTypePROH.CheckedChanged += new System.EventHandler(this.radioButtonPenaltyCalcTypePROH_CheckedChanged);
+            // 
+            // groupBoxIntersect
+            // 
+            this.groupBoxIntersect.Controls.Add(this.label27);
+            this.groupBoxIntersect.Controls.Add(this.numericUpDownIntersectionCircleRadius);
+            this.groupBoxIntersect.Controls.Add(this.chkIntersectionPointsShow);
+            this.groupBoxIntersect.Controls.Add(this.label21);
+            this.groupBoxIntersect.Controls.Add(this.numericUpDownPenWidthIntersect);
+            this.groupBoxIntersect.Controls.Add(this.label22);
+            this.groupBoxIntersect.Controls.Add(this.btnIntersectColor);
+            this.groupBoxIntersect.Location = new System.Drawing.Point(3, 515);
+            this.groupBoxIntersect.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxIntersect.Name = "groupBoxIntersect";
+            this.groupBoxIntersect.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxIntersect.Size = new System.Drawing.Size(286, 155);
+            this.groupBoxIntersect.TabIndex = 39;
+            this.groupBoxIntersect.TabStop = false;
+            this.groupBoxIntersect.Text = "Intersection Point Properties";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(14, 69);
+            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label27.Name = "label27";
+            this.label27.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label27.Size = new System.Drawing.Size(106, 25);
+            this.label27.TabIndex = 33;
+            this.label27.Text = "Circle Radius";
+            // 
+            // numericUpDownIntersectionCircleRadius
+            // 
+            this.numericUpDownIntersectionCircleRadius.DecimalPlaces = 2;
+            this.numericUpDownIntersectionCircleRadius.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            131072});
+            this.numericUpDownIntersectionCircleRadius.Location = new System.Drawing.Point(122, 70);
+            this.numericUpDownIntersectionCircleRadius.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownIntersectionCircleRadius.Name = "numericUpDownIntersectionCircleRadius";
+            this.numericUpDownIntersectionCircleRadius.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownIntersectionCircleRadius.TabIndex = 32;
+            this.numericUpDownIntersectionCircleRadius.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownIntersectionCircleRadius.ValueChanged += new System.EventHandler(this.numericUpDownIntersectionCircleRadius_ValueChanged);
+            // 
+            // chkIntersectionPointsShow
+            // 
+            this.chkIntersectionPointsShow.AutoSize = true;
+            this.chkIntersectionPointsShow.Location = new System.Drawing.Point(7, 119);
+            this.chkIntersectionPointsShow.Name = "chkIntersectionPointsShow";
+            this.chkIntersectionPointsShow.Size = new System.Drawing.Size(211, 24);
+            this.chkIntersectionPointsShow.TabIndex = 31;
+            this.chkIntersectionPointsShow.Text = "Show Intersection Points";
+            this.chkIntersectionPointsShow.UseVisualStyleBackColor = true;
+            this.chkIntersectionPointsShow.CheckedChanged += new System.EventHandler(this.chkIntersectionPointsShow_CheckedChanged);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(14, 36);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label21.Name = "label21";
+            this.label21.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label21.Size = new System.Drawing.Size(86, 25);
+            this.label21.TabIndex = 28;
+            this.label21.Text = "Pen Width";
+            // 
+            // numericUpDownPenWidthIntersect
+            // 
+            this.numericUpDownPenWidthIntersect.DecimalPlaces = 1;
+            this.numericUpDownPenWidthIntersect.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDownPenWidthIntersect.Location = new System.Drawing.Point(122, 34);
+            this.numericUpDownPenWidthIntersect.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownPenWidthIntersect.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownPenWidthIntersect.Name = "numericUpDownPenWidthIntersect";
+            this.numericUpDownPenWidthIntersect.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownPenWidthIntersect.TabIndex = 26;
+            this.numericUpDownPenWidthIntersect.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownPenWidthIntersect.ValueChanged += new System.EventHandler(this.numericUpDownPenWidthIntersect_ValueChanged);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(189, 34);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Name = "label22";
+            this.label22.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label22.Size = new System.Drawing.Size(50, 25);
+            this.label22.TabIndex = 27;
+            this.label22.Text = "Color";
+            // 
+            // btnIntersectColor
+            // 
+            this.btnIntersectColor.BackColor = System.Drawing.Color.Red;
+            this.btnIntersectColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIntersectColor.Location = new System.Drawing.Point(239, 31);
+            this.btnIntersectColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnIntersectColor.Name = "btnIntersectColor";
+            this.btnIntersectColor.Size = new System.Drawing.Size(48, 28);
+            this.btnIntersectColor.TabIndex = 29;
+            this.btnIntersectColor.Text = "...";
+            this.btnIntersectColor.UseVisualStyleBackColor = false;
+            this.btnIntersectColor.Click += new System.EventHandler(this.btnIntersectColor_Click);
+            // 
+            // groupBoxChannel
+            // 
+            this.groupBoxChannel.Controls.Add(this.label26);
+            this.groupBoxChannel.Controls.Add(this.numericUpDownChannelAlpha);
+            this.groupBoxChannel.Controls.Add(this.label25);
+            this.groupBoxChannel.Controls.Add(this.btnChannelFillColor);
+            this.groupBoxChannel.Controls.Add(this.label23);
+            this.groupBoxChannel.Controls.Add(this.numericUpDownChannelPen);
+            this.groupBoxChannel.Controls.Add(this.label24);
+            this.groupBoxChannel.Controls.Add(this.btnChannelColor);
+            this.groupBoxChannel.Location = new System.Drawing.Point(3, 381);
+            this.groupBoxChannel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxChannel.Name = "groupBoxChannel";
+            this.groupBoxChannel.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxChannel.Size = new System.Drawing.Size(291, 137);
+            this.groupBoxChannel.TabIndex = 38;
+            this.groupBoxChannel.TabStop = false;
+            this.groupBoxChannel.Text = "Channel Properties";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(19, 73);
+            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Name = "label26";
+            this.label26.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label26.Size = new System.Drawing.Size(62, 25);
+            this.label26.TabIndex = 33;
+            this.label26.Text = "Transp";
+            // 
+            // numericUpDownChannelAlpha
+            // 
+            this.numericUpDownChannelAlpha.Location = new System.Drawing.Point(120, 72);
+            this.numericUpDownChannelAlpha.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownChannelAlpha.Name = "numericUpDownChannelAlpha";
+            this.numericUpDownChannelAlpha.Size = new System.Drawing.Size(62, 26);
+            this.numericUpDownChannelAlpha.TabIndex = 34;
+            this.numericUpDownChannelAlpha.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownChannelAlpha.ValueChanged += new System.EventHandler(this.numericUpDownChannelAlpha_ValueChanged);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(185, 74);
+            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label25.Name = "label25";
+            this.label25.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label25.Size = new System.Drawing.Size(50, 25);
+            this.label25.TabIndex = 31;
+            this.label25.Text = "Color";
+            // 
+            // btnChannelFillColor
+            // 
+            this.btnChannelFillColor.BackColor = System.Drawing.Color.Red;
+            this.btnChannelFillColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChannelFillColor.Location = new System.Drawing.Point(235, 74);
+            this.btnChannelFillColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnChannelFillColor.Name = "btnChannelFillColor";
+            this.btnChannelFillColor.Size = new System.Drawing.Size(48, 28);
+            this.btnChannelFillColor.TabIndex = 32;
+            this.btnChannelFillColor.Text = "...";
+            this.btnChannelFillColor.UseVisualStyleBackColor = false;
+            this.btnChannelFillColor.Click += new System.EventHandler(this.btnChannelFillColor_Click);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(19, 36);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Name = "label23";
+            this.label23.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label23.Size = new System.Drawing.Size(86, 25);
+            this.label23.TabIndex = 28;
+            this.label23.Text = "Pen Width";
+            // 
+            // numericUpDownChannelPen
+            // 
+            this.numericUpDownChannelPen.DecimalPlaces = 1;
+            this.numericUpDownChannelPen.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDownChannelPen.Location = new System.Drawing.Point(118, 36);
+            this.numericUpDownChannelPen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownChannelPen.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownChannelPen.Name = "numericUpDownChannelPen";
+            this.numericUpDownChannelPen.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownChannelPen.TabIndex = 26;
+            this.numericUpDownChannelPen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownChannelPen.ValueChanged += new System.EventHandler(this.numericUpDownChannelPen_ValueChanged);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(185, 37);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Name = "label24";
+            this.label24.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label24.Size = new System.Drawing.Size(50, 25);
+            this.label24.TabIndex = 27;
+            this.label24.Text = "Color";
+            // 
+            // btnChannelColor
+            // 
+            this.btnChannelColor.BackColor = System.Drawing.Color.Red;
+            this.btnChannelColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChannelColor.Location = new System.Drawing.Point(235, 36);
+            this.btnChannelColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnChannelColor.Name = "btnChannelColor";
+            this.btnChannelColor.Size = new System.Drawing.Size(48, 28);
+            this.btnChannelColor.TabIndex = 29;
+            this.btnChannelColor.Text = "...";
+            this.btnChannelColor.UseVisualStyleBackColor = false;
+            this.btnChannelColor.Click += new System.EventHandler(this.btnChannelColor_Click);
             // 
             // penBox
             // 
@@ -255,7 +552,7 @@
             this.penBox.Controls.Add(this.label20);
             this.penBox.Controls.Add(this.numericUpDownPenGates);
             this.penBox.Controls.Add(this.btnColorGates);
-            this.penBox.Location = new System.Drawing.Point(7, 120);
+            this.penBox.Location = new System.Drawing.Point(6, 255);
             this.penBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.penBox.Name = "penBox";
             this.penBox.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -347,7 +644,7 @@
             this.layerBox.Controls.Add(this.label17);
             this.layerBox.Controls.Add(this.numericUpDownAlpha);
             this.layerBox.Controls.Add(this.btnColorPROH);
-            this.layerBox.Location = new System.Drawing.Point(7, 35);
+            this.layerBox.Location = new System.Drawing.Point(7, 180);
             this.layerBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.layerBox.Name = "layerBox";
             this.layerBox.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -401,6 +698,104 @@
             this.btnColorPROH.UseVisualStyleBackColor = false;
             this.btnColorPROH.Click += new System.EventHandler(this.btnColorLayer_Click);
             // 
+            // tabPageExport
+            // 
+            this.tabPageExport.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageExport.Controls.Add(this.groupBoxMapScale);
+            this.tabPageExport.Location = new System.Drawing.Point(4, 29);
+            this.tabPageExport.Name = "tabPageExport";
+            this.tabPageExport.Size = new System.Drawing.Size(297, 678);
+            this.tabPageExport.TabIndex = 3;
+            this.tabPageExport.Text = "Export";
+            // 
+            // groupBoxMapScale
+            // 
+            this.groupBoxMapScale.Controls.Add(this.chkShowCalcTable);
+            this.groupBoxMapScale.Controls.Add(this.maskedTextBoxOtherScale);
+            this.groupBoxMapScale.Controls.Add(this.radioButtonOtherScale);
+            this.groupBoxMapScale.Controls.Add(this.radioButton200);
+            this.groupBoxMapScale.Controls.Add(this.radioButton250);
+            this.groupBoxMapScale.Controls.Add(this.btnExport);
+            this.groupBoxMapScale.Location = new System.Drawing.Point(3, 14);
+            this.groupBoxMapScale.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxMapScale.Name = "groupBoxMapScale";
+            this.groupBoxMapScale.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxMapScale.Size = new System.Drawing.Size(282, 170);
+            this.groupBoxMapScale.TabIndex = 29;
+            this.groupBoxMapScale.TabStop = false;
+            this.groupBoxMapScale.Text = "Map Scale";
+            // 
+            // chkShowCalcTable
+            // 
+            this.chkShowCalcTable.AutoSize = true;
+            this.chkShowCalcTable.Location = new System.Drawing.Point(7, 139);
+            this.chkShowCalcTable.Name = "chkShowCalcTable";
+            this.chkShowCalcTable.Size = new System.Drawing.Size(200, 24);
+            this.chkShowCalcTable.TabIndex = 21;
+            this.chkShowCalcTable.Text = "Show Calculation Table";
+            this.chkShowCalcTable.UseVisualStyleBackColor = true;
+            // 
+            // maskedTextBoxOtherScale
+            // 
+            this.maskedTextBoxOtherScale.Culture = new System.Globalization.CultureInfo("");
+            this.maskedTextBoxOtherScale.Location = new System.Drawing.Point(51, 94);
+            this.maskedTextBoxOtherScale.Mask = "000 000";
+            this.maskedTextBoxOtherScale.Name = "maskedTextBoxOtherScale";
+            this.maskedTextBoxOtherScale.ResetOnSpace = false;
+            this.maskedTextBoxOtherScale.Size = new System.Drawing.Size(84, 26);
+            this.maskedTextBoxOtherScale.TabIndex = 2;
+            this.maskedTextBoxOtherScale.Text = "100000";
+            this.maskedTextBoxOtherScale.Visible = false;
+            // 
+            // radioButtonOtherScale
+            // 
+            this.radioButtonOtherScale.AutoSize = true;
+            this.radioButtonOtherScale.Location = new System.Drawing.Point(7, 95);
+            this.radioButtonOtherScale.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radioButtonOtherScale.Name = "radioButtonOtherScale";
+            this.radioButtonOtherScale.Size = new System.Drawing.Size(47, 24);
+            this.radioButtonOtherScale.TabIndex = 2;
+            this.radioButtonOtherScale.Text = "1:";
+            this.radioButtonOtherScale.UseVisualStyleBackColor = true;
+            this.radioButtonOtherScale.CheckedChanged += new System.EventHandler(this.radioButtonScales_CheckedChanged);
+            // 
+            // radioButton200
+            // 
+            this.radioButton200.AutoSize = true;
+            this.radioButton200.Checked = true;
+            this.radioButton200.Location = new System.Drawing.Point(7, 61);
+            this.radioButton200.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radioButton200.Name = "radioButton200";
+            this.radioButton200.Size = new System.Drawing.Size(105, 24);
+            this.radioButton200.TabIndex = 1;
+            this.radioButton200.TabStop = true;
+            this.radioButton200.Text = "1:200 000";
+            this.radioButton200.UseVisualStyleBackColor = true;
+            this.radioButton200.CheckedChanged += new System.EventHandler(this.radioButtonScales_CheckedChanged);
+            // 
+            // radioButton250
+            // 
+            this.radioButton250.AutoSize = true;
+            this.radioButton250.Location = new System.Drawing.Point(8, 28);
+            this.radioButton250.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radioButton250.Name = "radioButton250";
+            this.radioButton250.Size = new System.Drawing.Size(105, 24);
+            this.radioButton250.TabIndex = 0;
+            this.radioButton250.Text = "1:250 000";
+            this.radioButton250.UseVisualStyleBackColor = true;
+            this.radioButton250.CheckedChanged += new System.EventHandler(this.radioButtonScales_CheckedChanged);
+            // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(116, 28);
+            this.btnExport.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(155, 39);
+            this.btnExport.TabIndex = 20;
+            this.btnExport.Text = "Export Map";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
             // tabPageCoordinates
             // 
             this.tabPageCoordinates.BackColor = System.Drawing.SystemColors.Control;
@@ -409,7 +804,7 @@
             this.tabPageCoordinates.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageCoordinates.Name = "tabPageCoordinates";
             this.tabPageCoordinates.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPageCoordinates.Size = new System.Drawing.Size(297, 439);
+            this.tabPageCoordinates.Size = new System.Drawing.Size(297, 678);
             this.tabPageCoordinates.TabIndex = 1;
             this.tabPageCoordinates.Text = "Coordinates";
             // 
@@ -797,104 +1192,6 @@
             this.panel6.Size = new System.Drawing.Size(1302, 807);
             this.panel6.TabIndex = 3;
             // 
-            // tabPageExport
-            // 
-            this.tabPageExport.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPageExport.Controls.Add(this.groupBoxMapScale);
-            this.tabPageExport.Location = new System.Drawing.Point(4, 29);
-            this.tabPageExport.Name = "tabPageExport";
-            this.tabPageExport.Size = new System.Drawing.Size(297, 439);
-            this.tabPageExport.TabIndex = 3;
-            this.tabPageExport.Text = "Export";
-            // 
-            // groupBoxMapScale
-            // 
-            this.groupBoxMapScale.Controls.Add(this.chkShowCalcTable);
-            this.groupBoxMapScale.Controls.Add(this.maskedTextBoxOtherScale);
-            this.groupBoxMapScale.Controls.Add(this.radioButtonOtherScale);
-            this.groupBoxMapScale.Controls.Add(this.radioButton200);
-            this.groupBoxMapScale.Controls.Add(this.radioButton250);
-            this.groupBoxMapScale.Controls.Add(this.btnExport);
-            this.groupBoxMapScale.Location = new System.Drawing.Point(3, 14);
-            this.groupBoxMapScale.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxMapScale.Name = "groupBoxMapScale";
-            this.groupBoxMapScale.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxMapScale.Size = new System.Drawing.Size(282, 170);
-            this.groupBoxMapScale.TabIndex = 29;
-            this.groupBoxMapScale.TabStop = false;
-            this.groupBoxMapScale.Text = "Map Scale";
-            // 
-            // chkShowCalcTable
-            // 
-            this.chkShowCalcTable.AutoSize = true;
-            this.chkShowCalcTable.Location = new System.Drawing.Point(7, 139);
-            this.chkShowCalcTable.Name = "chkShowCalcTable";
-            this.chkShowCalcTable.Size = new System.Drawing.Size(200, 24);
-            this.chkShowCalcTable.TabIndex = 21;
-            this.chkShowCalcTable.Text = "Show Calculation Table";
-            this.chkShowCalcTable.UseVisualStyleBackColor = true;
-            // 
-            // maskedTextBoxOtherScale
-            // 
-            this.maskedTextBoxOtherScale.Culture = new System.Globalization.CultureInfo("");
-            this.maskedTextBoxOtherScale.Location = new System.Drawing.Point(51, 94);
-            this.maskedTextBoxOtherScale.Mask = "000 000";
-            this.maskedTextBoxOtherScale.Name = "maskedTextBoxOtherScale";
-            this.maskedTextBoxOtherScale.ResetOnSpace = false;
-            this.maskedTextBoxOtherScale.Size = new System.Drawing.Size(84, 26);
-            this.maskedTextBoxOtherScale.TabIndex = 2;
-            this.maskedTextBoxOtherScale.Text = "100000";
-            this.maskedTextBoxOtherScale.Visible = false;
-            // 
-            // radioButtonOtherScale
-            // 
-            this.radioButtonOtherScale.AutoSize = true;
-            this.radioButtonOtherScale.Location = new System.Drawing.Point(7, 95);
-            this.radioButtonOtherScale.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radioButtonOtherScale.Name = "radioButtonOtherScale";
-            this.radioButtonOtherScale.Size = new System.Drawing.Size(47, 24);
-            this.radioButtonOtherScale.TabIndex = 2;
-            this.radioButtonOtherScale.Text = "1:";
-            this.radioButtonOtherScale.UseVisualStyleBackColor = true;
-            this.radioButtonOtherScale.CheckedChanged += new System.EventHandler(this.radioButtonScales_CheckedChanged);
-            // 
-            // radioButton200
-            // 
-            this.radioButton200.AutoSize = true;
-            this.radioButton200.Checked = true;
-            this.radioButton200.Location = new System.Drawing.Point(7, 61);
-            this.radioButton200.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radioButton200.Name = "radioButton200";
-            this.radioButton200.Size = new System.Drawing.Size(105, 24);
-            this.radioButton200.TabIndex = 1;
-            this.radioButton200.TabStop = true;
-            this.radioButton200.Text = "1:200 000";
-            this.radioButton200.UseVisualStyleBackColor = true;
-            this.radioButton200.CheckedChanged += new System.EventHandler(this.radioButtonScales_CheckedChanged);
-            // 
-            // radioButton250
-            // 
-            this.radioButton250.AutoSize = true;
-            this.radioButton250.Location = new System.Drawing.Point(8, 28);
-            this.radioButton250.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radioButton250.Name = "radioButton250";
-            this.radioButton250.Size = new System.Drawing.Size(105, 24);
-            this.radioButton250.TabIndex = 0;
-            this.radioButton250.Text = "1:250 000";
-            this.radioButton250.UseVisualStyleBackColor = true;
-            this.radioButton250.CheckedChanged += new System.EventHandler(this.radioButtonScales_CheckedChanged);
-            // 
-            // btnExport
-            // 
-            this.btnExport.Location = new System.Drawing.Point(116, 28);
-            this.btnExport.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(155, 39);
-            this.btnExport.TabIndex = 20;
-            this.btnExport.Text = "Export Map";
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
             // PictureBox1
             // 
             this.PictureBox1.Location = new System.Drawing.Point(4, 5);
@@ -924,12 +1221,25 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPageDisplay.ResumeLayout(false);
+            this.groupBoxCalculationType.ResumeLayout(false);
+            this.groupBoxCalculationType.PerformLayout();
+            this.groupBoxIntersect.ResumeLayout(false);
+            this.groupBoxIntersect.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectionCircleRadius)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenWidthIntersect)).EndInit();
+            this.groupBoxChannel.ResumeLayout(false);
+            this.groupBoxChannel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelAlpha)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelPen)).EndInit();
             this.penBox.ResumeLayout(false);
             this.penBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenGates)).EndInit();
             this.layerBox.ResumeLayout(false);
             this.layerBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).EndInit();
+            this.tabPageExport.ResumeLayout(false);
+            this.groupBoxMapScale.ResumeLayout(false);
+            this.groupBoxMapScale.PerformLayout();
             this.tabPageCoordinates.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -944,9 +1254,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLatA)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            this.tabPageExport.ResumeLayout(false);
-            this.groupBoxMapScale.ResumeLayout(false);
-            this.groupBoxMapScale.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -1013,5 +1320,25 @@
         private System.Windows.Forms.RadioButton radioButton200;
         private System.Windows.Forms.RadioButton radioButton250;
         private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.GroupBox groupBoxChannel;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.NumericUpDown numericUpDownChannelAlpha;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Button btnChannelFillColor;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.NumericUpDown numericUpDownChannelPen;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Button btnChannelColor;
+        private System.Windows.Forms.GroupBox groupBoxIntersect;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.NumericUpDown numericUpDownIntersectionCircleRadius;
+        private System.Windows.Forms.CheckBox chkIntersectionPointsShow;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.NumericUpDown numericUpDownPenWidthIntersect;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button btnIntersectColor;
+        private System.Windows.Forms.GroupBox groupBoxCalculationType;
+        private System.Windows.Forms.RadioButton radioButtonPenaltyCalcTypeChannel;
+        private System.Windows.Forms.RadioButton radioButtonPenaltyCalcTypePROH;
     }
 }

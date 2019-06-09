@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 
 namespace AirNavigationRaceLive.Comps.Helper
@@ -18,7 +19,9 @@ namespace AirNavigationRaceLive.Comps.Helper
         private const int C_SPFP_MaxPenalty = 200; // max penalty for not observed/ exceeding time limits on SP/FP 
         private const int C_TKOF_MaxPenalty = 200; // max penalty for not observed/ exceeding time limits on TKOF
         private const int C_PROH_TimeTolerance = 5; // time tolerance (sec) allowed inside PROH area without penalty 
-        private const int C_PROH_MaxPenalty = 300; // max penalty for flying inside PROH area
+        private const string C_TimeFormat = "HH:mm:ss";
+        public static int MaxPenaltyPerEvent = 0;
+
 
         public static void CalculateAndPersistPenaltyPoints(Client.DataAccess c, FlightSet f)
         {
@@ -28,7 +31,10 @@ namespace AirNavigationRaceLive.Comps.Helper
             List<IntersectionPoint> intersectionPoints = new List<IntersectionPoint>();
             List<PenaltySet> penalties = CalculatePenaltyPoints(f, out intersectionPoints);
 
-            c.DBContext.PenaltySet.RemoveRange(f.PenaltySet);
+
+            MaxPenaltyPerEvent = Properties.Settings.Default.MaxPenaltyPerEvent;
+
+                c.DBContext.PenaltySet.RemoveRange(f.PenaltySet);
             if (f.IntersectionPointSet != null)
             {
                 c.DBContext.IntersectionPointSet.RemoveRange(f.IntersectionPointSet);
@@ -141,14 +147,14 @@ namespace AirNavigationRaceLive.Comps.Helper
                     long crossTime = ip.Timestamp;
                     ipTakeOff = ip;
                     long diff = Math.Abs(crossTime - flight.TimeTakeOff);
-                    if (diff > C_TKOF_TimeUpper * tickOfSecond || diff < C_TKOF_TimeLower * tickOfSecond)
-                    {
-                        crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
-                        PenaltySet penalty = new PenaltySet();
-                        penalty.Points = C_TKOF_MaxPenalty;
-                        penalty.Reason = string.Format("Take-off Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeTakeOff).ToLongTimeString());
-                        result.Add(penalty);
-                    }
+                    //if (diff > C_TKOF_TimeUpper * tickOfSecond || diff < C_TKOF_TimeLower * tickOfSecond)
+                    //{
+                    crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
+                    PenaltySet penalty = new PenaltySet();
+                    penalty.Points = (diff > C_TKOF_TimeUpper * tickOfSecond || diff < C_TKOF_TimeLower * tickOfSecond) ? C_TKOF_MaxPenalty : 0;
+                    penalty.Reason = string.Format("Take-off Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime((Int64)flight.TimeTakeOff).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                    result.Add(penalty);
+                    //}
                 }
                 #endregion
 
@@ -160,16 +166,16 @@ namespace AirNavigationRaceLive.Comps.Helper
                     long crossTime = ip.Timestamp;
                     ipStart = ip;
                     long diff = Math.Abs(crossTime - flight.TimeStartLine);
-                    if (diff > C_SPFP_TimeTolerance * tickOfSecond)
-                    {
-                        crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
-                        //diff = crossTime - flight.TimeStartLine;
-                        int sec = (int)((diff + (tickOfSecond / 2) + 1) / tickOfSecond);
-                        PenaltySet penalty = new PenaltySet();
-                        penalty.Points = Math.Min((sec - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
-                        penalty.Reason = string.Format("SP Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeStartLine).ToLongTimeString());
-                        result.Add(penalty);
-                    }
+                    //if (diff > C_SPFP_TimeTolerance * tickOfSecond)
+                    //{
+                    crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
+                                                                                                      //diff = crossTime - flight.TimeStartLine;
+                    int sec = (int)((diff + (tickOfSecond / 2) + 1) / tickOfSecond);
+                    PenaltySet penalty = new PenaltySet();
+                    penalty.Points = (diff > C_SPFP_TimeTolerance * tickOfSecond) ? Math.Min((sec - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty) : 0;
+                    penalty.Reason = string.Format("SP Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime((Int64)flight.TimeStartLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                    result.Add(penalty);
+                    //}
                 }
                 #endregion
 
@@ -187,7 +193,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                 //        int sec = (int)((diff + (tickOfSecond / 2) + 1) / tickOfSecond);
                 //        PenaltySet penalty = new PenaltySet();
                 //        penalty.Points = Math.Min((sec - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
-                //        penalty.Reason = string.Format("FP Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeEndLine).ToLongTimeString());
+                //        penalty.Reason = string.Format("FP Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime((Int64)flight.TimeEndLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
                 //        result.Add(penalty);
                 //    }
                 //}
@@ -221,9 +227,9 @@ namespace AirNavigationRaceLive.Comps.Helper
                                     long pend = ((ip.Timestamp + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // rounded
                                     int sec = (int)((pend - pstart) / tickOfSecond);
                                     penalty.Points = (sec - C_PROH_TimeTolerance) * C_PointsPerSec;
-                                    // Max penalty inside PROH zone: ======>> NOTE: disabled after NOV 2017
-                                    // penalty.Points = Math.Min((sec - 5) * 3, 300);
-                                    penalty.Reason = string.Format("Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToLongTimeString(), new DateTime(pend).ToLongTimeString());
+                                    // Max penalty inside PROH zone: ======>> NOTE: acc FAI rules disabled after NOV 2017; zero means no maximum per event
+                                    penalty.Points = MaxPenaltyPerEvent > 0 ? Math.Min((sec - 5) * 3, MaxPenaltyPerEvent) : penalty.Points;
+                                    penalty.Reason = string.Format("Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime(pend).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
                                     result.Add(penalty);
                                 }
                             }
@@ -272,7 +278,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                                     penalty.Points = (sec - C_PROH_TimeTolerance) * C_PointsPerSec;
                                     // Max penalty inside PROH zone: ======>> NOTE: disabled after NOV 2017
                                     // penalty.Points = Math.Min((sec - 5) * 3, 300);
-                                    penalty.Reason = string.Format("outside channel for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToLongTimeString(), new DateTime(pend).ToLongTimeString());
+                                    penalty.Reason = string.Format("outside channel for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime(pend).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
                                     result.Add(penalty);
                                 }
                             }
@@ -300,9 +306,9 @@ namespace AirNavigationRaceLive.Comps.Helper
                                 long pend = ((ip.Timestamp + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // rounded
                                 int sec = (int)((pend - pstart) / tickOfSecond);
                                 penalty.Points = (sec - C_PROH_TimeTolerance) * C_PointsPerSec;
-                                // Max penalty inside PROH zone: ======>> NOTE: disabled after NOV 2017
-                                // penalty.Points = Math.Min((sec - 5) * 3, 300);
-                                penalty.Reason = string.Format("Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToLongTimeString(), new DateTime(pend).ToLongTimeString());
+                                // Max penalty outside channel; zero value means no Max penalty
+                                penalty.Points = MaxPenaltyPerEvent > 0 ? Math.Min((sec - 5) * 3, MaxPenaltyPerEvent): penalty.Points ;
+                                penalty.Reason = string.Format("Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime(pend).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
                                 result.Add(penalty);
                             }
                         }
@@ -319,15 +325,15 @@ namespace AirNavigationRaceLive.Comps.Helper
                     long crossTime = ip.Timestamp;
                     ipEnd = ip;
                     long diff = Math.Abs(crossTime - flight.TimeEndLine);
-                    if (diff > C_SPFP_TimeTolerance * tickOfSecond)
-                    {
-                        crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
-                        int sec = (int)((diff + (tickOfSecond / 2) + 1) / tickOfSecond);
-                        PenaltySet penalty = new PenaltySet();
-                        penalty.Points = Math.Min((sec - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
-                        penalty.Reason = string.Format("FP Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToLongTimeString(), new DateTime((Int64)flight.TimeEndLine).ToLongTimeString());
-                        result.Add(penalty);
-                    }
+                    //if (diff > C_SPFP_TimeTolerance * tickOfSecond)
+                    //{
+                    crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
+                    int sec = (int)((diff + (tickOfSecond / 2) + 1) / tickOfSecond);
+                    PenaltySet penalty = new PenaltySet();
+                    penalty.Points = (diff > C_SPFP_TimeTolerance * tickOfSecond) ? Math.Min((sec - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty) : 0;
+                    penalty.Reason = string.Format("FP Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime((Int64)flight.TimeEndLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                    result.Add(penalty);
+                    //}
                 }
                 #endregion
 
@@ -365,7 +371,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
                         int sec = (int)((diff + (tickOfSecond / 2) + 1) / tickOfSecond);
                         penalty.Points = Math.Min((sec - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
-                        penalty.Reason = string.Format("Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(timeSinceOutsideOwnChannel).ToLongTimeString(), new DateTime(crossTime).ToLongTimeString());
+                        penalty.Reason = string.Format("Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(timeSinceOutsideOwnChannel).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime(crossTime).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
                         result.Add(penalty);
                     }
 
