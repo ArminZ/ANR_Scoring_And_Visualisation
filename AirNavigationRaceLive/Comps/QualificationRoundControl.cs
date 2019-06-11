@@ -10,6 +10,7 @@ using System.IO;
 using AirNavigationRaceLive.Model;
 using System.ComponentModel.DataAnnotations.Schema;
 using AirNavigationRaceLive.ModelExtensions;
+using System.Globalization;
 
 namespace AirNavigationRaceLive.Comps
 {
@@ -18,6 +19,7 @@ namespace AirNavigationRaceLive.Comps
         private Client.DataAccess Client;
         private FlightSet deleteFlt;
         private int qrIdx = -1; //index of selected QR
+        const string C_TimeFormat = "HH:mm:ss";
 
         public QualificationRoundControl(Client.DataAccess iClient)
         {
@@ -313,9 +315,9 @@ namespace AirNavigationRaceLive.Comps
                     fl.TeamSet.CNumber,
                     fl.TeamSet.AC,
                     getTeamDsc(fl.TeamSet),
-                    new DateTime(fl.TimeTakeOff).ToString("HH:mm:ss"),
-                    new DateTime(fl.TimeStartLine).ToString("HH:mm:ss"),
-                    new DateTime(fl.TimeEndLine).ToString("HH:mm:ss"),
+                    new DateTime(fl.TimeTakeOff).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo),
+                    new DateTime(fl.TimeStartLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo),
+                    new DateTime(fl.TimeEndLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo),
                     getRouteText(fl.Route),
                     new DateTime(fl.TimeTakeOff).ToShortDateString());
 
@@ -566,9 +568,9 @@ namespace AirNavigationRaceLive.Comps
                             fl.TeamSet.CNumber,
                             fl.TeamSet.AC,
                             getTeamDsc(fl.TeamSet),
-                        new DateTime(fl.TimeTakeOff).ToString("HH:mm:ss"),
-                        new DateTime(fl.TimeStartLine).ToString("HH:mm:ss"),
-                        new DateTime(fl.TimeEndLine).ToString("HH:mm:ss"),
+                        new DateTime(fl.TimeTakeOff).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo),
+                        new DateTime(fl.TimeStartLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo),
+                        new DateTime(fl.TimeEndLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo),
                         getRouteText(fl.Route),
                         new DateTime(fl.TimeTakeOff).ToShortDateString());
 

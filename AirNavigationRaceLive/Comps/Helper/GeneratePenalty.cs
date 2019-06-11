@@ -20,14 +20,14 @@ namespace AirNavigationRaceLive.Comps.Helper
         private const int C_TKOF_MaxPenalty = 200; // max penalty for not observed/ exceeding time limits on TKOF
         private const int C_PROH_TimeTolerance = 5; // time tolerance (sec) allowed inside PROH area without penalty 
         private const string C_TimeFormat = "HH:mm:ss";
-        public static int MaxPenaltyPerEvent = 0;
+        public static int MaxPenaltyPerEvent = 0; // Possibility to limit the maximum penalty per penalty event
 
 
         public static void CalculateAndPersistPenaltyPoints(Client.DataAccess c, FlightSet f)
         {
-            // TODO: implement IntersectionPointSet in DBContext
-            // implement IntersectionPointSet as output parameter in method CalculatePenaltyPoints
-            // persist points to DBContext, will be retrieved for printing
+            // IntersectionPoints: points where the competitor crosses a border 
+            // for Channel type : channel borders
+            // for PROHZONE type: entering/leaving a prohibited area
             List<IntersectionPoint> intersectionPoints = new List<IntersectionPoint>();
             List<PenaltySet> penalties = CalculatePenaltyPoints(f, out intersectionPoints);
 
@@ -46,8 +46,7 @@ namespace AirNavigationRaceLive.Comps.Helper
 
             foreach (IntersectionPoint p in intersectionPoints)
             {
-                p.Flight_Id = f.Id; // must add the Flight Id
-                                    // f.IntersectionPointSet.Add(p);
+                p.Flight_Id = f.Id; // must add the Flight Id                       
             }
 
             c.DBContext.IntersectionPointSet.AddRange(intersectionPoints);
@@ -66,21 +65,16 @@ namespace AirNavigationRaceLive.Comps.Helper
             List<IntersectionPoint> intersectionPoints = new List<IntersectionPoint>();
             QualificationRoundSet qr = flight.QualificationRoundSet;
             ParcourSet parcour = flight.QualificationRoundSet.ParcourSet;
-            useProhZoneCalculation = parcour.PenaltyCalcType < 1;
+            useProhZoneCalculation = (parcour.PenaltyCalcType != (int)ParcourType.CHANNELS);
 
-            // arrChannel Array contains the array for the channel
-            //Vector[] arrChannel = getAssignedChannelLines(parcour, (Route)flight.Route);
-
-            List<LineP> ChannelZoneLines = new List<LineP>();
-            foreach (Line nl in parcour.Line.Where(p => p.Type == (int)LineType.CHANNEL_B))
-            {
-                ChannelZoneLines = getAssignedChannelLineP(parcour, (Route)flight.Route);
-            }
+        
+            List<LineP> ChannelZoneLines = getAssignedChannelLineP(parcour, (Route)flight.Route);
 
             foreach (Line nl in parcour.Line.Where(p => p.Type == (int)LineType.PENALTYZONE))
             {
                 PenaltyZoneLines.Add(getLine(nl));
             }
+
             // add also all channel-specific prohibited zones assigned channel
             PenaltyZoneLines.AddRange(getAssignedProhZonelLines(parcour, (Route)flight.Route));
 
@@ -179,26 +173,6 @@ namespace AirNavigationRaceLive.Comps.Helper
                 }
                 #endregion
 
-                //#region crossing end line
-                //if (getIntersection(l, endLine, out ip))
-                //{
-                //    haveCrossedEnd = true;
-                //    intersectionPoints.Add(ip);
-                //    long crossTime = ip.Timestamp;
-                //    ipEnd = ip;
-                //    long diff = Math.Abs(crossTime - flight.TimeEndLine);
-                //    if (diff > C_SPFP_TimeTolerance * tickOfSecond)
-                //    {
-                //        crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
-                //        int sec = (int)((diff + (tickOfSecond / 2) + 1) / tickOfSecond);
-                //        PenaltySet penalty = new PenaltySet();
-                //        penalty.Points = Math.Min((sec - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
-                //        penalty.Reason = string.Format("FP Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime((Int64)flight.TimeEndLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
-                //        result.Add(penalty);
-                //    }
-                //}
-                //#endregion
-
                 if (useProhZoneCalculation || ChannelZoneLines.Count == 0)
                 {
                     #region entering or leaving prohibited zone
@@ -276,8 +250,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                                     long pend = ((ip.Timestamp + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // rounded
                                     int sec = (int)((pend - pstart) / tickOfSecond);
                                     penalty.Points = (sec - C_PROH_TimeTolerance) * C_PointsPerSec;
-                                    // Max penalty inside PROH zone: ======>> NOTE: disabled after NOV 2017
-                                    // penalty.Points = Math.Min((sec - 5) * 3, 300);
+                                    penalty.Points = MaxPenaltyPerEvent > 0 ? Math.Min((sec - 5) * 3, MaxPenaltyPerEvent) : penalty.Points;
                                     penalty.Reason = string.Format("outside channel for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime(pend).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
                                     result.Add(penalty);
                                 }
@@ -308,7 +281,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                                 penalty.Points = (sec - C_PROH_TimeTolerance) * C_PointsPerSec;
                                 // Max penalty outside channel; zero value means no Max penalty
                                 penalty.Points = MaxPenaltyPerEvent > 0 ? Math.Min((sec - 5) * 3, MaxPenaltyPerEvent): penalty.Points ;
-                                penalty.Reason = string.Format("Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime(pend).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                                penalty.Reason = string.Format("outside channel for {0} sec, [{1} - {2}]", sec, new DateTime(pstart).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime(pend).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
                                 result.Add(penalty);
                             }
                         }
@@ -371,7 +344,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
                         int sec = (int)((diff + (tickOfSecond / 2) + 1) / tickOfSecond);
                         penalty.Points = Math.Min((sec - C_SPFP_TimeTolerance) * C_PointsPerSec, C_SPFP_MaxPenalty);
-                        penalty.Reason = string.Format("Penalty zone for {0} sec, [{1} - {2}]", sec, new DateTime(timeSinceOutsideOwnChannel).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime(crossTime).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                        penalty.Reason = string.Format("outside channel for {0} sec, [{1} - {2}]", sec, new DateTime(timeSinceOutsideOwnChannel).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime(crossTime).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
                         result.Add(penalty);
                     }
 
