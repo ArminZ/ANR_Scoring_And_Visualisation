@@ -284,5 +284,41 @@ namespace AirNavigationRaceLive.Properties {
                 this["MaxPenaltyPerEvent"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal FlightPenWidth {
+            get {
+                return ((decimal)(this["FlightPenWidth"]));
+            }
+            set {
+                this["FlightPenWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color FlightPenColor {
+            get {
+                return ((global::System.Drawing.Color)(this["FlightPenColor"]));
+            }
+            set {
+                this["FlightPenColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ParcourType {
+            get {
+                return ((int)(this["ParcourType"]));
+            }
+            set {
+                this["ParcourType"] = value;
+            }
+        }
     }
 }

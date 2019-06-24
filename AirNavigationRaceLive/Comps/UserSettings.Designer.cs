@@ -62,12 +62,19 @@
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownIntersectPen = new System.Windows.Forms.NumericUpDown();
             this.btnIntersectColor = new System.Windows.Forms.Button();
-            this.groupBoxCalculationType = new System.Windows.Forms.GroupBox();
-            this.radioButtonPenaltyCalcTypeChannel = new System.Windows.Forms.RadioButton();
-            this.radioButtonPenaltyCalcTypePROH = new System.Windows.Forms.RadioButton();
             this.groupBoxMaxPenalty = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownMaxPenalty = new System.Windows.Forms.NumericUpDown();
+            this.groupBoxFlightTrack = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.numericUpDownFlightPen = new System.Windows.Forms.NumericUpDown();
+            this.btnFlightColor = new System.Windows.Forms.Button();
+            this.tabControlSettings = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBoxCalculationType = new System.Windows.Forms.GroupBox();
+            this.radioButtonPenaltyCalcTypeChannel = new System.Windows.Forms.RadioButton();
+            this.radioButtonPenaltyCalcTypePROH = new System.Windows.Forms.RadioButton();
             this.groupBoxChannel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelFillAlpha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelPen)).BeginInit();
@@ -79,15 +86,20 @@
             this.groupBoxIntersect.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectRadius)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectPen)).BeginInit();
-            this.groupBoxCalculationType.SuspendLayout();
             this.groupBoxMaxPenalty.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenalty)).BeginInit();
+            this.groupBoxFlightTrack.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFlightPen)).BeginInit();
+            this.tabControlSettings.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBoxCalculationType.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkParcourAdditionalText
             // 
             this.chkParcourAdditionalText.AutoSize = true;
-            this.chkParcourAdditionalText.Location = new System.Drawing.Point(30, 109);
+            this.chkParcourAdditionalText.Location = new System.Drawing.Point(26, 286);
             this.chkParcourAdditionalText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkParcourAdditionalText.Name = "chkParcourAdditionalText";
             this.chkParcourAdditionalText.Size = new System.Drawing.Size(358, 24);
@@ -98,7 +110,7 @@
             // chkDefaultDBDirectory
             // 
             this.chkDefaultDBDirectory.AutoSize = true;
-            this.chkDefaultDBDirectory.Location = new System.Drawing.Point(30, 46);
+            this.chkDefaultDBDirectory.Location = new System.Drawing.Point(26, 245);
             this.chkDefaultDBDirectory.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkDefaultDBDirectory.Name = "chkDefaultDBDirectory";
             this.chkDefaultDBDirectory.Size = new System.Drawing.Size(349, 24);
@@ -108,7 +120,7 @@
             // 
             // textBoxDatabasePath
             // 
-            this.textBoxDatabasePath.Location = new System.Drawing.Point(427, 46);
+            this.textBoxDatabasePath.Location = new System.Drawing.Point(515, 245);
             this.textBoxDatabasePath.Name = "textBoxDatabasePath";
             this.textBoxDatabasePath.Size = new System.Drawing.Size(503, 26);
             this.textBoxDatabasePath.TabIndex = 12;
@@ -122,19 +134,20 @@
             this.groupBoxChannel.Controls.Add(this.label5);
             this.groupBoxChannel.Controls.Add(this.numericUpDownChannelPen);
             this.groupBoxChannel.Controls.Add(this.btnChannelColor);
-            this.groupBoxChannel.Location = new System.Drawing.Point(520, 179);
+            this.groupBoxChannel.Location = new System.Drawing.Point(524, 147);
             this.groupBoxChannel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxChannel.Name = "groupBoxChannel";
             this.groupBoxChannel.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxChannel.Size = new System.Drawing.Size(491, 167);
             this.groupBoxChannel.TabIndex = 30;
             this.groupBoxChannel.TabStop = false;
-            this.groupBoxChannel.Text = "Channel Properties";
+            this.groupBoxChannel.Text = "Default Properties for new Channel";
             // 
             // chkHasChannelFill
             // 
             this.chkHasChannelFill.AutoSize = true;
             this.chkHasChannelFill.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkHasChannelFill.Enabled = false;
             this.chkHasChannelFill.Location = new System.Drawing.Point(207, 115);
             this.chkHasChannelFill.Name = "chkHasChannelFill";
             this.chkHasChannelFill.Size = new System.Drawing.Size(171, 24);
@@ -145,6 +158,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Enabled = false;
             this.label1.Location = new System.Drawing.Point(18, 69);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
@@ -155,6 +169,7 @@
             // 
             // numericUpDownChannelFillAlpha
             // 
+            this.numericUpDownChannelFillAlpha.Enabled = false;
             this.numericUpDownChannelFillAlpha.Location = new System.Drawing.Point(309, 71);
             this.numericUpDownChannelFillAlpha.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownChannelFillAlpha.Name = "numericUpDownChannelFillAlpha";
@@ -165,6 +180,7 @@
             // btnChannelFillColor
             // 
             this.btnChannelFillColor.BackColor = System.Drawing.Color.Red;
+            this.btnChannelFillColor.Enabled = false;
             this.btnChannelFillColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChannelFillColor.Location = new System.Drawing.Point(381, 69);
             this.btnChannelFillColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -221,7 +237,7 @@
             // 
             // btnDB
             // 
-            this.btnDB.Location = new System.Drawing.Point(936, 42);
+            this.btnDB.Location = new System.Drawing.Point(434, 239);
             this.btnDB.Name = "btnDB";
             this.btnDB.Size = new System.Drawing.Size(75, 35);
             this.btnDB.TabIndex = 31;
@@ -231,7 +247,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(916, 681);
+            this.btnSave.Location = new System.Drawing.Point(943, 728);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(79, 41);
             this.btnSave.TabIndex = 32;
@@ -241,7 +257,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(822, 681);
+            this.btnCancel.Location = new System.Drawing.Point(849, 728);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(88, 41);
             this.btnCancel.TabIndex = 33;
@@ -251,7 +267,7 @@
             // 
             // btnSPFPColor
             // 
-            this.btnSPFPColor.BackColor = System.Drawing.Color.Red;
+            this.btnSPFPColor.BackColor = System.Drawing.Color.Black;
             this.btnSPFPColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSPFPColor.Location = new System.Drawing.Point(376, 45);
             this.btnSPFPColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -285,23 +301,23 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 45);
+            this.label3.Location = new System.Drawing.Point(13, 49);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
-            this.label3.Size = new System.Drawing.Size(274, 25);
+            this.label3.Size = new System.Drawing.Size(158, 25);
             this.label3.TabIndex = 28;
-            this.label3.Text = "Pen Width and Color for SP/FP gates";
+            this.label3.Text = "Pen Width and Color";
             // 
             // chkSPFPShowCircle
             // 
             this.chkSPFPShowCircle.AutoSize = true;
             this.chkSPFPShowCircle.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkSPFPShowCircle.Location = new System.Drawing.Point(152, 79);
+            this.chkSPFPShowCircle.Location = new System.Drawing.Point(82, 79);
             this.chkSPFPShowCircle.Name = "chkSPFPShowCircle";
-            this.chkSPFPShowCircle.Size = new System.Drawing.Size(216, 24);
+            this.chkSPFPShowCircle.Size = new System.Drawing.Size(286, 24);
             this.chkSPFPShowCircle.TabIndex = 30;
-            this.chkSPFPShowCircle.Text = "Show Circle and Direction";
+            this.chkSPFPShowCircle.Text = "Show Circle and Direction on Gates";
             this.chkSPFPShowCircle.UseVisualStyleBackColor = true;
             // 
             // groupBoxSPFP
@@ -310,20 +326,20 @@
             this.groupBoxSPFP.Controls.Add(this.label3);
             this.groupBoxSPFP.Controls.Add(this.numericUpDownSPFPPen);
             this.groupBoxSPFP.Controls.Add(this.btnSPFPColor);
-            this.groupBoxSPFP.Location = new System.Drawing.Point(23, 354);
+            this.groupBoxSPFP.Location = new System.Drawing.Point(15, 328);
             this.groupBoxSPFP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxSPFP.Name = "groupBoxSPFP";
             this.groupBoxSPFP.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxSPFP.Size = new System.Drawing.Size(491, 167);
             this.groupBoxSPFP.TabIndex = 29;
             this.groupBoxSPFP.TabStop = false;
-            this.groupBoxSPFP.Text = "SP and FP Properties for new Parcour";
+            this.groupBoxSPFP.Text = "Default Properties for SP and FP gates";
             // 
             // btnPROHColorLayer
             // 
             this.btnPROHColorLayer.BackColor = System.Drawing.Color.Red;
             this.btnPROHColorLayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPROHColorLayer.Location = new System.Drawing.Point(370, 41);
+            this.btnPROHColorLayer.Location = new System.Drawing.Point(370, 70);
             this.btnPROHColorLayer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnPROHColorLayer.Name = "btnPROHColorLayer";
             this.btnPROHColorLayer.Size = new System.Drawing.Size(43, 28);
@@ -334,7 +350,7 @@
             // 
             // numericUpDownPROHAlpha
             // 
-            this.numericUpDownPROHAlpha.Location = new System.Drawing.Point(298, 43);
+            this.numericUpDownPROHAlpha.Location = new System.Drawing.Point(298, 72);
             this.numericUpDownPROHAlpha.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownPROHAlpha.Name = "numericUpDownPROHAlpha";
             this.numericUpDownPROHAlpha.Size = new System.Drawing.Size(64, 26);
@@ -344,7 +360,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(7, 41);
+            this.label17.Location = new System.Drawing.Point(7, 70);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
@@ -355,12 +371,13 @@
             // numericUpDownPROHBorderPen
             // 
             this.numericUpDownPROHBorderPen.DecimalPlaces = 1;
+            this.numericUpDownPROHBorderPen.Enabled = false;
             this.numericUpDownPROHBorderPen.Increment = new decimal(new int[] {
             5,
             0,
             0,
             65536});
-            this.numericUpDownPROHBorderPen.Location = new System.Drawing.Point(298, 75);
+            this.numericUpDownPROHBorderPen.Location = new System.Drawing.Point(298, 36);
             this.numericUpDownPROHBorderPen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownPROHBorderPen.Maximum = new decimal(new int[] {
             10,
@@ -375,7 +392,8 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 75);
+            this.label2.Enabled = false;
+            this.label2.Location = new System.Drawing.Point(7, 36);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
@@ -392,11 +410,11 @@
             this.groupBoxLayer.Controls.Add(this.label17);
             this.groupBoxLayer.Controls.Add(this.numericUpDownPROHAlpha);
             this.groupBoxLayer.Controls.Add(this.btnPROHColorLayer);
-            this.groupBoxLayer.Location = new System.Drawing.Point(36, 179);
+            this.groupBoxLayer.Location = new System.Drawing.Point(15, 147);
             this.groupBoxLayer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxLayer.Name = "groupBoxLayer";
             this.groupBoxLayer.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxLayer.Size = new System.Drawing.Size(478, 167);
+            this.groupBoxLayer.Size = new System.Drawing.Size(491, 167);
             this.groupBoxLayer.TabIndex = 28;
             this.groupBoxLayer.TabStop = false;
             this.groupBoxLayer.Text = "PROH Layer Properties for new Parcour";
@@ -405,18 +423,20 @@
             // 
             this.chkShowPROHBorders.AutoSize = true;
             this.chkShowPROHBorders.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkShowPROHBorders.Location = new System.Drawing.Point(139, 133);
+            this.chkShowPROHBorders.Location = new System.Drawing.Point(139, 116);
             this.chkShowPROHBorders.Name = "chkShowPROHBorders";
             this.chkShowPROHBorders.Size = new System.Drawing.Size(223, 24);
             this.chkShowPROHBorders.TabIndex = 31;
             this.chkShowPROHBorders.Text = "Draw PROH Layer borders";
             this.chkShowPROHBorders.UseVisualStyleBackColor = true;
+            this.chkShowPROHBorders.Visible = false;
             // 
             // btnPROHBorderColor
             // 
             this.btnPROHBorderColor.BackColor = System.Drawing.Color.Red;
+            this.btnPROHBorderColor.Enabled = false;
             this.btnPROHBorderColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPROHBorderColor.Location = new System.Drawing.Point(370, 75);
+            this.btnPROHBorderColor.Location = new System.Drawing.Point(370, 36);
             this.btnPROHBorderColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnPROHBorderColor.Name = "btnPROHBorderColor";
             this.btnPROHBorderColor.Size = new System.Drawing.Size(43, 28);
@@ -433,14 +453,14 @@
             this.groupBoxIntersect.Controls.Add(this.label7);
             this.groupBoxIntersect.Controls.Add(this.numericUpDownIntersectPen);
             this.groupBoxIntersect.Controls.Add(this.btnIntersectColor);
-            this.groupBoxIntersect.Location = new System.Drawing.Point(520, 354);
+            this.groupBoxIntersect.Location = new System.Drawing.Point(524, 328);
             this.groupBoxIntersect.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxIntersect.Name = "groupBoxIntersect";
             this.groupBoxIntersect.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxIntersect.Size = new System.Drawing.Size(491, 167);
             this.groupBoxIntersect.TabIndex = 34;
             this.groupBoxIntersect.TabStop = false;
-            this.groupBoxIntersect.Text = "Intersection Point Properties";
+            this.groupBoxIntersect.Text = "Default Intersection Point Properties";
             // 
             // label4
             // 
@@ -477,6 +497,8 @@
             // 
             this.chkShowIntersectionCircles.AutoSize = true;
             this.chkShowIntersectionCircles.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkShowIntersectionCircles.Checked = true;
+            this.chkShowIntersectionCircles.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkShowIntersectionCircles.Location = new System.Drawing.Point(155, 115);
             this.chkShowIntersectionCircles.Name = "chkShowIntersectionCircles";
             this.chkShowIntersectionCircles.Size = new System.Drawing.Size(211, 24);
@@ -517,7 +539,7 @@
             // 
             // btnIntersectColor
             // 
-            this.btnIntersectColor.BackColor = System.Drawing.Color.Red;
+            this.btnIntersectColor.BackColor = System.Drawing.Color.Blue;
             this.btnIntersectColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIntersectColor.Location = new System.Drawing.Point(379, 31);
             this.btnIntersectColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -528,48 +550,15 @@
             this.btnIntersectColor.UseVisualStyleBackColor = false;
             this.btnIntersectColor.Click += new System.EventHandler(this.ColorButtonGeneric_Click);
             // 
-            // groupBoxCalculationType
-            // 
-            this.groupBoxCalculationType.Controls.Add(this.radioButtonPenaltyCalcTypeChannel);
-            this.groupBoxCalculationType.Controls.Add(this.radioButtonPenaltyCalcTypePROH);
-            this.groupBoxCalculationType.Location = new System.Drawing.Point(520, 528);
-            this.groupBoxCalculationType.Name = "groupBoxCalculationType";
-            this.groupBoxCalculationType.Size = new System.Drawing.Size(491, 121);
-            this.groupBoxCalculationType.TabIndex = 35;
-            this.groupBoxCalculationType.TabStop = false;
-            this.groupBoxCalculationType.Text = "Penalty Calculation Type";
-            // 
-            // radioButtonPenaltyCalcTypeChannel
-            // 
-            this.radioButtonPenaltyCalcTypeChannel.AutoSize = true;
-            this.radioButtonPenaltyCalcTypeChannel.Location = new System.Drawing.Point(17, 76);
-            this.radioButtonPenaltyCalcTypeChannel.Name = "radioButtonPenaltyCalcTypeChannel";
-            this.radioButtonPenaltyCalcTypeChannel.Size = new System.Drawing.Size(309, 24);
-            this.radioButtonPenaltyCalcTypeChannel.TabIndex = 1;
-            this.radioButtonPenaltyCalcTypeChannel.TabStop = true;
-            this.radioButtonPenaltyCalcTypeChannel.Text = "Penalty when leaving assigned channel";
-            this.radioButtonPenaltyCalcTypeChannel.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonPenaltyCalcTypePROH
-            // 
-            this.radioButtonPenaltyCalcTypePROH.AutoSize = true;
-            this.radioButtonPenaltyCalcTypePROH.Location = new System.Drawing.Point(17, 39);
-            this.radioButtonPenaltyCalcTypePROH.Name = "radioButtonPenaltyCalcTypePROH";
-            this.radioButtonPenaltyCalcTypePROH.Size = new System.Drawing.Size(311, 24);
-            this.radioButtonPenaltyCalcTypePROH.TabIndex = 0;
-            this.radioButtonPenaltyCalcTypePROH.TabStop = true;
-            this.radioButtonPenaltyCalcTypePROH.Text = "Penalty when entering prohibited zones";
-            this.radioButtonPenaltyCalcTypePROH.UseVisualStyleBackColor = true;
-            // 
             // groupBoxMaxPenalty
             // 
             this.groupBoxMaxPenalty.Controls.Add(this.label8);
             this.groupBoxMaxPenalty.Controls.Add(this.numericUpDownMaxPenalty);
-            this.groupBoxMaxPenalty.Location = new System.Drawing.Point(23, 528);
+            this.groupBoxMaxPenalty.Location = new System.Drawing.Point(19, 131);
             this.groupBoxMaxPenalty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxMaxPenalty.Name = "groupBoxMaxPenalty";
             this.groupBoxMaxPenalty.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxMaxPenalty.Size = new System.Drawing.Size(491, 121);
+            this.groupBoxMaxPenalty.Size = new System.Drawing.Size(491, 74);
             this.groupBoxMaxPenalty.TabIndex = 38;
             this.groupBoxMaxPenalty.TabStop = false;
             this.groupBoxMaxPenalty.Text = "Penalty points upper limit (per penalty event)";
@@ -577,13 +566,13 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 45);
+            this.label8.Location = new System.Drawing.Point(13, 23);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
-            this.label8.Size = new System.Drawing.Size(218, 25);
+            this.label8.Size = new System.Drawing.Size(266, 25);
             this.label8.TabIndex = 28;
-            this.label8.Text = "max Penalty (0= unrestricted)";
+            this.label8.Text = "Max Penalty Points (0= unrestricted)";
             // 
             // numericUpDownMaxPenalty
             // 
@@ -592,7 +581,7 @@
             0,
             0,
             0});
-            this.numericUpDownMaxPenalty.Location = new System.Drawing.Point(304, 45);
+            this.numericUpDownMaxPenalty.Location = new System.Drawing.Point(304, 28);
             this.numericUpDownMaxPenalty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownMaxPenalty.Maximum = new decimal(new int[] {
             9999,
@@ -604,22 +593,144 @@
             this.numericUpDownMaxPenalty.TabIndex = 26;
             this.numericUpDownMaxPenalty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // groupBoxFlightTrack
+            // 
+            this.groupBoxFlightTrack.Controls.Add(this.label9);
+            this.groupBoxFlightTrack.Controls.Add(this.numericUpDownFlightPen);
+            this.groupBoxFlightTrack.Controls.Add(this.btnFlightColor);
+            this.groupBoxFlightTrack.Location = new System.Drawing.Point(18, 21);
+            this.groupBoxFlightTrack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxFlightTrack.Name = "groupBoxFlightTrack";
+            this.groupBoxFlightTrack.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxFlightTrack.Size = new System.Drawing.Size(491, 85);
+            this.groupBoxFlightTrack.TabIndex = 39;
+            this.groupBoxFlightTrack.TabStop = false;
+            this.groupBoxFlightTrack.Text = "Flight Track Properties";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(18, 31);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label9.Size = new System.Drawing.Size(158, 25);
+            this.label9.TabIndex = 28;
+            this.label9.Text = "Pen Width and Color";
+            // 
+            // numericUpDownFlightPen
+            // 
+            this.numericUpDownFlightPen.DecimalPlaces = 1;
+            this.numericUpDownFlightPen.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDownFlightPen.Location = new System.Drawing.Point(302, 33);
+            this.numericUpDownFlightPen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownFlightPen.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownFlightPen.Name = "numericUpDownFlightPen";
+            this.numericUpDownFlightPen.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownFlightPen.TabIndex = 26;
+            this.numericUpDownFlightPen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnFlightColor
+            // 
+            this.btnFlightColor.BackColor = System.Drawing.Color.Black;
+            this.btnFlightColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFlightColor.Location = new System.Drawing.Point(379, 31);
+            this.btnFlightColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnFlightColor.Name = "btnFlightColor";
+            this.btnFlightColor.Size = new System.Drawing.Size(44, 28);
+            this.btnFlightColor.TabIndex = 29;
+            this.btnFlightColor.Text = "...";
+            this.btnFlightColor.UseVisualStyleBackColor = false;
+            // 
+            // tabControlSettings
+            // 
+            this.tabControlSettings.Controls.Add(this.tabPage1);
+            this.tabControlSettings.Controls.Add(this.tabPage2);
+            this.tabControlSettings.Location = new System.Drawing.Point(27, 23);
+            this.tabControlSettings.Name = "tabControlSettings";
+            this.tabControlSettings.SelectedIndex = 0;
+            this.tabControlSettings.Size = new System.Drawing.Size(1046, 548);
+            this.tabControlSettings.TabIndex = 40;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.groupBoxMaxPenalty);
+            this.tabPage1.Controls.Add(this.groupBoxFlightTrack);
+            this.tabPage1.Controls.Add(this.btnDB);
+            this.tabPage1.Controls.Add(this.chkParcourAdditionalText);
+            this.tabPage1.Controls.Add(this.textBoxDatabasePath);
+            this.tabPage1.Controls.Add(this.chkDefaultDBDirectory);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1038, 515);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Common Settings";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.groupBoxCalculationType);
+            this.tabPage2.Controls.Add(this.groupBoxLayer);
+            this.tabPage2.Controls.Add(this.groupBoxIntersect);
+            this.tabPage2.Controls.Add(this.groupBoxSPFP);
+            this.tabPage2.Controls.Add(this.groupBoxChannel);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1038, 515);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Parcour Default Settings";
+            // 
+            // groupBoxCalculationType
+            // 
+            this.groupBoxCalculationType.Controls.Add(this.radioButtonPenaltyCalcTypeChannel);
+            this.groupBoxCalculationType.Controls.Add(this.radioButtonPenaltyCalcTypePROH);
+            this.groupBoxCalculationType.Location = new System.Drawing.Point(15, 19);
+            this.groupBoxCalculationType.Name = "groupBoxCalculationType";
+            this.groupBoxCalculationType.Size = new System.Drawing.Size(491, 121);
+            this.groupBoxCalculationType.TabIndex = 36;
+            this.groupBoxCalculationType.TabStop = false;
+            this.groupBoxCalculationType.Text = "Default Parcour Type";
+            // 
+            // radioButtonPenaltyCalcTypeChannel
+            // 
+            this.radioButtonPenaltyCalcTypeChannel.AutoSize = true;
+            this.radioButtonPenaltyCalcTypeChannel.Location = new System.Drawing.Point(17, 76);
+            this.radioButtonPenaltyCalcTypeChannel.Name = "radioButtonPenaltyCalcTypeChannel";
+            this.radioButtonPenaltyCalcTypeChannel.Size = new System.Drawing.Size(300, 24);
+            this.radioButtonPenaltyCalcTypeChannel.TabIndex = 1;
+            this.radioButtonPenaltyCalcTypeChannel.TabStop = true;
+            this.radioButtonPenaltyCalcTypeChannel.Text = "Parcour consisting of closed channels";
+            this.radioButtonPenaltyCalcTypeChannel.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonPenaltyCalcTypePROH
+            // 
+            this.radioButtonPenaltyCalcTypePROH.AutoSize = true;
+            this.radioButtonPenaltyCalcTypePROH.Location = new System.Drawing.Point(17, 39);
+            this.radioButtonPenaltyCalcTypePROH.Name = "radioButtonPenaltyCalcTypePROH";
+            this.radioButtonPenaltyCalcTypePROH.Size = new System.Drawing.Size(280, 24);
+            this.radioButtonPenaltyCalcTypePROH.TabIndex = 0;
+            this.radioButtonPenaltyCalcTypePROH.TabStop = true;
+            this.radioButtonPenaltyCalcTypePROH.Text = "Parcour based on prohibited zones";
+            this.radioButtonPenaltyCalcTypePROH.UseVisualStyleBackColor = true;
+            // 
             // UserSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBoxMaxPenalty);
-            this.Controls.Add(this.groupBoxCalculationType);
-            this.Controls.Add(this.groupBoxIntersect);
+            this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnDB);
-            this.Controls.Add(this.groupBoxChannel);
-            this.Controls.Add(this.groupBoxSPFP);
-            this.Controls.Add(this.groupBoxLayer);
-            this.Controls.Add(this.textBoxDatabasePath);
-            this.Controls.Add(this.chkParcourAdditionalText);
-            this.Controls.Add(this.chkDefaultDBDirectory);
             this.Name = "UserSettings";
             this.Size = new System.Drawing.Size(1094, 802);
             this.groupBoxChannel.ResumeLayout(false);
@@ -637,13 +748,19 @@
             this.groupBoxIntersect.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectRadius)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectPen)).EndInit();
-            this.groupBoxCalculationType.ResumeLayout(false);
-            this.groupBoxCalculationType.PerformLayout();
             this.groupBoxMaxPenalty.ResumeLayout(false);
             this.groupBoxMaxPenalty.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenalty)).EndInit();
+            this.groupBoxFlightTrack.ResumeLayout(false);
+            this.groupBoxFlightTrack.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFlightPen)).EndInit();
+            this.tabControlSettings.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.groupBoxCalculationType.ResumeLayout(false);
+            this.groupBoxCalculationType.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -674,9 +791,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDownIntersectPen;
         private System.Windows.Forms.Button btnIntersectColor;
-        private System.Windows.Forms.GroupBox groupBoxCalculationType;
-        private System.Windows.Forms.RadioButton radioButtonPenaltyCalcTypeChannel;
-        private System.Windows.Forms.RadioButton radioButtonPenaltyCalcTypePROH;
         private System.Windows.Forms.CheckBox chkShowIntersectionCircles;
         private System.Windows.Forms.CheckBox chkShowPROHBorders;
         private System.Windows.Forms.Button btnPROHBorderColor;
@@ -689,5 +803,15 @@
         private System.Windows.Forms.GroupBox groupBoxMaxPenalty;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDownMaxPenalty;
+        private System.Windows.Forms.GroupBox groupBoxFlightTrack;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown numericUpDownFlightPen;
+        private System.Windows.Forms.Button btnFlightColor;
+        private System.Windows.Forms.TabControl tabControlSettings;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.GroupBox groupBoxCalculationType;
+        private System.Windows.Forms.RadioButton radioButtonPenaltyCalcTypeChannel;
+        private System.Windows.Forms.RadioButton radioButtonPenaltyCalcTypePROH;
     }
 }

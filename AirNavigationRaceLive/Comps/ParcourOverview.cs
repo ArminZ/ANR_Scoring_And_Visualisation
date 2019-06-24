@@ -126,8 +126,8 @@ namespace AirNavigationRaceLive.Comps
                 //PictureBox1.PenWidthGates = (float)activeParcour.PenWidthGates;
                 PictureBox1.HasCircleOnGates = activeParcour.HasCircleOnGates;
 
-                radioButtonPenaltyCalcTypePROH.Checked = (activeParcour.PenaltyCalcType == 0) ? true : false;
-                radioButtonPenaltyCalcTypeChannel.Checked = (!radioButtonPenaltyCalcTypePROH.Checked);
+                radioButtonParcourTypePROH.Checked = (activeParcour.PenaltyCalcType == 0) ? true : false;
+                radioButtonParcourTypeChannel.Checked = (!radioButtonParcourTypePROH.Checked);
                 btnChannelColor.BackColor = activeParcour.ColorChannel;
                 btnChannelFillColor.BackColor = activeParcour.ColorChannelFill;
                 numericUpDownChannelAlpha.Value = activeParcour.Alpha;
@@ -566,17 +566,17 @@ namespace AirNavigationRaceLive.Comps
             PictureBox1.Invalidate();
         }
 
-        private void radioButtonPenaltyCalcTypePROH_CheckedChanged(object sender, EventArgs e)
+        private void radioButtonParcourTypePROH_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonPenaltyCalcTypeChannel.Checked = !radioButtonPenaltyCalcTypePROH.Checked;
+            radioButtonParcourTypeChannel.Checked = !radioButtonParcourTypePROH.Checked;
 
-            layerBox.Visible = radioButtonPenaltyCalcTypePROH.Checked;
-            groupBoxChannel.Visible = radioButtonPenaltyCalcTypeChannel.Checked;
+            layerBox.Visible = radioButtonParcourTypePROH.Checked;
+            groupBoxChannel.Visible = radioButtonParcourTypeChannel.Checked;
 
             ParcourSet p = activeParcour;
             if (activeParcour != null)
             {
-                p.PenaltyCalcType = radioButtonPenaltyCalcTypePROH.Checked ? 0 : 1;
+                p.PenaltyCalcType = radioButtonParcourTypePROH.Checked ? 0 : 1;
                 Client.DBContext.SaveChanges();
                 PictureBox1.SetParcour(p);
                 PictureBox1.Invalidate();
@@ -584,16 +584,16 @@ namespace AirNavigationRaceLive.Comps
             }
         }
 
-        private void radioButtonPenaltyCalcTypeChannel_CheckedChanged(object sender, EventArgs e)
+        private void radioButtonParcourTypeChannel_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonPenaltyCalcTypePROH.Checked = !radioButtonPenaltyCalcTypeChannel.Checked;
+            radioButtonParcourTypePROH.Checked = !radioButtonParcourTypeChannel.Checked;
 
-            layerBox.Visible = radioButtonPenaltyCalcTypePROH.Checked;
-            groupBoxChannel.Visible = radioButtonPenaltyCalcTypeChannel.Checked;
+            layerBox.Visible = radioButtonParcourTypePROH.Checked;
+            groupBoxChannel.Visible = radioButtonParcourTypeChannel.Checked;
             ParcourSet p = activeParcour;
             if (activeParcour != null)
             {
-                p.PenaltyCalcType = radioButtonPenaltyCalcTypePROH.Checked ? 0 : 1;
+                p.PenaltyCalcType = radioButtonParcourTypePROH.Checked ? 0 : 1;
                 Client.DBContext.SaveChanges();
                 PictureBox1.SetParcour(p);
                 PictureBox1.Invalidate();

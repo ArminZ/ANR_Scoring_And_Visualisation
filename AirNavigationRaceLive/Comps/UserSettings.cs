@@ -48,7 +48,11 @@ namespace AirNavigationRaceLive.Comps
             Properties.Settings.Default.ShowIntersectionCircles = chkShowIntersectionCircles.Checked;
             Properties.Settings.Default.IntersectionCircleRadius = numericUpDownIntersectRadius.Value;
 
+            Properties.Settings.Default.FlightPenColor = btnFlightColor.BackColor;
+            Properties.Settings.Default.FlightPenWidth = numericUpDownFlightPen.Value;
+
             Properties.Settings.Default.MaxPenaltyPerEvent = (int)numericUpDownMaxPenalty.Value;
+            Properties.Settings.Default.ParcourType = radioButtonPenaltyCalcTypePROH.Checked ? 0 : 1;
 
             Properties.Settings.Default.Save();
         }
@@ -81,7 +85,13 @@ namespace AirNavigationRaceLive.Comps
             numericUpDownIntersectRadius.Value = Properties.Settings.Default.IntersectionCircleRadius;
             chkShowIntersectionCircles.Checked = Properties.Settings.Default.ShowIntersectionCircles;
 
+            btnFlightColor.BackColor = Properties.Settings.Default.FlightPenColor;
+            numericUpDownFlightPen.Value = Properties.Settings.Default.FlightPenWidth;
+
             numericUpDownMaxPenalty.Value = Properties.Settings.Default.MaxPenaltyPerEvent;
+
+            radioButtonPenaltyCalcTypePROH.Checked = Properties.Settings.Default.ParcourType == 0;
+            radioButtonPenaltyCalcTypeChannel.Checked = Properties.Settings.Default.ParcourType == 1;
 
         }
 

@@ -163,6 +163,7 @@
             this.overviewZoomedToolStripMenuItem.Name = "overviewZoomedToolStripMenuItem";
             this.overviewZoomedToolStripMenuItem.Size = new System.Drawing.Size(269, 30);
             this.overviewZoomedToolStripMenuItem.Text = "Overview Zoomed";
+            this.overviewZoomedToolStripMenuItem.Visible = false;
             this.overviewZoomedToolStripMenuItem.Click += new System.EventHandler(this.overviewZoomedToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
@@ -187,6 +188,7 @@
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(269, 30);
             this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Visible = false;
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // pilotsToolStripMenuItem

@@ -60,6 +60,8 @@ namespace AirNavigationRaceLive.Comps
             PenChannel.Color = iParcour.ColorChannel == Color.FromArgb(0, 0, 0, 0) ? Properties.Settings.Default.ChannelColor : iParcour.ColorChannel;
             PenChannel.Width = iParcour.PenWidthChannel == 0 ? (float)Properties.Settings.Default.ChannelPenWidth : (float)iParcour.PenWidthChannel;
 
+            PenFlight.Width = (float)Properties.Settings.Default.FlightPenWidth;
+            PenFlight.Color = Properties.Settings.Default.FlightPenColor;
 
             Pen.Width = (float)iParcour.PenWidthGates;
             Pen.Color = iParcour.ColorGates;
