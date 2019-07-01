@@ -139,16 +139,13 @@ namespace AirNavigationRaceLive.Comps.Helper
                     haveCrossedTakeOff = true;
                     intersectionPoints.Add(ip);
                     long crossTime = ip.Timestamp;
-                    ipTakeOff = ip;
-                    long diff = Math.Abs(crossTime - flight.TimeTakeOff);
-                    //if (diff > C_TKOF_TimeUpper * tickOfSecond || diff < C_TKOF_TimeLower * tickOfSecond)
-                    //{
                     crossTime = ((crossTime + (tickOfSecond / 2) + 1) / tickOfSecond) * tickOfSecond; // round
+                    ipTakeOff = ip;
+                    long diff = crossTime - flight.TimeTakeOff;
                     PenaltySet penalty = new PenaltySet();
                     penalty.Points = (diff > C_TKOF_TimeUpper * tickOfSecond || diff < C_TKOF_TimeLower * tickOfSecond) ? C_TKOF_MaxPenalty : 0;
                     penalty.Reason = string.Format("Take-off Line planned: {1}, actual: {0}", new DateTime((Int64)crossTime).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo), new DateTime((Int64)flight.TimeTakeOff).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
                     result.Add(penalty);
-                    //}
                 }
                 #endregion
 

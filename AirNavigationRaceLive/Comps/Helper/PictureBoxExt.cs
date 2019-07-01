@@ -50,11 +50,10 @@ namespace AirNavigationRaceLive.Comps
             PenGates.Color = iParcour.ColorGates;
             HasCircleOnGates = iParcour.HasCircleOnGates;
 
-            PenIntersection.Color = iParcour.ColorIntersection == Color.FromArgb(0, 0, 0, 0) ? Properties.Settings.Default.IntersectionColor : iParcour.ColorIntersection;
-            PenIntersection.Width = iParcour.PenWidthIntersection == 0 ? (float)Properties.Settings.Default.IntersectionPenWidth : (float)iParcour.PenWidthIntersection;
-            //           IntersectionCircleRadius = iParcour.IntersectionCircleRadius == 0 ? (float)20.0 : (float)iParcour.IntersectionCircleRadius;
-            IntersectionCircleRadius = iParcour.IntersectionCircleRadius == 0 ? (float)20.0 : (float)iParcour.IntersectionCircleRadius;
-            ShowIntersectionCircle = iParcour.HasIntersectionCircles;
+            ShowIntersectionCircle = Properties.Settings.Default.ShowIntersectionCircles;
+            PenIntersection.Color = Properties.Settings.Default.IntersectionColor;
+            PenIntersection.Width = (float)Properties.Settings.Default.IntersectionPenWidth;
+            IntersectionCircleRadius = (float)Properties.Settings.Default.IntersectionCircleRadius;
 
             Color c = iParcour.ColorChannel;
             PenChannel.Color = iParcour.ColorChannel == Color.FromArgb(0, 0, 0, 0) ? Properties.Settings.Default.ChannelColor : iParcour.ColorChannel;
@@ -290,7 +289,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 //PenFlight.Width = 7f;
                 //PenIntersection.Width = (float)Properties.Settings.Default.IntersectionPenWidth;
-                int r = (int)(IntersectionCircleRadius*30.0);  //45.0
+                int r = (int)(IntersectionCircleRadius*150.0);  //45.0
 
                 foreach (FlightSet flight in flights)
                 {

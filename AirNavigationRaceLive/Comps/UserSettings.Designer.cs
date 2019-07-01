@@ -55,13 +55,6 @@
             this.groupBoxLayer = new System.Windows.Forms.GroupBox();
             this.chkShowPROHBorders = new System.Windows.Forms.CheckBox();
             this.btnPROHBorderColor = new System.Windows.Forms.Button();
-            this.groupBoxIntersect = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDownIntersectRadius = new System.Windows.Forms.NumericUpDown();
-            this.chkShowIntersectionCircles = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDownIntersectPen = new System.Windows.Forms.NumericUpDown();
-            this.btnIntersectColor = new System.Windows.Forms.Button();
             this.groupBoxMaxPenalty = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownMaxPenalty = new System.Windows.Forms.NumericUpDown();
@@ -75,6 +68,13 @@
             this.groupBoxCalculationType = new System.Windows.Forms.GroupBox();
             this.radioButtonPenaltyCalcTypeChannel = new System.Windows.Forms.RadioButton();
             this.radioButtonPenaltyCalcTypePROH = new System.Windows.Forms.RadioButton();
+            this.groupBoxIntersect = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDownIntersectRadius = new System.Windows.Forms.NumericUpDown();
+            this.chkShowIntersectionCircles = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.numericUpDownIntersectPen = new System.Windows.Forms.NumericUpDown();
+            this.btnIntersectColor = new System.Windows.Forms.Button();
             this.groupBoxChannel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelFillAlpha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelPen)).BeginInit();
@@ -83,9 +83,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPROHAlpha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPROHBorderPen)).BeginInit();
             this.groupBoxLayer.SuspendLayout();
-            this.groupBoxIntersect.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectRadius)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectPen)).BeginInit();
             this.groupBoxMaxPenalty.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenalty)).BeginInit();
             this.groupBoxFlightTrack.SuspendLayout();
@@ -94,6 +91,9 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBoxCalculationType.SuspendLayout();
+            this.groupBoxIntersect.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectRadius)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectPen)).BeginInit();
             this.SuspendLayout();
             // 
             // chkParcourAdditionalText
@@ -120,9 +120,9 @@
             // 
             // textBoxDatabasePath
             // 
-            this.textBoxDatabasePath.Location = new System.Drawing.Point(515, 245);
+            this.textBoxDatabasePath.Location = new System.Drawing.Point(527, 245);
             this.textBoxDatabasePath.Name = "textBoxDatabasePath";
-            this.textBoxDatabasePath.Size = new System.Drawing.Size(503, 26);
+            this.textBoxDatabasePath.Size = new System.Drawing.Size(491, 26);
             this.textBoxDatabasePath.TabIndex = 12;
             // 
             // groupBoxChannel
@@ -445,111 +445,6 @@
             this.btnPROHBorderColor.UseVisualStyleBackColor = false;
             this.btnPROHBorderColor.Click += new System.EventHandler(this.ColorButtonGeneric_Click);
             // 
-            // groupBoxIntersect
-            // 
-            this.groupBoxIntersect.Controls.Add(this.label4);
-            this.groupBoxIntersect.Controls.Add(this.numericUpDownIntersectRadius);
-            this.groupBoxIntersect.Controls.Add(this.chkShowIntersectionCircles);
-            this.groupBoxIntersect.Controls.Add(this.label7);
-            this.groupBoxIntersect.Controls.Add(this.numericUpDownIntersectPen);
-            this.groupBoxIntersect.Controls.Add(this.btnIntersectColor);
-            this.groupBoxIntersect.Location = new System.Drawing.Point(524, 328);
-            this.groupBoxIntersect.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxIntersect.Name = "groupBoxIntersect";
-            this.groupBoxIntersect.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxIntersect.Size = new System.Drawing.Size(491, 167);
-            this.groupBoxIntersect.TabIndex = 34;
-            this.groupBoxIntersect.TabStop = false;
-            this.groupBoxIntersect.Text = "Default Intersection Point Properties";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 69);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
-            this.label4.Size = new System.Drawing.Size(143, 25);
-            this.label4.TabIndex = 33;
-            this.label4.Text = "Circle radius in Nm";
-            // 
-            // numericUpDownIntersectRadius
-            // 
-            this.numericUpDownIntersectRadius.DecimalPlaces = 1;
-            this.numericUpDownIntersectRadius.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.numericUpDownIntersectRadius.Location = new System.Drawing.Point(302, 69);
-            this.numericUpDownIntersectRadius.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.numericUpDownIntersectRadius.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDownIntersectRadius.Name = "numericUpDownIntersectRadius";
-            this.numericUpDownIntersectRadius.Size = new System.Drawing.Size(64, 26);
-            this.numericUpDownIntersectRadius.TabIndex = 32;
-            this.numericUpDownIntersectRadius.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // chkShowIntersectionCircles
-            // 
-            this.chkShowIntersectionCircles.AutoSize = true;
-            this.chkShowIntersectionCircles.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkShowIntersectionCircles.Checked = true;
-            this.chkShowIntersectionCircles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkShowIntersectionCircles.Location = new System.Drawing.Point(155, 115);
-            this.chkShowIntersectionCircles.Name = "chkShowIntersectionCircles";
-            this.chkShowIntersectionCircles.Size = new System.Drawing.Size(211, 24);
-            this.chkShowIntersectionCircles.TabIndex = 31;
-            this.chkShowIntersectionCircles.Text = "Show Intersection Points";
-            this.chkShowIntersectionCircles.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(18, 31);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
-            this.label7.Size = new System.Drawing.Size(158, 25);
-            this.label7.TabIndex = 28;
-            this.label7.Text = "Pen Width and Color";
-            // 
-            // numericUpDownIntersectPen
-            // 
-            this.numericUpDownIntersectPen.DecimalPlaces = 1;
-            this.numericUpDownIntersectPen.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.numericUpDownIntersectPen.Location = new System.Drawing.Point(302, 33);
-            this.numericUpDownIntersectPen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.numericUpDownIntersectPen.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDownIntersectPen.Name = "numericUpDownIntersectPen";
-            this.numericUpDownIntersectPen.Size = new System.Drawing.Size(64, 26);
-            this.numericUpDownIntersectPen.TabIndex = 26;
-            this.numericUpDownIntersectPen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // btnIntersectColor
-            // 
-            this.btnIntersectColor.BackColor = System.Drawing.Color.Blue;
-            this.btnIntersectColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIntersectColor.Location = new System.Drawing.Point(379, 31);
-            this.btnIntersectColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnIntersectColor.Name = "btnIntersectColor";
-            this.btnIntersectColor.Size = new System.Drawing.Size(44, 28);
-            this.btnIntersectColor.TabIndex = 29;
-            this.btnIntersectColor.Text = "...";
-            this.btnIntersectColor.UseVisualStyleBackColor = false;
-            this.btnIntersectColor.Click += new System.EventHandler(this.ColorButtonGeneric_Click);
-            // 
             // groupBoxMaxPenalty
             // 
             this.groupBoxMaxPenalty.Controls.Add(this.label8);
@@ -663,6 +558,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.groupBoxIntersect);
             this.tabPage1.Controls.Add(this.groupBoxMaxPenalty);
             this.tabPage1.Controls.Add(this.groupBoxFlightTrack);
             this.tabPage1.Controls.Add(this.btnDB);
@@ -681,7 +577,6 @@
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage2.Controls.Add(this.groupBoxCalculationType);
             this.tabPage2.Controls.Add(this.groupBoxLayer);
-            this.tabPage2.Controls.Add(this.groupBoxIntersect);
             this.tabPage2.Controls.Add(this.groupBoxSPFP);
             this.tabPage2.Controls.Add(this.groupBoxChannel);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
@@ -724,6 +619,110 @@
             this.radioButtonPenaltyCalcTypePROH.Text = "Parcour based on prohibited zones";
             this.radioButtonPenaltyCalcTypePROH.UseVisualStyleBackColor = true;
             // 
+            // groupBoxIntersect
+            // 
+            this.groupBoxIntersect.Controls.Add(this.label4);
+            this.groupBoxIntersect.Controls.Add(this.numericUpDownIntersectRadius);
+            this.groupBoxIntersect.Controls.Add(this.chkShowIntersectionCircles);
+            this.groupBoxIntersect.Controls.Add(this.label7);
+            this.groupBoxIntersect.Controls.Add(this.numericUpDownIntersectPen);
+            this.groupBoxIntersect.Controls.Add(this.btnIntersectColor);
+            this.groupBoxIntersect.Location = new System.Drawing.Point(527, 21);
+            this.groupBoxIntersect.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxIntersect.Name = "groupBoxIntersect";
+            this.groupBoxIntersect.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxIntersect.Size = new System.Drawing.Size(491, 184);
+            this.groupBoxIntersect.TabIndex = 40;
+            this.groupBoxIntersect.TabStop = false;
+            this.groupBoxIntersect.Text = "Default Intersection Point Properties";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(18, 69);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label4.Size = new System.Drawing.Size(143, 25);
+            this.label4.TabIndex = 33;
+            this.label4.Text = "Circle radius in Nm";
+            // 
+            // numericUpDownIntersectRadius
+            // 
+            this.numericUpDownIntersectRadius.DecimalPlaces = 2;
+            this.numericUpDownIntersectRadius.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDownIntersectRadius.Location = new System.Drawing.Point(302, 69);
+            this.numericUpDownIntersectRadius.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownIntersectRadius.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownIntersectRadius.Name = "numericUpDownIntersectRadius";
+            this.numericUpDownIntersectRadius.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownIntersectRadius.TabIndex = 32;
+            this.numericUpDownIntersectRadius.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // chkShowIntersectionCircles
+            // 
+            this.chkShowIntersectionCircles.AutoSize = true;
+            this.chkShowIntersectionCircles.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkShowIntersectionCircles.Checked = true;
+            this.chkShowIntersectionCircles.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkShowIntersectionCircles.Location = new System.Drawing.Point(155, 115);
+            this.chkShowIntersectionCircles.Name = "chkShowIntersectionCircles";
+            this.chkShowIntersectionCircles.Size = new System.Drawing.Size(211, 24);
+            this.chkShowIntersectionCircles.TabIndex = 31;
+            this.chkShowIntersectionCircles.Text = "Show Intersection Points";
+            this.chkShowIntersectionCircles.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(18, 31);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label7.Size = new System.Drawing.Size(158, 25);
+            this.label7.TabIndex = 28;
+            this.label7.Text = "Pen Width and Color";
+            // 
+            // numericUpDownIntersectPen
+            // 
+            this.numericUpDownIntersectPen.DecimalPlaces = 1;
+            this.numericUpDownIntersectPen.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDownIntersectPen.Location = new System.Drawing.Point(302, 33);
+            this.numericUpDownIntersectPen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownIntersectPen.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownIntersectPen.Name = "numericUpDownIntersectPen";
+            this.numericUpDownIntersectPen.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownIntersectPen.TabIndex = 26;
+            this.numericUpDownIntersectPen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnIntersectColor
+            // 
+            this.btnIntersectColor.BackColor = System.Drawing.Color.Blue;
+            this.btnIntersectColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIntersectColor.Location = new System.Drawing.Point(379, 31);
+            this.btnIntersectColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnIntersectColor.Name = "btnIntersectColor";
+            this.btnIntersectColor.Size = new System.Drawing.Size(44, 28);
+            this.btnIntersectColor.TabIndex = 29;
+            this.btnIntersectColor.Text = "...";
+            this.btnIntersectColor.UseVisualStyleBackColor = false;
+            // 
             // UserSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -744,10 +743,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPROHBorderPen)).EndInit();
             this.groupBoxLayer.ResumeLayout(false);
             this.groupBoxLayer.PerformLayout();
-            this.groupBoxIntersect.ResumeLayout(false);
-            this.groupBoxIntersect.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectRadius)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectPen)).EndInit();
             this.groupBoxMaxPenalty.ResumeLayout(false);
             this.groupBoxMaxPenalty.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenalty)).EndInit();
@@ -760,6 +755,10 @@
             this.tabPage2.ResumeLayout(false);
             this.groupBoxCalculationType.ResumeLayout(false);
             this.groupBoxCalculationType.PerformLayout();
+            this.groupBoxIntersect.ResumeLayout(false);
+            this.groupBoxIntersect.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectRadius)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectPen)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -787,19 +786,12 @@
         private System.Windows.Forms.NumericUpDown numericUpDownPROHBorderPen;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBoxLayer;
-        private System.Windows.Forms.GroupBox groupBoxIntersect;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDownIntersectPen;
-        private System.Windows.Forms.Button btnIntersectColor;
-        private System.Windows.Forms.CheckBox chkShowIntersectionCircles;
         private System.Windows.Forms.CheckBox chkShowPROHBorders;
         private System.Windows.Forms.Button btnPROHBorderColor;
         private System.Windows.Forms.CheckBox chkHasChannelFill;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownChannelFillAlpha;
         private System.Windows.Forms.Button btnChannelFillColor;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDownIntersectRadius;
         private System.Windows.Forms.GroupBox groupBoxMaxPenalty;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDownMaxPenalty;
@@ -813,5 +805,12 @@
         private System.Windows.Forms.GroupBox groupBoxCalculationType;
         private System.Windows.Forms.RadioButton radioButtonPenaltyCalcTypeChannel;
         private System.Windows.Forms.RadioButton radioButtonPenaltyCalcTypePROH;
+        private System.Windows.Forms.GroupBox groupBoxIntersect;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numericUpDownIntersectRadius;
+        private System.Windows.Forms.CheckBox chkShowIntersectionCircles;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown numericUpDownIntersectPen;
+        private System.Windows.Forms.Button btnIntersectColor;
     }
 }
