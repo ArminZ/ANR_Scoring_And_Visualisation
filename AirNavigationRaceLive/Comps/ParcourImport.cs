@@ -34,9 +34,16 @@ namespace AirNavigationRaceLive.Comps
             lblCompetition.Text = Client.SelectedCompetition.Name + " - parcours";
             PictureBox1.Cursor = new Cursor(@"Resources\GPSCursor.cur");
             activeParcour = new ParcourSet();
+            // read default values from settings
+            radioButtonParcourTypePROH.Checked = (Properties.Settings.Default.ParcourType == 0);
+            radioButtonParcourTypeChannel.Checked = (Properties.Settings.Default.ParcourType == 1);
             numericUpDownAlpha.Value = Properties.Settings.Default.PROHTransp;
             btnColorPROH.BackColor = Properties.Settings.Default.PROHColor;
             btnColorGates.BackColor = Properties.Settings.Default.SPFPColor;
+            numericUpDownPenGates.Value = Properties.Settings.Default.SPFPenWidth;
+            checkBoxCircle.Checked = Properties.Settings.Default.SPFPCircle;
+            btnChannelColor.BackColor = Properties.Settings.Default.ChannelColor;
+            numericUpDownChannelPen.Value = Properties.Settings.Default.ChannelPenWidth;
             //PictureBox1.SetParcour(activeParcour);
             //PictureBox1.ColorPROH = Properties.Settings.Default.PROHColor;
             //PictureBox1.ColorGates = Properties.Settings.Default.PROHColor;
@@ -263,6 +270,7 @@ namespace AirNavigationRaceLive.Comps
             Client.DBContext.ParcourSet.Add(p);
             Client.DBContext.SaveChanges();
             MessageBox.Show("Successfully saved", "Parcour", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
 
         private void PictureBox1_Click(object sender, MouseEventArgs e)
@@ -647,20 +655,41 @@ namespace AirNavigationRaceLive.Comps
             PictureBox1.Invalidate();
         }
 
-        private void radioButtonPenaltyCalcTypePROH_CheckedChanged(object sender, EventArgs e)
+        private void radioButtonParcourTypePROH_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonPenaltyCalcTypeChannel.Checked = !radioButtonPenaltyCalcTypePROH.Checked;
+            radioButtonParcourTypeChannel.Checked = !radioButtonParcourTypePROH.Checked;
 
-            layerBox.Visible = radioButtonPenaltyCalcTypePROH.Checked;
-            groupBoxChannel.Visible = radioButtonPenaltyCalcTypeChannel.Checked;
+            layerBox.Visible = radioButtonParcourTypePROH.Checked;
+            groupBoxChannel.Visible = radioButtonParcourTypeChannel.Checked;
+
+            ParcourSet p = activeParcour;
+            if (activeParcour != null)
+            {
+                p.PenaltyCalcType = radioButtonParcourTypePROH.Checked ? 0 : 1;
+                //Client.DBContext.SaveChanges();
+                PictureBox1.SetParcour(p);
+                PictureBox1.Invalidate();
+                // listBox1_SelectedIndexChanged(null, null);
+            }
         }
 
-        private void radioButtonPenaltyCalcTypeChannel_CheckedChanged(object sender, EventArgs e)
+        private void radioButtonParcourTypeChannel_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonPenaltyCalcTypePROH.Checked = !radioButtonPenaltyCalcTypeChannel.Checked;
+            radioButtonParcourTypePROH.Checked = !radioButtonParcourTypeChannel.Checked;
 
-            layerBox.Visible = radioButtonPenaltyCalcTypePROH.Checked;
-            groupBoxChannel.Visible = radioButtonPenaltyCalcTypeChannel.Checked;
+            layerBox.Visible = radioButtonParcourTypePROH.Checked;
+            groupBoxChannel.Visible = radioButtonParcourTypeChannel.Checked;
+
+            ParcourSet p = activeParcour;
+            if (activeParcour != null)
+            {
+                p.PenaltyCalcType = radioButtonParcourTypePROH.Checked ? 0 : 1;
+                Client.DBContext.SaveChanges();
+                PictureBox1.SetParcour(p);
+                PictureBox1.Invalidate();
+                // listBox1_SelectedIndexChanged(null, null);
+
+            }
         }
 
         private void numericUpDownChannelAlpha_ValueChanged(object sender, EventArgs e)
@@ -676,9 +705,63 @@ namespace AirNavigationRaceLive.Comps
 
         }
 
+        private void btnColorLayer_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnColorPROH.BackColor = cd.Color;
+            ParcourSet p = activeParcour;
+            p.ColorPROH = cd.Color;
+            Client.DBContext.SaveChanges();
+            PictureBox1.ColorPROH = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void btnColorPen_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnColorGates.BackColor = cd.Color;
+            ParcourSet p = activeParcour;
+            p.ColorGates = cd.Color;
+            Client.DBContext.SaveChanges();
+            PictureBox1.ColorGates = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+
         private void numericUpDownPenGates_ValueChanged(object sender, EventArgs e)
         {
+            if (activeParcour != null)
+            {
+                ParcourSet p = activeParcour;
+                PictureBox1.PenWidthGates = (float)numericUpDownPenGates.Value;
+                p.PenWidthGates = numericUpDownPenGates.Value;
+             //   Client.DBContext.SaveChanges();
+                PictureBox1.SetParcour(p);
+                PictureBox1.Invalidate();
+            }
+        }
+
+        private void numericUpDownChannelPen_ValueChanged(object sender, EventArgs e)
+        {
+            if (activeParcour != null)
+            {
+                ParcourSet p = activeParcour;
+                // PictureBox1.PenWidthGates = (float)numericUpDownPenGates.Value;
+                p.PenWidthChannel = numericUpDownChannelPen.Value;
+                //Client.DBContext.SaveChanges();
+                PictureBox1.SetParcour(p);
+                PictureBox1.Invalidate();
+            }
 
         }
+
     }
 }

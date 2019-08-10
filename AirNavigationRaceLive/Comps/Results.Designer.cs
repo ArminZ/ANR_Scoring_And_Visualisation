@@ -56,11 +56,14 @@
             this.lblResults = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.visualisationPictureBox1 = new AirNavigationRaceLive.Comps.PictureBoxExt();
+            this.groupBoxTogglePenaltyPanel = new System.Windows.Forms.GroupBox();
+            this.btnTogglePenaltyPanel = new System.Windows.Forms.Button();
             this.groupBoxLoggerImport.SuspendLayout();
             this.groupBoxExportResults.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.visualisationPictureBox1)).BeginInit();
+            this.groupBoxTogglePenaltyPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBoxQualificRound
@@ -89,7 +92,7 @@
             // 
             this.btnLoggerImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnLoggerImport.Enabled = false;
-            this.btnLoggerImport.Location = new System.Drawing.Point(250, 28);
+            this.btnLoggerImport.Location = new System.Drawing.Point(250, 33);
             this.btnLoggerImport.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLoggerImport.Name = "btnLoggerImport";
             this.btnLoggerImport.Size = new System.Drawing.Size(110, 35);
@@ -104,11 +107,11 @@
             this.groupBoxLoggerImport.Controls.Add(this.radioButtonGPXimport);
             this.groupBoxLoggerImport.Controls.Add(this.radioButtonGACimport);
             this.groupBoxLoggerImport.Controls.Add(this.btnLoggerImport);
-            this.groupBoxLoggerImport.Location = new System.Drawing.Point(11, 1045);
+            this.groupBoxLoggerImport.Location = new System.Drawing.Point(9, 980);
             this.groupBoxLoggerImport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxLoggerImport.Name = "groupBoxLoggerImport";
             this.groupBoxLoggerImport.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxLoggerImport.Size = new System.Drawing.Size(385, 141);
+            this.groupBoxLoggerImport.Size = new System.Drawing.Size(385, 119);
             this.groupBoxLoggerImport.TabIndex = 121;
             this.groupBoxLoggerImport.TabStop = false;
             this.groupBoxLoggerImport.Text = "Logger Data import";
@@ -277,7 +280,7 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(369, 870);
+            this.dataGridView2.Size = new System.Drawing.Size(369, 804);
             this.dataGridView2.TabIndex = 125;
             this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged);
             this.dataGridView2.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView2_SortCompare);
@@ -377,11 +380,38 @@
             this.visualisationPictureBox1.TabIndex = 97;
             this.visualisationPictureBox1.TabStop = false;
             // 
+            // groupBoxTogglePenaltyPanel
+            // 
+            this.groupBoxTogglePenaltyPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxTogglePenaltyPanel.Controls.Add(this.btnTogglePenaltyPanel);
+            this.groupBoxTogglePenaltyPanel.Location = new System.Drawing.Point(9, 1107);
+            this.groupBoxTogglePenaltyPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxTogglePenaltyPanel.Name = "groupBoxTogglePenaltyPanel";
+            this.groupBoxTogglePenaltyPanel.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxTogglePenaltyPanel.Size = new System.Drawing.Size(385, 79);
+            this.groupBoxTogglePenaltyPanel.TabIndex = 130;
+            this.groupBoxTogglePenaltyPanel.TabStop = false;
+            this.groupBoxTogglePenaltyPanel.Text = "Toggle Show/Hide Penalty Panel";
+            // 
+            // btnTogglePenaltyPanel
+            // 
+            this.btnTogglePenaltyPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTogglePenaltyPanel.Enabled = false;
+            this.btnTogglePenaltyPanel.Location = new System.Drawing.Point(248, 28);
+            this.btnTogglePenaltyPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnTogglePenaltyPanel.Name = "btnTogglePenaltyPanel";
+            this.btnTogglePenaltyPanel.Size = new System.Drawing.Size(110, 35);
+            this.btnTogglePenaltyPanel.TabIndex = 118;
+            this.btnTogglePenaltyPanel.Text = "Hide";
+            this.btnTogglePenaltyPanel.UseVisualStyleBackColor = true;
+            this.btnTogglePenaltyPanel.Click += new System.EventHandler(this.btnTogglePenaltyPanel_Click);
+            // 
             // Results
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.Controls.Add(this.groupBoxTogglePenaltyPanel);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblResults);
@@ -404,6 +434,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.visualisationPictureBox1)).EndInit();
+            this.groupBoxTogglePenaltyPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -439,5 +470,7 @@
         private System.Windows.Forms.RadioButton radioButtonGPXimport;
         private System.Windows.Forms.RadioButton radioButtonGACimport;
         private System.Windows.Forms.RadioButton radioButtonRankingXLS;
+        private System.Windows.Forms.GroupBox groupBoxTogglePenaltyPanel;
+        private System.Windows.Forms.Button btnTogglePenaltyPanel;
     }
 }

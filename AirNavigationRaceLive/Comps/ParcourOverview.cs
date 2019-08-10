@@ -577,7 +577,7 @@ namespace AirNavigationRaceLive.Comps
             if (activeParcour != null)
             {
                 p.PenaltyCalcType = radioButtonParcourTypePROH.Checked ? 0 : 1;
-                Client.DBContext.SaveChanges();
+             //   Client.DBContext.SaveChanges();
                 PictureBox1.SetParcour(p);
                 PictureBox1.Invalidate();
                // listBox1_SelectedIndexChanged(null, null);
@@ -594,7 +594,7 @@ namespace AirNavigationRaceLive.Comps
             if (activeParcour != null)
             {
                 p.PenaltyCalcType = radioButtonParcourTypePROH.Checked ? 0 : 1;
-                Client.DBContext.SaveChanges();
+             //   Client.DBContext.SaveChanges();
                 PictureBox1.SetParcour(p);
                 PictureBox1.Invalidate();
                // listBox1_SelectedIndexChanged(null, null);

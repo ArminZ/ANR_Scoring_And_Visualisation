@@ -64,10 +64,6 @@
             this.btnFlightColor = new System.Windows.Forms.Button();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBoxCalculationType = new System.Windows.Forms.GroupBox();
-            this.radioButtonPenaltyCalcTypeChannel = new System.Windows.Forms.RadioButton();
-            this.radioButtonPenaltyCalcTypePROH = new System.Windows.Forms.RadioButton();
             this.groupBoxIntersect = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDownIntersectRadius = new System.Windows.Forms.NumericUpDown();
@@ -75,6 +71,13 @@
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownIntersectPen = new System.Windows.Forms.NumericUpDown();
             this.btnIntersectColor = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBoxCalculationType = new System.Windows.Forms.GroupBox();
+            this.radioButtonPenaltyCalcTypeChannel = new System.Windows.Forms.RadioButton();
+            this.radioButtonPenaltyCalcTypePROH = new System.Windows.Forms.RadioButton();
+            this.groupBoxLoggerDataImport = new System.Windows.Forms.GroupBox();
+            this.radioButtonLoggerDataFileTypeGAC = new System.Windows.Forms.RadioButton();
+            this.radioButtonLoggerDataFileTypeGPX = new System.Windows.Forms.RadioButton();
             this.groupBoxChannel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelFillAlpha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelPen)).BeginInit();
@@ -89,17 +92,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFlightPen)).BeginInit();
             this.tabControlSettings.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.groupBoxCalculationType.SuspendLayout();
             this.groupBoxIntersect.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectRadius)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectPen)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            this.groupBoxCalculationType.SuspendLayout();
+            this.groupBoxLoggerDataImport.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkParcourAdditionalText
             // 
             this.chkParcourAdditionalText.AutoSize = true;
-            this.chkParcourAdditionalText.Location = new System.Drawing.Point(26, 286);
+            this.chkParcourAdditionalText.Location = new System.Drawing.Point(26, 390);
             this.chkParcourAdditionalText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkParcourAdditionalText.Name = "chkParcourAdditionalText";
             this.chkParcourAdditionalText.Size = new System.Drawing.Size(358, 24);
@@ -110,7 +114,7 @@
             // chkDefaultDBDirectory
             // 
             this.chkDefaultDBDirectory.AutoSize = true;
-            this.chkDefaultDBDirectory.Location = new System.Drawing.Point(26, 245);
+            this.chkDefaultDBDirectory.Location = new System.Drawing.Point(26, 355);
             this.chkDefaultDBDirectory.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkDefaultDBDirectory.Name = "chkDefaultDBDirectory";
             this.chkDefaultDBDirectory.Size = new System.Drawing.Size(349, 24);
@@ -120,7 +124,7 @@
             // 
             // textBoxDatabasePath
             // 
-            this.textBoxDatabasePath.Location = new System.Drawing.Point(527, 245);
+            this.textBoxDatabasePath.Location = new System.Drawing.Point(527, 355);
             this.textBoxDatabasePath.Name = "textBoxDatabasePath";
             this.textBoxDatabasePath.Size = new System.Drawing.Size(491, 26);
             this.textBoxDatabasePath.TabIndex = 12;
@@ -237,7 +241,7 @@
             // 
             // btnDB
             // 
-            this.btnDB.Location = new System.Drawing.Point(434, 239);
+            this.btnDB.Location = new System.Drawing.Point(434, 349);
             this.btnDB.Name = "btnDB";
             this.btnDB.Size = new System.Drawing.Size(75, 35);
             this.btnDB.TabIndex = 31;
@@ -558,6 +562,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.groupBoxLoggerDataImport);
             this.tabPage1.Controls.Add(this.groupBoxIntersect);
             this.tabPage1.Controls.Add(this.groupBoxMaxPenalty);
             this.tabPage1.Controls.Add(this.groupBoxFlightTrack);
@@ -571,53 +576,6 @@
             this.tabPage1.Size = new System.Drawing.Size(1038, 515);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Common Settings";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.groupBoxCalculationType);
-            this.tabPage2.Controls.Add(this.groupBoxLayer);
-            this.tabPage2.Controls.Add(this.groupBoxSPFP);
-            this.tabPage2.Controls.Add(this.groupBoxChannel);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1038, 515);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Parcour Default Settings";
-            // 
-            // groupBoxCalculationType
-            // 
-            this.groupBoxCalculationType.Controls.Add(this.radioButtonPenaltyCalcTypeChannel);
-            this.groupBoxCalculationType.Controls.Add(this.radioButtonPenaltyCalcTypePROH);
-            this.groupBoxCalculationType.Location = new System.Drawing.Point(15, 19);
-            this.groupBoxCalculationType.Name = "groupBoxCalculationType";
-            this.groupBoxCalculationType.Size = new System.Drawing.Size(491, 121);
-            this.groupBoxCalculationType.TabIndex = 36;
-            this.groupBoxCalculationType.TabStop = false;
-            this.groupBoxCalculationType.Text = "Default Parcour Type";
-            // 
-            // radioButtonPenaltyCalcTypeChannel
-            // 
-            this.radioButtonPenaltyCalcTypeChannel.AutoSize = true;
-            this.radioButtonPenaltyCalcTypeChannel.Location = new System.Drawing.Point(17, 76);
-            this.radioButtonPenaltyCalcTypeChannel.Name = "radioButtonPenaltyCalcTypeChannel";
-            this.radioButtonPenaltyCalcTypeChannel.Size = new System.Drawing.Size(300, 24);
-            this.radioButtonPenaltyCalcTypeChannel.TabIndex = 1;
-            this.radioButtonPenaltyCalcTypeChannel.TabStop = true;
-            this.radioButtonPenaltyCalcTypeChannel.Text = "Parcour consisting of closed channels";
-            this.radioButtonPenaltyCalcTypeChannel.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonPenaltyCalcTypePROH
-            // 
-            this.radioButtonPenaltyCalcTypePROH.AutoSize = true;
-            this.radioButtonPenaltyCalcTypePROH.Location = new System.Drawing.Point(17, 39);
-            this.radioButtonPenaltyCalcTypePROH.Name = "radioButtonPenaltyCalcTypePROH";
-            this.radioButtonPenaltyCalcTypePROH.Size = new System.Drawing.Size(280, 24);
-            this.radioButtonPenaltyCalcTypePROH.TabIndex = 0;
-            this.radioButtonPenaltyCalcTypePROH.TabStop = true;
-            this.radioButtonPenaltyCalcTypePROH.Text = "Parcour based on prohibited zones";
-            this.radioButtonPenaltyCalcTypePROH.UseVisualStyleBackColor = true;
             // 
             // groupBoxIntersect
             // 
@@ -723,6 +681,88 @@
             this.btnIntersectColor.Text = "...";
             this.btnIntersectColor.UseVisualStyleBackColor = false;
             // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.groupBoxCalculationType);
+            this.tabPage2.Controls.Add(this.groupBoxLayer);
+            this.tabPage2.Controls.Add(this.groupBoxSPFP);
+            this.tabPage2.Controls.Add(this.groupBoxChannel);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1038, 515);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Parcour Default Settings";
+            // 
+            // groupBoxCalculationType
+            // 
+            this.groupBoxCalculationType.Controls.Add(this.radioButtonPenaltyCalcTypeChannel);
+            this.groupBoxCalculationType.Controls.Add(this.radioButtonPenaltyCalcTypePROH);
+            this.groupBoxCalculationType.Location = new System.Drawing.Point(15, 19);
+            this.groupBoxCalculationType.Name = "groupBoxCalculationType";
+            this.groupBoxCalculationType.Size = new System.Drawing.Size(491, 121);
+            this.groupBoxCalculationType.TabIndex = 36;
+            this.groupBoxCalculationType.TabStop = false;
+            this.groupBoxCalculationType.Text = "Default Parcour Type";
+            // 
+            // radioButtonPenaltyCalcTypeChannel
+            // 
+            this.radioButtonPenaltyCalcTypeChannel.AutoSize = true;
+            this.radioButtonPenaltyCalcTypeChannel.Location = new System.Drawing.Point(17, 76);
+            this.radioButtonPenaltyCalcTypeChannel.Name = "radioButtonPenaltyCalcTypeChannel";
+            this.radioButtonPenaltyCalcTypeChannel.Size = new System.Drawing.Size(300, 24);
+            this.radioButtonPenaltyCalcTypeChannel.TabIndex = 1;
+            this.radioButtonPenaltyCalcTypeChannel.TabStop = true;
+            this.radioButtonPenaltyCalcTypeChannel.Text = "Parcour consisting of closed channels";
+            this.radioButtonPenaltyCalcTypeChannel.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonPenaltyCalcTypePROH
+            // 
+            this.radioButtonPenaltyCalcTypePROH.AutoSize = true;
+            this.radioButtonPenaltyCalcTypePROH.Location = new System.Drawing.Point(17, 39);
+            this.radioButtonPenaltyCalcTypePROH.Name = "radioButtonPenaltyCalcTypePROH";
+            this.radioButtonPenaltyCalcTypePROH.Size = new System.Drawing.Size(280, 24);
+            this.radioButtonPenaltyCalcTypePROH.TabIndex = 0;
+            this.radioButtonPenaltyCalcTypePROH.TabStop = true;
+            this.radioButtonPenaltyCalcTypePROH.Text = "Parcour based on prohibited zones";
+            this.radioButtonPenaltyCalcTypePROH.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxLoggerDataImport
+            // 
+            this.groupBoxLoggerDataImport.Controls.Add(this.radioButtonLoggerDataFileTypeGPX);
+            this.groupBoxLoggerDataImport.Controls.Add(this.radioButtonLoggerDataFileTypeGAC);
+            this.groupBoxLoggerDataImport.Location = new System.Drawing.Point(19, 224);
+            this.groupBoxLoggerDataImport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxLoggerDataImport.Name = "groupBoxLoggerDataImport";
+            this.groupBoxLoggerDataImport.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxLoggerDataImport.Size = new System.Drawing.Size(491, 102);
+            this.groupBoxLoggerDataImport.TabIndex = 41;
+            this.groupBoxLoggerDataImport.TabStop = false;
+            this.groupBoxLoggerDataImport.Text = "Logger data import";
+            // 
+            // radioButtonLoggerDataFileTypeGAC
+            // 
+            this.radioButtonLoggerDataFileTypeGAC.AutoSize = true;
+            this.radioButtonLoggerDataFileTypeGAC.Location = new System.Drawing.Point(16, 31);
+            this.radioButtonLoggerDataFileTypeGAC.Name = "radioButtonLoggerDataFileTypeGAC";
+            this.radioButtonLoggerDataFileTypeGAC.Size = new System.Drawing.Size(146, 24);
+            this.radioButtonLoggerDataFileTypeGAC.TabIndex = 0;
+            this.radioButtonLoggerDataFileTypeGAC.TabStop = true;
+            this.radioButtonLoggerDataFileTypeGAC.Text = "*.GAC File Type";
+            this.radioButtonLoggerDataFileTypeGAC.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonLoggerDataFileTypeGPX
+            // 
+            this.radioButtonLoggerDataFileTypeGPX.AutoSize = true;
+            this.radioButtonLoggerDataFileTypeGPX.Location = new System.Drawing.Point(16, 62);
+            this.radioButtonLoggerDataFileTypeGPX.Name = "radioButtonLoggerDataFileTypeGPX";
+            this.radioButtonLoggerDataFileTypeGPX.Size = new System.Drawing.Size(145, 24);
+            this.radioButtonLoggerDataFileTypeGPX.TabIndex = 1;
+            this.radioButtonLoggerDataFileTypeGPX.TabStop = true;
+            this.radioButtonLoggerDataFileTypeGPX.Text = "*.GPX File Type";
+            this.radioButtonLoggerDataFileTypeGPX.UseVisualStyleBackColor = true;
+            // 
             // UserSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -752,13 +792,15 @@
             this.tabControlSettings.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.groupBoxCalculationType.ResumeLayout(false);
-            this.groupBoxCalculationType.PerformLayout();
             this.groupBoxIntersect.ResumeLayout(false);
             this.groupBoxIntersect.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectRadius)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectPen)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.groupBoxCalculationType.ResumeLayout(false);
+            this.groupBoxCalculationType.PerformLayout();
+            this.groupBoxLoggerDataImport.ResumeLayout(false);
+            this.groupBoxLoggerDataImport.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -812,5 +854,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDownIntersectPen;
         private System.Windows.Forms.Button btnIntersectColor;
+        private System.Windows.Forms.GroupBox groupBoxLoggerDataImport;
+        private System.Windows.Forms.RadioButton radioButtonLoggerDataFileTypeGPX;
+        private System.Windows.Forms.RadioButton radioButtonLoggerDataFileTypeGAC;
     }
 }

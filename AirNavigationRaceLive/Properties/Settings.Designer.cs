@@ -320,5 +320,17 @@ namespace AirNavigationRaceLive.Properties {
                 this["ParcourType"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LoggerDataFileType {
+            get {
+                return ((int)(this["LoggerDataFileType"]));
+            }
+            set {
+                this["LoggerDataFileType"] = value;
+            }
+        }
     }
 }

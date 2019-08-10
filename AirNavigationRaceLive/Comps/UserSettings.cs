@@ -53,6 +53,7 @@ namespace AirNavigationRaceLive.Comps
 
             Properties.Settings.Default.MaxPenaltyPerEvent = (int)numericUpDownMaxPenalty.Value;
             Properties.Settings.Default.ParcourType = radioButtonPenaltyCalcTypePROH.Checked ? 0 : 1;
+            Properties.Settings.Default.LoggerDataFileType = radioButtonLoggerDataFileTypeGAC.Checked ? 0 : 1;
 
             Properties.Settings.Default.Save();
         }
@@ -92,6 +93,9 @@ namespace AirNavigationRaceLive.Comps
 
             radioButtonPenaltyCalcTypePROH.Checked = Properties.Settings.Default.ParcourType == 0;
             radioButtonPenaltyCalcTypeChannel.Checked = Properties.Settings.Default.ParcourType == 1;
+
+            radioButtonLoggerDataFileTypeGAC.Checked = Properties.Settings.Default.ParcourType == 0;
+            radioButtonLoggerDataFileTypeGPX.Checked = Properties.Settings.Default.ParcourType == 1;
 
         }
 

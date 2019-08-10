@@ -17,7 +17,7 @@ namespace AirNavigationRaceLive.Comps
         private QualificationRoundSet qualificRound = null;
         private ParcourSet parcour;
         private PenaltySet pDeleted;
-
+        private bool ShowPenaltyPanel = true;
 
         public Results(Client.DataAccess iClient)
         {
@@ -25,6 +25,8 @@ namespace AirNavigationRaceLive.Comps
             InitializeComponent();
             dataGridView2.MultiSelect = false;
             dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            radioButtonGACimport.Checked = Properties.Settings.Default.LoggerDataFileType == 0;
+            radioButtonGPXimport.Checked = Properties.Settings.Default.LoggerDataFileType == 1;
             //dataGridView2.RowHeadersVisible = false;
             //dataGridView1.RowHeadersWidth = 30;
 
@@ -149,8 +151,9 @@ namespace AirNavigationRaceLive.Comps
         private void updateEnablement()
         {
             btnLoggerImport.Enabled = dataGridView2.SelectedRows.Count > 0;
+            btnTogglePenaltyPanel.Enabled = dataGridView2.SelectedRows.Count > 0;
             btnExportResults.Enabled = dataGridView2.SelectedRows.Count > 0;
-            dataGridView1.Visible = dataGridView2.SelectedRows.Count > 0;
+            dataGridView1.Visible = dataGridView2.SelectedRows.Count > 0 && ShowPenaltyPanel;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -482,7 +485,15 @@ namespace AirNavigationRaceLive.Comps
                 e.Handled = true;//pass by the default sorting
             }
         }
-}
+
+        private void btnTogglePenaltyPanel_Click(object sender, EventArgs e)
+        {
+        ShowPenaltyPanel = !ShowPenaltyPanel;
+        dataGridView1.Visible = ShowPenaltyPanel;
+        btnTogglePenaltyPanel.Text = ShowPenaltyPanel ? "Hide Penalty Panel" : "Show Penalty Panel";
+
+        }
+    }
 
     class Toplist : IComparable
     {
