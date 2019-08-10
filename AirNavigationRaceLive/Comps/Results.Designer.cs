@@ -397,12 +397,12 @@
             // 
             this.btnTogglePenaltyPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnTogglePenaltyPanel.Enabled = false;
-            this.btnTogglePenaltyPanel.Location = new System.Drawing.Point(248, 28);
+            this.btnTogglePenaltyPanel.Location = new System.Drawing.Point(189, 28);
             this.btnTogglePenaltyPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnTogglePenaltyPanel.Name = "btnTogglePenaltyPanel";
-            this.btnTogglePenaltyPanel.Size = new System.Drawing.Size(110, 35);
+            this.btnTogglePenaltyPanel.Size = new System.Drawing.Size(169, 35);
             this.btnTogglePenaltyPanel.TabIndex = 118;
-            this.btnTogglePenaltyPanel.Text = "Hide";
+            this.btnTogglePenaltyPanel.Text = "Hide Penalty Panel";
             this.btnTogglePenaltyPanel.UseVisualStyleBackColor = true;
             this.btnTogglePenaltyPanel.Click += new System.EventHandler(this.btnTogglePenaltyPanel_Click);
             // 

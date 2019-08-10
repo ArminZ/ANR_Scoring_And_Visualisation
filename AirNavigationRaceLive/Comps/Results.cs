@@ -253,8 +253,8 @@ namespace AirNavigationRaceLive.Comps
 
                 if (exportAsPdf)
                 {
-                PDFCreator.CreateRankingListPDF(Client, qualificRound, ctl, dirPath +
-                    @"\Results_" + cleanedString(qualificRound.Name) + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
+                    PDFCreator.CreateRankingListPDF(Client, qualificRound, ctl, dirPath +
+                        @"\Results_" + cleanedString(qualificRound.Name) + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
                 }
                 else
                 {
@@ -487,11 +487,11 @@ namespace AirNavigationRaceLive.Comps
         }
 
         private void btnTogglePenaltyPanel_Click(object sender, EventArgs e)
-        {
-        ShowPenaltyPanel = !ShowPenaltyPanel;
-        dataGridView1.Visible = ShowPenaltyPanel;
-        btnTogglePenaltyPanel.Text = ShowPenaltyPanel ? "Hide Penalty Panel" : "Show Penalty Panel";
-
+        { 
+            // show/hide data grid with penalties
+            ShowPenaltyPanel = !ShowPenaltyPanel;
+            dataGridView1.Visible = ShowPenaltyPanel;
+            btnTogglePenaltyPanel.Text = ShowPenaltyPanel ? "Hide Penalty Panel" : "Show Penalty Panel";
         }
     }
 
