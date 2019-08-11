@@ -23,12 +23,15 @@ At this time the application was basically a client-server application with a ce
 
 During 2016 the user interface was entirely renewed and improved, bugs fixed, unused and outdated code removed. The most important new functionality was the Route Generator, allowing parcour generation from Google Earth kml files. Also some documentation was provided, including the important subjects of map conversion/map import, and parcour creation/import.
 
-#### version 2.0.0 (August 2017)
+#### version 2.1.0 (August 2019)
 
-* Move from Entity Framework (EF) 6.1 database-first approach to EF 6.1 Code-first approach.
-* Implementation of EF Migration functionality
-* Table and field changes can be made to the software
-* When a new release includes additional database tables/fields, EF Migration will allow to 'upgrade' database files created with previous releases.
+* Bug fix for penalty calculation on SP/FP
+* various default values implemented in user settings
+* Implemented configurable cap for maximum penalty (default=0, no cap)
+* various line widths and colors customizable
+* custom map scale implemented
+* Results: crossing points of flight path with prohibited zone borders, SP, FP are marked with a small circle
+* Introduced concept of Parcour type (parcour basd on prohibited zones, parcour as a closed channel)
 
 
 --- 
