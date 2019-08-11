@@ -395,14 +395,12 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             //const double d = 0.4;
             List<Vector> lstVct = new List<Vector>();
 
-            //lstVct.Add(lstVectors1[0]);
             lstVct.Add(GetIntersectPoint(lstVectors1[0], lstVectors1[1], d));
             for (int i = 1; i < lstVectors1.Count - 1; i++)
             {
                 lstVct.Add(lstVectors1[i]);
             }
             lstVct.Add(GetIntersectPoint(lstVectors1[lstVectors1.Count - 1], lstVectors1[lstVectors1.Count - 2], d));
-            //lstVct.Add(lstVectors1[lstVectors1.Count - 1]);
             return lstVct;
         }
     }

@@ -43,10 +43,10 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(734, 72);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(4);
+            this.btnOK.Location = new System.Drawing.Point(826, 90);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(92, 24);
+            this.btnOK.Size = new System.Drawing.Size(104, 30);
             this.btnOK.TabIndex = 7;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -55,10 +55,10 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(734, 104);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Location = new System.Drawing.Point(826, 130);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(92, 24);
+            this.btnCancel.Size = new System.Drawing.Size(104, 30);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -71,9 +71,10 @@
             // 
             // btnFindDatabase
             // 
-            this.btnFindDatabase.Location = new System.Drawing.Point(792, 13);
+            this.btnFindDatabase.Location = new System.Drawing.Point(891, 16);
+            this.btnFindDatabase.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnFindDatabase.Name = "btnFindDatabase";
-            this.btnFindDatabase.Size = new System.Drawing.Size(34, 23);
+            this.btnFindDatabase.Size = new System.Drawing.Size(38, 29);
             this.btnFindDatabase.TabIndex = 3;
             this.btnFindDatabase.Text = "...";
             this.btnFindDatabase.UseVisualStyleBackColor = true;
@@ -81,18 +82,20 @@
             // 
             // textBoxDatabasePath
             // 
-            this.textBoxDatabasePath.Location = new System.Drawing.Point(356, 13);
+            this.textBoxDatabasePath.Location = new System.Drawing.Point(400, 16);
+            this.textBoxDatabasePath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxDatabasePath.Name = "textBoxDatabasePath";
-            this.textBoxDatabasePath.Size = new System.Drawing.Size(430, 22);
+            this.textBoxDatabasePath.Size = new System.Drawing.Size(483, 26);
             this.textBoxDatabasePath.TabIndex = 2;
             this.textBoxDatabasePath.TextChanged += new System.EventHandler(this.textBoxDatabasePath_TextChanged);
             // 
             // checkBoxDefaultDBDirectory
             // 
             this.checkBoxDefaultDBDirectory.AutoSize = true;
-            this.checkBoxDefaultDBDirectory.Location = new System.Drawing.Point(23, 13);
+            this.checkBoxDefaultDBDirectory.Location = new System.Drawing.Point(26, 16);
+            this.checkBoxDefaultDBDirectory.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBoxDefaultDBDirectory.Name = "checkBoxDefaultDBDirectory";
-            this.checkBoxDefaultDBDirectory.Size = new System.Drawing.Size(311, 21);
+            this.checkBoxDefaultDBDirectory.Size = new System.Drawing.Size(349, 24);
             this.checkBoxDefaultDBDirectory.TabIndex = 8;
             this.checkBoxDefaultDBDirectory.Text = "Database File: use a default DB file directory";
             this.checkBoxDefaultDBDirectory.UseVisualStyleBackColor = true;
@@ -101,9 +104,10 @@
             // checkBoxParcourAdditionalText
             // 
             this.checkBoxParcourAdditionalText.AutoSize = true;
-            this.checkBoxParcourAdditionalText.Location = new System.Drawing.Point(23, 40);
+            this.checkBoxParcourAdditionalText.Location = new System.Drawing.Point(26, 50);
+            this.checkBoxParcourAdditionalText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBoxParcourAdditionalText.Name = "checkBoxParcourAdditionalText";
-            this.checkBoxParcourAdditionalText.Size = new System.Drawing.Size(319, 21);
+            this.checkBoxParcourAdditionalText.Size = new System.Drawing.Size(358, 24);
             this.checkBoxParcourAdditionalText.TabIndex = 9;
             this.checkBoxParcourAdditionalText.Text = "Parcour PDF export: Prompt for additional text";
             this.checkBoxParcourAdditionalText.UseVisualStyleBackColor = true;
@@ -111,10 +115,10 @@
             // 
             // SettingsDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(843, 153);
+            this.ClientSize = new System.Drawing.Size(948, 191);
             this.Controls.Add(this.checkBoxParcourAdditionalText);
             this.Controls.Add(this.checkBoxDefaultDBDirectory);
             this.Controls.Add(this.btnFindDatabase);
@@ -122,11 +126,12 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SettingsDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.SettingsDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

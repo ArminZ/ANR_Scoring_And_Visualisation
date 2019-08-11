@@ -13,7 +13,7 @@ namespace AirNavigationRaceLive.Comps.Helper
     {
         public static List<string> lstWarnings = new List<string>();
         /// <summary> 
-        /// Imports a DxfFile that is in the specified Format. Any changes on the import schema may cause Errors!
+        /// Imports a DxfFile that is in the CH coordinate Format. Any changes on the import schema may cause Errors!
         /// </summary>
         /// <param name="filepath"></param>
         public static ParcourSet importFromDxfCH(string filepath)
@@ -117,7 +117,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(Longitude2, Latitude2, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
+                        l.Type = (int)lineTypeFromLineName(lines[i + 6].ToString().Trim());
 
                         result.Line.Add(l);
                     }
@@ -157,7 +157,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(Longitude2, Latitude2, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
+                        l.Type = (int)lineTypeFromLineName(lines[i + 6].ToString().Trim());
 
                         result.Line.Add(l);
 
@@ -185,7 +185,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                             Vector end = new Vector(Longitude2, Latitude2, 0);
                             Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                             l.O = o.toGPSPoint();
-                            l.Type = (int)LineType.LINEOFNORETURN;
+                            l.Type = (int)LineType.NOBACKTRACKLINE;
                             result.Line.Add(l);
                         }
                     }
@@ -193,7 +193,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             }
             return result;
         }/// <summary> 
-         /// Imports a DxfFile that is in the specified Format. Any changes on the import schema may cause Errors!
+         /// Imports a DxfFile that is in WGS Format. Any changes on the import schema may cause Errors!
          /// </summary>
          /// <param name="filepath"></param>
         public static ParcourSet importFromDxfWGS(string filepath)
@@ -297,7 +297,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(Longitude2, Latitude2, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
+                        l.Type = (int)lineTypeFromLineName(lines[i + 6].ToString().Trim());
 
                         result.Line.Add(l);
                     }
@@ -337,7 +337,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(Longitude2, Latitude2, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
+                        l.Type = (int)lineTypeFromLineName(lines[i + 6].ToString().Trim());
 
                         result.Line.Add(l);
 
@@ -364,7 +364,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                             Vector end = new Vector(Longitude2, Latitude2, 0);
                             Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                             l.O = o.toGPSPoint();
-                            l.Type = (int)LineType.LINEOFNORETURN;
+                            l.Type = (int)LineType.NOBACKTRACKLINE;
                             result.Line.Add(l);
                         }
                     }
@@ -373,7 +373,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             return result;
         }
         /// <summary> 
-        /// Imports a DxfFile that is in the specified Format. Any changes on the import schema may cause Errors!
+        /// Imports a DxfFile that is in 'switched' WGS Format. Any changes on the import schema may cause Errors!
         /// </summary>
         /// <param name="filepath"></param>
         public static ParcourSet importFromDxfWGSSwitched(string filepath)
@@ -477,7 +477,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(Longitude2, Latitude2, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
+                        l.Type = (int)lineTypeFromLineName(lines[i + 6].ToString().Trim());
 
                         result.Line.Add(l);
                     }
@@ -517,7 +517,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector end = new Vector(Longitude2, Latitude2, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(lines[i + 6].ToString().Trim());
+                        l.Type = (int)lineTypeFromLineName(lines[i + 6].ToString().Trim());
 
                         result.Line.Add(l);
 
@@ -544,7 +544,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                             Vector end = new Vector(Longitude2, Latitude2, 0);
                             Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
                             l.O = o.toGPSPoint();
-                            l.Type = (int)LineType.LINEOFNORETURN;
+                            l.Type = (int)LineType.NOBACKTRACKLINE;
                             result.Line.Add(l);
                         }
                     }
@@ -553,9 +553,8 @@ namespace AirNavigationRaceLive.Comps.Helper
             return result;
         }
 
-
         /// <summary> 
-        /// Imports the Layer of prohibited data from a KML file that is in a specified Format
+        /// Imports the Layer of prohibited data and other data from a KML file that is in a specified Format
         /// </summary>
         /// <param name="filepath"></param>
         public static ParcourSet importFromKMLLayer(string filepath)
@@ -570,11 +569,14 @@ namespace AirNavigationRaceLive.Comps.Helper
             // STARTPOINT-A, STARTPOINT-B, STARTPOINT-C, STARTPOINT-D
             // ENDPOINT-A, ENDPOINT-B, ENDPOINT-C, ENDPOINT-D
             // NBLINE
+            // CHANNEL-A to CHANNEL-D
+            // PROH-A to PROH-D
 
             ParcourSet result = new ParcourSet();
 
-            XNamespace nsKml = XNamespace.Get("http://www.opengis.net/kml/2.2");
+            //XNamespace nsKml = XNamespace.Get("http://www.opengis.net/kml/2.2");
             XDocument gpxDoc = XDocument.Load(filepath);
+            XNamespace nsKml = gpxDoc.Root.Name.Namespace;
             var folders = from flder in gpxDoc.Descendants(nsKml + "Folder")
                           where flder.Element(nsKml + "name").Value.ToString().Trim() == "LiveTracking"
                           select flder;
@@ -587,54 +589,94 @@ namespace AirNavigationRaceLive.Comps.Helper
             {
                 string pmName = placemark.Element(nsKml + "name").Value.Trim();
 
-                if (pmName.StartsWith("PROH"))
+                //if (pmName.StartsWith("PROH"))
+                if (pmName.StartsWith("PROH") || pmName.StartsWith("CHANNEL-"))
                 {
+                    // the below function handles also channel-specific Prohibited areas (PROH-A, ....)
+                    int lType = (int)lineTypeFromLineName(pmName);
+                    bool isChannel = pmName.StartsWith("CHANNEL-");
                     // create polygon elements
                     foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
                     {
                         List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
-                        int numberOfVertexes = lst.Count;
-                        List<Vector> input = new List<Vector>();
+                        // int numberOfVertexes = lst.Count;
+                        List<Vector> vcts = new List<Vector>();
                         foreach (var pt in lst)
                         {
                             Vector v = new Vector(pt.longitude, pt.latitude, 0);
-                            input.Add(v);
+                            vcts.Add(v);
                         }
-                        if (input.Count > 2)
+
+                        #region New Code (Orientation point will not be used, only one closed poygon for each PROH area)
+
+                        // see also changes on ParcourPictureBox.OnPaint
+                        for (int j = 0; j < vcts.Count; j++)
                         {
-                            // not very clear what we are doing here, copied from above
-                            List<List<Vector>> konvexLists = Vector.KonvexPolygons(input);
-                            foreach (List<Vector> list in konvexLists)
+                            Line l = new Line();
+                            l.Type = lType;
+
+                            if (j > 0)
                             {
-                                double sumX = 0;
-                                double sumY = 0;
-                                double count = 0;
-                                foreach (Vector v in list)
+                                Vector a = vcts[j - 1];
+                                Vector b = vcts[j];
+                                Vector o = new Vector((a.X + b.X) / 2.0, (a.Y + b.Y) / 2.0, 0);
+                                if (!isChannel)
                                 {
-                                    sumX += v.X;
-                                    sumY += v.Y;
-                                    count += 1;
+                                    o = Vector.Middle(a, b) - Vector.Orthogonal(a - b);
                                 }
-                                Vector o = new Vector(sumX / count, sumY / count, 0);
-                                for (int j = 0; j < list.Count; j++)
-                                {
-                                    Line l = new Line();
-                                    l.Type = (int)LineType.PENALTYZONE;
-                                    int i_a = j % list.Count;
-                                    int i_b = (j + 1) % list.Count;
-                                    Vector a = list[i_a];
-                                    Vector b = list[i_b];
-                                    l.A = a.toGPSPoint();
-                                    l.B = b.toGPSPoint();
-                                    l.O = o.toGPSPoint();
-                                    result.Line.Add(l);
-                                }
+                                l.A = a.toGPSPoint();
+                                l.B = b.toGPSPoint();
+                                l.O = o.toGPSPoint();
+                                result.Line.Add(l);
                             }
                         }
+                        #endregion
+
+                        #region Old Code (unused) with lots of polygons for each PROH area
+                        // this old code splits the polygon into triangles ("ears")
+                        // the orientation point being the third point for a line segment
+                        // with this a triangle is defined which is later printed (see also old code on ParcourPictureBox.OnPaint)
+                        // this will not always work in case of concave / more complex/"bent" parcours
+                        //if (input.Count > 2)
+                        //{
+                        //    // not very clear what we are doing here
+                        //    List<List<Vector>> konvexLists = Vector.KonvexPolygons(input);
+                        //    foreach (List<Vector> list in konvexLists)
+                        //    {
+                        //        double sumX = 0;
+                        //        double sumY = 0;
+                        //        double count = 0;
+                        //        foreach (Vector v in list)
+                        //        {
+                        //            sumX += v.X;
+                        //            sumY += v.Y;
+                        //            count += 1;
+                        //        }
+                        //      // create an 'averaged' vector
+                        //        Vector o = new Vector(sumX / count, sumY / count, 0);
+                        //
+                        //        for (int j = 0; j < list.Count; j++)
+                        //        {
+                        //            Line l = new Line();
+                        //            l.Type = (int)LineType.PENALTYZONE;
+                        //            int i_a = j % list.Count;
+                        //            int i_b = (j + 1) % list.Count;
+                        //            Vector a = list[i_a];
+                        //            Vector b = list[i_b];
+                        //            l.A = a.toGPSPoint();
+                        //            l.B = b.toGPSPoint();
+                        //            l.O = o.toGPSPoint();
+                        //            result.Line.Add(l);
+                        //        }
+                        //    }
+                        //    //
+                        //} 
+                        #endregion
                     }
                 }
-                else if (pmName.StartsWith("STARTPOINT-"))
+                else if (pmName.StartsWith("STARTPOINT-") || pmName.StartsWith("ENDPOINT-") || pmName.StartsWith("NBLINE"))
                 {
+                    int lType = (int)lineTypeFromLineName(pmName);
                     // create line elements
                     foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
                     {
@@ -645,46 +687,9 @@ namespace AirNavigationRaceLive.Comps.Helper
                         Vector start = new Vector(l.A.longitude, l.A.latitude, 0);
                         Vector end = new Vector(l.B.longitude, l.B.latitude, 0);
                         Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
+                        //o = Vector.ArrowPointFromGivenLine(start, end);
                         l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(pmName);
-                        result.Line.Add(l);
-                    }
-                }
-                else if (pmName.StartsWith("ENDPOINT-"))
-                {
-                    // create line elements
-                    foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
-                    {
-                        Line l = new Line();
-                        List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
-                        l.A = lst[0];
-                        l.B = lst[1];
-
-                        Vector start = new Vector(l.A.longitude, l.A.latitude, 0);
-                        Vector end = new Vector(l.B.longitude, l.B.latitude, 0);
-                        Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
-                        l.O = o.toGPSPoint();
-                        l.Type = (int)gateLineTypeFromGateName(pmName);
-                        result.Line.Add(l);
-
-                    }
-                }
-                else if (pmName.StartsWith("NBLINE"))
-                {
-                    // create line elements
-                    foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
-                    {
-                        Line l = new Line();
-                        List<AirNavigationRaceLive.Model.Point> lst = getPointsFromKMLCoordinates(coord.Value);
-                        l.A = lst[0];
-                        l.B = lst[1];
-
-                        Vector start = new Vector(l.A.longitude, l.A.latitude, 0);
-                        Vector end = new Vector(l.B.longitude, l.B.latitude, 0);
-                        Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
-                        l.O = o.toGPSPoint();
-
-                        l.Type = (int)LineType.LINEOFNORETURN;
+                        l.Type = lType;
                         result.Line.Add(l);
                     }
                 }
@@ -701,8 +706,9 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// <param name="filepath"></param>
         public static List<Line> importTKOFLineFromKML(string filepath, out List<string> lstTKOFLineNames)
         {
-            XNamespace nsKml = XNamespace.Get("http://www.opengis.net/kml/2.2");
+            //XNamespace nsKml = XNamespace.Get("http://www.opengis.net/kml/2.2");
             XDocument gpxDoc = XDocument.Load(filepath);
+            XNamespace nsKml = gpxDoc.Root.Name.Namespace;
             var placemark = from plmk in gpxDoc.Descendants(nsKml + "Placemark")
                             where plmk.Element(nsKml + "name").Value.ToString().Trim().StartsWith("TKOF")
                             select plmk;
@@ -731,156 +737,6 @@ namespace AirNavigationRaceLive.Comps.Helper
             }
             lstTKOFLineNames = lstNames;
             return lstLines;
-        }
-
-
-        /// <summary>
-        /// Imports a GAC File of a Flight.
-        /// </summary>
-        /// <param name="filepath"></param>
-        /// <returns>The created Flight object</returns>
-        public static List<AirNavigationRaceLive.Model.Point> GPSdataFromGAC(int year, int month, int day, string filename)
-        {
-            lstWarnings.Clear();
-            List<AirNavigationRaceLive.Model.Point> result = new List<AirNavigationRaceLive.Model.Point>();
-            StreamReader gacFileStreamReader = new StreamReader(filename);
-            string line = string.Empty;
-            long iCnt = 0;
-            //line = gacFileStreamReader.ReadLine();
-            //while (!line.Substring(0, 1).Equals("I") && !gacFileStreamReader.EndOfStream)
-            //{
-            //    line = gacFileStreamReader.ReadLine();
-            //}
-            // Date line at the beginning of the file would be e.g. HFDTE300411
-            // HFDTE300411
-            {
-                while (!gacFileStreamReader.EndOfStream)
-                {
-                    line = gacFileStreamReader.ReadLine();
-                    if (line.Length == 0)
-                    {
-                        continue;
-                    }
-                    if (line.Substring(0, 1).Equals("B"))
-                    {
-                        iCnt++;
-                        //B082337 4758489N 008 30 945 E A99999 0224901011680001
-                        //B1601114816962N00700724EA003100037007532330012
-                        // timestamp
-                        DateTime newPointTimeStamp = new DateTime(year, month, day);
-                        // in certain cases loggerds may produce a timestamp as 100860 (10:08:60 is basically an invalid timestamp)
-                        // this case can however be handled
-                        try
-                        {
-                            // this will reject a formally invalid timestamp 101160
-                            //newPointTimeStamp = new DateTime(year, month, day,
-                            //Convert.ToInt32(line.Substring(1, 2)),
-                            //Convert.ToInt32(line.Substring(3, 2)),
-                            //Convert.ToInt32(line.Substring(5, 2)));
-
-                            // this will accept a formally invalid timestamp 101160 --> 101200
-
-                            newPointTimeStamp = newPointTimeStamp.AddHours(Convert.ToInt32(line.Substring(1, 2)));
-                            newPointTimeStamp = newPointTimeStamp.AddMinutes(Convert.ToInt32(line.Substring(3, 2)));
-                            newPointTimeStamp = newPointTimeStamp.AddSeconds(Convert.ToInt32(line.Substring(5, 2)));
-                            newPointTimeStamp.ToString("HHmmss");
-                            if (Convert.ToInt32(line.Substring(1, 2)) < 0 || Convert.ToInt32(line.Substring(1, 2)) > 23)
-                            {
-                                lstWarnings.Add(string.Format("WARNING: data line {0}, time value [{1}] is invalid. [{2}] will be used instead.", iCnt, line.Substring(1, 6), newPointTimeStamp.ToString("HHmmss")));
-                            }
-                            if (Convert.ToInt32(line.Substring(3, 2)) < 0 || Convert.ToInt32(line.Substring(3, 2)) > 59)
-                            {
-                                lstWarnings.Add(string.Format("WARNING: data line {0}, time value [{1}] value is invalid. [{2}] will be used instead.", iCnt, line.Substring(1, 6), newPointTimeStamp.ToString("HHmmss")));
-                            }
-                            if (Convert.ToInt32(line.Substring(5, 2)) < 0 || Convert.ToInt32(line.Substring(5, 2)) > 59)
-                            {
-                                lstWarnings.Add(string.Format("WARNING: data line {0}, time value [{1}] value is invalid. [{2}] will be used instead.", iCnt, line.Substring(1, 6), newPointTimeStamp.ToString("HHmmss")));
-
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            throw new ApplicationException(String.Format("\nError in time import on data line {1}\ndata {0} is probably not a valid time format (HHmmss)", line.Substring(1, 6), iCnt));
-                        }
-
-                        // latitude
-                        double newPointLatitude;
-                        try
-                        {
-                            newPointLatitude = Convert.ToDouble(line.Substring(7, 2)) + Convert.ToDouble(line.Substring(9, 2) + "." + line.Substring(11, 3), NumberFormatInfo.InvariantInfo) / 60;
-                            switch (line.Substring(14, 1))
-                            {
-                                case "N":
-                                    break;
-                                case "S":
-                                    newPointLatitude *= (-1);
-                                    break;
-                                default:
-                                    // TODO: Error
-                                    break;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            throw new ApplicationException(String.Format("\nError in Longitude import\ndata line {1}: data value: {0}", line.Substring(7, 8), iCnt));
-                        }
-
-                        // longitude
-                        double newPointLongitude;
-                        try
-                        {
-                            newPointLongitude = Convert.ToDouble(line.Substring(15, 3)) + Convert.ToDouble(line.Substring(18, 2) + "." + line.Substring(20, 3), NumberFormatInfo.InvariantInfo) / 60;
-                            switch (line.Substring(23, 1))
-                            {
-                                case "E":
-                                    break;
-                                case "W":
-                                    newPointLongitude *= (-1);
-                                    break;
-                                default:
-                                    // ToDo: Error
-                                    break;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            throw new ApplicationException(String.Format("\nError in Longitude import\ndata line {1}: data value: {0}", line.Substring(15, 9), iCnt));
-                        }
-
-                        if (line.Length < 46)
-                        {
-                            throw new ApplicationException(String.Format("\nError in import\ndata line {1}: line length: {0}, expected: 46", line.Length, iCnt));
-                        }
-
-                        double altitude, speed, bearing, acc;
-                        string strFld = string.Empty, strPos = String.Empty;
-                        try
-                        {
-                            strFld = "altitude"; strPos = line.Substring(30, 5);
-                            altitude = double.Parse(line.Substring(30, 5), NumberFormatInfo.InvariantInfo) * 0.3048f; //Feet to Meter
-                            strFld = "speed"; strPos = line.Substring(35, 4);
-                            speed = (double.Parse(line.Substring(35, 4), NumberFormatInfo.InvariantInfo) / 10) / 0.514444444f; //Knot to m/s
-                            strFld = "bearing"; strPos = line.Substring(39, 3);
-                            bearing = double.Parse(line.Substring(39, 3), NumberFormatInfo.InvariantInfo);
-                            strFld = "acc"; strPos = line.Substring(42, 4);
-                            acc = double.Parse(line.Substring(42, 4), NumberFormatInfo.InvariantInfo);
-                        }
-                        catch (Exception)
-                        {
-                            throw new ApplicationException(String.Format("\nError in {2} import\ndata line {1}: data value: {0}", strPos, iCnt, strFld));
-                        }
-
-
-                        AirNavigationRaceLive.Model.Point data = new AirNavigationRaceLive.Model.Point();
-                        data.Timestamp = newPointTimeStamp.Ticks;
-                        data.latitude = newPointLatitude;
-                        data.longitude = newPointLongitude;
-                        data.altitude = altitude;
-                        result.Add(data);
-                    }
-                }
-            }
-            return result;
         }
 
         /// <summary>
@@ -1058,7 +914,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                         data.longitude = newPointLongitude;
                         data.altitude = altitude;
                         result.Add(data);
-                    } 
+                    }
                     #endregion
                 }
             }
@@ -1089,7 +945,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                                       Latitude = trackpoint.Attribute("lat").Value,
                                       Longitude = trackpoint.Attribute("lon").Value,
                                       Elevation = trackpoint.Element(gpx + "ele") != null ?
-                                        trackpoint.Element(gpx + "ele").Value : null,
+                                        trackpoint.Element(gpx + "ele").Value : "0.0",
                                       Time = trackpoint.Element(gpx + "time") != null ?
                                         trackpoint.Element(gpx + "time").Value : null
                                   }
@@ -1149,47 +1005,106 @@ namespace AirNavigationRaceLive.Comps.Helper
             return lst;
         }
 
+        public static string ReversedKMLCoordinateString(string str)
+        {
+            string ReversedCoordinates = string.Empty;
+            // NOTE: string may contain linebreaks, tabs instead of space
+            char[] splitchars = { ' ' };
+            string[] ptstrings = str.Replace("\n", " ").Replace("\t", " ").Replace("  ", " ").Split(splitchars, StringSplitOptions.RemoveEmptyEntries);
+            ReversedCoordinates = string.Join(" ", ptstrings.Reverse());
+            return ReversedCoordinates;
+        }
+
         /// <summary>
         /// retrieve the LineType based on the gate name.
         /// </summary>
         /// <param name="gateName"></param>
         /// <returns>The LineType</returns>
-        internal static LineType gateLineTypeFromGateName(string gateName)
+        internal static LineType lineTypeFromLineName(string gateName)
         {
-            switch (gateName)
+            const string STARTPT = @"STARTPOINT-";
+            const string ENDPT = @"ENDPOINT-";
+            const string CHANNEL = @"CHANNEL-";
+            const string PROH = @"PROH-";
+            // handle the generic PROH case (can be 'PROH A xxxxx' etc)
+            string gteName = (gateName.StartsWith("PROH") && !gateName.StartsWith("PROH-")) ? "PROH" : gateName;
+            switch (gteName)
             {
-                case "STARTPOINT-A":
+                case STARTPT + "A":
                     {
                         return LineType.START_A;
                     }
-                case "STARTPOINT-B":
+                case STARTPT + "B":
                     {
                         return LineType.START_B;
                     }
-                case "STARTPOINT-C":
+                case STARTPT + "C":
                     {
                         return LineType.START_C;
                     }
-                case "STARTPOINT-D":
+                case STARTPT + "D":
                     {
                         return LineType.START_D;
                     }
 
-                case "ENDPOINT-A":
+                case ENDPT + "A":
                     {
                         return LineType.END_A;
                     }
-                case "ENDPOINT-B":
+                case ENDPT + "B":
                     {
                         return LineType.END_B;
                     }
-                case "ENDPOINT-C":
+                case ENDPT + "C":
                     {
                         return LineType.END_C;
                     }
-                case "ENDPOINT-D":
+                case ENDPT + "D":
                     {
                         return LineType.END_D;
+                    }
+                case "NBLINE":
+                    {
+                        return LineType.NOBACKTRACKLINE;
+                    }
+
+                case "PROH":
+                    {
+                        return LineType.PENALTYZONE;  //generic prohibited zone, not route-specific.
+                    }
+                // the following added in version 2.1.0
+                case PROH + "-A":
+                    {
+                        return LineType.PROH_A;
+                    }
+                case PROH + "-B":
+                    {
+                        return LineType.PROH_B;
+                    }
+                case PROH + "-C":
+                    {
+                        return LineType.PROH_C;
+                    }
+                case PROH + "-D":
+                    {
+                        return LineType.PROH_D;
+                    }
+
+                case CHANNEL + "A":
+                    {
+                        return LineType.CHANNEL_A;
+                    }
+                case CHANNEL + "B":
+                    {
+                        return LineType.CHANNEL_B;
+                    }
+                case CHANNEL + "C":
+                    {
+                        return LineType.CHANNEL_C;
+                    }
+                case CHANNEL + "D":
+                    {
+                        return LineType.CHANNEL_D;
                     }
             }
             // nothing found...

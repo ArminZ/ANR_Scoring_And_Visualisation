@@ -34,14 +34,27 @@ namespace AirNavigationRaceLive.Comps
             lblCompetition.Text = Client.SelectedCompetition.Name + " - parcours";
             PictureBox1.Cursor = new Cursor(@"Resources\GPSCursor.cur");
             activeParcour = new ParcourSet();
-            numericUpDownAlpha.Value = activeParcour.Alpha;
-            PictureBox1.SetParcour(activeParcour);
+            // read default values from settings
+            radioButtonParcourTypePROH.Checked = (Properties.Settings.Default.ParcourType == 0);
+            radioButtonParcourTypeChannel.Checked = (Properties.Settings.Default.ParcourType == 1);
+            numericUpDownAlpha.Value = Properties.Settings.Default.PROHTransp;
+            btnColorPROH.BackColor = Properties.Settings.Default.PROHColor;
+            btnColorGates.BackColor = Properties.Settings.Default.SPFPColor;
+            numericUpDownPenGates.Value = Properties.Settings.Default.SPFPenWidth;
+            checkBoxCircle.Checked = Properties.Settings.Default.SPFPCircle;
+            btnChannelColor.BackColor = Properties.Settings.Default.ChannelColor;
+            numericUpDownChannelPen.Value = Properties.Settings.Default.ChannelPenWidth;
+            //PictureBox1.SetParcour(activeParcour);
+            //PictureBox1.ColorPROH = Properties.Settings.Default.PROHColor;
+            //PictureBox1.ColorGates = Properties.Settings.Default.PROHColor;
             checkValidationErrors();
         }
         #region load
         private void ParcourGen_Load(object sender, EventArgs e)
         {
             loadMaps();
+            numericUpDownAlpha.Value = Properties.Settings.Default.PROHTransp;
+            btnColorPROH.BackColor = Properties.Settings.Default.PROHColor;
         }
         private void loadMaps()
         {
@@ -248,10 +261,16 @@ namespace AirNavigationRaceLive.Comps
                 p.Line.Add(l);
             }
             p.MapSet = CurrentMap;
+            p.Alpha = activeParcour.Alpha;
+            p.ColorPROH = btnColorPROH.BackColor;
+            p.ColorGates = btnColorGates.BackColor;
+            p.PenWidthGates = numericUpDownPenGates.Value;
+            p.HasCircleOnGates = checkBoxCircle.Checked;
             p.CompetitionSet = Client.SelectedCompetition;
             Client.DBContext.ParcourSet.Add(p);
             Client.DBContext.SaveChanges();
             MessageBox.Show("Successfully saved", "Parcour", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
 
         private void PictureBox1_Click(object sender, MouseEventArgs e)
@@ -289,6 +308,7 @@ namespace AirNavigationRaceLive.Comps
         }
         private void btnClear_Click(object sender, EventArgs e)
         {
+            loadMaps();
             activeParcour = new ParcourSet();
             PictureBox1.SetParcour(activeParcour);
             SetHoverLine(null);
@@ -447,7 +467,6 @@ namespace AirNavigationRaceLive.Comps
 
         private void btnImportLayerKML_Click(object sender, EventArgs e)
         {
-            //not yet implemented
             OpenFileDialog ofd = new OpenFileDialog();
             string FileFilter = "GoogleEarth KML (*.kml)|*.kml|All Files (*.*)|*.*";
             ofd.Title = "Layer Import from KML file";
@@ -464,6 +483,11 @@ namespace AirNavigationRaceLive.Comps
             try
             {
                 activeParcour = Importer.importFromKMLLayer(ofd.FileName);
+                ParcourSet p = activeParcour;
+                p.ColorPROH = Properties.Settings.Default.PROHColor;
+                p.ColorGates = Properties.Settings.Default.SPFPColor;
+                p.Alpha = (int)Properties.Settings.Default.PROHTransp;
+                p.HasCircleOnGates = Properties.Settings.Default.SPFPCircle;
                 PictureBox1.SetParcour(activeParcour);
                 PictureBox1.Invalidate();
                 PictureBox1.Refresh();
@@ -507,23 +531,237 @@ namespace AirNavigationRaceLive.Comps
             {
                 ParcourSet p = activeParcour;
                 p.Alpha = (int)numericUpDownAlpha.Value;
-                //Client.DBContext.SaveChanges();
+                PictureBox1.HasCircleOnGates = checkBoxCircle.Checked;
                 PictureBox1.SetParcour(p);
                 PictureBox1.Invalidate();
             }
         }
 
-        private void btnColorSelect_Click(object sender, EventArgs e)
+        private void numericUpDownPen_ValueChanged(object sender, EventArgs e)
+        {
+            if (activeParcour != null)
+            {
+                ParcourSet p = activeParcour;
+                PictureBox1.PenWidthGates = (float)numericUpDownPenGates.Value;
+                PictureBox1.SetParcour(p);
+                PictureBox1.Invalidate();
+            }
+        }
+
+        //private void btnColorLayer_Click(object sender, EventArgs e)
+        //{
+        //    ColorDialog cd = new ColorDialog();
+        //    cd.AnyColor = false;
+        //    cd.SolidColorOnly = true;
+        //    cd.ShowDialog();
+        //    btnColorPROH.BackColor = cd.Color;
+        //    ParcourSet p = activeParcour;
+        //    PictureBox1.ColorPROH = cd.Color;
+        //    p.ColorPROH = cd.Color;
+        //    PictureBox1.SetParcour(p);
+        //    PictureBox1.Invalidate();
+        //}
+
+        //private void btnColorPen_Click(object sender, EventArgs e)
+        //{
+        //    ColorDialog cd = new ColorDialog();
+        //    cd.AnyColor = false;
+        //    cd.SolidColorOnly = true;
+        //    cd.ShowDialog();
+        //    btnColorGates.BackColor = cd.Color;
+        //    ParcourSet p = activeParcour;
+        //    p.ColorGates = cd.Color;
+        //    PictureBox1.ColorGates = cd.Color;
+        //    PictureBox1.SetParcour(p);
+        //    PictureBox1.Invalidate();
+        //}
+
+        private void checkBoxCircle_CheckedChanged(object sender, EventArgs e)
+        {
+            ParcourSet p = activeParcour;
+            PictureBox1.HasCircleOnGates = checkBoxCircle.Checked;
+            p.HasCircleOnGates = checkBoxCircle.Checked;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void btnColorGates_Click(object sender, EventArgs e)
         {
             ColorDialog cd = new ColorDialog();
             cd.AnyColor = false;
             cd.SolidColorOnly = true;
             cd.ShowDialog();
-            btnColorSelect.BackColor = cd.Color;
+            btnColorGates.BackColor = cd.Color;
             ParcourSet p = activeParcour;
-            PictureBox1.ProhZoneColor = cd.Color;
+            //PictureBox1.ColorPROH = cd.Color;
+            p.ColorGates = cd.Color;
             PictureBox1.SetParcour(p);
             PictureBox1.Invalidate();
         }
+
+        private void btnChannelColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnChannelColor.BackColor = cd.Color;
+            ParcourSet p = activeParcour;
+            //PictureBox1.ColorPROH = cd.Color;
+            p.ColorChannel = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void btnChannelFillColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnChannelFillColor.BackColor = cd.Color;
+            ParcourSet p = activeParcour;
+            //PictureBox1.ColorPROH = cd.Color;
+            p.ColorChannelFill = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void btnIntersectColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnIntersectColor.BackColor = cd.Color;
+            ParcourSet p = activeParcour;
+            //PictureBox1.ColorPROH = cd.Color;
+            p.ColorIntersection = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void btnColorPROH_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnColorPROH.BackColor = cd.Color;
+            ParcourSet p = activeParcour;
+            PictureBox1.ColorPROH = cd.Color;
+            p.ColorPROH = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void radioButtonParcourTypePROH_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButtonParcourTypeChannel.Checked = !radioButtonParcourTypePROH.Checked;
+
+            layerBox.Visible = radioButtonParcourTypePROH.Checked;
+            groupBoxChannel.Visible = radioButtonParcourTypeChannel.Checked;
+
+            ParcourSet p = activeParcour;
+            if (activeParcour != null)
+            {
+                p.PenaltyCalcType = radioButtonParcourTypePROH.Checked ? 0 : 1;
+                //Client.DBContext.SaveChanges();
+                PictureBox1.SetParcour(p);
+                PictureBox1.Invalidate();
+                // listBox1_SelectedIndexChanged(null, null);
+            }
+        }
+
+        private void radioButtonParcourTypeChannel_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButtonParcourTypePROH.Checked = !radioButtonParcourTypeChannel.Checked;
+
+            layerBox.Visible = radioButtonParcourTypePROH.Checked;
+            groupBoxChannel.Visible = radioButtonParcourTypeChannel.Checked;
+
+            ParcourSet p = activeParcour;
+            if (activeParcour != null)
+            {
+                p.PenaltyCalcType = radioButtonParcourTypePROH.Checked ? 0 : 1;
+                Client.DBContext.SaveChanges();
+                PictureBox1.SetParcour(p);
+                PictureBox1.Invalidate();
+                // listBox1_SelectedIndexChanged(null, null);
+
+            }
+        }
+
+        private void numericUpDownChannelAlpha_ValueChanged(object sender, EventArgs e)
+        {
+            if (activeParcour != null)
+            {
+                ParcourSet p = activeParcour;
+                //p. = (int)numericUpDownAlpha.Value;
+                //PictureBox1.HasCircleOnGates = checkBoxCircle.Checked;
+                PictureBox1.SetParcour(p);
+                PictureBox1.Invalidate();
+            }
+
+        }
+
+        private void btnColorLayer_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnColorPROH.BackColor = cd.Color;
+            ParcourSet p = activeParcour;
+            p.ColorPROH = cd.Color;
+            Client.DBContext.SaveChanges();
+            PictureBox1.ColorPROH = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+        private void btnColorPen_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            cd.AnyColor = false;
+            cd.SolidColorOnly = true;
+            cd.ShowDialog();
+            btnColorGates.BackColor = cd.Color;
+            ParcourSet p = activeParcour;
+            p.ColorGates = cd.Color;
+            Client.DBContext.SaveChanges();
+            PictureBox1.ColorGates = cd.Color;
+            PictureBox1.SetParcour(p);
+            PictureBox1.Invalidate();
+        }
+
+
+        private void numericUpDownPenGates_ValueChanged(object sender, EventArgs e)
+        {
+            if (activeParcour != null)
+            {
+                ParcourSet p = activeParcour;
+                PictureBox1.PenWidthGates = (float)numericUpDownPenGates.Value;
+                p.PenWidthGates = numericUpDownPenGates.Value;
+             //   Client.DBContext.SaveChanges();
+                PictureBox1.SetParcour(p);
+                PictureBox1.Invalidate();
+            }
+        }
+
+        private void numericUpDownChannelPen_ValueChanged(object sender, EventArgs e)
+        {
+            if (activeParcour != null)
+            {
+                ParcourSet p = activeParcour;
+                // PictureBox1.PenWidthGates = (float)numericUpDownPenGates.Value;
+                p.PenWidthChannel = numericUpDownChannelPen.Value;
+                //Client.DBContext.SaveChanges();
+                PictureBox1.SetParcour(p);
+                PictureBox1.Invalidate();
+            }
+
+        }
+
     }
 }

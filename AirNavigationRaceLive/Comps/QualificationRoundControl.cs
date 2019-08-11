@@ -10,6 +10,7 @@ using System.IO;
 using AirNavigationRaceLive.Model;
 using System.ComponentModel.DataAnnotations.Schema;
 using AirNavigationRaceLive.ModelExtensions;
+using System.Globalization;
 
 namespace AirNavigationRaceLive.Comps
 {
@@ -18,6 +19,7 @@ namespace AirNavigationRaceLive.Comps
         private Client.DataAccess Client;
         private FlightSet deleteFlt;
         private int qrIdx = -1; //index of selected QR
+        const string C_TimeFormat = "HH:mm:ss";
 
         public QualificationRoundControl(Client.DataAccess iClient)
         {
@@ -208,10 +210,18 @@ namespace AirNavigationRaceLive.Comps
             Vector end = new Vector(double.Parse(takeOffRightLongitude.Text), double.Parse(takeOffRightLatitude.Text), 0);
             Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
             Line line = new Line();
+             if (c.TakeOffLine !=null)
+            {
+                // update the existing TKOF line
+                line = c.TakeOffLine;
+            }
+            line.Type = (int)LineType.TKOF;
+            line.ParcourLine_Line_Id = c.ParcourSet.Id;
             line.A = Factory.newGPSPoint(start.X, start.Y, start.Z);
             line.B = Factory.newGPSPoint(end.X, end.Y, end.Z);
             line.O = Factory.newGPSPoint(o.X, o.Y, o.Z);
             c.TakeOffLine = line;
+
             //List<Flight> toDelete = new List<Flight>();
             //toDelete.AddRange(c.Flight);
             //Client.DBContext.FlightSet.RemoveRange(toDelete);
@@ -305,9 +315,9 @@ namespace AirNavigationRaceLive.Comps
                     fl.TeamSet.CNumber,
                     fl.TeamSet.AC,
                     getTeamDsc(fl.TeamSet),
-                    new DateTime(fl.TimeTakeOff).ToString("HH:mm:ss"),
-                    new DateTime(fl.TimeStartLine).ToString("HH:mm:ss"),
-                    new DateTime(fl.TimeEndLine).ToString("HH:mm:ss"),
+                    new DateTime(fl.TimeTakeOff).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo),
+                    new DateTime(fl.TimeStartLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo),
+                    new DateTime(fl.TimeEndLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo),
                     getRouteText(fl.Route),
                     new DateTime(fl.TimeTakeOff).ToShortDateString());
 
@@ -558,9 +568,9 @@ namespace AirNavigationRaceLive.Comps
                             fl.TeamSet.CNumber,
                             fl.TeamSet.AC,
                             getTeamDsc(fl.TeamSet),
-                        new DateTime(fl.TimeTakeOff).ToString("HH:mm:ss"),
-                        new DateTime(fl.TimeStartLine).ToString("HH:mm:ss"),
-                        new DateTime(fl.TimeEndLine).ToString("HH:mm:ss"),
+                        new DateTime(fl.TimeTakeOff).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo),
+                        new DateTime(fl.TimeStartLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo),
+                        new DateTime(fl.TimeEndLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo),
                         getRouteText(fl.Route),
                         new DateTime(fl.TimeTakeOff).ToShortDateString());
 

@@ -55,31 +55,34 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblResults = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.visualisationPictureBox1 = new AirNavigationRaceLive.Comps.VisualisationPictureBox();
+            this.visualisationPictureBox1 = new AirNavigationRaceLive.Comps.PictureBoxExt();
+            this.groupBoxTogglePenaltyPanel = new System.Windows.Forms.GroupBox();
+            this.btnTogglePenaltyPanel = new System.Windows.Forms.Button();
             this.groupBoxLoggerImport.SuspendLayout();
             this.groupBoxExportResults.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.visualisationPictureBox1)).BeginInit();
+            this.groupBoxTogglePenaltyPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBoxQualificRound
             // 
             this.comboBoxQualificRound.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxQualificRound.FormattingEnabled = true;
-            this.comboBoxQualificRound.Location = new System.Drawing.Point(22, 74);
-            this.comboBoxQualificRound.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxQualificRound.Location = new System.Drawing.Point(25, 92);
+            this.comboBoxQualificRound.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBoxQualificRound.Name = "comboBoxQualificRound";
-            this.comboBoxQualificRound.Size = new System.Drawing.Size(218, 24);
+            this.comboBoxQualificRound.Size = new System.Drawing.Size(245, 28);
             this.comboBoxQualificRound.TabIndex = 95;
             this.comboBoxQualificRound.SelectedIndexChanged += new System.EventHandler(this.comboBoxQualificRound_SelectedIndexChanged);
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(271, 74);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRefresh.Location = new System.Drawing.Point(305, 92);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(79, 28);
+            this.btnRefresh.Size = new System.Drawing.Size(89, 35);
             this.btnRefresh.TabIndex = 116;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -89,10 +92,10 @@
             // 
             this.btnLoggerImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnLoggerImport.Enabled = false;
-            this.btnLoggerImport.Location = new System.Drawing.Point(222, 22);
-            this.btnLoggerImport.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLoggerImport.Location = new System.Drawing.Point(250, 33);
+            this.btnLoggerImport.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLoggerImport.Name = "btnLoggerImport";
-            this.btnLoggerImport.Size = new System.Drawing.Size(98, 28);
+            this.btnLoggerImport.Size = new System.Drawing.Size(110, 35);
             this.btnLoggerImport.TabIndex = 118;
             this.btnLoggerImport.Text = "Import";
             this.btnLoggerImport.UseVisualStyleBackColor = true;
@@ -104,9 +107,11 @@
             this.groupBoxLoggerImport.Controls.Add(this.radioButtonGPXimport);
             this.groupBoxLoggerImport.Controls.Add(this.radioButtonGACimport);
             this.groupBoxLoggerImport.Controls.Add(this.btnLoggerImport);
-            this.groupBoxLoggerImport.Location = new System.Drawing.Point(10, 836);
+            this.groupBoxLoggerImport.Location = new System.Drawing.Point(9, 980);
+            this.groupBoxLoggerImport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxLoggerImport.Name = "groupBoxLoggerImport";
-            this.groupBoxLoggerImport.Size = new System.Drawing.Size(342, 113);
+            this.groupBoxLoggerImport.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxLoggerImport.Size = new System.Drawing.Size(385, 119);
             this.groupBoxLoggerImport.TabIndex = 121;
             this.groupBoxLoggerImport.TabStop = false;
             this.groupBoxLoggerImport.Text = "Logger Data import";
@@ -114,9 +119,10 @@
             // radioButtonGPXimport
             // 
             this.radioButtonGPXimport.AutoSize = true;
-            this.radioButtonGPXimport.Location = new System.Drawing.Point(18, 64);
+            this.radioButtonGPXimport.Location = new System.Drawing.Point(20, 80);
+            this.radioButtonGPXimport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButtonGPXimport.Name = "radioButtonGPXimport";
-            this.radioButtonGPXimport.Size = new System.Drawing.Size(103, 21);
+            this.radioButtonGPXimport.Size = new System.Drawing.Size(119, 24);
             this.radioButtonGPXimport.TabIndex = 122;
             this.radioButtonGPXimport.Text = "Import *.gpx";
             this.radioButtonGPXimport.UseVisualStyleBackColor = true;
@@ -125,9 +131,10 @@
             // 
             this.radioButtonGACimport.AutoSize = true;
             this.radioButtonGACimport.Checked = true;
-            this.radioButtonGACimport.Location = new System.Drawing.Point(18, 33);
+            this.radioButtonGACimport.Location = new System.Drawing.Point(20, 41);
+            this.radioButtonGACimport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButtonGACimport.Name = "radioButtonGACimport";
-            this.radioButtonGACimport.Size = new System.Drawing.Size(104, 21);
+            this.radioButtonGACimport.Size = new System.Drawing.Size(120, 24);
             this.radioButtonGACimport.TabIndex = 121;
             this.radioButtonGACimport.TabStop = true;
             this.radioButtonGACimport.Text = "Import *.gac";
@@ -141,9 +148,11 @@
             this.groupBoxExportResults.Controls.Add(this.radioButtonRankingPDF);
             this.groupBoxExportResults.Controls.Add(this.radioButtonAllRes);
             this.groupBoxExportResults.Controls.Add(this.radioButtonSingleRes);
-            this.groupBoxExportResults.Location = new System.Drawing.Point(8, 955);
+            this.groupBoxExportResults.Location = new System.Drawing.Point(9, 1194);
+            this.groupBoxExportResults.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxExportResults.Name = "groupBoxExportResults";
-            this.groupBoxExportResults.Size = new System.Drawing.Size(342, 148);
+            this.groupBoxExportResults.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxExportResults.Size = new System.Drawing.Size(385, 185);
             this.groupBoxExportResults.TabIndex = 122;
             this.groupBoxExportResults.TabStop = false;
             this.groupBoxExportResults.Text = "Export Results";
@@ -151,18 +160,20 @@
             // radioButtonRankingXLS
             // 
             this.radioButtonRankingXLS.AutoSize = true;
-            this.radioButtonRankingXLS.Location = new System.Drawing.Point(19, 120);
+            this.radioButtonRankingXLS.Location = new System.Drawing.Point(21, 150);
+            this.radioButtonRankingXLS.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButtonRankingXLS.Name = "radioButtonRankingXLS";
-            this.radioButtonRankingXLS.Size = new System.Drawing.Size(137, 21);
+            this.radioButtonRankingXLS.Size = new System.Drawing.Size(157, 24);
             this.radioButtonRankingXLS.TabIndex = 124;
             this.radioButtonRankingXLS.Text = "Ranking List XLS";
             this.radioButtonRankingXLS.UseVisualStyleBackColor = true;
             // 
             // btnExportResults
             // 
-            this.btnExportResults.Location = new System.Drawing.Point(224, 33);
+            this.btnExportResults.Location = new System.Drawing.Point(252, 41);
+            this.btnExportResults.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnExportResults.Name = "btnExportResults";
-            this.btnExportResults.Size = new System.Drawing.Size(98, 28);
+            this.btnExportResults.Size = new System.Drawing.Size(110, 35);
             this.btnExportResults.TabIndex = 123;
             this.btnExportResults.Text = "Export";
             this.btnExportResults.UseVisualStyleBackColor = true;
@@ -171,9 +182,10 @@
             // radioButtonRankingPDF
             // 
             this.radioButtonRankingPDF.AutoSize = true;
-            this.radioButtonRankingPDF.Location = new System.Drawing.Point(19, 92);
+            this.radioButtonRankingPDF.Location = new System.Drawing.Point(21, 115);
+            this.radioButtonRankingPDF.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButtonRankingPDF.Name = "radioButtonRankingPDF";
-            this.radioButtonRankingPDF.Size = new System.Drawing.Size(138, 21);
+            this.radioButtonRankingPDF.Size = new System.Drawing.Size(158, 24);
             this.radioButtonRankingPDF.TabIndex = 122;
             this.radioButtonRankingPDF.Text = "Ranking List PDF";
             this.radioButtonRankingPDF.UseVisualStyleBackColor = true;
@@ -182,9 +194,10 @@
             // radioButtonAllRes
             // 
             this.radioButtonAllRes.AutoSize = true;
-            this.radioButtonAllRes.Location = new System.Drawing.Point(19, 64);
+            this.radioButtonAllRes.Location = new System.Drawing.Point(21, 80);
+            this.radioButtonAllRes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButtonAllRes.Name = "radioButtonAllRes";
-            this.radioButtonAllRes.Size = new System.Drawing.Size(126, 21);
+            this.radioButtonAllRes.Size = new System.Drawing.Size(144, 24);
             this.radioButtonAllRes.TabIndex = 121;
             this.radioButtonAllRes.Text = "All Result Maps";
             this.radioButtonAllRes.UseVisualStyleBackColor = true;
@@ -194,9 +207,10 @@
             // 
             this.radioButtonSingleRes.AutoSize = true;
             this.radioButtonSingleRes.Checked = true;
-            this.radioButtonSingleRes.Location = new System.Drawing.Point(19, 36);
+            this.radioButtonSingleRes.Location = new System.Drawing.Point(21, 45);
+            this.radioButtonSingleRes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButtonSingleRes.Name = "radioButtonSingleRes";
-            this.radioButtonSingleRes.Size = new System.Drawing.Size(159, 21);
+            this.radioButtonSingleRes.Size = new System.Drawing.Size(182, 24);
             this.radioButtonSingleRes.TabIndex = 120;
             this.radioButtonSingleRes.TabStop = true;
             this.radioButtonSingleRes.Text = "Selected Result Map";
@@ -212,10 +226,11 @@
             this.Column1,
             this.Column2,
             this.Column3});
-            this.dataGridView1.Location = new System.Drawing.Point(385, 896);
+            this.dataGridView1.Location = new System.Drawing.Point(433, 1120);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(820, 207);
+            this.dataGridView1.Size = new System.Drawing.Size(922, 259);
             this.dataGridView1.TabIndex = 123;
             this.dataGridView1.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_RowValidating);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
@@ -260,11 +275,12 @@
             this.Column8,
             this.Column9,
             this.Column10});
-            this.dataGridView2.Location = new System.Drawing.Point(22, 134);
+            this.dataGridView2.Location = new System.Drawing.Point(25, 168);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(328, 696);
+            this.dataGridView2.Size = new System.Drawing.Size(369, 804);
             this.dataGridView2.TabIndex = 125;
             this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged);
             this.dataGridView2.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView2_SortCompare);
@@ -275,7 +291,7 @@
             this.StartId.HeaderText = "StartId";
             this.StartId.Name = "StartId";
             this.StartId.ReadOnly = true;
-            this.StartId.Width = 78;
+            this.StartId.Width = 94;
             // 
             // Column6
             // 
@@ -283,7 +299,7 @@
             this.Column6.HeaderText = "Penalty";
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
-            this.Column6.Width = 84;
+            this.Column6.Width = 97;
             // 
             // Column5
             // 
@@ -291,7 +307,7 @@
             this.Column5.HeaderText = "Team";
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
-            this.Column5.Width = 73;
+            this.Column5.Width = 85;
             // 
             // Column7
             // 
@@ -306,7 +322,7 @@
             this.Column8.HeaderText = "SP";
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
-            this.Column8.Width = 55;
+            this.Column8.Width = 66;
             // 
             // Column9
             // 
@@ -314,7 +330,7 @@
             this.Column9.HeaderText = "FP";
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
-            this.Column9.Width = 54;
+            this.Column9.Width = 65;
             // 
             // Column10
             // 
@@ -322,15 +338,15 @@
             this.Column10.HeaderText = "Route";
             this.Column10.Name = "Column10";
             this.Column10.ReadOnly = true;
-            this.Column10.Width = 75;
+            this.Column10.Width = 89;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(25, 114);
+            this.label1.Location = new System.Drawing.Point(28, 142);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 17);
+            this.label1.Size = new System.Drawing.Size(73, 20);
             this.label1.TabIndex = 127;
             this.label1.Text = "Start List";
             // 
@@ -338,9 +354,9 @@
             // 
             this.lblResults.AutoSize = true;
             this.lblResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResults.Location = new System.Drawing.Point(19, 7);
+            this.lblResults.Location = new System.Drawing.Point(21, 9);
             this.lblResults.Name = "lblResults";
-            this.lblResults.Size = new System.Drawing.Size(62, 17);
+            this.lblResults.Size = new System.Drawing.Size(70, 20);
             this.lblResults.TabIndex = 128;
             this.lblResults.Text = "Results";
             // 
@@ -348,28 +364,54 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(22, 53);
+            this.label4.Location = new System.Drawing.Point(25, 66);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(139, 17);
+            this.label4.Size = new System.Drawing.Size(156, 20);
             this.label4.TabIndex = 129;
             this.label4.Text = "Qualification Rounds";
             // 
             // visualisationPictureBox1
             // 
-            this.visualisationPictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.visualisationPictureBox1.Location = new System.Drawing.Point(360, 7);
-            this.visualisationPictureBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.visualisationPictureBox1.Location = new System.Drawing.Point(405, 9);
+            this.visualisationPictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.visualisationPictureBox1.Name = "visualisationPictureBox1";
-            this.visualisationPictureBox1.Size = new System.Drawing.Size(868, 860);
-            this.visualisationPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.visualisationPictureBox1.Size = new System.Drawing.Size(1246, 1099);
+            this.visualisationPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.visualisationPictureBox1.TabIndex = 97;
             this.visualisationPictureBox1.TabStop = false;
             // 
+            // groupBoxTogglePenaltyPanel
+            // 
+            this.groupBoxTogglePenaltyPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxTogglePenaltyPanel.Controls.Add(this.btnTogglePenaltyPanel);
+            this.groupBoxTogglePenaltyPanel.Location = new System.Drawing.Point(9, 1107);
+            this.groupBoxTogglePenaltyPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxTogglePenaltyPanel.Name = "groupBoxTogglePenaltyPanel";
+            this.groupBoxTogglePenaltyPanel.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxTogglePenaltyPanel.Size = new System.Drawing.Size(385, 79);
+            this.groupBoxTogglePenaltyPanel.TabIndex = 130;
+            this.groupBoxTogglePenaltyPanel.TabStop = false;
+            this.groupBoxTogglePenaltyPanel.Text = "Toggle Show/Hide Penalty Panel";
+            // 
+            // btnTogglePenaltyPanel
+            // 
+            this.btnTogglePenaltyPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTogglePenaltyPanel.Enabled = false;
+            this.btnTogglePenaltyPanel.Location = new System.Drawing.Point(189, 28);
+            this.btnTogglePenaltyPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnTogglePenaltyPanel.Name = "btnTogglePenaltyPanel";
+            this.btnTogglePenaltyPanel.Size = new System.Drawing.Size(169, 35);
+            this.btnTogglePenaltyPanel.TabIndex = 118;
+            this.btnTogglePenaltyPanel.Text = "Hide Penalty Panel";
+            this.btnTogglePenaltyPanel.UseVisualStyleBackColor = true;
+            this.btnTogglePenaltyPanel.Click += new System.EventHandler(this.btnTogglePenaltyPanel_Click);
+            // 
             // Results
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.Controls.Add(this.groupBoxTogglePenaltyPanel);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblResults);
@@ -380,9 +422,9 @@
             this.Controls.Add(this.groupBoxExportResults);
             this.Controls.Add(this.groupBoxLoggerImport);
             this.Controls.Add(this.visualisationPictureBox1);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Results";
-            this.Size = new System.Drawing.Size(1232, 1106);
+            this.Size = new System.Drawing.Size(1665, 1382);
             this.Load += new System.EventHandler(this.Results_Load);
             this.VisibleChanged += new System.EventHandler(this.Results_Load);
             this.groupBoxLoggerImport.ResumeLayout(false);
@@ -392,6 +434,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.visualisationPictureBox1)).EndInit();
+            this.groupBoxTogglePenaltyPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -400,7 +443,7 @@
         #endregion
 
         private System.Windows.Forms.ComboBox comboBoxQualificRound;
-        private VisualisationPictureBox visualisationPictureBox1;
+        private PictureBoxExt visualisationPictureBox1;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnLoggerImport;
         private System.Windows.Forms.GroupBox groupBoxLoggerImport;
@@ -427,5 +470,7 @@
         private System.Windows.Forms.RadioButton radioButtonGPXimport;
         private System.Windows.Forms.RadioButton radioButtonGACimport;
         private System.Windows.Forms.RadioButton radioButtonRankingXLS;
+        private System.Windows.Forms.GroupBox groupBoxTogglePenaltyPanel;
+        private System.Windows.Forms.Button btnTogglePenaltyPanel;
     }
 }

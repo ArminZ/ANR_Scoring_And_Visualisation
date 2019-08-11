@@ -73,6 +73,8 @@ namespace AirNavigationRaceLive.Client
                 }
 
                 // see  https://galleryserverpro.com/using-entity-framework-code-first-migrations-to-auto-create-and-auto-update-an-application/
+                // change first the DB conn string to SQL server express
+                // then run the package manager with command: Add-Migration myMigrationName 
                 Configuration cf = new Configuration();
                 var migrator = new System.Data.Entity.Migrations.DbMigrator(cf);
                 if (migrator.GetPendingMigrations().Any())
@@ -127,7 +129,7 @@ namespace AirNavigationRaceLive.Client
         /// Generic function to execute an SQL transaction
         /// </summary>
         /// <param name="sql"></param>
-        private void RunDBTransaction( string sql)
+        private void RunDBTransaction(string sql)
         {
             using (var context = new AnrlModel())
             {
@@ -157,15 +159,34 @@ namespace AirNavigationRaceLive.Client
             string str = String.Format(@"IF NOT EXISTS {0} AND EXISTS {1} SELECT 0 ELSE SELECT 1", CON_SQL_Check_Existence_MigrationHistory, CON_SQL_Check_Existence_CompetitionSet);
 
             object[] obj = { null };
-            DbRawSqlQuery qData = context.Database.SqlQuery(typeof(int), str, obj);
-            foreach (var item in qData)
+            try
             {
-                if ((int)item == 0)
+                // this will thow an InvalidOperationException in case the database model is older than the model
+                DbRawSqlQuery qData = context.Database.SqlQuery(typeof(int), str, obj);
+                foreach (var item in qData)
                 {
-                    return true;
+                    if ((int)item == 0)
+                    {
+                        return true;
+                    }
                 }
+                return false;
             }
-            return false;
+            catch (InvalidOperationException ex)
+            {
+                // HResult = -2146233079
+                // Source = "EntityFramework"
+                // Message = "The model backing the 'AnrlModel' context has changed since the database was created. Consider using Code First Migrations to update the database (http://go.microsoft.com/fwlink/?LinkId=238269)."
+                if (ex.HResult == -2146233079 && ex.Source == "EntityFramework" && ex.Message.StartsWith("The model backing the"))
+                {
+                    return false;
+                }
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

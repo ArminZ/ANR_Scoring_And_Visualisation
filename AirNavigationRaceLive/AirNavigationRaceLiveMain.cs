@@ -30,6 +30,7 @@ namespace AirNavigationRaceLive
         private ImportExport ImportExport;
         private RouteGenerator RouteGenerator;
         private History History;
+        private UserSettings UserSettings;
 
         public static void SetStatusText(String text)
         {
@@ -244,7 +245,14 @@ namespace AirNavigationRaceLive
             //}
             //enableControl(ParcourGen);
         }
-
+        private void generateSingleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //if (ParcourEditSingle == null)
+            //{
+            //    ParcourEditSingle = new ParcourEditSingle(Client);
+            //}
+            //enableControl(ParcourEditSingle);
+        }
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ParcourImport == null)
@@ -309,15 +317,6 @@ namespace AirNavigationRaceLive
         }
 
 
-        private void generateSingleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //if (ParcourEditSingle == null)
-            //{
-            //    ParcourEditSingle = new ParcourEditSingle(Client);
-            //}
-            //enableControl(ParcourEditSingle);
-        }
-
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ImportExport == null)
@@ -360,11 +359,17 @@ namespace AirNavigationRaceLive
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (SettingsDialog settingsDlg = new SettingsDialog())
+            //using (SettingsDialog settingsDlg = new SettingsDialog())
+            //{
+            //    settingsDlg.StartPosition = FormStartPosition.CenterParent;
+            //    settingsDlg.ShowDialog();
+            //}
+
+            if (UserSettings == null)
             {
-                settingsDlg.StartPosition = FormStartPosition.CenterParent;
-                settingsDlg.ShowDialog();
+                UserSettings = new UserSettings();
             }
+            enableControl(UserSettings);
         }
 
         private void kmlCoordinateExportToolStripMenuItem_Click(object sender, EventArgs e)

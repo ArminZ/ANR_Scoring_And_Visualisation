@@ -1,12 +1,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirNavigationRaceLive", "AirNavigationRaceLive\AirNavigationRaceLive.csproj", "{B483E041-0DA3-4659-8B40-BB5DB3FE5959}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AirNavigationRaceLiveInstaller", "AirNavigationRaceLiveInstaller\AirNavigationRaceLiveInstaller.vdproj", "{404F1C7C-8035-4D63-831D-9D3F09C0214F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveTrack24ExtenderConsole", "LiveTrack24ExtenderConsole\LiveTrack24ExtenderConsole.csproj", "{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,51 +86,12 @@ Global
 		{404F1C7C-8035-4D63-831D-9D3F09C0214F}.Silverlight2|Any CPU.ActiveCfg = Release
 		{404F1C7C-8035-4D63-831D-9D3F09C0214F}.Silverlight2|Mixed Platforms.ActiveCfg = Release
 		{404F1C7C-8035-4D63-831D-9D3F09C0214F}.Silverlight2|x86.ActiveCfg = Release
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Debug|x86.Build.0 = Debug|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Default|Any CPU.ActiveCfg = Debug|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Default|Any CPU.Build.0 = Debug|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Default|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Default|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Default|x86.ActiveCfg = Debug|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Default|x86.Build.0 = Debug|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.iOS|Any CPU.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.iOS|Any CPU.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.iOS|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.iOS|Mixed Platforms.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.iOS|x86.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.iOS|x86.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Net20|Any CPU.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Net20|Any CPU.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Net20|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Net20|Mixed Platforms.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Net20|x86.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Net20|x86.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Profile|Any CPU.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Profile|Any CPU.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Profile|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Profile|Mixed Platforms.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Profile|x86.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Profile|x86.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Release|x86.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Release|x86.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Silverlight2|Any CPU.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Silverlight2|Any CPU.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Silverlight2|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Silverlight2|Mixed Platforms.Build.0 = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Silverlight2|x86.ActiveCfg = Release|Any CPU
-		{A81466C3-EB96-4C88-80E1-AD84BEBFD6A2}.Silverlight2|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE8F2717-C036-4FC2-AD0A-4F2E39BF48BE}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

@@ -221,14 +221,14 @@ namespace AirNavigationRaceLive.Comps.Helper
             Vector LONR_B = StartBV + StartToLONR;
             Vector LONR_O = StartOV + StartToLONR;
             Line LONR;
-            if (parcour.Line.Any(p => p.Type == (int)LineType.LINEOFNORETURN))
+            if (parcour.Line.Any(p => p.Type == (int)LineType.NOBACKTRACKLINE))
             {
-                LONR = parcour.Line.Single(p => p.Type == (int)LineType.LINEOFNORETURN);
+                LONR = parcour.Line.Single(p => p.Type == (int)LineType.NOBACKTRACKLINE);
             }
             else
             {
                 LONR = new Line();
-                LONR.Type = (int)LineType.LINEOFNORETURN;
+                LONR.Type = (int)LineType.NOBACKTRACKLINE;
                 parcour.Line.Add(LONR);
             }
             LONR.A = Factory.newGPSPoint(c.XtoLongitude(LONR_A.X), c.YtoLatitude(LONR_A.Y), 0);

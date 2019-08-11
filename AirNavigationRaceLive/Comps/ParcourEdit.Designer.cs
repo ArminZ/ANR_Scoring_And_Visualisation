@@ -70,7 +70,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.PictureBox1 = new AirNavigationRaceLive.Comps.ParcourPictureBox();
+            this.PictureBox1 = new AirNavigationRaceLive.Comps.PictureBoxExt();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -711,7 +711,7 @@
         private System.Windows.Forms.TextBox fldCursorX;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel6;
-        private ParcourPictureBox PictureBox1;
+        private PictureBoxExt PictureBox1;
         private System.Windows.Forms.TextBox fldLongitude;
         private System.Windows.Forms.TextBox fldLatitude;
         private System.Windows.Forms.Label label8;

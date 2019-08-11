@@ -61,6 +61,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <!--
   <PropertyGroup>
     <ManifestCertificateThumbprint>DDDBD5EA149E7DC3111AA26A1D60F0C42A268902</ManifestCertificateThumbprint>
   </PropertyGroup>
@@ -73,6 +74,7 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  -->
   <PropertyGroup />
   <PropertyGroup>
     <ApplicationIcon>Resources\ANR_LOGO.ico</ApplicationIcon>
@@ -111,53 +113,34 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="EPPlus, Version=4.0.4.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\EPPlus.dll</HintPath>
-    </Reference>
-    <Reference Include="GMap.NET.Core, Version=1.6.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
-      <HintPath>dlls\GMap.NET.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="GMap.NET.WindowsForms, Version=1.6.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\GMap.NET.WindowsForms.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+    <Reference Include="EPPlus, Version=4.5.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3\lib\net40\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="MigraDoc.DocumentObjectModel, Version=1.31.3066.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\MigraDoc.DocumentObjectModel.dll</HintPath>
+    <Reference Include="MigraDoc.DocumentObjectModel, Version=1.32.4334.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\MigraDoc.DocumentObjectModel.dll</HintPath>
     </Reference>
-    <Reference Include="MigraDoc.Rendering, Version=1.31.3066.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\MigraDoc.Rendering.dll</HintPath>
+    <Reference Include="MigraDoc.Rendering, Version=1.32.4334.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\MigraDoc.Rendering.dll</HintPath>
     </Reference>
-    <Reference Include="MigraDoc.RtfRendering, Version=1.31.3066.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\MigraDoc.RtfRendering.dll</HintPath>
+    <Reference Include="MigraDoc.RtfRendering, Version=1.32.4334.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\MigraDoc.RtfRendering.dll</HintPath>
     </Reference>
-    <Reference Include="PdfSharp, Version=1.0.898.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\PdfSharp.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\PdfSharp.dll</HintPath>
     </Reference>
-    <Reference Include="PdfSharp.Charting, Version=1.31.1789.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\PdfSharp.Charting.dll</HintPath>
+    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\PdfSharp.Charting.dll</HintPath>
     </Reference>
-    <Reference Include="SharpKml, Version=2.0.1.0, Culture=neutral, PublicKeyToken=9bb853c026a5c0ac, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\SharpKml.dll</HintPath>
+    <Reference Include="PresentationCore" />
+    <Reference Include="SharpKml.Core, Version=4.0.1.0, Culture=neutral, PublicKeyToken=9bb853c026a5c0ac, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpKml.Core.4.0.1\lib\net45\SharpKml.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -165,18 +148,16 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Data.SQLite, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.103\lib\net45\System.Data.SQLite.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.109.2\lib\net45\System.Data.SQLite.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.103\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.109.0\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite.Linq, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.103\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.109.0\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
@@ -205,7 +186,7 @@
     </Compile>
     <Compile Include="Comps\Helper\Enums.cs" />
     <Compile Include="Comps\Helper\ComboRoute.cs" />
-    <Compile Include="Comps\Helper\GEControl.cs" />
+    <Compile Include="Comps\Helper\ExtensionMethods.cs" />
     <Compile Include="Comps\Helper\Geometry\AnalyticGeometryException.cs" />
     <Compile Include="Comps\Helper\Geometry\CLine.cs" />
     <Compile Include="Comps\Helper\Geometry\CPoint2D.cs" />
@@ -213,7 +194,7 @@
     <Compile Include="Comps\Helper\Geometry\CPolygonShape.cs" />
     <Compile Include="Comps\Helper\Geometry\Definition.cs" />
     <Compile Include="Comps\Helper\OpenOfficeCreator.cs" />
-    <Compile Include="Comps\Helper\VisualisationPictureBox.cs">
+    <Compile Include="Comps\Helper\PictureBoxExt.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Comps\History.cs">
@@ -274,9 +255,6 @@
     <Compile Include="Comps\Helper\Importer.cs" />
     <Compile Include="Comps\Helper\ParcourGenerator.cs" />
     <Compile Include="Comps\Helper\ParcourModel.cs" />
-    <Compile Include="Comps\Helper\ParcourPictureBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Comps\Helper\Utils.cs" />
     <Compile Include="Comps\Helper\Vector.cs" />
     <Compile Include="Comps\Helper\wgs84_ch1903.cs" />
@@ -319,6 +297,12 @@
     <Compile Include="Comps\TeamControl.Designer.cs">
       <DependentUpon>TeamControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Comps\UserSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\UserSettings.Designer.cs">
+      <DependentUpon>UserSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ParcourExportDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -330,12 +314,6 @@
     </Compile>
     <Compile Include="Dialogs\StartListDialog.Designer.cs">
       <DependentUpon>StartListDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\SettingsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\SettingsDialog.Designer.cs">
-      <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\TeamDialog.cs">
       <SubType>Form</SubType>
@@ -391,6 +369,11 @@
     <Compile Include="Dialogs\Calculator.Designer.cs">
       <DependentUpon>Calculator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901202018266_Channels.cs" />
+    <Compile Include="Migrations\201901202018266_Channels.Designer.cs">
+      <DependentUpon>201901202018266_Channels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\MigrationExtensions.cs" />
     <Compile Include="Migrations\201707062312047_Initial.cs" />
     <Compile Include="Migrations\201707062312047_Initial.Designer.cs">
       <DependentUpon>201707062312047_Initial.cs</DependentUpon>
@@ -398,6 +381,10 @@
     <Compile Include="Migrations\201707062315137_InitialOldFiles.cs" />
     <Compile Include="Migrations\201707062315137_InitialOldFiles.Designer.cs">
       <DependentUpon>201707062315137_InitialOldFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806242000317_AddIntersectionPointSet.cs" />
+    <Compile Include="Migrations\201806242000317_AddIntersectionPointSet.Designer.cs">
+      <DependentUpon>201806242000317_AddIntersectionPointSet.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelExtensions\ComboParcourExtension.cs" />
@@ -409,6 +396,7 @@
     <Compile Include="Model\AnrlModel.cs" />
     <Compile Include="Model\CompetitionSet.cs" />
     <Compile Include="Model\FlightSet.cs" />
+    <Compile Include="Model\IntersectionPointSet.cs" />
     <Compile Include="Model\LineSet.cs" />
     <Compile Include="Model\MapSet.cs" />
     <Compile Include="Model\ParcourSet.cs" />
@@ -420,6 +408,7 @@
     <Compile Include="Model\TeamSet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="AirNavigationRaceLiveMain.resx">
       <DependentUpon>AirNavigationRaceLiveMain.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -472,14 +461,14 @@
     <EmbeddedResource Include="Comps\TeamControl.resx">
       <DependentUpon>TeamControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Comps\UserSettings.resx">
+      <DependentUpon>UserSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ParcourExportDialog.resx">
       <DependentUpon>ParcourExportDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\StartListDialog.resx">
       <DependentUpon>StartListDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\SettingsDialog.resx">
-      <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\TeamDialog.resx">
       <DependentUpon>TeamDialog.cs</DependentUpon>
@@ -513,6 +502,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707062315137_InitialOldFiles.resx">
       <DependentUpon>201707062315137_InitialOldFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806242000317_AddIntersectionPointSet.resx">
+      <DependentUpon>201806242000317_AddIntersectionPointSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901202018266_Channels.resx">
+      <DependentUpon>201901202018266_Channels.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -552,38 +547,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="dlls\GMap.NET.Core.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="dlls\GMap.NET.WindowsForms.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="dlls\EPPlus.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="dlls\EPPlus.XML">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="dlls\SharpKml.dll" />
     <None Include="Resources\compass.jpg" />
     <None Include="Resources\ANR_0003.JPG" />
     <None Include="Resources\ANR_00031.JPG" />
-    <None Include="Resources\Capturex.JPG" />
-    <None Include="Resources\ANR_map_Example.JPG" />
-    <None Include="Resources\compass1.jpg" />
-    <None Include="Resources\Capturex1.JPG" />
+    <Content Include="Migrations\ReadMe.txt" />
     <Content Include="Resources\default.png" />
-    <None Include="Resources\Landing - Copy.JPG" />
     <None Include="Resources\stopwatch.jpg" />
-    <None Include="Resources\Landing - Copy1.JPG" />
     <Content Include="Resources\Summe.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="dlls\PdfSharp.dll" />
-    <None Include="dlls\MigraDoc.DocumentObjectModel.dll" />
-    <None Include="dlls\MigraDoc.Rendering.dll" />
-    <None Include="dlls\MigraDoc.RtfRendering.dll" />
-    <None Include="dlls\PdfSharp.Charting.dll" />
     <Content Include="ANR_LOGO.ico" />
     <EmbeddedResource Include="Resources\ANR_LOGO.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -652,12 +624,12 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

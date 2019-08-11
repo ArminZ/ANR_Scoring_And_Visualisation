@@ -6,52 +6,54 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
 {
     public static class KMLPolygonStyle
     {
-        public static void AddStylesForPolygon(Document document, string styleName)
+        public static void AddStylesForPolygon(Document document, string[] styleNames)
         {
             // adding a stylemap that can be referenced from the elements
-
+            Color32[] polyColors = { new Color32(80, 0, 0, 255), new Color32(255, 255, 255, 255) };
+            Color32[] lineColors = { new Color32(255, 0, 0, 255), new Color32(255, 255, 255, 255) };
+            bool[] polyFills = { true, false };
+            bool[] polyOutlines = { true, true };
             // create two styles, both contain definitions for LineStyle and PolygonStyle 
-            Style stylePolyAndLine0 = new Style();
-            Style stylePolyAndLine1 = new Style();
 
-            PolygonStyle stPoly = new PolygonStyle();
-            LineStyle stLine = new LineStyle();
+            for (int i = 0; i < styleNames.Length; i++)
+            {
+                StyleMapCollection smc = new StyleMapCollection();
 
-            stPoly.Color = new Color32(80, 0, 0, 255);
-            stPoly.ColorMode = ColorMode.Normal;
-            stPoly.Fill = true;
-            stPoly.Outline = true;
+                Style[] stylePolyAndLine = { new Style(), new Style() };
 
-            stLine.Color = new Color32(255, 0, 0, 255);
-            stLine.ColorMode = ColorMode.Normal;
-            stylePolyAndLine0.Id = styleName + "_Normal";
-            stylePolyAndLine0.Polygon = stPoly;
-            stylePolyAndLine0.Line = stLine;
-            document.AddStyle(stylePolyAndLine0);
+                PolygonStyle stPoly = new PolygonStyle();
+                stPoly.Color = polyColors[i];
+                stPoly.ColorMode = ColorMode.Normal;
+                stPoly.Fill = polyFills[i];
+                stPoly.Outline = polyOutlines[i];
 
-            stylePolyAndLine1.Id = styleName + "_High";
-            stylePolyAndLine1.Polygon = stPoly;
-            stylePolyAndLine1.Line = stLine;
-            document.AddStyle(stylePolyAndLine1);
+                LineStyle stLine = new LineStyle();
+                stLine.Color = lineColors[i];
+                stLine.ColorMode = ColorMode.Normal;
 
-            // create a StyleMap collection and add above Styles as a pair
-            // with different Style States
-            StyleMapCollection smc = new StyleMapCollection();
-            smc.Id = styleName;
-            Pair pr0 = new Pair();
-            Pair pr1 = new Pair();
+                stylePolyAndLine[0].Id = styleNames[i] + "_Normal";
+                stylePolyAndLine[0].Polygon = stPoly;
+                stylePolyAndLine[0].Line = stLine;
+                document.AddStyle(stylePolyAndLine[0]);
 
-            pr0.State = StyleState.Normal;
-            pr0.StyleUrl = new Uri("#" + styleName + "_Normal", UriKind.Relative);
-            smc.Add(pr0);
-            pr1.State = StyleState.Highlight;
-            pr1.StyleUrl = new Uri("#" + styleName + "_High", UriKind.Relative);
-            smc.Add(pr1);
+                stylePolyAndLine[1].Id = styleNames[i] + "_High";
+                stylePolyAndLine[1].Polygon = stPoly;
+                stylePolyAndLine[1].Line = stLine;
+                document.AddStyle(stylePolyAndLine[1]);
 
-            // add the stylemap collection to the document (in the same way as a style)
-            document.AddStyle(smc);
-
-
+                // create a StyleMap collection and add above Styles as a pair
+                // with different Style States
+                smc.Id = styleNames[i];
+                Pair[] pr = { new Pair(), new Pair() };
+                pr[0].State = StyleState.Normal;
+                pr[0].StyleUrl = new Uri("#" + styleNames[i] + "_Normal", UriKind.Relative);
+                smc.Add(pr[0]);
+                pr[1].State = StyleState.Highlight;
+                pr[1].StyleUrl = new Uri("#" + styleNames[i] + "_High", UriKind.Relative);
+                smc.Add(pr[1]);
+                // add the stylemap collection to the document (in the same way as a style)
+                document.AddStyle(smc);
+            }
         }
     }
 }

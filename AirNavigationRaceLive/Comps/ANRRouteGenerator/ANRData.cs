@@ -15,7 +15,8 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
         private string[] arrNBLNames = { "NBLINE-A", "NBLINE-B", "NBLINE-C", "NBLINE-D" };
 
         const double GATE_WIDTH = 0.3;  // gate width for start and end gate is fixed 0.6 = 2*0.3 NM  
-        const double SHIFT_DIST = 0.4;  // shift border points 'inwards' (away from start- and end gate)
+        //const double SHIFT_DIST = 0.4;  // shift border points 'inwards' (away from start- and end gate)
+        const double SHIFT_DIST = 0.0;  // shift border points 'inwards' (away from start- and end gate)
 
         private Document document = new Document();
         public Document Document
@@ -26,16 +27,19 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             }
         }
 
-        public void generateParcour(List<List<Vector>> listOfRoutes, List<string> ListOfRouteNames, List<List<Vector>> listOfNBL, List<string> listOfNBLNames, bool hasMarkers, bool showForbiddenArea, bool isStandardOrder, double channelWidth, string styleName, double altitude)
+        public void generateParcour(List<List<Vector>> listOfRoutes, List<string> ListOfRouteNames, List<List<Vector>> listOfNBL, List<string> listOfNBLNames, bool hasMarkers, bool showForbiddenArea, bool isStandardOrder, double channelWidth, double altitude)
         {
+            string[] styleNames = { @"PolygonAndLine", @"PolygonAndLineNoFill" };
+
             // Document document = new Document();
-            KMLPolygonStyle.AddStylesForPolygon(document, styleName);
+            KMLPolygonStyle.AddStylesForPolygon(document, styleNames);
 
             GeoData gc = new GeoData();
             List<Feature> lstFeaturesPROHPolygon = new List<Feature>();
             List<Feature> lstFeaturesSP = new List<Feature>();
             List<Feature> lstFeaturesFP = new List<Feature>();
             List<Feature> lstFeaturesNBLine = new List<Feature>();
+            List<Feature> lstFeaturesChannel = new List<Feature>();
 
             Folder folderGeneral = new Folder();
             folderGeneral.Name = "General";
@@ -67,6 +71,14 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 List<double> lstHeadings = gc.CalculateHeadings(routePoints);
                 List<Vector> lstLeftBorder = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth, false, 1);
                 List<Vector> lstRightBorder = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth, true, 1);
+                List<Vector> lstRightBorderMod = lstRightBorder; // used in PROH area calcs
+                List<Vector> lstChannel = combineBorderVectorsForPolygon(lstLeftBorder, lstRightBorder);
+                if (lstChannel.Count>1 )
+                {  // remove duplicate point at the end
+                    lstChannel.RemoveAt(lstChannel.Count - 1);
+                }
+                setAltitude(lstChannel, altitude);
+
 
                 // shift start and end points of border inwards
                 lstLeftBorder = gc.BorderModification(lstLeftBorder, SHIFT_DIST);
@@ -85,9 +97,9 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 lstFP = new List<Vector>();
                 lstFP.Add(new Vector(lstGateRight[lstGateRight.Count - 1].Latitude, lstGateRight[lstGateRight.Count - 1].Longitude, altitude));
                 lstFP.Add(new Vector(lstGateLeft[lstGateLeft.Count - 1].Latitude, lstGateLeft[lstGateLeft.Count - 1].Longitude, altitude));
+
+
                 lstNBLine = new List<Vector>();
-
-
                 // check if we have a NBLINE for this route
                 if (listOfNBLNames.IndexOf(String.Format("NBLINE-{0}", routeName)) >= 0)
                 {
@@ -122,13 +134,22 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     {
                         // calculate LeftBorder PROH for first route 
                         List<Vector> lstLeftBorderPROH = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth * 10, false, 1);
+                        //TODO: add Gate Point as first/last point to lstLeftBorderPROH
+                        lstLeftBorderPROH.Insert(0, lstGateLeft[0]);
+                        lstLeftBorderPROH.Add(lstGateLeft[lstGateLeft.Count - 1]);
                         lstLeftBorderForbiddenArea = combineBorderVectorsForPolygon(lstLeftBorderPROH, lstLeftBorder);
                         setAltitude(lstLeftBorderForbiddenArea, altitude);
+
+                        //TODO: add Gate Point as first/last point to lstRightBorderMod
+                        lstRightBorderMod.Add(lstGateRight[0]);
+                        lstRightBorderMod.Insert(0, lstGateRight[lstGateRight.Count - 1]);
 
                     }
                     else
                     {
                         // calculate LeftBorder PROH area from LeftBorder[j] and RightBorder[j-1]
+                        lstOldRightBorder.Add(lstGateLeft[0]);
+                        lstOldRightBorder.Insert(0, lstGateLeft[lstGateLeft.Count - 1]);
                         lstLeftBorderForbiddenArea = combineBorderVectorsForPolygon(lstOldRightBorder, lstLeftBorder);
                         setAltitude(lstLeftBorderForbiddenArea, altitude);
                     }
@@ -137,6 +158,9 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     if (j == listOfRoutes.Count - 1)
                     {
                         List<Vector> lstRightBorderPROH = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth * 10, true, 1);
+                        //TODO: add Gate Point as first/last point to lstRightBorderPROH
+                        lstRightBorderPROH.Insert(0, lstGateRight[0]);
+                        lstRightBorderPROH.Add(lstGateRight[lstGateRight.Count - 1]);
                         lstRightBorderForbiddenArea = combineBorderVectorsForPolygon(lstRightBorderPROH, lstRightBorder);
                         setAltitude(lstRightBorderForbiddenArea, altitude);
                     }
@@ -151,7 +175,9 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     setAltitude(lstRightBorderForbiddenArea, altitude);
                 }
 
-                lstOldRightBorder = lstRightBorder;
+                lstOldRightBorder = lstRightBorderMod;
+
+                #region Creation of KML objects
 
                 var lineStrRoute = new SharpKml.Dom.LineString();
                 var lineStrRightBorder = new SharpKml.Dom.LineString();
@@ -160,6 +186,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 var lineStrFP = new SharpKml.Dom.LineString();
                 var lineStrNBLine = new SharpKml.Dom.LineString();
                 var lineStrOrigNBLine = new SharpKml.Dom.LineString();
+                var lineStrChannel = new SharpKml.Dom.LineString();
 
 
                 lineStrRoute.Coordinates = new CoordinateCollection(routePoints);
@@ -170,11 +197,13 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 lineStrFP.Coordinates = new CoordinateCollection(lstFP);
                 lineStrNBLine.Coordinates = new CoordinateCollection(lstNBLine);
                 lineStrOrigNBLine.Coordinates = new CoordinateCollection(lstOrigNBLine);
+                lineStrChannel.Coordinates = new CoordinateCollection(lstChannel);
 
                 var polygLeftBorderForbiddenArea = makeSimplePolygon(lstLeftBorderForbiddenArea, AltitudeMode.ClampToGround);
                 var polygRightBorderForbiddenArea = makeSimplePolygon(lstRightBorderForbiddenArea, AltitudeMode.ClampToGround);
                 var polySP = makeSimplePolygon(lineStrSP, AltitudeMode.RelativeToGround);
                 var polyFP = makeSimplePolygon(lineStrFP, AltitudeMode.RelativeToGround);
+                var polyChannel = makeSimplePolygon(lineStrChannel, AltitudeMode.ClampToGround);
                 var polyNBLine = new Polygon();
 
                 if (lstNBLine.Count > 0)
@@ -186,6 +215,9 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 var plm = new SharpKml.Dom.Placemark();
                 plm = makeSimplePlacemark(lineStrRoute, routeName);
                 folderGeneral.AddFeature(plm);
+
+                plm = makeSimplePlacemark(polyChannel, "CHANNEL-" + routeName, styleNames[1]);
+                lstFeaturesChannel.Add(plm);
 
                 // original hand-made NBLine
                 if (lstNBLine.Count > 0)
@@ -218,15 +250,15 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     folderBorders.AddFeature(plm);
                 }
 
-                plm = makeSimplePlacemark(polySP, "STARTPOINT-" + routeName, styleName);
+                plm = makeSimplePlacemark(polySP, "STARTPOINT-" + routeName, styleNames[0]);
                 lstFeaturesSP.Add(plm);
 
-                plm = makeSimplePlacemark(polyFP, "ENDPOINT-" + routeName, styleName);
+                plm = makeSimplePlacemark(polyFP, "ENDPOINT-" + routeName, styleNames[0]);
                 lstFeaturesFP.Add(plm);
 
                 if (lstNBLine.Count > 0)
                 {
-                    plm = makeSimplePlacemark(polyNBLine, "NBLINE-" + routeName, styleName);
+                    plm = makeSimplePlacemark(polyNBLine, "NBLINE-" + routeName, styleNames[0]);
                     lstFeaturesNBLine.Add(plm);
                 }
 
@@ -240,16 +272,16 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     // add forbidden Area (Polygon area)
                     if (lstRightBorderForbiddenArea.Count > 0)
                     {
-                        var placemarkPolyg = makeSimplePlacemark(polygRightBorderForbiddenArea, "PROH " + routeName + " Right", styleName);
+                        var placemarkPolyg = makeSimplePlacemark(polygRightBorderForbiddenArea, "PROH " + routeName + " Right", styleNames[0]);
                         lstFeaturesPROHPolygon.Add(placemarkPolyg);
                     }
 
                     if (lstLeftBorderForbiddenArea.Count > 0)
                     {
-                        var placemarkPolyg = makeSimplePlacemark(polygLeftBorderForbiddenArea, "PROH " + routeName + " Left", styleName);
+                        var placemarkPolyg = makeSimplePlacemark(polygLeftBorderForbiddenArea, "PROH " + routeName + " Left", styleNames[0]);
                         lstFeaturesPROHPolygon.Add(placemarkPolyg);
                     }
-                    //document.AddFeature(folder);
+
                 }
 
                 if (hasMarkers)
@@ -285,7 +317,11 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     }
                     folderGeneral.AddFeature(folder);
                 }
+
+                #endregion
             }
+
+            #region Create Kml document
 
             for (int i = 0; i < lstFeaturesPROHPolygon.Count; i++)
             {
@@ -299,14 +335,19 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             {
                 folderLiveTracking.AddFeature(lstFeaturesFP[i].Clone());
             }
+            for (int i = 0; i < lstFeaturesChannel.Count; i++)
+            {
+                folderLiveTracking.AddFeature(lstFeaturesChannel[i].Clone());
+            }
             for (int i = 0; i < lstFeaturesNBLine.Count; i++)
             {
                 folderLiveTracking.AddFeature(lstFeaturesNBLine[i].Clone());
             }
 
             document.AddFeature(folderGeneral);
-            document.AddFeature(folderLiveTracking);
-            //return document;
+            document.AddFeature(folderLiveTracking); 
+            #endregion
+
         }
 
         /// <summary>
@@ -327,7 +368,8 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
            + "or starts-with(./*[local-name()='name'],'PROH') "
            + "or starts-with(./*[local-name()='name'],'STARTPOINT-') "
            + "or starts-with(./*[local-name()='name'],'ENDPOINT-') "
-           + "or starts-with(./*[local-name()='name'],'NBLINE-') "
+           + "or starts-with(./*[local-name()='name'],'NBLINE-') " 
+           + "or starts-with(./*[local-name()='name'],'CHANNEL-') "
            + "or starts-with(./*[local-name()='name'],'TKOF')"
            + "]"
            + " | "
@@ -394,6 +436,88 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             lstVct.Add(lstVectors1[0]);
 
             return lstVct;
+        }
+
+        public List<Vector> combineProhZonesForPolygon(List<Vector> lstprohLeft, List<Vector> lstprohRight, List<Vector> lstStart, List<Vector> lstEnd)
+        {
+            // input: two vectors of prohibited zones (left, right of a channel) and start/End point of the channel
+            // task: combine the areas (remove the channel)
+
+            // find left point of SP line on left prohibited zone
+            // find right point of SP line on right prohibited zone
+
+            // find left point of FP line on left prohibited zone
+            // find right point of FP line on right prohibited zone
+
+            // replace the part between left FP and left SP line on left prohibited zone 0 -> pzl
+            // replace the part between right FP and right SP line on right prohibited zone ->pzr 1 + pzr 2
+            // right part before SP right (pzr 1) - SP left - left proh zone after (plz) - FP left, FP right - pzr 2
+
+            List<Vector> lstVct = new List<Vector>();
+            //if (GeoData.GetDist(lstVectors1[0], lstVectors2[0]) < GeoData.GetDist(lstVectors1[0], lstVectors2[lstVectors2.Count - 1]))
+            //{
+            //    //same orientation, so must reverse lstVector2
+            //    lstVectors2.Reverse();
+            //}
+            //lstVct.AddRange(lstVectors1);
+            //lstVct.AddRange(lstVectors2);
+            //lstVct.Add(lstVectors1[0]);
+
+            return lstVct;
+        }
+        public void getIndexOfPoint(List<Vector> lstVectLeft, List<Vector> lstVectRight, List<Vector> lstStart, List<Vector> lstEnd )
+        {
+            int iStart_Left = -1;
+            int iStart_Right = -1;
+            int iEnd_Left = -1;
+            int iEnd_Right = -1;
+            for (int i = 0; i < lstVectLeft.Count; i++)
+            {
+                if (lstVectLeft[i]== lstStart[0])
+                {
+                    //found start
+                    // remove all before start
+                    i = iStart_Left;
+                }
+                if (lstVectLeft[i] == lstEnd[0])
+                {
+                    //found end
+                    // remove all after end
+                    i = iEnd_Left;
+                }
+            }
+
+            for (int i = 0; i < lstVectRight.Count; i++)
+            {
+                if (lstVectLeft[i] == lstStart[1])
+                {
+                    //found start
+                    i = iStart_Right;
+                }
+                if (lstVectLeft[i] == lstEnd[1])
+                {
+                    //found end
+                    i = iEnd_Right;
+                }
+            }
+
+            // store fragments as follows:
+            //: A1: lstVectLeft (iStart_Left_A->iEnd_Left_A)
+            //: B1: lstVectRight (iStart_Left_B->iStartRight_A) + (IEnd_Right_A->iEndLeft_B)
+            //: C1: lstVectRight (iStart_Left_C->iStartRight_B) + (iEnd_Right_B->iEndLeft_C)
+            //: D1: lstVectRight (iStart_Left_D->iStartRight_C) + (iEnd_Right_C->iEndLeft_D)
+            //: D2: lstVectRight (iEnd_Right_D->iStartRight_D)
+
+
+
+            // combine fragments for routes:
+
+            // route A left P: original ProhLeft + right border of A + B1(end) + EndLineB + C1(end) + EndLineC + D(endToStart)
+            // route A right P: 
+            //right border of A + B1(end) + EndLineB + C1(end) + EndLineC + D(end) + EndLineD 
+            // + D(EndToStart)
+            // + StartLineD + C(start) + StartLineC + B(start) + StartLineB
+
         }
 
         public void setAltitude(List<Vector> lstVct, double Altitude)
