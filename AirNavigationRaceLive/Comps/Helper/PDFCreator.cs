@@ -17,6 +17,7 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using AirNavigationRaceLive.ModelExtensions;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {
@@ -30,6 +31,11 @@ namespace AirNavigationRaceLive.Comps.Helper
         static XFont verdana9Bold = new XFont("Verdana", 9, XFontStyle.Bold);
         static XFont verdana10Reg = new XFont("Verdana", 10, XFontStyle.Regular);
         static XFont verdana9Reg = new XFont("Verdana", 9, XFontStyle.Regular);
+        const string C_TimeFormat = "HH:mm:ss";
+        const string C_TimeFormatHHmm = "HH:mm";
+        const double C_Timespan_StartPlanningToTKOF = 45.0;
+        const double C_Timespan_EndPlanningToTKOF = 15.0;
+
 
         public static void CreateTeamsPDF(List<TeamSet> teams, Client.DataAccess c, String pathToPDF)
         {
@@ -610,30 +616,30 @@ namespace AirNavigationRaceLive.Comps.Helper
             Table table = sec.AddTable();
             table.Borders.Visible = true;
 
-            table.AddColumn(Unit.FromCentimeter(1.2));
+            table.AddColumn(Unit.FromCentimeter(1));
+            table.AddColumn(Unit.FromCentimeter(1));
             table.AddColumn(Unit.FromCentimeter(2));
-            table.AddColumn(Unit.FromCentimeter(2));
-            table.AddColumn(Unit.FromCentimeter(3));
-            table.AddColumn(Unit.FromCentimeter(3));
-            table.AddColumn(Unit.FromCentimeter(3));
-            table.AddColumn(Unit.FromCentimeter(3));
-            table.AddColumn(Unit.FromCentimeter(2));
-            table.AddColumn(Unit.FromCentimeter(2));
-            table.AddColumn(Unit.FromCentimeter(2));
-            table.AddColumn(Unit.FromCentimeter(1.5));
+            table.AddColumn(Unit.FromCentimeter(5));
+            table.AddColumn(Unit.FromCentimeter(5));
+            table.AddColumn(Unit.FromCentimeter(1.9));
+            table.AddColumn(Unit.FromCentimeter(1.9));
+            table.AddColumn(Unit.FromCentimeter(1.9));
+            table.AddColumn(Unit.FromCentimeter(1.9));
+            table.AddColumn(Unit.FromCentimeter(1.9));
+            table.AddColumn(Unit.FromCentimeter(1.3));
 
             Row row = table.AddRow();
             row.Shading.Color = Colors.Gray;
             row.Cells[0].AddParagraph("Start ID");
-            row.Cells[1].AddParagraph("Crew Number");
+            row.Cells[1].AddParagraph("Crew ID");
             row.Cells[2].AddParagraph("AC");
-            row.Cells[3].AddParagraph("Pilot Lastname");
-            row.Cells[4].AddParagraph("Pilot Firstname");
-            row.Cells[5].AddParagraph("Navigator Lastname");
-            row.Cells[6].AddParagraph("Navigator Firstname");
-            row.Cells[7].AddParagraph("Take Off (UTC)");
-            row.Cells[8].AddParagraph("Start Gate (UTC)");
-            row.Cells[9].AddParagraph("End Gate (UTC)");
+            row.Cells[3].AddParagraph("Pilot");
+            row.Cells[4].AddParagraph("Navigator");
+            row.Cells[5].AddParagraph("Start Planning");
+            row.Cells[6].AddParagraph("End Planning");
+            row.Cells[7].AddParagraph("Take Off");
+            row.Cells[8].AddParagraph("SP Gate");
+            row.Cells[9].AddParagraph("FP Gate");
             row.Cells[10].AddParagraph("Route");
 
             foreach (FlightSet ct in qRnd.FlightSet.OrderBy(x => x.TimeTakeOff).ThenBy(x => x.Route))
@@ -644,18 +650,22 @@ namespace AirNavigationRaceLive.Comps.Helper
                 r.Cells[1].AddParagraph(teams.CNumber);
                 r.Cells[2].AddParagraph(teams.AC);
                 SubscriberSet pilot = teams.Pilot;
-                r.Cells[3].AddParagraph(pilot.LastName);
-                r.Cells[4].AddParagraph(pilot.FirstName);
+                r.Cells[3].AddParagraph(pilot.LastName + " " + pilot.FirstName);
                 if (teams.Navigator != null)
                 {
                     SubscriberSet navigator = teams.Navigator;
-                    r.Cells[5].AddParagraph(navigator.LastName);
-                    r.Cells[6].AddParagraph(navigator.FirstName);
+                    r.Cells[4].AddParagraph(navigator.LastName + " " + navigator.FirstName);
                 }
-                r.Cells[7].AddParagraph(new DateTime(ct.TimeTakeOff).ToString("HH:mm:ss"));
-                r.Cells[8].AddParagraph(new DateTime(ct.TimeStartLine).ToString("HH:mm:ss"));
-                r.Cells[9].AddParagraph(new DateTime(ct.TimeEndLine).ToString("HH:mm:ss"));
+                DateTime dt = new DateTime(ct.TimeTakeOff);
+
+                r.Cells[5].AddParagraph(dt.AddMinutes(-C_Timespan_StartPlanningToTKOF).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                r.Cells[6].AddParagraph(dt.AddMinutes(-C_Timespan_EndPlanningToTKOF).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+//                r.Cells[6].Shading.Color = Colors.LightGray;
+                r.Cells[7].AddParagraph(dt.ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                r.Cells[8].AddParagraph(new DateTime(ct.TimeStartLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                r.Cells[9].AddParagraph(new DateTime(ct.TimeEndLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
                 r.Cells[10].AddParagraph(Enum.GetName(Route.A.GetType(), ct.Route));
+                r.Cells[10].Format.Alignment = ParagraphAlignment.Center;
             }
 
             PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always);

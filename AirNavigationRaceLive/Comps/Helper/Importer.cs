@@ -818,6 +818,13 @@ namespace AirNavigationRaceLive.Comps.Helper
 
                             // this will accept also a formally invalid timestamp 101160 --> 101200
 
+                            // **** HACK for Portugal competition
+                            // use actual date
+                            // add +1 hour
+                            newPointTimeStamp = DateTime.Today;
+                            newPointTimeStamp = newPointTimeStamp.AddHours(1.0);
+                            // **** END HACK
+
                             newPointTimeStamp = newPointTimeStamp.AddHours(Convert.ToInt32(line.Substring(1, 2)));
                             newPointTimeStamp = newPointTimeStamp.AddMinutes(Convert.ToInt32(line.Substring(3, 2)));
                             newPointTimeStamp = newPointTimeStamp.AddSeconds(Convert.ToInt32(line.Substring(5, 2)));
