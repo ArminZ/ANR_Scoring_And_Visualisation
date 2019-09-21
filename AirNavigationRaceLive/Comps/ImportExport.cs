@@ -19,6 +19,10 @@ namespace AirNavigationRaceLive.Comps
         private Client.DataAccess Client;
         private AsyncCallback OnSaveAsGPXCompleted;
 
+        const string C_TimeFormat = "HH:mm:ss";
+        const double C_Timespan_StartPlanningToTKOF = 45.0;
+        const double C_Timespan_EndPlanningToTKOF = 15.0;
+
         public ImportExport(Client.DataAccess Client)
         {
             this.Client = Client;
@@ -106,10 +110,10 @@ namespace AirNavigationRaceLive.Comps
             i = 2;
             foreach (FlightSet f in item.q.FlightSet.OrderBy(p => p.StartID))
             {
-                if (i == 2)
-                {
-                    StartList.Cells[("J" + i)].Value = new DateTime(f.TimeTakeOff).ToString("dd.MM.yyyy");
-                }
+                //if (i == 2)
+                //{
+                //    StartList.Cells[("J" + i)].Value = new DateTime(f.TimeTakeOff).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                //}
                 StartList.Cells[("A" + i)].Value = f.StartID;
                 StartList.Cells[("B" + i)].Value = int.Parse(f.TeamSet.CNumber);
                 StartList.Cells[("C" + i)].Value = f.TeamSet.AC;
@@ -120,11 +124,14 @@ namespace AirNavigationRaceLive.Comps
                     navigator = " - " + f.TeamSet.Navigator.LastName + " " + f.TeamSet.Navigator.FirstName;
                 }
                 string crew = pilot + navigator;
+                DateTime dt = new DateTime(f.TimeTakeOff);
                 StartList.Cells[("D" + i)].Value = crew;
-                StartList.Cells[("E" + i)].Value = new DateTime(f.TimeTakeOff);
-                StartList.Cells[("F" + i)].Value = new DateTime(f.TimeStartLine);
-                StartList.Cells[("G" + i)].Value = new DateTime(f.TimeEndLine);
-                StartList.Cells[("H" + i)].Value = ((Route)f.Route).ToString();
+                StartList.Cells[("E" + i)].Value = dt.AddMinutes(-C_Timespan_EndPlanningToTKOF).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                StartList.Cells[("F" + i)].Value = dt.AddMinutes(-C_Timespan_EndPlanningToTKOF).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                StartList.Cells[("G" + i)].Value = dt.ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                StartList.Cells[("H" + i)].Value = new DateTime(f.TimeStartLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                StartList.Cells[("I" + i)].Value = new DateTime(f.TimeEndLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                StartList.Cells[("J" + i)].Value = ((Route)f.Route).ToString();
                 i++;
             }
             pck.Save();
