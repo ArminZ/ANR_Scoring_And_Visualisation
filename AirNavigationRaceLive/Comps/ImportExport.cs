@@ -69,6 +69,9 @@ namespace AirNavigationRaceLive.Comps
 
         private void btnSyncExcel_Click(object sender, EventArgs e)
         {
+            // this has not been tested after changes in version 2.0.0
+            // therefore unsupported UFN
+            return;
             if (comboBoxQualificationRound.SelectedItem != null)
             {
                 ComboQRExtension item = comboBoxQualificationRound.SelectedItem as ComboQRExtension;
@@ -110,10 +113,10 @@ namespace AirNavigationRaceLive.Comps
             i = 2;
             foreach (FlightSet f in item.q.FlightSet.OrderBy(p => p.StartID))
             {
-                //if (i == 2)
-                //{
-                //    StartList.Cells[("J" + i)].Value = new DateTime(f.TimeTakeOff).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
-                //}
+                if (i == 2)
+                {
+                    StartList.Cells[("K" + i)].Value = new DateTime(f.TimeTakeOff).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                }
                 StartList.Cells[("A" + i)].Value = f.StartID;
                 StartList.Cells[("B" + i)].Value = int.Parse(f.TeamSet.CNumber);
                 StartList.Cells[("C" + i)].Value = f.TeamSet.AC;
@@ -139,6 +142,9 @@ namespace AirNavigationRaceLive.Comps
 
         private void ImportFromExcel(ComboQRExtension item, string filename)
         {
+            // this has not been tested after changes in version 2.0.0
+            // therefore unsupported UFN
+            return;
             FileInfo newFile = new FileInfo(filename);
             ExcelPackage pck = new ExcelPackage(newFile);
             ExcelWorksheet Participants = pck.Workbook.Worksheets.First(p => p.Name == "Participants");
@@ -213,14 +219,14 @@ namespace AirNavigationRaceLive.Comps
             {
                 if (i == 2)
                 {
-                    date = StartList.Cells[("J" + i)].Value as DateTime?;
+                    date = StartList.Cells[("K" + i)].Value as DateTime?;
                 }
                 double? startId = StartList.Cells[("A" + i)].Value as double?;
                 double? cNumber = StartList.Cells[("B" + i)].Value as double?;
-                double? takeOff = StartList.Cells[("E" + i)].Value as double?;
-                double? start = StartList.Cells[("F" + i)].Value as double?;
-                double? end = StartList.Cells[("G" + i)].Value as double?;
-                string route = StartList.Cells[("H" + i)].Value as string;
+                double? takeOff = StartList.Cells[("G" + i)].Value as double?;
+                double? start = StartList.Cells[("H" + i)].Value as double?;
+                double? end = StartList.Cells[("I" + i)].Value as double?;
+                string route = StartList.Cells[("J" + i)].Value as string;
                 if (date != null && date.HasValue && takeOff != null && start != null && end != null && startId.HasValue && cNumber.HasValue && takeOff.HasValue && start.HasValue && end.HasValue && route != null)
                 {
                     FlightSet f = null;
