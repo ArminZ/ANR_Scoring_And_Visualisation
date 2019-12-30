@@ -746,16 +746,14 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// <param name="filename"></param>
         /// <param name="strCompDate"></param>
         /// <returns></returns>
-        public static List<AirNavigationRaceLive.Model.Point> GPSdataFromGAC(string filename, out string strCompDate)
+        public static List<AirNavigationRaceLive.Model.Point> GPSdataFromGAC(string filename, DateTime CompDate)
         {
             lstWarnings.Clear();
             List<AirNavigationRaceLive.Model.Point> result = new List<AirNavigationRaceLive.Model.Point>();
             StreamReader sr = new StreamReader(filename);
             string line = string.Empty;
             long iCnt = 0;
-            bool hasDateLine = false;
-            strCompDate = string.Empty;
-            DateTime CompDate = new DateTime();
+            //bool hasDateLine = false;
             {
                 while (!sr.EndOfStream)
                 {
@@ -764,46 +762,24 @@ namespace AirNavigationRaceLive.Comps.Helper
                     {
                         continue;
                     }
-                    #region read Header / recording date (IGC header field HFDTE)
-                    if (line.StartsWith("HFDTE") && line.Length >= 9 && hasDateLine == false)
-                    {
-                        // HFDTE  = UTC date of the recording. H-type record (Header), IGC file standard 
-                        // Example: HFDTE300411, with 300411 = date in format ddMMyy
-                        strCompDate = GACUTCDateParser(line.Substring(5, 6));
-                        if (String.IsNullOrEmpty(strCompDate) || !strCompDate.All(char.IsDigit))
-                        {
-                            //strCompDate = string.Empty;
-                            lstWarnings.Add(String.Format("\nError in date import, line has probably wrong date format.\nExpected 'HFDTE'+ ddMMyy, actual line is: {0}", line.Substring(0, 11)));
-                            sr.Close();
-                            sr.Dispose();
-                            return result;
-                        }
-                        else
-                        {
-                            hasDateLine = true;
-                            CompDate = DateTime.ParseExact(strCompDate, "ddMMyyyy", CultureInfo.InvariantCulture);
-                            strCompDate = CompDate.ToShortDateString();
-                        }
-                    }
-                    #endregion
 
                     #region read B-records (=the actual data) 
                     if (line.StartsWith("B"))
                     {
-                        #region Handle non-existent date
-                        // if we have come here without a valid data, then log an error and return
-                        if (!hasDateLine)
-                        {
-                            sr.Close();
-                            sr.Dispose();
-                            lstWarnings.Add(String.Format("\nError in data import, no date found in file (a line starting with 'HFDTE')\n"));
-                            return result;
-                        }
-                        #endregion
 
                         iCnt++;
-                        //B082337 4758489N 008 30 945 E A99999 0224901011680001
+                        //B082337 4758489N 008 30 945 E A99999 02249 010 116 80001
                         //B1601114816962N00700724EA003100037007532330012
+
+                        // expected I02-addition (pos 36-46) would be defined as
+                        // I 02 3639GSP 4042TRT  /Groundspeed, True track
+                        // I 03 3639GSP 4042TRT 4346FXA  /Groundspeed, True track, GPS fix accuracy
+                        // NOTE: Accuracy FXA is not mandatory
+                        // NOTE 2: 
+                        // I-additions are irrelevant for calculations and therefore not read/considered in calculations
+                        // this means that we basically fall back to using the basic IGC file format
+
+
                         // timestamp
                         DateTime newPointTimeStamp = new DateTime(CompDate.Year, CompDate.Month, CompDate.Day);
                         // in certain cases loggerds may produce a timestamp as 100860 (10:08:60 is basically an invalid timestamp)
@@ -891,23 +867,25 @@ namespace AirNavigationRaceLive.Comps.Helper
                             throw new ApplicationException(String.Format("\nError in Longitude import\ndata line {1}: data value: {0}", line.Substring(15, 9), iCnt));
                         }
 
-                        if (line.Length < 46)
+                        if (line.Length < 35) // check only mandatory fields, no I02-record additions
                         {
                             throw new ApplicationException(String.Format("\nError in import\ndata line {1}: line length: {0}, expected: 46", line.Length, iCnt));
                         }
 
-                        double altitude, speed, bearing, acc;
+                        double altitude;
+                        //                        double speed, bearing, acc;
                         string strFld = string.Empty, strPos = String.Empty;
                         try
                         {
                             strFld = "altitude"; strPos = line.Substring(30, 5);
                             altitude = double.Parse(line.Substring(30, 5), NumberFormatInfo.InvariantInfo) * 0.3048f; //Feet to Meter
-                            strFld = "speed"; strPos = line.Substring(35, 4);
-                            speed = (double.Parse(line.Substring(35, 4), NumberFormatInfo.InvariantInfo) / 10) / 0.514444444f; //Knot to m/s
-                            strFld = "bearing"; strPos = line.Substring(39, 3);
-                            bearing = double.Parse(line.Substring(39, 3), NumberFormatInfo.InvariantInfo);
-                            strFld = "acc"; strPos = line.Substring(42, 4);
-                            acc = double.Parse(line.Substring(42, 4), NumberFormatInfo.InvariantInfo);
+
+                            //strFld = "speed"; strPos = line.Substring(35, 4);
+                            //speed = (double.Parse(line.Substring(35, 4), NumberFormatInfo.InvariantInfo) / 10) / 0.514444444f; //Knot to m/s
+                            //strFld = "bearing"; strPos = line.Substring(39, 3);
+                            //bearing = double.Parse(line.Substring(39, 3), NumberFormatInfo.InvariantInfo);
+                            //strFld = "acc"; strPos = line.Substring(42, 4);
+                            //acc = double.Parse(line.Substring(42, 4), NumberFormatInfo.InvariantInfo);
                         }
                         catch (Exception)
                         {
@@ -929,6 +907,56 @@ namespace AirNavigationRaceLive.Comps.Helper
         }
 
         /// <summary>
+        /// Writes the GAC file with the corrected date to a new file. 
+        /// Returns original file name (if no correction is needed),otherwise the new filename
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="DefaultDate"></param>
+        /// <returns></returns>
+        public static bool GACFileHasValidDate(string filename, DateTime DefaultDate, out DateTime CompDate)
+        {
+            string line = string.Empty;
+            string strCompDate = string.Empty;
+            CompDate = DefaultDate;
+            bool ret = true;
+            using (StreamReader sr = new StreamReader(filename))
+            {
+                while (!sr.EndOfStream)
+                {
+                    line = sr.ReadLine();
+                    if (line.Length == 0)
+                    {
+                        continue;
+                    }
+                    #region read Header / recording date (IGC header field HFDTE)
+                    if (line.StartsWith("HFDTE") && line.Length >= 9)
+                    {
+                        // HFDTE  = UTC date of the recording. H-type record (Header), IGC file standard 
+                        // Example: HFDTE300411, with 300411 = date in format ddMMyy
+                        strCompDate = GACUTCDateParser(line.Substring(5, 6));
+                        if (String.IsNullOrEmpty(strCompDate) || !strCompDate.All(char.IsDigit))
+                        {
+                            lstWarnings.Add(String.Format("Faulty date detected: {0}\nExpected format: ddMmyy \nIf required, adjust the date before importing.", line.Substring(5, 6)));
+                            ret = false;
+                        }
+                        else
+                        {
+                            CompDate = DateTime.ParseExact(strCompDate, "ddMMyyyy", CultureInfo.InvariantCulture);
+                            if (Math.Abs(DateTime.Today.Year - CompDate.Year) > 10)
+                            {
+                                lstWarnings.Add(String.Format("The date {0} is formally correct, but it appears to be outdated.\nIf required, adjust the date before importing.", line.Substring(5, 6)));
+                                CompDate = DefaultDate;
+                                ret = false;
+                            }
+                        }
+                    }
+                    #endregion
+                }
+            }
+            return ret;
+        }
+
+        /// <summary>
         /// Importing data in GPX format
         /// </summary>
         /// <param name="filename"></param>
@@ -940,6 +968,13 @@ namespace AirNavigationRaceLive.Comps.Helper
             List<AirNavigationRaceLive.Model.Point> result = new List<AirNavigationRaceLive.Model.Point>();
             XDocument gpxDoc = XDocument.Load(filename);
             XNamespace gpx = gpxDoc.Root.Name.Namespace;
+
+            // handle FFA software bug: tag for elevation is <elev> instead of <ele>
+            // find out if we have <elev> or <ele> tags
+            bool hasEle = gpxDoc.Descendants(gpx + "ele").Count() > 0;
+            bool hasElev = gpxDoc.Descendants(gpx + "elev").Count() > 0;
+            string ele = (hasEle && !hasElev) ? "ele" : "elev";
+
             var tracks = from track in gpxDoc.Descendants(gpx + "trk")
                          select new
                          {
@@ -951,8 +986,8 @@ namespace AirNavigationRaceLive.Comps.Helper
                                   {
                                       Latitude = trackpoint.Attribute("lat").Value,
                                       Longitude = trackpoint.Attribute("lon").Value,
-                                      Elevation = trackpoint.Element(gpx + "ele") != null ?
-                                        trackpoint.Element(gpx + "ele").Value : "0.0",
+                                      Elevation = trackpoint.Element(gpx + ele) != null ?
+                                        trackpoint.Element(gpx + ele).Value : "0.0",
                                       Time = trackpoint.Element(gpx + "time") != null ?
                                         trackpoint.Element(gpx + "time").Value : null
                                   }

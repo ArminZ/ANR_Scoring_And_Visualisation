@@ -42,12 +42,22 @@ namespace AirNavigationRaceLive.Dialogs
             OpenFileDialog ofd = sender as OpenFileDialog;
             try
             {
-                //DateTime dt = dateGAC.Value;
                 string dt = string.Empty;
-                //dateGAC.Visible=false;
-                //List<Point> list = Importer.GPSdataFromGAC(dt.Year, dt.Month, dt.Day, ofd.FileName);
-                List<Point> list = Importer.GPSdataFromGAC(ofd.FileName, out dt);
-                dateGAC.Text = dt;
+                string WarningText = String.Empty;
+                DateTime CompDate = new DateTime();
+                bool isValidDate = Importer.GACFileHasValidDate(ofd.FileName, dateTimePicker1.Value, out CompDate);
+                dateTimePicker1.Value = CompDate;
+                dateGAC.Text = CompDate.ToShortDateString();
+                dateTimePicker1.Visible = !isValidDate;
+
+                if (Importer.lstWarnings.Count > 0)
+                {
+                    string res = string.Join("\n", Importer.lstWarnings);
+                    MessageBox.Show(res, "Date warnings", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                List<Point> list = Importer.GPSdataFromGAC(ofd.FileName, CompDate);
+
+               // dateGAC.Text = dt;
                 textBoxPositions.Text = list.Count.ToString();
                 textBoxPositions.Tag = list;
                 if (Importer.lstWarnings.Count>0)
@@ -71,7 +81,7 @@ namespace AirNavigationRaceLive.Dialogs
 
         private void btnUploadData_Click(object sender, EventArgs e)
         {
-            if (textBoxPositions.Tag != null)
+            if (textBoxPositions.Tag != null && textBoxPositions.Text !="0")
             {
                 List<Point> list = textBoxPositions.Tag as List<Point>;
                 Client.DBContext.Point.RemoveRange(ct.Point);
@@ -84,6 +94,11 @@ namespace AirNavigationRaceLive.Dialogs
                 OnFinish.Invoke(null, null);
                 Close();
             }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            dateGAC.Text = dateTimePicker1.Value.ToShortDateString();
         }
     }
 }
