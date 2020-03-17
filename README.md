@@ -10,7 +10,7 @@ and to print out the map with the competition task overlay.
 
 ---
 #### Technical
-The application is a Microsoft Windows Forms (stand-alone) application written in C# (.NET Framework 4.5, and Entity Framework 6.1). 
+The application is a Microsoft Windows Forms (stand-alone) application written in C# (.NET Framework 4.5 or higher, and Entity Framework 6.1). 
 Data is stored in a local MS SQL database file (SQLLocalDB).
 
 ---
