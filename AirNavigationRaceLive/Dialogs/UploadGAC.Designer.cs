@@ -35,12 +35,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnImportGAC = new System.Windows.Forms.Button();
             this.dateGAC = new System.Windows.Forms.TextBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // btnUploadData
             // 
-            this.btnUploadData.Location = new System.Drawing.Point(169, 164);
+            this.btnUploadData.Location = new System.Drawing.Point(168, 132);
             this.btnUploadData.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnUploadData.Name = "btnUploadData";
             this.btnUploadData.Size = new System.Drawing.Size(223, 35);
@@ -100,22 +99,11 @@
             this.dateGAC.Size = new System.Drawing.Size(222, 26);
             this.dateGAC.TabIndex = 23;
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(171, 130);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(221, 26);
-            this.dateTimePicker1.TabIndex = 24;
-            this.dateTimePicker1.Visible = false;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
-            // 
             // UploadGAC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(402, 363);
-            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.dateGAC);
             this.Controls.Add(this.btnUploadData);
             this.Controls.Add(this.dateGACLabel);
@@ -139,6 +127,5 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnImportGAC;
         private System.Windows.Forms.TextBox dateGAC;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

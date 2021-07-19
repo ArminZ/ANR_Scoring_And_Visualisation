@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Forms;
 using AirNavigationRaceLive.Client;
 using AirNavigationRaceLive.Comps.Helper;
@@ -44,20 +45,26 @@ namespace AirNavigationRaceLive.Dialogs
             {
                 string dt = string.Empty;
                 string WarningText = String.Empty;
+                DateTime? CompDate0 = new DateTime();
                 DateTime CompDate = new DateTime();
-                bool isValidDate = Importer.GACFileHasValidDate(ofd.FileName, dateTimePicker1.Value, out CompDate);
-                dateTimePicker1.Value = CompDate;
-                dateGAC.Text = CompDate.ToShortDateString();
-                dateTimePicker1.Visible = !isValidDate;
+                bool isValidDate = Importer.GACFileHasValidDate(ofd.FileName, out CompDate0);
+                //dateTimePicker1.Value = CompDate;
+                dateGAC.Text = String.IsNullOrEmpty(CompDate0.ToString()) ? String.Empty : ((DateTime)CompDate0).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                btnUploadData.Visible = isValidDate;
 
                 if (Importer.lstWarnings.Count > 0)
                 {
-                    string res = string.Join("\n", Importer.lstWarnings);
-                    MessageBox.Show(res, "Date warnings", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    string res = string.Join("\n", Importer.lstWarnings) + "\nDefine the correct date (default: actual date):";
+                    string strCompDate = DateTime.Today.ToString("ddMMyy");
+                    if (InputBoxClass.InputBox("Invalid Date", res, ref strCompDate) == DialogResult.OK)
+                    {
+                        CompDate = DateTime.ParseExact(strCompDate, "ddMMyy", CultureInfo.InvariantCulture);
+                        dateGAC.Text = CompDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                        btnUploadData.Visible = true;
+                    }
                 }
                 List<Point> list = Importer.GPSdataFromGAC(ofd.FileName, CompDate);
 
-               // dateGAC.Text = dt;
                 textBoxPositions.Text = list.Count.ToString();
                 textBoxPositions.Tag = list;
                 if (Importer.lstWarnings.Count>0)
@@ -76,7 +83,7 @@ namespace AirNavigationRaceLive.Dialogs
         }
         public void UpdateEnablement()
         {
-            btnUploadData.Enabled = textBoxPositions.Tag != null;
+            btnUploadData.Enabled = textBoxPositions.Tag != null && !String.IsNullOrEmpty(dateGAC.Text);
         }
 
         private void btnUploadData_Click(object sender, EventArgs e)
@@ -96,9 +103,9 @@ namespace AirNavigationRaceLive.Dialogs
             }
         }
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-            dateGAC.Text = dateTimePicker1.Value.ToShortDateString();
-        }
+        //private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        //{
+        //    dateGAC.Text = dateTimePicker1.Value.ToShortDateString();
+        //}
     }
 }

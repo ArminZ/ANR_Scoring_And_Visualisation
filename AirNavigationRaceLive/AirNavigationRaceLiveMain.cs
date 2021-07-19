@@ -380,5 +380,10 @@ namespace AirNavigationRaceLive
                 routeExportDialog.ShowDialog();
             }
         }
+
+        private void RouteInverterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

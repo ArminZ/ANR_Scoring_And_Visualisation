@@ -797,8 +797,8 @@ namespace AirNavigationRaceLive.Comps.Helper
                             // **** HACK for Portugal competition
                             // use actual date
                             // add +1 hour
-                            newPointTimeStamp = DateTime.Today;
-                            newPointTimeStamp = newPointTimeStamp.AddHours(1.0);
+                            //newPointTimeStamp = DateTime.Today;
+                            //newPointTimeStamp = newPointTimeStamp.AddHours(1.0);
                             // **** END HACK
 
                             newPointTimeStamp = newPointTimeStamp.AddHours(Convert.ToInt32(line.Substring(1, 2)));
@@ -880,6 +880,8 @@ namespace AirNavigationRaceLive.Comps.Helper
                             strFld = "altitude"; strPos = line.Substring(30, 5);
                             altitude = double.Parse(line.Substring(30, 5), NumberFormatInfo.InvariantInfo) * 0.3048f; //Feet to Meter
 
+                            // GAC file positions 36-46 would contain speed and heading. these are not used in any evaluation/calculation, and therefore ignored
+
                             //strFld = "speed"; strPos = line.Substring(35, 4);
                             //speed = (double.Parse(line.Substring(35, 4), NumberFormatInfo.InvariantInfo) / 10) / 0.514444444f; //Knot to m/s
                             //strFld = "bearing"; strPos = line.Substring(39, 3);
@@ -913,12 +915,13 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// <param name="filename"></param>
         /// <param name="DefaultDate"></param>
         /// <returns></returns>
-        public static bool GACFileHasValidDate(string filename, DateTime DefaultDate, out DateTime CompDate)
+        public static bool GACFileHasValidDate(string filename, out DateTime? CompDate)
         {
             string line = string.Empty;
             string strCompDate = string.Empty;
-            CompDate = DefaultDate;
+            //CompDate = DefaultDate;
             bool ret = true;
+            CompDate = null;
             using (StreamReader sr = new StreamReader(filename))
             {
                 while (!sr.EndOfStream)
@@ -936,18 +939,12 @@ namespace AirNavigationRaceLive.Comps.Helper
                         strCompDate = GACUTCDateParser(line.Substring(5, 6));
                         if (String.IsNullOrEmpty(strCompDate) || !strCompDate.All(char.IsDigit))
                         {
-                            lstWarnings.Add(String.Format("Faulty date detected: {0}\nExpected format: ddMmyy \nIf required, adjust the date before importing.", line.Substring(5, 6)));
+                            lstWarnings.Add(String.Format("The file contains an invalid date value on line 2: {0}\nThe expected format is: ddMmyy", line.Substring(5, 6)));
                             ret = false;
                         }
                         else
                         {
                             CompDate = DateTime.ParseExact(strCompDate, "ddMMyyyy", CultureInfo.InvariantCulture);
-                            if (Math.Abs(DateTime.Today.Year - CompDate.Year) > 10)
-                            {
-                                lstWarnings.Add(String.Format("The date {0} is formally correct, but it appears to be outdated.\nIf required, adjust the date before importing.", line.Substring(5, 6)));
-                                CompDate = DefaultDate;
-                                ret = false;
-                            }
                         }
                     }
                     #endregion

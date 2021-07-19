@@ -25,8 +25,8 @@ namespace AirNavigationRaceLive.Comps
             InitializeComponent();
             dataGridView2.MultiSelect = false;
             dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            radioButtonGACimport.Checked = Properties.Settings.Default.LoggerDataFileType == 0;
-            radioButtonGPXimport.Checked = Properties.Settings.Default.LoggerDataFileType == 1;
+            radioButtonGACimport.Checked = Properties.Settings.Default.LoggerDefaultFileType == 0;
+            radioButtonGPXimport.Checked = Properties.Settings.Default.LoggerDefaultFileType == 1;
             //dataGridView2.RowHeadersVisible = false;
             //dataGridView1.RowHeadersWidth = 30;
 

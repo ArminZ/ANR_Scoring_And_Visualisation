@@ -303,6 +303,7 @@
     <Compile Include="Comps\UserSettings.Designer.cs">
       <DependentUpon>UserSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\InputBoxClass.cs" />
     <Compile Include="Dialogs\ParcourExportDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -463,6 +464,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Comps\UserSettings.resx">
       <DependentUpon>UserSettings.cs</DependentUpon>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserSettings1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ParcourExportDialog.resx">
       <DependentUpon>ParcourExportDialog.cs</DependentUpon>

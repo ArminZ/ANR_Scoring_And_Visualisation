@@ -51,10 +51,16 @@ namespace AirNavigationRaceLive.Comps
             Properties.Settings.Default.FlightPenColor = btnFlightColor.BackColor;
             Properties.Settings.Default.FlightPenWidth = numericUpDownFlightPen.Value;
 
-            Properties.Settings.Default.MaxPenaltyPerEvent = (int)numericUpDownMaxPenalty.Value;
-            Properties.Settings.Default.ParcourType = radioButtonPenaltyCalcTypePROH.Checked ? 0 : 1;
-            Properties.Settings.Default.LoggerDataFileType = radioButtonLoggerDataFileTypeGAC.Checked ? 0 : 1;
+            Properties.Settings.Default.LoggerDefaultFileType = radioButtonLoggerDefaultFileTypeGPX.Checked ? 1 : 0;
 
+            Properties.Settings.Default.TimeToleranceLowerTKOF = (int)numericUpDownTimeToleranceTKOFLower.Value;
+            Properties.Settings.Default.TimeToleranceUpperTKOF = (int)numericUpDownTimeToleranceTKOFUpper.Value;
+            Properties.Settings.Default.MaxPenaltyTKOF = (int)numericUpDownMaxPenaltyTKOF.Value;
+            Properties.Settings.Default.TimeToleranceSPFP = (int)numericUpDownTimeToleranceSPFP.Value;
+            Properties.Settings.Default.MaxPenaltySPFP = (int)numericUpDownMaxPenaltySPFP.Value;
+            Properties.Settings.Default.TimeToleranceEnroute = (int)numericUpDownTimeToleranceEnroute.Value;
+            Properties.Settings.Default.PenaltyPointsPerSecond = (int)numericUpDownPenaltyPointsPerSecond.Value;
+            Properties.Settings.Default.MaxPenaltyPerEvent = (int)numericUpDownMaxPenalty.Value;
             Properties.Settings.Default.Save();
         }
 
@@ -89,13 +95,21 @@ namespace AirNavigationRaceLive.Comps
             btnFlightColor.BackColor = Properties.Settings.Default.FlightPenColor;
             numericUpDownFlightPen.Value = Properties.Settings.Default.FlightPenWidth;
 
+
+            numericUpDownTimeToleranceTKOFLower.Value = Properties.Settings.Default.TimeToleranceLowerTKOF;
+            numericUpDownTimeToleranceTKOFUpper.Value = Properties.Settings.Default.TimeToleranceUpperTKOF;
+            numericUpDownMaxPenaltyTKOF.Value = Properties.Settings.Default.MaxPenaltyTKOF;
+            numericUpDownMaxPenaltySPFP.Value = Properties.Settings.Default.MaxPenaltySPFP;
+            numericUpDownTimeToleranceSPFP.Value = Properties.Settings.Default.TimeToleranceSPFP;
+            numericUpDownTimeToleranceEnroute.Value = Properties.Settings.Default.TimeToleranceEnroute;
+            numericUpDownPenaltyPointsPerSecond.Value = Properties.Settings.Default.PenaltyPointsPerSecond;
             numericUpDownMaxPenalty.Value = Properties.Settings.Default.MaxPenaltyPerEvent;
 
             radioButtonPenaltyCalcTypePROH.Checked = Properties.Settings.Default.ParcourType == 0;
             radioButtonPenaltyCalcTypeChannel.Checked = Properties.Settings.Default.ParcourType == 1;
 
-            radioButtonLoggerDataFileTypeGAC.Checked = Properties.Settings.Default.ParcourType == 0;
-            radioButtonLoggerDataFileTypeGPX.Checked = Properties.Settings.Default.ParcourType == 1;
+            radioButtonLoggerDefaultFileTypeGAC.Checked = Properties.Settings.Default.LoggerDefaultFileType == 0;
+            radioButtonLoggerDefaultFileTypeGPX.Checked = Properties.Settings.Default.LoggerDefaultFileType == 1;
 
         }
 
