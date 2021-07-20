@@ -49,7 +49,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnSaveKML = new System.Windows.Forms.Button();
-            this.btnTEST = new System.Windows.Forms.Button();
+            this.chkUseRoundedCorners = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -102,7 +102,7 @@
             this.lblHeight.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblHeight.Name = "lblHeight";
             this.lblHeight.Size = new System.Drawing.Size(233, 20);
-            this.lblHeight.TabIndex = 33;
+            this.lblHeight.TabIndex = 32;
             this.lblHeight.Text = "Height AGL [m] for LiveTracking";
             // 
             // txtHeight
@@ -176,7 +176,7 @@
             // btnSelectKML
             // 
             this.btnSelectKML.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.btnSelectKML.Location = new System.Drawing.Point(38, 491);
+            this.btnSelectKML.Location = new System.Drawing.Point(38, 532);
             this.btnSelectKML.Margin = new System.Windows.Forms.Padding(5);
             this.btnSelectKML.Name = "btnSelectKML";
             this.btnSelectKML.Size = new System.Drawing.Size(206, 40);
@@ -202,7 +202,7 @@
             this.treeViewAvailableRoutes.Margin = new System.Windows.Forms.Padding(5);
             this.treeViewAvailableRoutes.Name = "treeViewAvailableRoutes";
             this.treeViewAvailableRoutes.Size = new System.Drawing.Size(337, 159);
-            this.treeViewAvailableRoutes.TabIndex = 32;
+            this.treeViewAvailableRoutes.TabIndex = 34;
             // 
             // treeViewSelectedRoutes
             // 
@@ -243,7 +243,7 @@
             // btnSaveKML
             // 
             this.btnSaveKML.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.btnSaveKML.Location = new System.Drawing.Point(634, 493);
+            this.btnSaveKML.Location = new System.Drawing.Point(634, 534);
             this.btnSaveKML.Margin = new System.Windows.Forms.Padding(5);
             this.btnSaveKML.Name = "btnSaveKML";
             this.btnSaveKML.Size = new System.Drawing.Size(206, 38);
@@ -252,22 +252,23 @@
             this.btnSaveKML.UseVisualStyleBackColor = true;
             this.btnSaveKML.Click += new System.EventHandler(this.btnSaveKML_Click);
             // 
-            // btnTEST
+            // chkUseRoundedCorners
             // 
-            this.btnTEST.Location = new System.Drawing.Point(737, 125);
-            this.btnTEST.Name = "btnTEST";
-            this.btnTEST.Size = new System.Drawing.Size(140, 47);
-            this.btnTEST.TabIndex = 42;
-            this.btnTEST.Text = "TEST_inverter";
-            this.btnTEST.UseVisualStyleBackColor = true;
-            this.btnTEST.Visible = false;
-            this.btnTEST.Click += new System.EventHandler(this.btnTEST_Click);
+            this.chkUseRoundedCorners.AutoSize = true;
+            this.chkUseRoundedCorners.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
+            this.chkUseRoundedCorners.Location = new System.Drawing.Point(38, 486);
+            this.chkUseRoundedCorners.Margin = new System.Windows.Forms.Padding(5);
+            this.chkUseRoundedCorners.Name = "chkUseRoundedCorners";
+            this.chkUseRoundedCorners.Size = new System.Drawing.Size(184, 24);
+            this.chkUseRoundedCorners.TabIndex = 33;
+            this.chkUseRoundedCorners.Text = "Use rounded corners";
+            this.chkUseRoundedCorners.UseVisualStyleBackColor = true;
             // 
             // RouteGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnTEST);
+            this.Controls.Add(this.chkUseRoundedCorners);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.treeViewSelectedRoutes);
@@ -287,7 +288,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "RouteGenerator";
-            this.Size = new System.Drawing.Size(968, 560);
+            this.Size = new System.Drawing.Size(968, 626);
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
@@ -316,6 +317,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Button btnSaveKML;
-        private System.Windows.Forms.Button btnTEST;
+        private System.Windows.Forms.CheckBox chkUseRoundedCorners;
     }
 }

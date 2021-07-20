@@ -291,6 +291,12 @@
     <Compile Include="Comps\ANRRouteGenerator\ANRData.cs" />
     <Compile Include="Comps\ANRRouteGenerator\GeoData.cs" />
     <Compile Include="Comps\ANRRouteGenerator\KMLPolygonStyle.cs" />
+    <Compile Include="Comps\RouteInverter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Comps\RouteInverter.Designer.cs">
+      <DependentUpon>RouteInverter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Comps\TeamControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -458,6 +464,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Comps\RouteGenerator.resx">
       <DependentUpon>RouteGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comps\RouteInverter.resx">
+      <DependentUpon>RouteInverter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comps\TeamControl.resx">
       <DependentUpon>TeamControl.cs</DependentUpon>

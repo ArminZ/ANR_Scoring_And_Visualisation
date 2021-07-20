@@ -18,7 +18,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
         //const double SHIFT_DIST = 0.4;  // shift border points 'inwards' (away from start- and end gate)
         const double SHIFT_DIST = 0.0;  // shift border points 'inwards' (away from start- and end gate)
 
-        const bool hasRoundedCorners = true;
+        //const bool hasRoundedCorners = true;
         private Document document = new Document();
         public Document Document
         {
@@ -28,7 +28,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             }
         }
 
-        public void generateParcour(List<List<Vector>> listOfRoutes, List<string> ListOfRouteNames, List<List<Vector>> listOfNBL, List<string> listOfNBLNames, bool hasMarkers, bool showForbiddenArea, bool isStandardOrder, double channelWidth, double altitude)
+        public void generateParcour(List<List<Vector>> listOfRoutes, List<string> ListOfRouteNames, List<List<Vector>> listOfNBL, List<string> listOfNBLNames, bool hasMarkers, bool showForbiddenArea, bool isStandardOrder, double channelWidth, double altitude, bool hasRoundedCorners)
         {
             string[] styleNames = { @"PolygonAndLine", @"PolygonAndLineNoFill" };
 

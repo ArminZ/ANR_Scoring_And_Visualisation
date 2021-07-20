@@ -29,6 +29,7 @@ namespace AirNavigationRaceLive
         //private MapImportFromMaps MapImportFromMaps;  // removed functionality 15.9.2016
         private ImportExport ImportExport;
         private RouteGenerator RouteGenerator;
+        private RouteInverter RouteInverter;
         private History History;
         private UserSettings UserSettings;
 
@@ -383,6 +384,11 @@ namespace AirNavigationRaceLive
 
         private void RouteInverterToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (RouteInverter == null)
+            {
+                RouteInverter = new RouteInverter(Client);
+            }
+            enableControl(RouteInverter);
 
         }
     }

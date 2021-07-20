@@ -48,10 +48,10 @@ namespace AirNavigationRaceLive.Dialogs
                 DateTime? CompDate0 = new DateTime();
                 DateTime CompDate = new DateTime();
                 bool isValidDate = Importer.GACFileHasValidDate(ofd.FileName, out CompDate0);
-                //dateTimePicker1.Value = CompDate;
                 dateGAC.Text = String.IsNullOrEmpty(CompDate0.ToString()) ? String.Empty : ((DateTime)CompDate0).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
                 btnUploadData.Visible = isValidDate;
 
+                // invalid date in GAC file line 2
                 if (Importer.lstWarnings.Count > 0)
                 {
                     string res = string.Join("\n", Importer.lstWarnings) + "\nDefine the correct date (default: actual date):";
@@ -63,6 +63,26 @@ namespace AirNavigationRaceLive.Dialogs
                         btnUploadData.Visible = true;
                     }
                 }
+                // date in GAC file line 2 is formally valid, but older than 2005-12-31
+                // this date threshold is selected based on experienced  - in the ANR competition in Portugal (date was March 2004) 
+                if (Importer.lstWarnings.Count == 0 && CompDate0 !=null && ((DateTime)CompDate0)< new DateTime(2005,12,31))
+                {
+                    string res =  "The date {0} (given as '{1}') is formally valid, but may be outdated/incorrect.";
+                    string strCompDate = ((DateTime)CompDate0).ToString("ddMMyy");
+                    res = string.Format(res, 
+                                ((DateTime)CompDate0).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                                 strCompDate
+                                );
+                    res = string.Join("\n", res) + "\nIf required, correct the date(default: original date, format: ddMMyy):";
+                    if (InputBoxClass.InputBox("Check Date", res, ref strCompDate) == DialogResult.OK)
+                    {
+                        CompDate = DateTime.ParseExact(strCompDate, "ddMMyy", CultureInfo.InvariantCulture);
+                        dateGAC.Text = CompDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                        btnUploadData.Visible = true;
+                    }
+                }
+
+
                 List<Point> list = Importer.GPSdataFromGAC(ofd.FileName, CompDate);
 
                 textBoxPositions.Text = list.Count.ToString();
