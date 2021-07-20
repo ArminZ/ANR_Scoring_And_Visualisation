@@ -29,7 +29,8 @@ During 2016 the user interface was entirely renewed and improved, bugs fixed, un
 * moved various hard-coded values used for penalty calculation to user settings
 * fix for GAC file with invalid date (as provided by FFA SkyTraq and others)
 * fix for GAC file with missing speed and heading value (as provided by FFA SkyTraq)
-* implemented rounded corners for parcours
+* implemented (optional) rounded corners for parcours
+* implemented Route Inversion (switching SP and FP)
 
 
 --- 
