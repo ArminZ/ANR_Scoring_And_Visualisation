@@ -26,12 +26,12 @@ During 2016 the user interface was entirely renewed and improved, bugs fixed, un
 #### version 2.2.0 ( expected in August 2021)
 
 
-* moved various hard-coded values used for penalty calculation to user settings
-* solution for GAC file with invalid or wrong date (encountered with several loggers and downloading software)
-* accept GAC records which are missing ground speed and true track values (pos 36-46) (de facto: accepting IGC files)
-* allow time shift by x hours for GAC files (encountered with DG 100 loggers and downloading software)
-* implemented (optional) rounded corners for parcours
-* implemented Route Inversion (switching SP and FP), to make routes 'flyable' from the opposite direction
+* Moved various hard-coded values used for penalty calculation to user settings
+* GAC file upload: solution for GAC file with invalid or wrong date (encountered with several loggers and downloading software)
+* GAC file upload: accept GAC records which are missing ground speed and true track values (pos 36-46) (de facto: accepting IGC files)
+* GAC file upload: allow time shift by x hours for GAC files (encountered with DG 100 loggers and downloading software)
+* Route Generator: implemented (optional) rounded corners for parcours
+* Implemented Route Inversion (switching SP and FP), to make routes 'flyable' from the opposite direction
 
 
 --- 
