@@ -20,7 +20,7 @@ namespace AirNavigationRaceLive.Dialogs
             this.Client = Client;
             this.ct = ct;
             InitializeComponent();
-            dateGAC.Enabled=false;
+            dateGAC.Enabled = false;
 
         }
 
@@ -65,11 +65,11 @@ namespace AirNavigationRaceLive.Dialogs
                 }
                 // date in GAC file line 2 is formally valid, but older than 2005-12-31
                 // this date threshold is selected based on experienced  - in the ANR competition in Portugal (date was March 2004) 
-                if (Importer.lstWarnings.Count == 0 && CompDate0 !=null && ((DateTime)CompDate0)< new DateTime(2005,12,31))
+                if (Importer.lstWarnings.Count == 0 && CompDate0 != null && ((DateTime)CompDate0) < new DateTime(2005, 12, 31))
                 {
-                    string res =  "The date {0} (given as '{1}') is formally valid, but may be outdated/incorrect.";
+                    string res = "The date {0} (given as '{1}') is formally valid, but may be outdated/incorrect.";
                     string strCompDate = ((DateTime)CompDate0).ToString("ddMMyy");
-                    res = string.Format(res, 
+                    res = string.Format(res,
                                 ((DateTime)CompDate0).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
                                  strCompDate
                                 );
@@ -87,7 +87,7 @@ namespace AirNavigationRaceLive.Dialogs
 
                 textBoxPositions.Text = list.Count.ToString();
                 textBoxPositions.Tag = list;
-                if (Importer.lstWarnings.Count>0)
+                if (Importer.lstWarnings.Count > 0)
                 {
                     string res = string.Join("\n", Importer.lstWarnings);
                     MessageBox.Show(res, "Import warnings", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -95,7 +95,7 @@ namespace AirNavigationRaceLive.Dialogs
             }
             catch (Exception ex)
             {
-                MessageBox.Show(null, ex.ToString(), "Error while Parsing File",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(null, ex.ToString(), "Error while Parsing File", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 dateGAC.Text = string.Empty;
                 return;
             }
@@ -108,12 +108,25 @@ namespace AirNavigationRaceLive.Dialogs
 
         private void btnUploadData_Click(object sender, EventArgs e)
         {
-            if (textBoxPositions.Tag != null && textBoxPositions.Text !="0")
+            double C_CORR_HRS = (double)numericUpDownTimeCorrectionHrs.Value;
+
+            if (textBoxPositions.Tag != null && textBoxPositions.Text != "0")
             {
                 List<Point> list = textBoxPositions.Tag as List<Point>;
                 Client.DBContext.Point.RemoveRange(ct.Point);
                 foreach (Point point in list)
                 {
+                    if (C_CORR_HRS > 0.0)
+                    {
+                        // we add here a potential hour shift correction 
+                        // NOTE: point.Timestamp is in Ticks
+                        // use a Timespan and add x hours
+                        // convert back to ticks (using the ticks property of the timespan)
+                        TimeSpan ts = new TimeSpan(point.Timestamp);
+                        ts += TimeSpan.FromHours(C_CORR_HRS);
+                        point.Timestamp = ts.Ticks;
+                    }
+
                     ct.Point.Add(point);
                 }
                 Client.DBContext.SaveChanges();
