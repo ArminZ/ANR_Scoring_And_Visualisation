@@ -763,36 +763,34 @@ namespace AirNavigationRaceLive.Comps.Helper
                         continue;
                     }
 
-                    #region read B-records (=the actual data) 
+                    #region read B-records (=the actual records) 
+
+                    // According to specifications, the GAC file positions 36-46 would contain ground speed and true track. T
+                    // These are not used in any evaluation/calculation, and therefore ignored
+                    // Furthermore, not all logger softwares are able to provide these values
+
+                    //B082337 4758489N 008 30 945 E A99999 02249 010 116 80001
+                    //B1601114816962N00700724EA003100037007532330012
+
+                    // expected I02-addition (pos 36-46) would be defined as
+                    // I 02 3639GSP 4042TRT  /Groundspeed, True track
+                    // I 03 3639GSP 4042TRT 4346FXA  /Groundspeed, True track, GPS fix accuracy
+                    // NOTE: Accuracy FXA is not mandatory
+                    // NOTE 2: 
+                    // I-additions are irrelevant for calculations and therefore not read/considered in calculations
+                    // this means that we basically fall back to using the basic IGC file format
+
+
+
                     if (line.StartsWith("B"))
                     {
 
                         iCnt++;
-                        //B082337 4758489N 008 30 945 E A99999 02249 010 116 80001
-                        //B1601114816962N00700724EA003100037007532330012
 
-                        // expected I02-addition (pos 36-46) would be defined as
-                        // I 02 3639GSP 4042TRT  /Groundspeed, True track
-                        // I 03 3639GSP 4042TRT 4346FXA  /Groundspeed, True track, GPS fix accuracy
-                        // NOTE: Accuracy FXA is not mandatory
-                        // NOTE 2: 
-                        // I-additions are irrelevant for calculations and therefore not read/considered in calculations
-                        // this means that we basically fall back to using the basic IGC file format
-
-
-                        // timestamp
+                        // timestamp, date part
                         DateTime newPointTimeStamp = new DateTime(CompDate.Year, CompDate.Month, CompDate.Day);
-                        // in certain cases loggerds may produce a timestamp as 100860 (10:08:60 is basically an invalid timestamp)
-                        // this case can however be handled
                         try
                         {
-                            // this would reject a formally invalid timestamp 101160
-                            //newPointTimeStamp = new DateTime(year, month, day,
-                            //Convert.ToInt32(line.Substring(1, 2)),
-                            //Convert.ToInt32(line.Substring(3, 2)),
-                            //Convert.ToInt32(line.Substring(5, 2)));
-
-                            // this will accept also a formally invalid timestamp 101160 --> 101200
 
                             // **** HACK for Portugal competition
                             // use actual date
@@ -801,10 +799,22 @@ namespace AirNavigationRaceLive.Comps.Helper
                             //newPointTimeStamp = newPointTimeStamp.AddHours(1.0);
                             // **** END HACK
 
+                            // in certain cases (cheap) loggers may produce a timestamp as 100860 (10:08:60 is basically an invalid timestamp)
+                            // this case can however be handled
+
+                            // this would reject a formally invalid timestamp 101160
+                            // ---------------------------------------------------------------
+                            //newPointTimeStamp = new DateTime(year, month, day,
+                            //Convert.ToInt32(line.Substring(1, 2)),
+                            //Convert.ToInt32(line.Substring(3, 2)),
+                            //Convert.ToInt32(line.Substring(5, 2)));
+
+                            // this will accept also a formally invalid timestamp 101160 --> 101200
+                            // ---------------------------------------------------------------
                             newPointTimeStamp = newPointTimeStamp.AddHours(Convert.ToInt32(line.Substring(1, 2)));
                             newPointTimeStamp = newPointTimeStamp.AddMinutes(Convert.ToInt32(line.Substring(3, 2)));
                             newPointTimeStamp = newPointTimeStamp.AddSeconds(Convert.ToInt32(line.Substring(5, 2)));
-                            newPointTimeStamp.ToString("HHmmss");
+
                             if (Convert.ToInt32(line.Substring(1, 2)) < 0 || Convert.ToInt32(line.Substring(1, 2)) > 23)
                             {
                                 lstWarnings.Add(string.Format("WARNING: data line {0}, time value [{1}] is invalid. [{2}] will be used instead.", iCnt, line.Substring(1, 6), newPointTimeStamp.ToString("HHmmss")));
@@ -869,7 +879,7 @@ namespace AirNavigationRaceLive.Comps.Helper
 
                         if (line.Length < 35) // check only mandatory fields, no I02-record additions
                         {
-                            throw new ApplicationException(String.Format("\nError in import\ndata line {1}: line length: {0}, expected: 46", line.Length, iCnt));
+                            throw new ApplicationException(String.Format("\nError in import\ndata line {1}: line length: {0}, expected: minimum 35 (IGC), 46 (GAC)", line.Length, iCnt));
                         }
 
                         double altitude;
@@ -880,7 +890,7 @@ namespace AirNavigationRaceLive.Comps.Helper
                             strFld = "altitude"; strPos = line.Substring(30, 5);
                             altitude = double.Parse(line.Substring(30, 5), NumberFormatInfo.InvariantInfo) * 0.3048f; //Feet to Meter
 
-                            // GAC file positions 36-46 would contain speed and heading. these are not used in any evaluation/calculation, and therefore ignored
+                            // GSP and TRT not read and not in use
 
                             //strFld = "speed"; strPos = line.Substring(35, 4);
                             //speed = (double.Parse(line.Substring(35, 4), NumberFormatInfo.InvariantInfo) / 10) / 0.514444444f; //Knot to m/s
@@ -896,6 +906,7 @@ namespace AirNavigationRaceLive.Comps.Helper
 
 
                         AirNavigationRaceLive.Model.Point data = new AirNavigationRaceLive.Model.Point();
+                        // ticks are taken from newPointTimeStamp, which is UTC
                         data.Timestamp = newPointTimeStamp.Ticks;
                         data.latitude = newPointLatitude;
                         data.longitude = newPointLongitude;
@@ -996,7 +1007,10 @@ namespace AirNavigationRaceLive.Comps.Helper
                 foreach (var trkSeg in trk.Segs)
                 {
                     AirNavigationRaceLive.Model.Point data = new AirNavigationRaceLive.Model.Point();
-                    data.Timestamp = DateTime.Parse(trkSeg.Time).Ticks;
+                    // below would save LOCAL time [v2.1.0 and probably before] - (incorrect)
+                    //data.Timestamp = DateTime.Parse(trkSeg.Time).Ticks;
+                    // below saves UTC time ticks (correct)
+                    data.Timestamp = DateTime.Parse(trkSeg.Time).ToUniversalTime().Ticks;
                     data.latitude = Double.Parse(trkSeg.Latitude, NumberFormatInfo.InvariantInfo);
                     data.longitude = Double.Parse(trkSeg.Longitude, NumberFormatInfo.InvariantInfo);
                     data.altitude = Double.Parse(trkSeg.Elevation, NumberFormatInfo.InvariantInfo);

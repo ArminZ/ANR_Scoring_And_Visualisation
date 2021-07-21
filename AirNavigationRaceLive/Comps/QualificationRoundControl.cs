@@ -121,7 +121,9 @@ namespace AirNavigationRaceLive.Comps
 
         private void SetTimeParameters()
         {
-            DateTime time = DateTime.Now;
+            // CHECK
+            DateTime time = DateTime.UtcNow;  // show UTC in Qualification round start list
+            // DateTime time = DateTime.Now; // incorrect, LOCAL time (v2.1.0 and probably before)
             timeParcourDuration.Value = new DateTime(time.Year, time.Month, time.Day, time.Hour, 12, 0);
             timeTakeOffToStartgateDuration.Value = new DateTime(time.Year, time.Month, time.Day, time.Hour, 12, 0);
             timeTakeOffInterval.Value = new DateTime(time.Year, time.Month, time.Day, time.Hour, 1, 0);
@@ -239,10 +241,10 @@ namespace AirNavigationRaceLive.Comps
             listViewQualificationRound.Items[qrIdx].Selected = true;
         }
 
-        private DateTime mergeDateTime(DateTime time, DateTime date)
-        {
-            return new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, 0, 0);
-        }
+        //private DateTime mergeDateTime(DateTime time, DateTime date)
+        //{
+        //    return new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, 0, 0);
+        //}
 
         private void comboBoxParcour_SelectedIndexChanged(object sender, EventArgs e)
         {

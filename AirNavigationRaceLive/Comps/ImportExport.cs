@@ -329,7 +329,7 @@ namespace AirNavigationRaceLive.Comps
                     {
                         sb.Append("<trkpt lat=\"" + data.latitude.ToString(ci) + "\" lon =\"" + data.longitude.ToString(ci) + "\">");
                         sb.Append("<ele>" + data.altitude.ToString(ci) + "</ele>");
-                        sb.Append("<time>" + new DateTime(data.Timestamp).ToString("yyyy-MM-ddTHH:mm:ssZ") + "</time>");
+                        sb.Append("<time>" + new DateTime(data.Timestamp).ToString("yyyy-MM-ddTHH:mm:ssZ",DateTimeFormatInfo.InvariantInfo) + "</time>");
                         sb.Append("<desc>" + String.Format("<![CDATA[lat.={0}, lon.={1}, Alt.={2}m. Speed={3}m/h.]]>", data.latitude.ToString(ci), data.longitude.ToString(ci), data.altitude.ToString(ci), "0.0") + "</desc>");
                         sb.Append("</trkpt>");
                     }
