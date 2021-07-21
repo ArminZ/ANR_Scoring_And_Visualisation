@@ -27,10 +27,11 @@ During 2016 the user interface was entirely renewed and improved, bugs fixed, un
 
 
 * moved various hard-coded values used for penalty calculation to user settings
-* fix for GAC file with invalid date (as provided by FFA SkyTraq and others)
-* fix for GAC file with missing speed and heading value (as provided by FFA SkyTraq)
+* fix for GAC file with invalid or wrong date (encountered with several loggers and downloading software)
+* accept GAC file with missing speed and heading value (de facto accepting IGC files)
+* fix for GAC files with time offset (allow time shift by x hours)
 * implemented (optional) rounded corners for parcours
-* implemented Route Inversion (switching SP and FP)
+* implemented Route Inversion (switching SP and FP), to make routes 'flyable' from the opposite direction
 
 
 --- 
