@@ -28,14 +28,19 @@ During 2016 the user interface was entirely renewed and improved, bugs fixed, un
 
 * Moved various hard-coded values used for penalty calculation to user settings  
 * Logger files, small modification in upload functionality  
+* Bug fix for displayed times (use UTC time, was local time in some cases)  
+* Qualification round: on the PDF starting list, include also start planning, end planning times  
 * GAC file processing:  
--- handle GAC file with invalid date or wrong date (encountered with several loggers and downloading software)  
--- handle GAC file with outdated wrong date (encountered with loggers and downloading software). For dates older than the threshold date, the user is prompted to accept (or change) the date. The threshold date (used for GAC/IGC files only) can be configured in settings.  
--- accept GAC records which are missing values on pos 36-46 (ground speed GSP and true track TRT), which mmakes them actually IGC files.   
--- allow a time shift by x hours for GAC files (encountered with DG 100 loggers and downloading software)   
+  * handle GAC file with invalid date or wrong date (encountered with several loggers and downloading software)  
+  * handle GAC file with outdated wrong date (encountered with loggers and downloading software). For dates older than the threshold date, the user is prompted to accept (or change) the date. The threshold date (used for GAC/IGC files only) can be configured in settings.  
+  * accept GAC records which are incomplete according to GAC specifications: missing GSP (ground speed) and TRT (true track) on pos 36-39, 40-42). This makes the files formally being IGC files.  
+  * allow a time shift by x hours for GAC files (encountered with DG 100 loggers/downloading software)   
+* Allow processing of IGC files (processing is identical with GAC files processing).  
 * Route Generator: implemented (optional) rounded corners for parcours (for both types, PROH-zone based and closed-channel based parcours)  
 * Implemented Route Inversion (switching SP and FP), to make routes 'flyable' from the opposite direction  
 * Competition map, default text now configurable (in settings)  
+* Bug fix for Exporting Flight data from Database to gpx (fixed incorrect datetime format).
+
 
 
 --- 
