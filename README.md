@@ -26,14 +26,16 @@ During 2016 the user interface was entirely renewed and improved, bugs fixed, un
 #### version 2.2.0 ( expected in August 2021)
 
 
-* Moved various hard-coded values used for penalty calculation to user settings
-* GAC file upload: *  handle GAC file with invalid date or wrong date (encountered with several loggers and downloading software)
-* GAC file upload: handle  GAC file with outdated wrong date (encountered with loggers and downloading software). The threshold date (used for GAC/IGC files only) can be configured in settings . For dates older thatn the threshold date, the user is prompted to accept (or change) the date.
-* GAC file upload: accept GAC records which are missing ground speed and true track values (pos 36-46) (de facto: accepting IGC files)
-* GAC file upload: allow time shift by x hours for GAC files (encountered with DG 100 loggers and downloading software)
-* Route Generator: implemented (optional) rounded corners for parcours
-* Implemented Route Inversion (switching SP and FP), to make routes 'flyable' from the opposite direction
-* Competition map, default text configurable (settings)
+* Moved various hard-coded values used for penalty calculation to user settings  
+* Logger files, small modification in upload functionality  
+* GAC file processing:  
+-- handle GAC file with invalid date or wrong date (encountered with several loggers and downloading software)  
+-- handle GAC file with outdated wrong date (encountered with loggers and downloading software). For dates older than the threshold date, the user is prompted to accept (or change) the date. The threshold date (used for GAC/IGC files only) can be configured in settings.  
+-- accept GAC records which are missing values on pos 36-46 (ground speed GSP and true track TRT), which mmakes them actually IGC files.   
+-- allow a time shift by x hours for GAC files (encountered with DG 100 loggers and downloading software)   
+* Route Generator: implemented (optional) rounded corners for parcours (for both types, PROH-zone based and closed-channel based parcours)  
+* Implemented Route Inversion (switching SP and FP), to make routes 'flyable' from the opposite direction  
+* Competition map, default text now configurable (in settings)  
 
 
 --- 
