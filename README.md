@@ -33,7 +33,7 @@ During 2016 the user interface was entirely renewed and improved, bugs fixed, un
 * GAC file processing:  
   * handle GAC file with invalid date or wrong date (encountered with several loggers and downloading software)  
   * handle GAC file with outdated wrong date (encountered with loggers and downloading software). For dates older than the threshold date, the user is prompted to accept (or change) the date. The threshold date (used for GAC/IGC files only) can be configured in settings.  
-  * accept GAC records which are incomplete according to GAC specifications: missing GSP (ground speed) and TRT (true track) on pos 36-39, 40-42). This makes the files formally being IGC files.  
+  * accept GAC records which are incomplete according to the GAC file specifications: missing GSP (ground speed) and TRT (true track) on pos 36-39, 40-42). This makes the files formally being IGC files.  
   * allow a time shift by x hours for GAC files (encountered with DG 100 loggers/downloading software)   
 * Allow processing of IGC files (processing is identical with GAC files processing).  
 * Route Generator: implemented (optional) rounded corners for parcours (for both types, PROH-zone based and closed-channel based parcours)  
