@@ -42,10 +42,10 @@
             // 
             // btnUploadData
             // 
-            this.btnUploadData.Location = new System.Drawing.Point(164, 161);
+            this.btnUploadData.Location = new System.Drawing.Point(192, 161);
             this.btnUploadData.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnUploadData.Name = "btnUploadData";
-            this.btnUploadData.Size = new System.Drawing.Size(223, 35);
+            this.btnUploadData.Size = new System.Drawing.Size(195, 35);
             this.btnUploadData.TabIndex = 22;
             this.btnUploadData.Text = "Import";
             this.btnUploadData.UseVisualStyleBackColor = true;
@@ -54,27 +54,27 @@
             // dateGACLabel
             // 
             this.dateGACLabel.AutoSize = true;
-            this.dateGACLabel.Location = new System.Drawing.Point(36, 64);
+            this.dateGACLabel.Location = new System.Drawing.Point(23, 64);
             this.dateGACLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.dateGACLabel.Name = "dateGACLabel";
-            this.dateGACLabel.Size = new System.Drawing.Size(121, 20);
+            this.dateGACLabel.Size = new System.Drawing.Size(141, 20);
             this.dateGACLabel.TabIndex = 21;
-            this.dateGACLabel.Text = "Recording Date";
+            this.dateGACLabel.Text = "Date of first record";
             // 
             // textBoxPositions
             // 
             this.textBoxPositions.Enabled = false;
-            this.textBoxPositions.Location = new System.Drawing.Point(165, 93);
+            this.textBoxPositions.Location = new System.Drawing.Point(193, 93);
             this.textBoxPositions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxPositions.Name = "textBoxPositions";
             this.textBoxPositions.ReadOnly = true;
-            this.textBoxPositions.Size = new System.Drawing.Size(222, 26);
+            this.textBoxPositions.Size = new System.Drawing.Size(194, 26);
             this.textBoxPositions.TabIndex = 20;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 100);
+            this.label3.Location = new System.Drawing.Point(23, 100);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(114, 20);
@@ -83,10 +83,10 @@
             // 
             // btnImportGAC
             // 
-            this.btnImportGAC.Location = new System.Drawing.Point(164, 16);
+            this.btnImportGAC.Location = new System.Drawing.Point(192, 16);
             this.btnImportGAC.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnImportGAC.Name = "btnImportGAC";
-            this.btnImportGAC.Size = new System.Drawing.Size(223, 35);
+            this.btnImportGAC.Size = new System.Drawing.Size(195, 35);
             this.btnImportGAC.TabIndex = 17;
             this.btnImportGAC.Text = "Select GAC File...";
             this.btnImportGAC.UseVisualStyleBackColor = true;
@@ -95,11 +95,11 @@
             // dateGAC
             // 
             this.dateGAC.Enabled = false;
-            this.dateGAC.Location = new System.Drawing.Point(165, 59);
+            this.dateGAC.Location = new System.Drawing.Point(193, 59);
             this.dateGAC.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dateGAC.Name = "dateGAC";
             this.dateGAC.ReadOnly = true;
-            this.dateGAC.Size = new System.Drawing.Size(222, 26);
+            this.dateGAC.Size = new System.Drawing.Size(194, 26);
             this.dateGAC.TabIndex = 23;
             // 
             // numericUpDownTimeCorrectionHrs
@@ -117,7 +117,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 132);
+            this.label1.Location = new System.Drawing.Point(23, 132);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(171, 20);

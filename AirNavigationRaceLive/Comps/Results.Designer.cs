@@ -32,8 +32,6 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnLoggerImport = new System.Windows.Forms.Button();
             this.groupBoxLoggerImport = new System.Windows.Forms.GroupBox();
-            this.radioButtonGPXimport = new System.Windows.Forms.RadioButton();
-            this.radioButtonGACimport = new System.Windows.Forms.RadioButton();
             this.groupBoxExportResults = new System.Windows.Forms.GroupBox();
             this.radioButtonRankingXLS = new System.Windows.Forms.RadioButton();
             this.btnExportResults = new System.Windows.Forms.Button();
@@ -92,10 +90,10 @@
             // 
             this.btnLoggerImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnLoggerImport.Enabled = false;
-            this.btnLoggerImport.Location = new System.Drawing.Point(250, 33);
+            this.btnLoggerImport.Location = new System.Drawing.Point(189, 33);
             this.btnLoggerImport.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLoggerImport.Name = "btnLoggerImport";
-            this.btnLoggerImport.Size = new System.Drawing.Size(110, 35);
+            this.btnLoggerImport.Size = new System.Drawing.Size(171, 35);
             this.btnLoggerImport.TabIndex = 118;
             this.btnLoggerImport.Text = "Import";
             this.btnLoggerImport.UseVisualStyleBackColor = true;
@@ -104,8 +102,6 @@
             // groupBoxLoggerImport
             // 
             this.groupBoxLoggerImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBoxLoggerImport.Controls.Add(this.radioButtonGPXimport);
-            this.groupBoxLoggerImport.Controls.Add(this.radioButtonGACimport);
             this.groupBoxLoggerImport.Controls.Add(this.btnLoggerImport);
             this.groupBoxLoggerImport.Location = new System.Drawing.Point(9, 980);
             this.groupBoxLoggerImport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -115,30 +111,6 @@
             this.groupBoxLoggerImport.TabIndex = 121;
             this.groupBoxLoggerImport.TabStop = false;
             this.groupBoxLoggerImport.Text = "Logger Data import";
-            // 
-            // radioButtonGPXimport
-            // 
-            this.radioButtonGPXimport.AutoSize = true;
-            this.radioButtonGPXimport.Location = new System.Drawing.Point(20, 80);
-            this.radioButtonGPXimport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radioButtonGPXimport.Name = "radioButtonGPXimport";
-            this.radioButtonGPXimport.Size = new System.Drawing.Size(119, 24);
-            this.radioButtonGPXimport.TabIndex = 122;
-            this.radioButtonGPXimport.Text = "Import *.gpx";
-            this.radioButtonGPXimport.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonGACimport
-            // 
-            this.radioButtonGACimport.AutoSize = true;
-            this.radioButtonGACimport.Checked = true;
-            this.radioButtonGACimport.Location = new System.Drawing.Point(20, 41);
-            this.radioButtonGACimport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radioButtonGACimport.Name = "radioButtonGACimport";
-            this.radioButtonGACimport.Size = new System.Drawing.Size(120, 24);
-            this.radioButtonGACimport.TabIndex = 121;
-            this.radioButtonGACimport.TabStop = true;
-            this.radioButtonGACimport.Text = "Import *.gac";
-            this.radioButtonGACimport.UseVisualStyleBackColor = true;
             // 
             // groupBoxExportResults
             // 
@@ -428,7 +400,6 @@
             this.Load += new System.EventHandler(this.Results_Load);
             this.VisibleChanged += new System.EventHandler(this.Results_Load);
             this.groupBoxLoggerImport.ResumeLayout(false);
-            this.groupBoxLoggerImport.PerformLayout();
             this.groupBoxExportResults.ResumeLayout(false);
             this.groupBoxExportResults.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -467,8 +438,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblResults;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.RadioButton radioButtonGPXimport;
-        private System.Windows.Forms.RadioButton radioButtonGACimport;
         private System.Windows.Forms.RadioButton radioButtonRankingXLS;
         private System.Windows.Forms.GroupBox groupBoxTogglePenaltyPanel;
         private System.Windows.Forms.Button btnTogglePenaltyPanel;

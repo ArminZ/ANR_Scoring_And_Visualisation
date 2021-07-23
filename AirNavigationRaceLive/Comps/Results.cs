@@ -25,8 +25,8 @@ namespace AirNavigationRaceLive.Comps
             InitializeComponent();
             dataGridView2.MultiSelect = false;
             dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            radioButtonGACimport.Checked = Properties.Settings.Default.LoggerDefaultFileType == 0;
-            radioButtonGPXimport.Checked = Properties.Settings.Default.LoggerDefaultFileType == 1;
+            //radioButtonGACimport.Checked = Properties.Settings.Default.LoggerDefaultFileType == 0;
+            //radioButtonGPXimport.Checked = Properties.Settings.Default.LoggerDefaultFileType == 1;
             //dataGridView2.RowHeadersVisible = false;
             //dataGridView1.RowHeadersWidth = 30;
 
@@ -288,22 +288,27 @@ namespace AirNavigationRaceLive.Comps
         {
             if (dataGridView2.SelectedRows.Count == 1)
             {
-                var checkedButton = groupBoxLoggerImport.Controls.OfType<RadioButton>()
-                          .FirstOrDefault(r => r.Checked);
-                if (checkedButton == radioButtonGACimport)
-                {
-                    FlightSet selectedTeamFlight = dataGridView2.SelectedRows[0].Tag as FlightSet;
-                    UploadGAC upload = new UploadGAC(Client, selectedTeamFlight);
-                    upload.OnFinish += new EventHandler(UploadFinished);
-                    upload.Show();
-                }
-                if (checkedButton == radioButtonGPXimport)
-                {
-                    FlightSet selectedTeamFlight = dataGridView2.SelectedRows[0].Tag as FlightSet;
-                    UploadGPX upload = new UploadGPX(Client, selectedTeamFlight);
-                    upload.OnFinish += new EventHandler(UploadFinished);
-                    upload.Show();
-                }
+                //var checkedButton = groupBoxLoggerImport.Controls.OfType<RadioButton>()
+                //          .FirstOrDefault(r => r.Checked);
+                //if (checkedButton == radioButtonGACimport)
+                //{
+                //    FlightSet selectedTeamFlight = dataGridView2.SelectedRows[0].Tag as FlightSet;
+                //    UploadGAC upload = new UploadGAC(Client, selectedTeamFlight);
+                //    upload.OnFinish += new EventHandler(UploadFinished);
+                //    upload.Show();
+                //}
+                //if (checkedButton == radioButtonGPXimport)
+                //{
+                //    FlightSet selectedTeamFlight = dataGridView2.SelectedRows[0].Tag as FlightSet;
+                //    UploadGPX upload = new UploadGPX(Client, selectedTeamFlight);
+                //    upload.OnFinish += new EventHandler(UploadFinished);
+                //    upload.Show();
+                //}
+
+                FlightSet selectedTeamFlight = dataGridView2.SelectedRows[0].Tag as FlightSet;
+                UploadLoggerData upload = new UploadLoggerData(Client, selectedTeamFlight);
+                upload.OnFinish += new EventHandler(UploadFinished);
+                upload.Show();
             }
         }
         delegate void OnFinishCallback(IAsyncResult result);

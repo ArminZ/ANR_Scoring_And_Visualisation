@@ -60,12 +60,12 @@ namespace AirNavigationRaceLive.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool parcourPDFAdditionalText {
+        public bool HasCompMapAdditionalText {
             get {
-                return ((bool)(this["parcourPDFAdditionalText"]));
+                return ((bool)(this["HasCompMapAdditionalText"]));
             }
             set {
-                this["parcourPDFAdditionalText"] = value;
+                this["HasCompMapAdditionalText"] = value;
             }
         }
         
@@ -414,6 +414,30 @@ namespace AirNavigationRaceLive.Properties {
             }
             set {
                 this["MaxPenaltyTKOF"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public long GACFileWarningThresholdDate {
+            get {
+                return ((long)(this["GACFileWarningThresholdDate"]));
+            }
+            set {
+                this["GACFileWarningThresholdDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CompMapAdditionalText {
+            get {
+                return ((string)(this["CompMapAdditionalText"]));
+            }
+            set {
+                this["CompMapAdditionalText"] = value;
             }
         }
     }

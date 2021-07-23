@@ -46,27 +46,25 @@ namespace AirNavigationRaceLive.Dialogs
                 string dt = string.Empty;
                 string WarningText = String.Empty;
                 DateTime? CompDate0 = new DateTime();
+                DateTime? CompFirstTime0 = new DateTime();
                 DateTime CompDate = new DateTime();
-                bool isValidDate = Importer.GACFileHasValidDate(ofd.FileName, out CompDate0);
+                bool isValidDate = Importer.GACFileHasValidDate(ofd.FileName, out CompDate0, out CompFirstTime0);
                 dateGAC.Text = String.IsNullOrEmpty(CompDate0.ToString()) ? String.Empty : ((DateTime)CompDate0).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
                 btnUploadData.Visible = isValidDate;
 
-                    // invalid date in GAC file line 2
-                if (Importer.lstWarnings.Count > 0)
+
+                // the normal case
+                if (isValidDate && CompDate0 != null && CompFirstTime0 != null && ((DateTime)CompDate0) >= new DateTime(2005, 12, 31))
                 {
-                    string res = string.Join("\n", Importer.lstWarnings) + "\nDefine the correct date (default: actual date):";
-                    string strCompDate = DateTime.Today.ToString("ddMMyy");
-                    if (InputBoxClass.InputBox("Invalid Date", res, ref strCompDate) == DialogResult.OK)
-                    {
-                        CompDate = DateTime.ParseExact(strCompDate, "ddMMyy", CultureInfo.InvariantCulture);
-                        dateGAC.Text = CompDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-                        btnUploadData.Visible = true;
-                    }
+                    // combined date + time
+                    CompDate = ((DateTime)CompDate0).Add(((DateTime)CompFirstTime0).TimeOfDay);
+                    dateGAC.Text = CompDate.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture);
+                    btnUploadData.Visible = true;
                 }
 
                 // date in GAC file line 2 is formally valid, but older than 2005-12-31
                 // this date threshold is selected based on experience  - in the ANR competition in Portugal (date was March 2004) 
-                if (Importer.lstWarnings.Count == 0 && CompDate0 != null && ((DateTime)CompDate0) < new DateTime(2005, 12, 31))
+                if (isValidDate && CompDate0 != null && CompFirstTime0 != null && ((DateTime)CompDate0) < new DateTime(2005, 12, 31))
                 {
                     string res = "The date {0} (given as '{1}') is formally valid, but may be outdated/incorrect.";
                     string strCompDate = ((DateTime)CompDate0).ToString("ddMMyy");
@@ -77,18 +75,25 @@ namespace AirNavigationRaceLive.Dialogs
                     res = string.Join("\n", res) + "\nIf required, correct the date(default: original date, format: ddMMyy):";
                     if (InputBoxClass.InputBox("Check Date", res, ref strCompDate) == DialogResult.OK)
                     {
-                        CompDate = DateTime.ParseExact(strCompDate, "ddMMyy", CultureInfo.InvariantCulture);
-                        dateGAC.Text = CompDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                        CompDate0 = DateTime.ParseExact(strCompDate, "ddMMyy", CultureInfo.InvariantCulture);
+                        CompDate = ((DateTime)CompDate0).Add(((DateTime)CompFirstTime0).TimeOfDay);
+                        dateGAC.Text = CompDate.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture);
                         btnUploadData.Visible = true;
                     }
                 }
 
-                // the normal case
-                if (Importer.lstWarnings.Count == 0 && CompDate0 != null && ((DateTime)CompDate0) >= new DateTime(2005, 12, 31))
+                // invalid date in GAC file line 2
+                if (!(isValidDate) && CompFirstTime0 != null)
                 {
-                    CompDate = (DateTime)CompDate0;
-                    dateGAC.Text = CompDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-                    btnUploadData.Visible = true;
+                    string res = string.Join("\n", Importer.lstWarnings) + "\nDefine the correct date (default: actual date):";
+                    string strCompDate = DateTime.Today.ToString("ddMMyy");
+                    if (InputBoxClass.InputBox("Invalid Date", res, ref strCompDate) == DialogResult.OK)
+                    {
+                        CompDate0 = DateTime.ParseExact(strCompDate, "ddMMyy", CultureInfo.InvariantCulture);
+                        CompDate = ((DateTime)CompDate0).Add(((DateTime)CompFirstTime0).TimeOfDay);
+                        dateGAC.Text = CompDate.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture);
+                        btnUploadData.Visible = true;
+                    }
                 }
 
                 List<Point> list = Importer.GPSdataFromGAC(ofd.FileName, CompDate);

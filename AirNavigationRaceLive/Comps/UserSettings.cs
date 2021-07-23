@@ -25,7 +25,7 @@ namespace AirNavigationRaceLive.Comps
         {
             Properties.Settings.Default.promptForDB = !chkDefaultDBDirectory.Checked;
             Properties.Settings.Default.directoryForDB = textBoxDatabasePath.Text;
-            Properties.Settings.Default.parcourPDFAdditionalText = chkParcourAdditionalText.Checked;
+            Properties.Settings.Default.HasCompMapAdditionalText = chkCompMapAdditionalText.Checked;
 
             Properties.Settings.Default.PROHColor = btnPROHColorLayer.BackColor;
             Properties.Settings.Default.PROHTransp = numericUpDownPROHAlpha.Value;
@@ -51,8 +51,6 @@ namespace AirNavigationRaceLive.Comps
             Properties.Settings.Default.FlightPenColor = btnFlightColor.BackColor;
             Properties.Settings.Default.FlightPenWidth = numericUpDownFlightPen.Value;
 
-            Properties.Settings.Default.LoggerDefaultFileType = radioButtonLoggerDefaultFileTypeGPX.Checked ? 1 : 0;
-
             Properties.Settings.Default.TimeToleranceLowerTKOF = (int)numericUpDownTimeToleranceTKOFLower.Value;
             Properties.Settings.Default.TimeToleranceUpperTKOF = (int)numericUpDownTimeToleranceTKOFUpper.Value;
             Properties.Settings.Default.MaxPenaltyTKOF = (int)numericUpDownMaxPenaltyTKOF.Value;
@@ -61,6 +59,10 @@ namespace AirNavigationRaceLive.Comps
             Properties.Settings.Default.TimeToleranceEnroute = (int)numericUpDownTimeToleranceEnroute.Value;
             Properties.Settings.Default.PenaltyPointsPerSecond = (int)numericUpDownPenaltyPointsPerSecond.Value;
             Properties.Settings.Default.MaxPenaltyPerEvent = (int)numericUpDownMaxPenalty.Value;
+
+            Properties.Settings.Default.GACFileWarningThresholdDate = dtPickerGACFileThreshold.Value.Ticks;
+            Properties.Settings.Default.CompMapAdditionalText = textBoxCompMapAdditionalText.Text;
+
             Properties.Settings.Default.Save();
         }
 
@@ -68,7 +70,8 @@ namespace AirNavigationRaceLive.Comps
         {
             chkDefaultDBDirectory.Checked = !Properties.Settings.Default.promptForDB;
             textBoxDatabasePath.Enabled = chkDefaultDBDirectory.Checked;
-            chkParcourAdditionalText.Checked = Properties.Settings.Default.parcourPDFAdditionalText;
+            chkCompMapAdditionalText.Checked = Properties.Settings.Default.HasCompMapAdditionalText;
+            textBoxCompMapAdditionalText.Text = Properties.Settings.Default.CompMapAdditionalText;
             textBoxDatabasePath.Text = Properties.Settings.Default.directoryForDB;
 
             btnPROHColorLayer.BackColor = Properties.Settings.Default.PROHColor;
@@ -105,12 +108,10 @@ namespace AirNavigationRaceLive.Comps
             numericUpDownPenaltyPointsPerSecond.Value = Properties.Settings.Default.PenaltyPointsPerSecond;
             numericUpDownMaxPenalty.Value = Properties.Settings.Default.MaxPenaltyPerEvent;
 
+            dtPickerGACFileThreshold.Value = Properties.Settings.Default.GACFileWarningThresholdDate == 0 ? new DateTime(2010,1,1) : new DateTime(Properties.Settings.Default.GACFileWarningThresholdDate);
+
             radioButtonPenaltyCalcTypePROH.Checked = Properties.Settings.Default.ParcourType == 0;
             radioButtonPenaltyCalcTypeChannel.Checked = Properties.Settings.Default.ParcourType == 1;
-
-            radioButtonLoggerDefaultFileTypeGAC.Checked = Properties.Settings.Default.LoggerDefaultFileType == 0;
-            radioButtonLoggerDefaultFileTypeGPX.Checked = Properties.Settings.Default.LoggerDefaultFileType == 1;
-
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -126,6 +127,12 @@ namespace AirNavigationRaceLive.Comps
         private void btnDB_Click(object sender, EventArgs e)
         {
             textBoxDatabasePath.Text = Comps.Helper.Utils.getDbPath(true);
+        }
+
+        private void chkCompMapAdditionalText_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxCompMapAdditionalText.Visible = chkCompMapAdditionalText.Checked;
+            lblCompMapAdditionalText.Visible = chkCompMapAdditionalText.Checked;
         }
     }
 }

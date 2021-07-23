@@ -926,13 +926,15 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// <param name="filename"></param>
         /// <param name="DefaultDate"></param>
         /// <returns></returns>
-        public static bool GACFileHasValidDate(string filename, out DateTime? CompDate)
+        public static bool GACFileHasValidDate(string filename, out DateTime? CompDate, out DateTime? FirstTimeValue)
         {
             string line = string.Empty;
             string strCompDate = string.Empty;
             //CompDate = DefaultDate;
             bool ret = true;
             CompDate = null;
+            FirstTimeValue = null;
+
             using (StreamReader sr = new StreamReader(filename))
             {
                 while (!sr.EndOfStream)
@@ -943,20 +945,34 @@ namespace AirNavigationRaceLive.Comps.Helper
                         continue;
                     }
                     #region read Header / recording date (IGC header field HFDTE)
-                    if (line.StartsWith("HFDTE") && line.Length >= 9)
+                    if (line.StartsWith("HFDTE") && line.Length > 5)
                     {
                         // HFDTE  = UTC date of the recording. H-type record (Header), IGC file standard 
                         // Example: HFDTE300411, with 300411 = date in format ddMMyy
-                        strCompDate = GACUTCDateParser(line.Substring(5, 6));
+                        strCompDate = line.Length>=11 ? GACDateParser(line.Substring(5, 6)): String.Empty;
                         if (String.IsNullOrEmpty(strCompDate) || !strCompDate.All(char.IsDigit))
                         {
-                            lstWarnings.Add(String.Format("The file contains an invalid date value on line 2: {0}\nThe expected format is: ddMmyy", line.Substring(5, 6)));
+                            lstWarnings.Add(String.Format("The file contains an invalid date value on line 2: {0}\nThe expected format is: ddMmyy", line.Substring(5, line.Length-5)));
                             ret = false;
                         }
                         else
                         {
                             CompDate = DateTime.ParseExact(strCompDate, "ddMMyyyy", CultureInfo.InvariantCulture);
                         }
+                    }
+                    #endregion
+
+                    #region read first time stamp (B record)
+                    if (line.StartsWith("B"))
+                    {
+                        strCompDate = GACDateParser(line.Substring(5, 6));
+                        DateTime newPointTimeStamp = new DateTime();
+                        newPointTimeStamp = newPointTimeStamp.AddHours(Convert.ToInt32(line.Substring(1, 2)));
+                        newPointTimeStamp = newPointTimeStamp.AddMinutes(Convert.ToInt32(line.Substring(3, 2)));
+                        newPointTimeStamp = newPointTimeStamp.AddSeconds(Convert.ToInt32(line.Substring(5, 2)));
+                        // return when the first record is found
+                        FirstTimeValue = newPointTimeStamp;
+                        return ret;
                     }
                     #endregion
                 }
@@ -1196,7 +1212,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// </summary>
         /// <param name="strDatePart"></param>
         /// <returns></returns>
-        internal static string GACUTCDateParser(string strDatePart)
+        internal static string GACDateParser(string strDatePart)
         {
             int yyyy = 0;
             string strDate = string.Empty;

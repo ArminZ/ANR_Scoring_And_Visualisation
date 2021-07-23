@@ -346,11 +346,11 @@
     <Compile Include="Dialogs\ImportTKOFLines.Designer.cs">
       <DependentUpon>ImportTKOFLines.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\UploadGPX.cs">
+    <Compile Include="Dialogs\UploadLoggerData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\UploadGPX.Designer.cs">
-      <DependentUpon>UploadGPX.cs</DependentUpon>
+    <Compile Include="Dialogs\UploadLoggerData.Designer.cs">
+      <DependentUpon>UploadLoggerData.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ExportKML.cs">
       <SubType>Form</SubType>
@@ -363,12 +363,6 @@
     </Compile>
     <Compile Include="Dialogs\RankForm.Designer.cs">
       <DependentUpon>RankForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\UploadGAC.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\UploadGAC.Designer.cs">
-      <DependentUpon>UploadGAC.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\Calculator.cs">
       <SubType>Form</SubType>
@@ -494,17 +488,14 @@
     <EmbeddedResource Include="Dialogs\ImportTKOFLines.resx">
       <DependentUpon>ImportTKOFLines.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\UploadGPX.resx">
-      <DependentUpon>UploadGPX.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\UploadLoggerData.resx">
+      <DependentUpon>UploadLoggerData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ExportKML.resx">
       <DependentUpon>ExportKML.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\RankForm.resx">
       <DependentUpon>RankForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\UploadGAC.resx">
-      <DependentUpon>UploadGAC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Calculator.resx">
       <DependentUpon>Calculator.cs</DependentUpon>
