@@ -492,8 +492,8 @@ namespace AirNavigationRaceLive.Comps.Helper
             AddCompetitionAndLogo(Client, sec);
 
             sec.AddParagraph("Qualification Round: " + qRnd.Name);
-            sec.AddParagraph("Start List");
-            sec.AddParagraph("");
+            sec.AddParagraph("Starting List");
+            sec.AddParagraph("Printed (UTC): " + System.DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ssZ", DateTimeFormatInfo.InvariantInfo));
             sec.AddParagraph("");
 
             Table table = sec.AddTable();
@@ -516,11 +516,11 @@ namespace AirNavigationRaceLive.Comps.Helper
             row.Cells[1].AddParagraph("Crew ID");
             row.Cells[2].AddParagraph("AC");
             row.Cells[3].AddParagraph("Pilot - Navigator");
-            row.Cells[4].AddParagraph("Start Planning");
-            row.Cells[5].AddParagraph("End Planning");
-            row.Cells[6].AddParagraph("Take Off");
-            row.Cells[7].AddParagraph("SP Gate");
-            row.Cells[8].AddParagraph("FP Gate");
+            row.Cells[4].AddParagraph("Start Planning [UTC]");
+            row.Cells[5].AddParagraph("End Planning [UTC]");
+            row.Cells[6].AddParagraph("Take-Off [UTC]");
+            row.Cells[7].AddParagraph("SP Gate [UTC]");
+            row.Cells[8].AddParagraph("FP Gate [UTC]");
             row.Cells[9].AddParagraph("Route");
 
             foreach (FlightSet ct in qRnd.FlightSet.OrderBy(x => x.TimeTakeOff).ThenBy(x => x.Route))

@@ -739,12 +739,54 @@ namespace AirNavigationRaceLive.Comps.Helper
             return lstLines;
         }
 
+        public static List<AirNavigationRaceLive.Model.Point> getPointsFromKMLCoordinates(string str, bool includeAltitude = false)
+        {
+            Line l = new Line();
+            AirNavigationRaceLive.Model.Point point = new AirNavigationRaceLive.Model.Point();
+            List<AirNavigationRaceLive.Model.Point> lst = new List<AirNavigationRaceLive.Model.Point>();
+            string[] pt;
+            // NOTE: string may contain linebreaks instead of space
+            string[] ptstrings = str.Replace("\n", " ").Split(' ');
+
+            foreach (var ptstring in ptstrings)
+            {
+                double lon, lat, alt = 0.0;
+                point = new AirNavigationRaceLive.Model.Point();
+                pt = ptstring.Split(',');
+                if (double.TryParse(pt[0].Trim(), System.Globalization.NumberStyles.Float, NumberFormatInfo.InvariantInfo, out lon) &&
+                    double.TryParse(pt[1].Trim(), System.Globalization.NumberStyles.Float, NumberFormatInfo.InvariantInfo, out lat) &&
+                    double.TryParse(pt[2].Trim(), System.Globalization.NumberStyles.Float, NumberFormatInfo.InvariantInfo, out alt)
+)
+                {
+                    point.longitude = lon;
+                    point.latitude = lat;
+                    if (includeAltitude)
+                    {
+                        point.altitude = alt;
+                    }
+                    lst.Add(point);
+                }
+            }
+            return lst;
+        }
+
+        public static string ReversedKMLCoordinateString(string str)
+        {
+            string ReversedCoordinates = string.Empty;
+            // NOTE: string may contain linebreaks, tabs instead of space
+            char[] splitchars = { ' ' };
+            string[] ptstrings = str.Replace("\n", " ").Replace("\t", " ").Replace("  ", " ").Split(splitchars, StringSplitOptions.RemoveEmptyEntries);
+            ReversedCoordinates = string.Join(" ", ptstrings.Reverse());
+            return ReversedCoordinates;
+        }
+
+
         /// <summary>
         /// Imports a GAC File of a flight
         /// Note that the date is read correctly from the data file
         /// </summary>
         /// <param name="filename"></param>
-        /// <param name="strCompDate"></param>
+        /// <param name="CompDate"></param>
         /// <returns></returns>
         public static List<AirNavigationRaceLive.Model.Point> GPSdataFromGAC(string filename, DateTime CompDate)
         {
@@ -919,18 +961,20 @@ namespace AirNavigationRaceLive.Comps.Helper
             return result;
         }
 
+
+
         /// <summary>
-        /// Writes the GAC file with the corrected date to a new file. 
-        /// Returns original file name (if no correction is needed),otherwise the new filename
+        /// Checks if the GAC file contains a valid date on line 2. Outputs also the first Time value
+        /// Out parameters: valid date (or null), first time value (or null)
         /// </summary>
         /// <param name="filename"></param>
-        /// <param name="DefaultDate"></param>
+        /// <param name="CompDate"></param>
+        /// <param name="FirstTimeValue"></param>
         /// <returns></returns>
         public static bool GACFileHasValidDate(string filename, out DateTime? CompDate, out DateTime? FirstTimeValue)
         {
             string line = string.Empty;
             string strCompDate = string.Empty;
-            //CompDate = DefaultDate;
             bool ret = true;
             CompDate = null;
             FirstTimeValue = null;
@@ -949,15 +993,16 @@ namespace AirNavigationRaceLive.Comps.Helper
                     {
                         // HFDTE  = UTC date of the recording. H-type record (Header), IGC file standard 
                         // Example: HFDTE300411, with 300411 = date in format ddMMyy
-                        strCompDate = line.Length>=11 ? GACDateParser(line.Substring(5, 6)): String.Empty;
-                        if (String.IsNullOrEmpty(strCompDate) || !strCompDate.All(char.IsDigit))
+                        DateTime outDate;
+                        // the standard date parsing works also for ddMMyy. if yy >=50 -> 19yy, otherwise 20yy  (56->1956, 48 -> 2048)
+                        if (DateTime.TryParseExact(line.Substring(5, line.Length - 5), "ddMMyy", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out outDate))
                         {
-                            lstWarnings.Add(String.Format("The file contains an invalid date value on line 2: {0}\nThe expected format is: ddMmyy", line.Substring(5, line.Length-5)));
-                            ret = false;
+                            CompDate = outDate;
                         }
                         else
                         {
-                            CompDate = DateTime.ParseExact(strCompDate, "ddMMyyyy", CultureInfo.InvariantCulture);
+                            lstWarnings.Add(String.Format("The file contains an invalid date value on line 2: {0}\nThe expected format is: ddMmyy", line.Substring(5, line.Length - 5)));
+                            ret = false;
                         }
                     }
                     #endregion
@@ -965,7 +1010,6 @@ namespace AirNavigationRaceLive.Comps.Helper
                     #region read first time stamp (B record)
                     if (line.StartsWith("B"))
                     {
-                        strCompDate = GACDateParser(line.Substring(5, 6));
                         DateTime newPointTimeStamp = new DateTime();
                         newPointTimeStamp = newPointTimeStamp.AddHours(Convert.ToInt32(line.Substring(1, 2)));
                         newPointTimeStamp = newPointTimeStamp.AddMinutes(Convert.ToInt32(line.Substring(3, 2)));
@@ -1043,46 +1087,6 @@ namespace AirNavigationRaceLive.Comps.Helper
         /// </example>
         /// <param name="str"></param>
         /// <returns>A list of points</returns>
-        public static List<AirNavigationRaceLive.Model.Point> getPointsFromKMLCoordinates(string str, bool includeAltitude = false)
-        {
-            Line l = new Line();
-            AirNavigationRaceLive.Model.Point point = new AirNavigationRaceLive.Model.Point();
-            List<AirNavigationRaceLive.Model.Point> lst = new List<AirNavigationRaceLive.Model.Point>();
-            string[] pt;
-            // NOTE: string may contain linebreaks instead of space
-            string[] ptstrings = str.Replace("\n", " ").Split(' ');
-
-            foreach (var ptstring in ptstrings)
-            {
-                double lon, lat, alt = 0.0;
-                point = new AirNavigationRaceLive.Model.Point();
-                pt = ptstring.Split(',');
-                if (double.TryParse(pt[0].Trim(), System.Globalization.NumberStyles.Float, NumberFormatInfo.InvariantInfo, out lon) &&
-                    double.TryParse(pt[1].Trim(), System.Globalization.NumberStyles.Float, NumberFormatInfo.InvariantInfo, out lat) &&
-                    double.TryParse(pt[2].Trim(), System.Globalization.NumberStyles.Float, NumberFormatInfo.InvariantInfo, out alt)
-)
-                {
-                    point.longitude = lon;
-                    point.latitude = lat;
-                    if (includeAltitude)
-                    {
-                        point.altitude = alt;
-                    }
-                    lst.Add(point);
-                }
-            }
-            return lst;
-        }
-
-        public static string ReversedKMLCoordinateString(string str)
-        {
-            string ReversedCoordinates = string.Empty;
-            // NOTE: string may contain linebreaks, tabs instead of space
-            char[] splitchars = { ' ' };
-            string[] ptstrings = str.Replace("\n", " ").Replace("\t", " ").Replace("  ", " ").Split(splitchars, StringSplitOptions.RemoveEmptyEntries);
-            ReversedCoordinates = string.Join(" ", ptstrings.Reverse());
-            return ReversedCoordinates;
-        }
 
         /// <summary>
         /// retrieve the LineType based on the gate name.
@@ -1206,30 +1210,5 @@ namespace AirNavigationRaceLive.Comps.Helper
             return lst;
         }
 
-        /// <summary>
-        /// Parsing the date that has been read from the IGC format header field HFDTE.
-        /// Example: 290196
-        /// </summary>
-        /// <param name="strDatePart"></param>
-        /// <returns></returns>
-        internal static string GACDateParser(string strDatePart)
-        {
-            int yyyy = 0;
-            string strDate = string.Empty;
-            string strDDMM = strDatePart.Substring(0, 4);
-            string strYY = strDatePart.Substring(4, 2);
-            if (int.TryParse(strYY, out yyyy))
-            {
-                // parsing was ok
-                // if year is more than 90 then its year 1900+, otherwise its year 2000+                  
-                strDate = yyyy > 80 ? strDDMM + "19" + strYY : strDDMM + "20" + strYY;
-                return strDate;
-            }
-            else
-            {
-                return string.Empty;
-            }
-
-        }
     }
 }

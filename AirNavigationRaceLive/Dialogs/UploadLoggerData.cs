@@ -32,6 +32,7 @@ namespace AirNavigationRaceLive.Dialogs
         {
             textBoxRecords.Text = String.Empty;
             textBoxRecords.Tag = null;
+            Importer.lstWarnings.Clear();
             OpenFileDialog ofd = new OpenFileDialog();
             string FileFilter = "GAC and IGC files (*.gac, *.igc)|*.gac;*.igc|GPX files (*.gpx)|*.gpx|GAC, IGC and GPX files (*.gac, *.igc, *.gpx)|*.gac;*.igc;*.gpx";
             ofd.Filter = FileFilter;
@@ -78,12 +79,16 @@ namespace AirNavigationRaceLive.Dialogs
                         DateTime? CompDate0 = new DateTime();
                         DateTime? CompFirstTime0 = new DateTime();
                         DateTime CompDate = new DateTime();
+
+                        // read threshold date for GAC files (if date is older that the threshold date, the user will have to confirm or change the date)
+                        DateTime dtThreshold = new DateTime(Properties.Settings.Default.GACFileWarningThresholdDate, DateTimeKind.Utc);
+
                         bool isValidDate = Importer.GACFileHasValidDate(ofd.FileName, out CompDate0, out CompFirstTime0);
                        // dateGAC.Text = String.IsNullOrEmpty(CompDate0.ToString()) ? String.Empty : ((DateTime)CompDate0).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
                         btnUploadData.Visible = isValidDate;
 
                         // the normal case
-                        if (isValidDate && CompDate0 != null && CompFirstTime0 != null && ((DateTime)CompDate0) >= new DateTime(2005, 12, 31))
+                        if (isValidDate && CompDate0 != null && CompFirstTime0 != null && ((DateTime)CompDate0) >= dtThreshold)
                         {
                             // combine date + time
                             CompDate = ((DateTime)CompDate0).Add(((DateTime)CompFirstTime0).TimeOfDay);
@@ -91,9 +96,9 @@ namespace AirNavigationRaceLive.Dialogs
                             btnUploadData.Visible = true;
                         }
 
-                        // date in GAC file line 2 is formally valid, but older than 2005-12-31
+                        // date in GAC file line 2 is formally valid, but older than the threshold date
                         // this date threshold is selected based on experience  - in the ANR competition in Portugal (date was March 2004) 
-                        if (isValidDate && CompDate0 != null && CompFirstTime0 != null && ((DateTime)CompDate0) < new DateTime(2005, 12, 31))
+                        if (isValidDate && CompDate0 != null && CompFirstTime0 != null && ((DateTime)CompDate0) < dtThreshold)
                         {
                             string res = "The date {0} (given as '{1}') is formally valid, but may be outdated/incorrect.";
                             string strCompDate = ((DateTime)CompDate0).ToString("ddMMyy");
