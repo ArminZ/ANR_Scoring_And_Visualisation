@@ -260,8 +260,10 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             return vrs;
         }
 
-        public List<Vector> CalculateCurvePoint(List<Vector> points, List<double> headings, double R, bool isRightHandBorderCalculation, int DeltaArc)
+        public List<Vector> CalculateCurvePoint(List<Vector> points, List<double> headings, double R, bool isRightHandBorderCalculation, int DeltaArc, bool hasRoundedCorners)
         {
+            // REV 2021-07-19 hasRoundedCorners implemented
+
             List<Vector> lstVector = new List<Vector>();
 
             for (int i = 0; i < points.Count; i++)
@@ -306,7 +308,16 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     else
                     {
                         // left fturn
-                        lstVector.Add(CalculateOuterCurvePoint(point, PhiA, PhiB, R));
+                        //lstVector.Add(CalculateOuterCurvePoint(point, PhiA, PhiB, R));
+
+                        if (hasRoundedCorners)
+                        {
+                            lstVector.AddRange(CalculateOuterCurveArc(point, PhiA, PhiB, R, DeltaArc));
+                        }
+                        else
+                        {
+                            lstVector.Add(CalculateOuterCurvePoint(point, PhiA, PhiB, R));
+                        }
                     }
                 }
                 else
@@ -315,7 +326,16 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     if (TurnDirection(Phi1, Phi2) == "R")
                     {
                         // Right turn
-                        lstVector.Add(CalculateOuterCurvePoint(point, PhiA, PhiB, R));
+                        // lstVector.Add(CalculateOuterCurvePoint(point, PhiA, PhiB, R));
+
+                        if (hasRoundedCorners)
+                        {
+                            lstVector.AddRange(CalculateOuterCurveArc(point, PhiA, PhiB, R, DeltaArc));
+                        }
+                        else
+                        {
+                            lstVector.Add(CalculateOuterCurvePoint(point, PhiA, PhiB, R));
+                        }
                     }
                     else
                     {

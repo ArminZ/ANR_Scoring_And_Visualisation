@@ -58,6 +58,7 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainPanel = new System.Windows.Forms.Panel();
+            this.RouteInverterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -231,6 +232,7 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.routeGeneratorToolStripMenuItem,
+            this.RouteInverterToolStripMenuItem,
             this.routeEportCoordinatesToolStripMenuItem,
             this.cH1903converterToolStripMenuItem});
             this.toolsToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
@@ -321,6 +323,13 @@
             this.MainPanel.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             this.MainPanel.Resize += new System.EventHandler(this.MainPanel_Resize);
             // 
+            // RouteInverterToolStripMenuItem
+            // 
+            this.RouteInverterToolStripMenuItem.Name = "RouteInverterToolStripMenuItem";
+            this.RouteInverterToolStripMenuItem.Size = new System.Drawing.Size(377, 30);
+            this.RouteInverterToolStripMenuItem.Text = "Route Inverter";
+            this.RouteInverterToolStripMenuItem.Click += new System.EventHandler(this.RouteInverterToolStripMenuItem_Click);
+            // 
             // AirNavigationRaceLiveMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -376,6 +385,7 @@
         private System.Windows.Forms.ToolStripMenuItem routeEportCoordinatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RouteInverterToolStripMenuItem;
     }
 }
 

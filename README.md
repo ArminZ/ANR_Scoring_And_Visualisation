@@ -23,16 +23,22 @@ At this time the application was basically a client-server application with a ce
 
 During 2016 the user interface was entirely renewed and improved, bugs fixed, unused and outdated code removed. The most important new functionality was the Route Generator, allowing parcour generation from Google Earth kml files. Also some documentation was provided, including the important subjects of map conversion/map import, and parcour creation/import.
 
-#### version 2.1.0 (August 2019)
+#### version 2.2.0 (2021-07-27)
 
-* Bug fix for penalty calculation on SP/FP
-* various default values implemented in user settings
-* Implemented configurable cap for maximum penalty (default=0, no cap)
-* various line widths and colors customizable
-* custom map scale implemented
-* Results: crossing points of flight path with prohibited zone borders, SP, FP are marked with a small circle
-* Introduced concept of Parcour type (parcour basd on prohibited zones, parcour as a closed channel)
-
+* Moved various hard-coded values used for penalty calculation to user settings  
+* Logger files, small modification in upload functionality  
+* Bug fix for displayed times (use UTC time, was local time in some cases)  
+* Qualification round: on the PDF starting list, include also start planning, end planning times  
+* GAC file processing:  
+  * handle GAC file with invalid date or wrong date (encountered with several loggers and downloading software)  
+  * handle GAC file with outdated wrong date (encountered with loggers and downloading software). For dates older than the threshold date, the user is prompted to accept (or change) the date. The threshold date (used for GAC/IGC files only) can be configured in settings.  
+  * accept GAC records which are incomplete according to the GAC file specifications: missing GSP (ground speed) and TRT (true track) on pos 36-39, 40-42). This makes the files formally being IGC files.  
+  * allow a time shift by x hours for GAC files (encountered with DG 100 loggers/downloading software)   
+* Allow processing of IGC files (processing is identical with GAC files processing).  
+* Route Generator: implemented (optional) rounded corners for parcours (for both types, PROH-zone based and closed-channel based parcours)  
+* Implemented Route Inversion (switching SP and FP), to make routes 'flyable' from the opposite direction  
+* Competition map, default text now configurable (in settings)  
+* Bug fix for Exporting Flight data from Database to gpx (fixed incorrect datetime format).
 
 --- 
 #### What is new in this version?

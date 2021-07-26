@@ -21,8 +21,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_32C59AD298FF01CE01F4DD68E8D9514D"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_42C326DD99600E4CC4E7F380D325008B"
         "OwnerKey" = "8:_789B61605B5D49EEA5246D18AA5611CA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_42C326DD99600E4CC4E7F380D325008B"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -39,26 +51,26 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5007D081F8E3FAAEAB5AD0016DC85000"
-        "OwnerKey" = "8:_789B61605B5D49EEA5246D18AA5611CA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5007D081F8E3FAAEAB5AD0016DC85000"
-        "OwnerKey" = "8:_816E96004FB464DE3ECDC841DBE1867F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_55793D4D249B351552DEFB377FEB8DFA"
         "OwnerKey" = "8:_789B61605B5D49EEA5246D18AA5611CA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
+        "MsmKey" = "8:_55793D4D249B351552DEFB377FEB8DFA"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_5F0D31AAAE7A72904F1477C0A23202D6"
         "OwnerKey" = "8:_789B61605B5D49EEA5246D18AA5611CA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5F0D31AAAE7A72904F1477C0A23202D6"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -81,8 +93,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_6328807FE6D09E02B212E6E38C335480"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_71E0BC6907F40FEEA23C9A99DE3357EB"
         "OwnerKey" = "8:_789B61605B5D49EEA5246D18AA5611CA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_71E0BC6907F40FEEA23C9A99DE3357EB"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -105,6 +129,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_738E15A454FDDF83075D2501B17FC6B6"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_789B61605B5D49EEA5246D18AA5611CA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -117,8 +147,26 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_816E96004FB464DE3ECDC841DBE1867F"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_85482701C90245F095B4FEC28C7DF630"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_8B81427C97CFAF3ACF298EAC6DA84FEC"
         "OwnerKey" = "8:_A2314BF098C22A2A09A964AFE2448087"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8B81427C97CFAF3ACF298EAC6DA84FEC"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -154,6 +202,12 @@
         "Entry"
         {
         "MsmKey" = "8:_A2314BF098C22A2A09A964AFE2448087"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A2314BF098C22A2A09A964AFE2448087"
         "OwnerKey" = "8:_789B61605B5D49EEA5246D18AA5611CA"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -165,8 +219,38 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_AC2FBCC1403992536B8C7360928FF262"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CCBC7EBD0F1D66FE1389095DB55D2524"
+        "OwnerKey" = "8:_789B61605B5D49EEA5246D18AA5611CA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CCBC7EBD0F1D66FE1389095DB55D2524"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CCBC7EBD0F1D66FE1389095DB55D2524"
+        "OwnerKey" = "8:_816E96004FB464DE3ECDC841DBE1867F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_D78AC0D65763D571DF053EB8BF63615D"
         "OwnerKey" = "8:_789B61605B5D49EEA5246D18AA5611CA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D78AC0D65763D571DF053EB8BF63615D"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -179,6 +263,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_789B61605B5D49EEA5246D18AA5611CA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_85482701C90245F095B4FEC28C7DF630"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -256,7 +346,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5007D081F8E3FAAEAB5AD0016DC85000"
+        "OwnerKey" = "8:_CCBC7EBD0F1D66FE1389095DB55D2524"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -290,11 +380,6 @@
                     {
                     "Name" = "8:Microsoft .NET Framework 4.5.2 (x86 and x64)"
                     "ProductCode" = "8:.NETFramework,Version=v4.5.2"
-                    }
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.SqlServer.SqlLocalDB.11.1"
-                    {
-                    "Name" = "8:SQL Server 2012 Express LocalDB"
-                    "ProductCode" = "8:Microsoft.SqlServer.SqlLocalDB.11.1"
                     }
                 }
             }
@@ -409,37 +494,6 @@
                     }
                 }
             "SourcePath" = "8:System.Data.SQLite.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_591FD7206AD24FD39F1681DA4C4B2366"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5007D081F8E3FAAEAB5AD0016DC85000"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.IO.Compression, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
-                "ScatterAssemblies"
-                {
-                    "_5007D081F8E3FAAEAB5AD0016DC85000"
-                    {
-                    "Name" = "8:System.IO.Compression.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.IO.Compression.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_591FD7206AD24FD39F1681DA4C4B2366"
@@ -756,6 +810,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CCBC7EBD0F1D66FE1389095DB55D2524"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.IO.Compression, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+                "ScatterAssemblies"
+                {
+                    "_CCBC7EBD0F1D66FE1389095DB55D2524"
+                    {
+                    "Name" = "8:System.IO.Compression.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.IO.Compression.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_591FD7206AD24FD39F1681DA4C4B2366"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D78AC0D65763D571DF053EB8BF63615D"
             {
             "AssemblyRegister" = "3:1"
@@ -843,15 +928,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:AirNavigationRace"
-        "ProductCode" = "8:{D20CF4AB-6F68-4AE2-906F-BF37A8EA171B}"
-        "PackageCode" = "8:{71529921-806E-4020-8F94-A81DD76F274A}"
+        "ProductCode" = "8:{3A2040A7-6E8E-4CBB-9D06-5710F2097DAD}"
+        "PackageCode" = "8:{EC1FCA9B-5343-48DB-A1DF-D6B906AEED43}"
         "UpgradeCode" = "8:{7CC2B53C-D5A1-482F-8B00-18B38ECBFFDF}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.1.0"
+        "ProductVersion" = "8:2.2.0"
         "Manufacturer" = "8:sharpsoft for FAI"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -964,30 +1049,30 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8CD5C9835DE04F6F800B40FE6F3AD571"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_0431109F2A9F410B8A59F567B9FFAB5B"
             {
-            "Name" = "8:AirNavigationRace"
+            "Name" = "8:Shortcut to AirNavigationRaceLive"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_789B61605B5D49EEA5246D18AA5611CA"
-            "Folder" = "8:_3A5DB726206A48E4A06288A8286AFF15"
+            "Target" = "8:_85482701C90245F095B4FEC28C7DF630"
+            "Folder" = "8:_5A0393D7C29D4065AB9AE5747235C031"
             "WorkingFolder" = "8:_591FD7206AD24FD39F1681DA4C4B2366"
             "Icon" = "8:_8BAFD6E5AE7049158E0BFC42389EE90F"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_960B5CB977924DBEA4262C8A8E536335"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_ED63C0F4A8294689972DE2CDE17BFB8B"
             {
-            "Name" = "8:AirNavigationRace"
+            "Name" = "8:Shortcut to AirNavigationRaceLive"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_789B61605B5D49EEA5246D18AA5611CA"
-            "Folder" = "8:_5A0393D7C29D4065AB9AE5747235C031"
+            "Target" = "8:_85482701C90245F095B4FEC28C7DF630"
+            "Folder" = "8:_3A5DB726206A48E4A06288A8286AFF15"
             "WorkingFolder" = "8:_591FD7206AD24FD39F1681DA4C4B2366"
             "Icon" = "8:_8BAFD6E5AE7049158E0BFC42389EE90F"
             "Feature" = "8:"
@@ -1393,7 +1478,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_789B61605B5D49EEA5246D18AA5611CA"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\AirNavigationRaceLive\\obj\\x86\\Release\\AirNavigationRaceLive.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_591FD7206AD24FD39F1681DA4C4B2366"
@@ -1412,6 +1497,34 @@
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:Release|x86"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{B483E041-0DA3-4659-8B40-BB5DB3FE5959}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_85482701C90245F095B4FEC28C7DF630"
+            {
+            "SourcePath" = "8:..\\AirNavigationRaceLive\\obj\\x86\\Release\\AirNavigationRaceLive.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_591FD7206AD24FD39F1681DA4C4B2366"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{B483E041-0DA3-4659-8B40-BB5DB3FE5959}"
             "ShowKeyOutput" = "11:TRUE"

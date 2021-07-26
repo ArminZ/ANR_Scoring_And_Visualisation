@@ -17,6 +17,7 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using AirNavigationRaceLive.ModelExtensions;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace AirNavigationRaceLive.Comps.Helper
 {
@@ -30,6 +31,11 @@ namespace AirNavigationRaceLive.Comps.Helper
         static XFont verdana9Bold = new XFont("Verdana", 9, XFontStyle.Bold);
         static XFont verdana10Reg = new XFont("Verdana", 10, XFontStyle.Regular);
         static XFont verdana9Reg = new XFont("Verdana", 9, XFontStyle.Regular);
+        const string C_TimeFormat = "HH:mm:ss";
+        const string C_TimeFormatHHmm = "HH:mm";
+        const double C_Timespan_StartPlanningToTKOF = 45.0;
+        const double C_Timespan_EndPlanningToTKOF = 15.0;
+
 
         public static void CreateTeamsPDF(List<TeamSet> teams, Client.DataAccess c, String pathToPDF)
         {
@@ -336,123 +342,6 @@ namespace AirNavigationRaceLive.Comps.Helper
 
             Process.Start(pathToPDF);
         }
-        //public static void CreateResultPDF(VisualisationPictureBox picBox, Client.DataAccess c, QualificationRoundSet qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
-        //{
-        //    int counter = 0;
-        //    List<FlightSet> tempList = new List<FlightSet>();
-        //    foreach (ComboBoxFlights cbct in qRndFlights)
-        //    {
-        //        GC.Collect();
-        //        PdfDocument doc = new PdfDocument();
-        //        doc.Info.Author = "Luc.Baumann@sharpsoft.ch";
-        //        doc.Info.Keywords = "ANRL Results Printout";
-        //        doc.Info.Subject = "Results Printout generated from ANRL Client on " + DateTime.Now.ToString();
-        //        doc.Info.Title = "Results Printout";
-        //        doc.Options.ColorMode = PdfColorMode.Cmyk;
-        //        doc.Language = "EN";
-        //        doc.PageLayout = PdfPageLayout.SinglePage;
-
-        //        tempList.Clear();
-        //        tempList.Add(cbct.flight);
-        //        picBox.SetData(tempList);
-
-        //        PdfPage page = doc.AddPage();
-        //        page.Orientation = PdfSharp.PageOrientation.Landscape;
-        //        page.Size = PdfSharp.PageSize.A4;
-        //        double scaleFactor = 2.0;
-
-        //        XGraphics gfx = XGraphics.FromPdfPage(page);
-        //        XTextFormatter tf = new XTextFormatter(gfx);
-        //        XRect rect = new XRect();
-
-        //        AddLogo(gfx, page);
-
-        //        XImage image = XImage.FromGdiPlusImage(picBox.PrintOutImage.VaryQualityLevel());
-
-        //        double distX = picBox.GetXDistanceKM() / scaleFactor;//1:200 000 in cm
-        //        double distY = picBox.GetYDistanceKM() / scaleFactor;//1:200 000 in cm
-
-        //        gfx.DrawImage(image, XUnit.FromCentimeter(2).Point, XUnit.FromCentimeter(3).Point, page.Width.Point * (distX / page.Width.Centimeter), page.Height.Point * (distY / page.Height.Centimeter));
-
-        //        #region Header data (Competition, Qualification round, Crew)
-
-        //        gfx.DrawString("Competition: " + c.SelectedCompetition.Name,
-        //            verdana13Bold, XBrushes.Black,
-        //            new XPoint(XUnit.FromCentimeter(2), XUnit.FromCentimeter(1.5)));
-
-        //        gfx.DrawString("Q-Round: " + qRnd.Name,
-        //            verdana11Bold, XBrushes.Black,
-        //            new XPoint(XUnit.FromCentimeter(2), XUnit.FromCentimeter(2.1)));
-
-        //        gfx.DrawString("Crew: " + getTeamDsc(c, cbct.flight),
-        //            verdana11Bold, XBrushes.Black,
-        //            new XPoint(XUnit.FromCentimeter(2), XUnit.FromCentimeter(2.7)));
-
-        //        #endregion
-
-        //        #region Write table with Penalty points
-
-        //        int sum = 0;
-        //        int line = 0;
-        //        int offsetLine = 20;
-        //        gfx.DrawString("Points ", verdana11Bold, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine), XUnit.FromCentimeter(3)));
-        //        gfx.DrawString("Reason ", verdana11Bold, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine + 2), XUnit.FromCentimeter(3)));
-
-        //        line++;
-        //        foreach (PenaltySet penalty in cbct.flight.PenaltySet)
-        //        {
-        //            sum += penalty.Points;
-
-        //            // Penalty points, aligned right
-        //            rect = new XRect(
-        //                new XPoint(XUnit.FromCentimeter(offsetLine), XUnit.FromCentimeter(3 + line * 0.4)),
-        //                new XPoint(XUnit.FromCentimeter(offsetLine + 1.3), XUnit.FromCentimeter(3.0 + line * 0.4 + 0.4)));
-        //            //gfx.DrawRectangle(XBrushes.Yellow, rect);
-        //            tf.Alignment = XParagraphAlignment.Right;
-        //            tf.DrawString(penalty.Points.ToString(), verdana9Reg, XBrushes.Black, rect, XStringFormats.TopLeft);
-        //            //gfx.DrawString(penalty.Points.ToString(), verdana9Reg, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine), XUnit.FromCentimeter(3 + line * 0.4)));
-                    
-        //            // Penalty explanation, aligned left
-        //            //List<String> reason = getWrapped(penalty.Reason);
-        //            List<string> reason = penalty.Reason.SplitOn(40);
-        //            foreach (String s in reason)
-        //            {
-        //                rect = new XRect(
-        //                          new XPoint(XUnit.FromCentimeter(offsetLine + 2), XUnit.FromCentimeter(3.0 + line * 0.4)),
-        //                          new XPoint(XUnit.FromCentimeter(offsetLine + 9), XUnit.FromCentimeter(3.0 + line * 0.4 + 0.4)));
-        //                tf.Alignment = XParagraphAlignment.Left;
-        //                //gfx.DrawRectangle(XBrushes.Yellow, rect);
-        //                tf.DrawString(s, verdana9Reg, XBrushes.Black, rect, XStringFormats.TopLeft);
-        //                //gfx.DrawString(s, verdana9Reg, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine + 2), XUnit.FromCentimeter(3 + line * 0.4)));
-        //                line++;
-        //            }
-        //        }
-        //        line++;
-
-        //        // Penalty total points, aligned right
-        //        rect = new XRect(
-        //           new XPoint(XUnit.FromCentimeter(offsetLine), XUnit.FromCentimeter(3 + line * 0.4)),
-        //           new XPoint(XUnit.FromCentimeter(offsetLine + 1.3), XUnit.FromCentimeter(3.0 + line * 0.4 + 0.4)));
-        //        tf.Alignment = XParagraphAlignment.Right;
-        //        tf.DrawString(sum.ToString(), verdana9Bold, XBrushes.Black, rect, XStringFormats.TopLeft);
-        //        // gfx.DrawString(sum.ToString(), verdana10Bold, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine), XUnit.FromCentimeter(3 + line * 0.4)));
-
-        //        // Penalty text, aligned left
-        //        rect = new XRect(
-        //           new XPoint(XUnit.FromCentimeter(offsetLine + 2), XUnit.FromCentimeter(3.0 + line * 0.4)),
-        //           new XPoint(XUnit.FromCentimeter(offsetLine + 9), XUnit.FromCentimeter(3.0 + line * 0.4 + 0.4)));
-        //        tf.Alignment = XParagraphAlignment.Left;
-        //        tf.DrawString("Total Points", verdana9Bold, XBrushes.Black, rect, XStringFormats.TopLeft);
-        //        //gfx.DrawString("Total Points", verdana10Bold, XBrushes.Black, new XPoint(XUnit.FromCentimeter(offsetLine + 2), XUnit.FromCentimeter(3 + line * 0.4)));
-
-        //        #endregion
-
-        //        String path = pathToPDF.Replace(".pdf", (counter++ + "_" + getTeamDsc(c, cbct.flight) + ".pdf"));
-        //        doc.Save(path);
-        //        doc.Close();
-        //        Process.Start(path);
-        //    }
-        //}
         public static void CreateResultPDF(PictureBoxExt picBox, Client.DataAccess c, QualificationRoundSet qRnd, List<ComboBoxFlights> qRndFlights, String pathToPDF)
         {
             int counter = 0;
@@ -603,59 +492,68 @@ namespace AirNavigationRaceLive.Comps.Helper
             AddCompetitionAndLogo(Client, sec);
 
             sec.AddParagraph("Qualification Round: " + qRnd.Name);
-            sec.AddParagraph("Start List");
-            sec.AddParagraph("");
+            sec.AddParagraph("Starting List");
+            sec.AddParagraph("Printed (UTC): " + System.DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ssZ", DateTimeFormatInfo.InvariantInfo));
             sec.AddParagraph("");
 
             Table table = sec.AddTable();
             table.Borders.Visible = true;
 
-            table.AddColumn(Unit.FromCentimeter(1.2));
+            table.AddColumn(Unit.FromCentimeter(1));
+            table.AddColumn(Unit.FromCentimeter(1));
             table.AddColumn(Unit.FromCentimeter(2));
-            table.AddColumn(Unit.FromCentimeter(2));
-            table.AddColumn(Unit.FromCentimeter(3));
-            table.AddColumn(Unit.FromCentimeter(3));
-            table.AddColumn(Unit.FromCentimeter(3));
-            table.AddColumn(Unit.FromCentimeter(3));
-            table.AddColumn(Unit.FromCentimeter(2));
-            table.AddColumn(Unit.FromCentimeter(2));
-            table.AddColumn(Unit.FromCentimeter(2));
-            table.AddColumn(Unit.FromCentimeter(1.5));
+            table.AddColumn(Unit.FromCentimeter(9));
+            table.AddColumn(Unit.FromCentimeter(2.1));
+            table.AddColumn(Unit.FromCentimeter(2.1));
+            table.AddColumn(Unit.FromCentimeter(2.1));
+            table.AddColumn(Unit.FromCentimeter(2.1));
+            table.AddColumn(Unit.FromCentimeter(2.1));
+            table.AddColumn(Unit.FromCentimeter(1.3));
 
             Row row = table.AddRow();
             row.Shading.Color = Colors.Gray;
             row.Cells[0].AddParagraph("Start ID");
-            row.Cells[1].AddParagraph("Crew Number");
+            row.Cells[1].AddParagraph("Crew ID");
             row.Cells[2].AddParagraph("AC");
-            row.Cells[3].AddParagraph("Pilot Lastname");
-            row.Cells[4].AddParagraph("Pilot Firstname");
-            row.Cells[5].AddParagraph("Navigator Lastname");
-            row.Cells[6].AddParagraph("Navigator Firstname");
-            row.Cells[7].AddParagraph("Take Off (UTC)");
-            row.Cells[8].AddParagraph("Start Gate (UTC)");
-            row.Cells[9].AddParagraph("End Gate (UTC)");
-            row.Cells[10].AddParagraph("Route");
+            row.Cells[3].AddParagraph("Pilot - Navigator");
+            row.Cells[4].AddParagraph("Start Planning [UTC]");
+            row.Cells[5].AddParagraph("End Planning [UTC]");
+            row.Cells[6].AddParagraph("Take-Off [UTC]");
+            row.Cells[7].AddParagraph("SP Gate [UTC]");
+            row.Cells[8].AddParagraph("FP Gate [UTC]");
+            row.Cells[9].AddParagraph("Route");
 
             foreach (FlightSet ct in qRnd.FlightSet.OrderBy(x => x.TimeTakeOff).ThenBy(x => x.Route))
             {
                 Row r = table.AddRow();
+                if ((table.Rows.Count -1) % 2 == 0)
+                {
+                    r.Shading.Color = Colors.LightGray;
+                }
                 r.Cells[0].AddParagraph(ct.StartID.ToString());
                 TeamSet teams = ct.TeamSet;
                 r.Cells[1].AddParagraph(teams.CNumber);
                 r.Cells[2].AddParagraph(teams.AC);
                 SubscriberSet pilot = teams.Pilot;
-                r.Cells[3].AddParagraph(pilot.LastName);
-                r.Cells[4].AddParagraph(pilot.FirstName);
                 if (teams.Navigator != null)
                 {
                     SubscriberSet navigator = teams.Navigator;
-                    r.Cells[5].AddParagraph(navigator.LastName);
-                    r.Cells[6].AddParagraph(navigator.FirstName);
+                    r.Cells[3].AddParagraph(pilot.LastName + " " + pilot.FirstName + " - " + navigator.LastName + " " + navigator.FirstName);
                 }
-                r.Cells[7].AddParagraph(new DateTime(ct.TimeTakeOff).ToString("HH:mm:ss"));
-                r.Cells[8].AddParagraph(new DateTime(ct.TimeStartLine).ToString("HH:mm:ss"));
-                r.Cells[9].AddParagraph(new DateTime(ct.TimeEndLine).ToString("HH:mm:ss"));
-                r.Cells[10].AddParagraph(Enum.GetName(Route.A.GetType(), ct.Route));
+                else
+                {
+                    r.Cells[3].AddParagraph(pilot.LastName + " " + pilot.FirstName);
+                }
+                DateTime dt = new DateTime(ct.TimeTakeOff);
+
+                r.Cells[4].AddParagraph(dt.AddMinutes(-C_Timespan_StartPlanningToTKOF).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                r.Cells[5].AddParagraph(dt.AddMinutes(-C_Timespan_EndPlanningToTKOF).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                //                r.Cells[6].Shading.Color = Colors.LightGray;
+                r.Cells[6].AddParagraph(dt.ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                r.Cells[7].AddParagraph(new DateTime(ct.TimeStartLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                r.Cells[8].AddParagraph(new DateTime(ct.TimeEndLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo));
+                r.Cells[9].AddParagraph(Enum.GetName(Route.A.GetType(), ct.Route));
+                r.Cells[9].Format.Alignment = ParagraphAlignment.Center;
             }
 
             PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always);

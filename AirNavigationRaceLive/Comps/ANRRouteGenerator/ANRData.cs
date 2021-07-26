@@ -18,6 +18,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
         //const double SHIFT_DIST = 0.4;  // shift border points 'inwards' (away from start- and end gate)
         const double SHIFT_DIST = 0.0;  // shift border points 'inwards' (away from start- and end gate)
 
+        //const bool hasRoundedCorners = true;
         private Document document = new Document();
         public Document Document
         {
@@ -27,7 +28,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
             }
         }
 
-        public void generateParcour(List<List<Vector>> listOfRoutes, List<string> ListOfRouteNames, List<List<Vector>> listOfNBL, List<string> listOfNBLNames, bool hasMarkers, bool showForbiddenArea, bool isStandardOrder, double channelWidth, double altitude)
+        public void generateParcour(List<List<Vector>> listOfRoutes, List<string> ListOfRouteNames, List<List<Vector>> listOfNBL, List<string> listOfNBLNames, bool hasMarkers, bool showForbiddenArea, bool isStandardOrder, double channelWidth, double altitude, bool hasRoundedCorners)
         {
             string[] styleNames = { @"PolygonAndLine", @"PolygonAndLineNoFill" };
 
@@ -69,8 +70,8 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
 
                 // calculate headings and left/right borders
                 List<double> lstHeadings = gc.CalculateHeadings(routePoints);
-                List<Vector> lstLeftBorder = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth, false, 1);
-                List<Vector> lstRightBorder = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth, true, 1);
+                List<Vector> lstLeftBorder = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth, false, 1, hasRoundedCorners);
+                List<Vector> lstRightBorder = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth, true, 1, hasRoundedCorners);
                 List<Vector> lstRightBorderMod = lstRightBorder; // used in PROH area calcs
                 List<Vector> lstChannel = combineBorderVectorsForPolygon(lstLeftBorder, lstRightBorder);
                 if (lstChannel.Count>1 )
@@ -86,8 +87,8 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
 
                 // calculate the gate points for start and end point gate. Fixed width 0.6 NM
                 // we will use later on only the first two/ last two points 
-                List<Vector> lstGateLeft = gc.CalculateCurvePoint(routePoints, lstHeadings, GATE_WIDTH, false, 1);
-                List<Vector> lstGateRight = gc.CalculateCurvePoint(routePoints, lstHeadings, GATE_WIDTH, true, 1);
+                List<Vector> lstGateLeft = gc.CalculateCurvePoint(routePoints, lstHeadings, GATE_WIDTH, false, 1, false);
+                List<Vector> lstGateRight = gc.CalculateCurvePoint(routePoints, lstHeadings, GATE_WIDTH, true, 1, false);
 
                 // SP line and FP line (use first/last points of left/right borders)
                 List<Vector> lstSP, lstFP, lstNBLine;
@@ -116,8 +117,8 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
 
                         // calculate borders
                         List<double> lstNBLHdg = gc.CalculateHeadings(lstNBLSegm);
-                        List<Vector> lstNBLGateLeft = gc.CalculateCurvePoint(lstNBLSegm, lstNBLHdg, channelWidth, false, 1);
-                        List<Vector> lstNBLGateRight = gc.CalculateCurvePoint(lstNBLSegm, lstNBLHdg, channelWidth, true, 1);
+                        List<Vector> lstNBLGateLeft = gc.CalculateCurvePoint(lstNBLSegm, lstNBLHdg, channelWidth, false, 1, false);
+                        List<Vector> lstNBLGateRight = gc.CalculateCurvePoint(lstNBLSegm, lstNBLHdg, channelWidth, true, 1, false);
                         lstNBLine.Clear();
                         lstNBLine.Add(new Vector(lstNBLGateRight[0].Latitude, lstNBLGateRight[0].Longitude, altitude));
                         lstNBLine.Add(new Vector(lstNBLGateLeft[0].Latitude, lstNBLGateLeft[0].Longitude, altitude));
@@ -133,7 +134,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     if (j == 0)
                     {
                         // calculate LeftBorder PROH for first route 
-                        List<Vector> lstLeftBorderPROH = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth * 10, false, 1);
+                        List<Vector> lstLeftBorderPROH = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth * 10, false, 1, false);
                         //TODO: add Gate Point as first/last point to lstLeftBorderPROH
                         lstLeftBorderPROH.Insert(0, lstGateLeft[0]);
                         lstLeftBorderPROH.Add(lstGateLeft[lstGateLeft.Count - 1]);
@@ -157,7 +158,7 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                     // for the last route, also calculate right border PROH
                     if (j == listOfRoutes.Count - 1)
                     {
-                        List<Vector> lstRightBorderPROH = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth * 10, true, 1);
+                        List<Vector> lstRightBorderPROH = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth * 10, true, 1, false);
                         //TODO: add Gate Point as first/last point to lstRightBorderPROH
                         lstRightBorderPROH.Insert(0, lstGateRight[0]);
                         lstRightBorderPROH.Add(lstGateRight[lstGateRight.Count - 1]);
@@ -167,8 +168,8 @@ namespace AirNavigationRaceLive.Comps.ANRRouteGenerator
                 }
                 else
                 {   // not standard order, calculate right and left PROH areas for each channel
-                    List<Vector> lstLeftBorderPROH = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth * 10, false, 1);
-                    List<Vector> lstRightBorderPROH = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth * 10, true, 1);
+                    List<Vector> lstLeftBorderPROH = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth * 10, false, 1, false);
+                    List<Vector> lstRightBorderPROH = gc.CalculateCurvePoint(routePoints, lstHeadings, channelWidth * 10, true, 1, false);
                     lstLeftBorderForbiddenArea = combineBorderVectorsForPolygon(lstLeftBorderPROH, lstLeftBorder);
                     lstRightBorderForbiddenArea = combineBorderVectorsForPolygon(lstRightBorderPROH, lstRightBorder);
                     setAltitude(lstLeftBorderForbiddenArea, altitude);

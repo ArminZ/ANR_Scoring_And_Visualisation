@@ -18,7 +18,7 @@ namespace AirNavigationRaceLive.Comps
         private Line selectedLine = null;
         private Line hoverLine = null;
         private ParcourSet activeParcour = new ParcourSet();
-        private bool mustPromptForAdditionalText = Properties.Settings.Default.parcourPDFAdditionalText;
+        private bool mustPromptForAdditionalText = Properties.Settings.Default.HasCompMapAdditionalText;
 
         private enum ActivePoint
         {
@@ -387,7 +387,9 @@ namespace AirNavigationRaceLive.Comps
                 size = PDFSize.A3;
             };
 
-            string defaultText = string.Format("Map scale = {0}" + Environment.NewLine + "Parcour length = 00.00 NM" + Environment.NewLine + "Time = 00:00 Min (@80 kt)", mapScale);
+            //  string defaultText = string.Format("Map scale = {0}" + Environment.NewLine + "Parcour length = 00.00 NM" + Environment.NewLine + "Time = 00:00 Min (@80 kt)", mapScale);
+            // defaultText includes placeholder {0} for map scale
+            string defaultText = string.Format(Properties.Settings.Default.CompMapAdditionalText, mapScale);
             String freitext = string.Empty;
 
             if (listBox1.SelectedItems.Count == 1 && PictureBox1.PrintOutImage != null)

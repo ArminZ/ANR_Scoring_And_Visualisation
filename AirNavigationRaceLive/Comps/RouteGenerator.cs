@@ -151,10 +151,12 @@ namespace AirNavigationRaceLive.Comps
                 altitude = 300;
             }
 
+            bool hasRoundedCorners = chkUseRoundedCorners.Checked;
+
             SaveFileDialog sfd = sender as SaveFileDialog;
             string fname = sfd.FileName;
             ANRData anrData = new ANRData();
-            anrData.generateParcour(ListOfRoutes, ListOfRouteNames, ListOfNBL, ListOfNBLNames, HAS_MARKERS, CREATE_PROH_AREA, USE_STANDARD_ORDER, channelRadius, altitude);
+            anrData.generateParcour(ListOfRoutes, ListOfRouteNames, ListOfNBL, ListOfNBLNames, HAS_MARKERS, CREATE_PROH_AREA, USE_STANDARD_ORDER, channelRadius, altitude, hasRoundedCorners);
             Document document = anrData.Document;
             Kml kml = new Kml();
             kml.Feature = document;
@@ -291,78 +293,6 @@ namespace AirNavigationRaceLive.Comps
             string strErr = errorProvider1.GetError(txtHeight) + errorProvider1.GetError(txtChannelWidth);
             _isValidated = string.IsNullOrEmpty(strErr) && treeViewSelectedRoutes.Nodes.Count > 0;
             btnSaveKML.Enabled = _isValidated;
-        }
-
-        private void btnTEST_Click(object sender, EventArgs e)
-        {
-            string filepath = @"C:\Users\zugerarm1\Documents\_Private\ANR\ANR Joroinen 2018\Joroinen_00_out.kml";
-            SwitchedSPFP(filepath);
-
-        }
-
-        public void SwitchedSPFP(string filepath)
-        {
-            // on an existing KML parcour, rename all SP and FP lines
-            // this will allow to run a parcours in the opposite direction
-            // must switch the names value for STARTPOINT- and ENDPOINT-
-            // must manipulate the 3 coordinate points (point 1 --> to point 0 and 2, point 0 --> point 1)
-            //
-
-            const string SP_NAME = "STARTPOINT-";
-            const string FP_NAME = "ENDPOINT-";
-
-
-            XNamespace nsKml = XNamespace.Get("http://www.opengis.net/kml/2.2");
-            XDocument gpxDoc = XDocument.Load(filepath);
-            var folders = from flder in gpxDoc.Descendants(nsKml + "Folder")
-                          where flder.Element(nsKml + "name").Value.ToString().Trim() == "LiveTracking"
-                          select flder;
-
-            if (folders.Count() == 0)
-            {
-                throw new ApplicationException("Cannot import kml data.\r\nData is expected to be in a kml folder named 'LiveTracking', but this folder is missing from the imported file.", null);
-            }
-            XElement el = new XElement(nsKml + "description", "WARNING: this route has been inverted. The Start- and Final Gates are switched");
-            folders.FirstOrDefault().Add(el);
-
-            foreach (var placemark in folders.Elements(nsKml + "Placemark"))
-            {
-                string pmName = placemark.Element(nsKml + "name").Value.Trim();
-
-                if (pmName.StartsWith(SP_NAME))
-                {
-                    placemark.Element(nsKml + "name").Value = pmName.Replace(SP_NAME, FP_NAME);
-
-                    foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
-                    {
-                        string[] splittedPoints = Helper.Importer.ReversedKMLCoordinateString(coord.Value).Split(' ');
-                        // re-order points 0 and 1. 
-                        // 2 is technically identical with 0, must also be replaced
-                        splittedPoints[2] = splittedPoints[1];
-                        splittedPoints[1] = splittedPoints[0];
-                        splittedPoints[0] = splittedPoints[2];
-                        coord.Value = string.Join(" ", splittedPoints);
-                    }
-                }
-                else if (pmName.StartsWith(FP_NAME))
-                {
-                    placemark.Element(nsKml + "name").Value = pmName.Replace(FP_NAME, SP_NAME);
-         
-                    foreach (var coord in placemark.Descendants(nsKml + "coordinates"))
-                    {
-                        string[] splittedPoints = Helper.Importer.ReversedKMLCoordinateString(coord.Value).Split(' ');
-                        // re-order points 0 and 1. 
-                        // 2 is technically identical with 0, must also be replaced
-                        splittedPoints[2] = splittedPoints[1];
-                        splittedPoints[1] = splittedPoints[0];
-                        splittedPoints[0] = splittedPoints[2];
-                        coord.Value = string.Join(" ", splittedPoints);
-                    }
-                }
-
-            }
-
-            gpxDoc.Save(filepath.Replace(".kml", "_OUT_R.kml"));
         }
 
     }

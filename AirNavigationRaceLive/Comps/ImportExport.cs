@@ -19,6 +19,10 @@ namespace AirNavigationRaceLive.Comps
         private Client.DataAccess Client;
         private AsyncCallback OnSaveAsGPXCompleted;
 
+        const string C_TimeFormat = "HH:mm:ss";
+        const double C_Timespan_StartPlanningToTKOF = 45.0;
+        const double C_Timespan_EndPlanningToTKOF = 15.0;
+
         public ImportExport(Client.DataAccess Client)
         {
             this.Client = Client;
@@ -65,6 +69,9 @@ namespace AirNavigationRaceLive.Comps
 
         private void btnSyncExcel_Click(object sender, EventArgs e)
         {
+            // this has not been tested after changes in version 2.0.0
+            // therefore unsupported UFN
+            return;
             if (comboBoxQualificationRound.SelectedItem != null)
             {
                 ComboQRExtension item = comboBoxQualificationRound.SelectedItem as ComboQRExtension;
@@ -108,7 +115,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 if (i == 2)
                 {
-                    StartList.Cells[("J" + i)].Value = new DateTime(f.TimeTakeOff).ToString("dd.MM.yyyy");
+                    StartList.Cells[("K" + i)].Value = new DateTime(f.TimeTakeOff).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
                 }
                 StartList.Cells[("A" + i)].Value = f.StartID;
                 StartList.Cells[("B" + i)].Value = int.Parse(f.TeamSet.CNumber);
@@ -120,11 +127,14 @@ namespace AirNavigationRaceLive.Comps
                     navigator = " - " + f.TeamSet.Navigator.LastName + " " + f.TeamSet.Navigator.FirstName;
                 }
                 string crew = pilot + navigator;
+                DateTime dt = new DateTime(f.TimeTakeOff);
                 StartList.Cells[("D" + i)].Value = crew;
-                StartList.Cells[("E" + i)].Value = new DateTime(f.TimeTakeOff);
-                StartList.Cells[("F" + i)].Value = new DateTime(f.TimeStartLine);
-                StartList.Cells[("G" + i)].Value = new DateTime(f.TimeEndLine);
-                StartList.Cells[("H" + i)].Value = ((Route)f.Route).ToString();
+                StartList.Cells[("E" + i)].Value = dt.AddMinutes(-C_Timespan_EndPlanningToTKOF).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                StartList.Cells[("F" + i)].Value = dt.AddMinutes(-C_Timespan_EndPlanningToTKOF).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                StartList.Cells[("G" + i)].Value = dt.ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                StartList.Cells[("H" + i)].Value = new DateTime(f.TimeStartLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                StartList.Cells[("I" + i)].Value = new DateTime(f.TimeEndLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                StartList.Cells[("J" + i)].Value = ((Route)f.Route).ToString();
                 i++;
             }
             pck.Save();
@@ -132,6 +142,9 @@ namespace AirNavigationRaceLive.Comps
 
         private void ImportFromExcel(ComboQRExtension item, string filename)
         {
+            // this has not been tested after changes in version 2.0.0
+            // therefore unsupported UFN
+            return;
             FileInfo newFile = new FileInfo(filename);
             ExcelPackage pck = new ExcelPackage(newFile);
             ExcelWorksheet Participants = pck.Workbook.Worksheets.First(p => p.Name == "Participants");
@@ -206,14 +219,14 @@ namespace AirNavigationRaceLive.Comps
             {
                 if (i == 2)
                 {
-                    date = StartList.Cells[("J" + i)].Value as DateTime?;
+                    date = StartList.Cells[("K" + i)].Value as DateTime?;
                 }
                 double? startId = StartList.Cells[("A" + i)].Value as double?;
                 double? cNumber = StartList.Cells[("B" + i)].Value as double?;
-                double? takeOff = StartList.Cells[("E" + i)].Value as double?;
-                double? start = StartList.Cells[("F" + i)].Value as double?;
-                double? end = StartList.Cells[("G" + i)].Value as double?;
-                string route = StartList.Cells[("H" + i)].Value as string;
+                double? takeOff = StartList.Cells[("G" + i)].Value as double?;
+                double? start = StartList.Cells[("H" + i)].Value as double?;
+                double? end = StartList.Cells[("I" + i)].Value as double?;
+                string route = StartList.Cells[("J" + i)].Value as string;
                 if (date != null && date.HasValue && takeOff != null && start != null && end != null && startId.HasValue && cNumber.HasValue && takeOff.HasValue && start.HasValue && end.HasValue && route != null)
                 {
                     FlightSet f = null;
@@ -316,7 +329,7 @@ namespace AirNavigationRaceLive.Comps
                     {
                         sb.Append("<trkpt lat=\"" + data.latitude.ToString(ci) + "\" lon =\"" + data.longitude.ToString(ci) + "\">");
                         sb.Append("<ele>" + data.altitude.ToString(ci) + "</ele>");
-                        sb.Append("<time>" + new DateTime(data.Timestamp).ToString("yyyy-MM-ddTHH:mm:ssZ") + "</time>");
+                        sb.Append("<time>" + new DateTime(data.Timestamp).ToString("yyyy-MM-ddTHH:mm:ssZ",DateTimeFormatInfo.InvariantInfo) + "</time>");
                         sb.Append("<desc>" + String.Format("<![CDATA[lat.={0}, lon.={1}, Alt.={2}m. Speed={3}m/h.]]>", data.latitude.ToString(ci), data.longitude.ToString(ci), data.altitude.ToString(ci), "0.0") + "</desc>");
                         sb.Append("</trkpt>");
                     }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.chkParcourAdditionalText = new System.Windows.Forms.CheckBox();
             this.chkDefaultDBDirectory = new System.Windows.Forms.CheckBox();
             this.textBoxDatabasePath = new System.Windows.Forms.TextBox();
             this.groupBoxChannel = new System.Windows.Forms.GroupBox();
@@ -55,9 +54,6 @@
             this.groupBoxLayer = new System.Windows.Forms.GroupBox();
             this.chkShowPROHBorders = new System.Windows.Forms.CheckBox();
             this.btnPROHBorderColor = new System.Windows.Forms.Button();
-            this.groupBoxMaxPenalty = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.numericUpDownMaxPenalty = new System.Windows.Forms.NumericUpDown();
             this.groupBoxFlightTrack = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDownFlightPen = new System.Windows.Forms.NumericUpDown();
@@ -75,9 +71,29 @@
             this.groupBoxCalculationType = new System.Windows.Forms.GroupBox();
             this.radioButtonPenaltyCalcTypeChannel = new System.Windows.Forms.RadioButton();
             this.radioButtonPenaltyCalcTypePROH = new System.Windows.Forms.RadioButton();
-            this.groupBoxLoggerDataImport = new System.Windows.Forms.GroupBox();
-            this.radioButtonLoggerDataFileTypeGAC = new System.Windows.Forms.RadioButton();
-            this.radioButtonLoggerDataFileTypeGPX = new System.Windows.Forms.RadioButton();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dtPickerGACFileThreshold = new System.Windows.Forms.DateTimePicker();
+            this.label16 = new System.Windows.Forms.Label();
+            this.groupBoxPenaltiesAndTolerances = new System.Windows.Forms.GroupBox();
+            this.numericUpDownTimeToleranceTKOFUpper = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownTimeToleranceTKOFLower = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.numericUpDownMaxPenaltyTKOF = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.numericUpDownMaxPenaltySPFP = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownTimeToleranceEnroute = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.numericUpDownPenaltyPointsPerSecond = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.numericUpDownTimeToleranceSPFP = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.numericUpDownMaxPenalty = new System.Windows.Forms.NumericUpDown();
+            this.textBoxCompMapAdditionalText = new System.Windows.Forms.TextBox();
+            this.chkCompMapAdditionalText = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblCompMapAdditionalText = new System.Windows.Forms.Label();
             this.groupBoxChannel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelFillAlpha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelPen)).BeginInit();
@@ -86,8 +102,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPROHAlpha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPROHBorderPen)).BeginInit();
             this.groupBoxLayer.SuspendLayout();
-            this.groupBoxMaxPenalty.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenalty)).BeginInit();
             this.groupBoxFlightTrack.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFlightPen)).BeginInit();
             this.tabControlSettings.SuspendLayout();
@@ -97,24 +111,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectPen)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBoxCalculationType.SuspendLayout();
-            this.groupBoxLoggerDataImport.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.groupBoxPenaltiesAndTolerances.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeToleranceTKOFUpper)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeToleranceTKOFLower)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenaltyTKOF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenaltySPFP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeToleranceEnroute)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenaltyPointsPerSecond)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeToleranceSPFP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenalty)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // chkParcourAdditionalText
-            // 
-            this.chkParcourAdditionalText.AutoSize = true;
-            this.chkParcourAdditionalText.Location = new System.Drawing.Point(26, 390);
-            this.chkParcourAdditionalText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chkParcourAdditionalText.Name = "chkParcourAdditionalText";
-            this.chkParcourAdditionalText.Size = new System.Drawing.Size(358, 24);
-            this.chkParcourAdditionalText.TabIndex = 11;
-            this.chkParcourAdditionalText.Text = "Parcour PDF export: Prompt for additional text";
-            this.chkParcourAdditionalText.UseVisualStyleBackColor = true;
             // 
             // chkDefaultDBDirectory
             // 
             this.chkDefaultDBDirectory.AutoSize = true;
-            this.chkDefaultDBDirectory.Location = new System.Drawing.Point(26, 355);
+            this.chkDefaultDBDirectory.Location = new System.Drawing.Point(26, 212);
             this.chkDefaultDBDirectory.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkDefaultDBDirectory.Name = "chkDefaultDBDirectory";
             this.chkDefaultDBDirectory.Size = new System.Drawing.Size(349, 24);
@@ -124,7 +137,7 @@
             // 
             // textBoxDatabasePath
             // 
-            this.textBoxDatabasePath.Location = new System.Drawing.Point(527, 355);
+            this.textBoxDatabasePath.Location = new System.Drawing.Point(527, 212);
             this.textBoxDatabasePath.Name = "textBoxDatabasePath";
             this.textBoxDatabasePath.Size = new System.Drawing.Size(491, 26);
             this.textBoxDatabasePath.TabIndex = 12;
@@ -241,7 +254,7 @@
             // 
             // btnDB
             // 
-            this.btnDB.Location = new System.Drawing.Point(434, 349);
+            this.btnDB.Location = new System.Drawing.Point(434, 206);
             this.btnDB.Name = "btnDB";
             this.btnDB.Size = new System.Drawing.Size(75, 35);
             this.btnDB.TabIndex = 31;
@@ -334,7 +347,7 @@
             this.groupBoxSPFP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxSPFP.Name = "groupBoxSPFP";
             this.groupBoxSPFP.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxSPFP.Size = new System.Drawing.Size(491, 167);
+            this.groupBoxSPFP.Size = new System.Drawing.Size(491, 129);
             this.groupBoxSPFP.TabIndex = 29;
             this.groupBoxSPFP.TabStop = false;
             this.groupBoxSPFP.Text = "Default Properties for SP and FP gates";
@@ -449,49 +462,6 @@
             this.btnPROHBorderColor.UseVisualStyleBackColor = false;
             this.btnPROHBorderColor.Click += new System.EventHandler(this.ColorButtonGeneric_Click);
             // 
-            // groupBoxMaxPenalty
-            // 
-            this.groupBoxMaxPenalty.Controls.Add(this.label8);
-            this.groupBoxMaxPenalty.Controls.Add(this.numericUpDownMaxPenalty);
-            this.groupBoxMaxPenalty.Location = new System.Drawing.Point(19, 131);
-            this.groupBoxMaxPenalty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxMaxPenalty.Name = "groupBoxMaxPenalty";
-            this.groupBoxMaxPenalty.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxMaxPenalty.Size = new System.Drawing.Size(491, 74);
-            this.groupBoxMaxPenalty.TabIndex = 38;
-            this.groupBoxMaxPenalty.TabStop = false;
-            this.groupBoxMaxPenalty.Text = "Penalty points upper limit (per penalty event)";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 23);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
-            this.label8.Size = new System.Drawing.Size(266, 25);
-            this.label8.TabIndex = 28;
-            this.label8.Text = "Max Penalty Points (0= unrestricted)";
-            // 
-            // numericUpDownMaxPenalty
-            // 
-            this.numericUpDownMaxPenalty.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDownMaxPenalty.Location = new System.Drawing.Point(304, 28);
-            this.numericUpDownMaxPenalty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.numericUpDownMaxPenalty.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.numericUpDownMaxPenalty.Name = "numericUpDownMaxPenalty";
-            this.numericUpDownMaxPenalty.Size = new System.Drawing.Size(64, 26);
-            this.numericUpDownMaxPenalty.TabIndex = 26;
-            this.numericUpDownMaxPenalty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // groupBoxFlightTrack
             // 
             this.groupBoxFlightTrack.Controls.Add(this.label9);
@@ -553,27 +523,25 @@
             // 
             this.tabControlSettings.Controls.Add(this.tabPage1);
             this.tabControlSettings.Controls.Add(this.tabPage2);
+            this.tabControlSettings.Controls.Add(this.tabPage3);
             this.tabControlSettings.Location = new System.Drawing.Point(27, 23);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(1046, 548);
+            this.tabControlSettings.Size = new System.Drawing.Size(1046, 699);
             this.tabControlSettings.TabIndex = 40;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.groupBoxLoggerDataImport);
             this.tabPage1.Controls.Add(this.groupBoxIntersect);
-            this.tabPage1.Controls.Add(this.groupBoxMaxPenalty);
             this.tabPage1.Controls.Add(this.groupBoxFlightTrack);
             this.tabPage1.Controls.Add(this.btnDB);
-            this.tabPage1.Controls.Add(this.chkParcourAdditionalText);
             this.tabPage1.Controls.Add(this.textBoxDatabasePath);
             this.tabPage1.Controls.Add(this.chkDefaultDBDirectory);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1038, 515);
+            this.tabPage1.Size = new System.Drawing.Size(1038, 666);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Common Settings";
             // 
@@ -589,7 +557,7 @@
             this.groupBoxIntersect.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxIntersect.Name = "groupBoxIntersect";
             this.groupBoxIntersect.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxIntersect.Size = new System.Drawing.Size(491, 184);
+            this.groupBoxIntersect.Size = new System.Drawing.Size(491, 164);
             this.groupBoxIntersect.TabIndex = 40;
             this.groupBoxIntersect.TabStop = false;
             this.groupBoxIntersect.Text = "Default Intersection Point Properties";
@@ -684,6 +652,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.groupBoxCalculationType);
             this.tabPage2.Controls.Add(this.groupBoxLayer);
             this.tabPage2.Controls.Add(this.groupBoxSPFP);
@@ -691,7 +660,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1038, 515);
+            this.tabPage2.Size = new System.Drawing.Size(1038, 666);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Parcour Default Settings";
             // 
@@ -728,40 +697,340 @@
             this.radioButtonPenaltyCalcTypePROH.Text = "Parcour based on prohibited zones";
             this.radioButtonPenaltyCalcTypePROH.UseVisualStyleBackColor = true;
             // 
-            // groupBoxLoggerDataImport
+            // tabPage3
             // 
-            this.groupBoxLoggerDataImport.Controls.Add(this.radioButtonLoggerDataFileTypeGPX);
-            this.groupBoxLoggerDataImport.Controls.Add(this.radioButtonLoggerDataFileTypeGAC);
-            this.groupBoxLoggerDataImport.Location = new System.Drawing.Point(19, 224);
-            this.groupBoxLoggerDataImport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxLoggerDataImport.Name = "groupBoxLoggerDataImport";
-            this.groupBoxLoggerDataImport.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxLoggerDataImport.Size = new System.Drawing.Size(491, 102);
-            this.groupBoxLoggerDataImport.TabIndex = 41;
-            this.groupBoxLoggerDataImport.TabStop = false;
-            this.groupBoxLoggerDataImport.Text = "Logger data import";
+            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.dtPickerGACFileThreshold);
+            this.tabPage3.Controls.Add(this.label16);
+            this.tabPage3.Controls.Add(this.groupBoxPenaltiesAndTolerances);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1038, 666);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Penalties";
             // 
-            // radioButtonLoggerDataFileTypeGAC
+            // dtPickerGACFileThreshold
             // 
-            this.radioButtonLoggerDataFileTypeGAC.AutoSize = true;
-            this.radioButtonLoggerDataFileTypeGAC.Location = new System.Drawing.Point(16, 31);
-            this.radioButtonLoggerDataFileTypeGAC.Name = "radioButtonLoggerDataFileTypeGAC";
-            this.radioButtonLoggerDataFileTypeGAC.Size = new System.Drawing.Size(146, 24);
-            this.radioButtonLoggerDataFileTypeGAC.TabIndex = 0;
-            this.radioButtonLoggerDataFileTypeGAC.TabStop = true;
-            this.radioButtonLoggerDataFileTypeGAC.Text = "*.GAC File Type";
-            this.radioButtonLoggerDataFileTypeGAC.UseVisualStyleBackColor = true;
+            this.dtPickerGACFileThreshold.CustomFormat = "yyyy-MM-dd";
+            this.dtPickerGACFileThreshold.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtPickerGACFileThreshold.Location = new System.Drawing.Point(501, 380);
+            this.dtPickerGACFileThreshold.MinDate = new System.DateTime(1950, 1, 1, 0, 0, 0, 0);
+            this.dtPickerGACFileThreshold.Name = "dtPickerGACFileThreshold";
+            this.dtPickerGACFileThreshold.Size = new System.Drawing.Size(155, 26);
+            this.dtPickerGACFileThreshold.TabIndex = 45;
             // 
-            // radioButtonLoggerDataFileTypeGPX
+            // label16
             // 
-            this.radioButtonLoggerDataFileTypeGPX.AutoSize = true;
-            this.radioButtonLoggerDataFileTypeGPX.Location = new System.Drawing.Point(16, 62);
-            this.radioButtonLoggerDataFileTypeGPX.Name = "radioButtonLoggerDataFileTypeGPX";
-            this.radioButtonLoggerDataFileTypeGPX.Size = new System.Drawing.Size(145, 24);
-            this.radioButtonLoggerDataFileTypeGPX.TabIndex = 1;
-            this.radioButtonLoggerDataFileTypeGPX.TabStop = true;
-            this.radioButtonLoggerDataFileTypeGPX.Text = "*.GPX File Type";
-            this.radioButtonLoggerDataFileTypeGPX.UseVisualStyleBackColor = true;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(45, 380);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label16.Size = new System.Drawing.Size(416, 65);
+            this.label16.TabIndex = 44;
+            this.label16.Text = "Date threshold for GAC/IGC files, to avoid invalid dates.\r\nFor dates older than t" +
+    "he threshold, the user will be asked \r\nfor confirmation/date change.";
+            // 
+            // groupBoxPenaltiesAndTolerances
+            // 
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.numericUpDownTimeToleranceTKOFUpper);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.numericUpDownTimeToleranceTKOFLower);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.label14);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.label13);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.numericUpDownMaxPenaltyTKOF);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.label12);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.numericUpDownMaxPenaltySPFP);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.numericUpDownTimeToleranceEnroute);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.label11);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.numericUpDownPenaltyPointsPerSecond);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.label10);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.numericUpDownTimeToleranceSPFP);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.label6);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.label8);
+            this.groupBoxPenaltiesAndTolerances.Controls.Add(this.numericUpDownMaxPenalty);
+            this.groupBoxPenaltiesAndTolerances.Location = new System.Drawing.Point(28, 29);
+            this.groupBoxPenaltiesAndTolerances.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxPenaltiesAndTolerances.Name = "groupBoxPenaltiesAndTolerances";
+            this.groupBoxPenaltiesAndTolerances.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxPenaltiesAndTolerances.Size = new System.Drawing.Size(628, 320);
+            this.groupBoxPenaltiesAndTolerances.TabIndex = 39;
+            this.groupBoxPenaltiesAndTolerances.TabStop = false;
+            this.groupBoxPenaltiesAndTolerances.Text = "Penalties and tolerances";
+            // 
+            // numericUpDownTimeToleranceTKOFUpper
+            // 
+            this.numericUpDownTimeToleranceTKOFUpper.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownTimeToleranceTKOFUpper.Location = new System.Drawing.Point(545, 36);
+            this.numericUpDownTimeToleranceTKOFUpper.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownTimeToleranceTKOFUpper.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDownTimeToleranceTKOFUpper.Name = "numericUpDownTimeToleranceTKOFUpper";
+            this.numericUpDownTimeToleranceTKOFUpper.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownTimeToleranceTKOFUpper.TabIndex = 41;
+            this.numericUpDownTimeToleranceTKOFUpper.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // numericUpDownTimeToleranceTKOFLower
+            // 
+            this.numericUpDownTimeToleranceTKOFLower.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownTimeToleranceTKOFLower.Location = new System.Drawing.Point(473, 36);
+            this.numericUpDownTimeToleranceTKOFLower.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownTimeToleranceTKOFLower.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDownTimeToleranceTKOFLower.Name = "numericUpDownTimeToleranceTKOFLower";
+            this.numericUpDownTimeToleranceTKOFLower.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownTimeToleranceTKOFLower.TabIndex = 40;
+            this.numericUpDownTimeToleranceTKOFLower.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(17, 36);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label14.Size = new System.Drawing.Size(358, 25);
+            this.label14.TabIndex = 39;
+            this.label14.Text = "TKOF, time tolerances (in seconds), lower / upper";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(17, 75);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label13.Size = new System.Drawing.Size(184, 25);
+            this.label13.TabIndex = 38;
+            this.label13.Text = "TKOF, maximum penalty";
+            // 
+            // numericUpDownMaxPenaltyTKOF
+            // 
+            this.numericUpDownMaxPenaltyTKOF.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxPenaltyTKOF.Location = new System.Drawing.Point(473, 75);
+            this.numericUpDownMaxPenaltyTKOF.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownMaxPenaltyTKOF.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxPenaltyTKOF.Name = "numericUpDownMaxPenaltyTKOF";
+            this.numericUpDownMaxPenaltyTKOF.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownMaxPenaltyTKOF.TabIndex = 37;
+            this.numericUpDownMaxPenaltyTKOF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(17, 153);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label12.Size = new System.Drawing.Size(219, 25);
+            this.label12.TabIndex = 36;
+            this.label12.Text = "SP and FP, maximum penalty";
+            // 
+            // numericUpDownMaxPenaltySPFP
+            // 
+            this.numericUpDownMaxPenaltySPFP.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxPenaltySPFP.Location = new System.Drawing.Point(473, 153);
+            this.numericUpDownMaxPenaltySPFP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownMaxPenaltySPFP.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxPenaltySPFP.Name = "numericUpDownMaxPenaltySPFP";
+            this.numericUpDownMaxPenaltySPFP.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownMaxPenaltySPFP.TabIndex = 35;
+            this.numericUpDownMaxPenaltySPFP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // numericUpDownTimeToleranceEnroute
+            // 
+            this.numericUpDownTimeToleranceEnroute.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownTimeToleranceEnroute.Location = new System.Drawing.Point(473, 192);
+            this.numericUpDownTimeToleranceEnroute.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownTimeToleranceEnroute.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDownTimeToleranceEnroute.Name = "numericUpDownTimeToleranceEnroute";
+            this.numericUpDownTimeToleranceEnroute.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownTimeToleranceEnroute.TabIndex = 34;
+            this.numericUpDownTimeToleranceEnroute.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(17, 192);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label11.Size = new System.Drawing.Size(257, 25);
+            this.label11.TabIndex = 33;
+            this.label11.Text = "PROH, time tolerance (in seconds)";
+            // 
+            // numericUpDownPenaltyPointsPerSecond
+            // 
+            this.numericUpDownPenaltyPointsPerSecond.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownPenaltyPointsPerSecond.Location = new System.Drawing.Point(473, 231);
+            this.numericUpDownPenaltyPointsPerSecond.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownPenaltyPointsPerSecond.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDownPenaltyPointsPerSecond.Name = "numericUpDownPenaltyPointsPerSecond";
+            this.numericUpDownPenaltyPointsPerSecond.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownPenaltyPointsPerSecond.TabIndex = 32;
+            this.numericUpDownPenaltyPointsPerSecond.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(17, 231);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label10.Size = new System.Drawing.Size(195, 25);
+            this.label10.TabIndex = 31;
+            this.label10.Text = "Penalty points per second";
+            // 
+            // numericUpDownTimeToleranceSPFP
+            // 
+            this.numericUpDownTimeToleranceSPFP.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownTimeToleranceSPFP.Location = new System.Drawing.Point(473, 114);
+            this.numericUpDownTimeToleranceSPFP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownTimeToleranceSPFP.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDownTimeToleranceSPFP.Name = "numericUpDownTimeToleranceSPFP";
+            this.numericUpDownTimeToleranceSPFP.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownTimeToleranceSPFP.TabIndex = 30;
+            this.numericUpDownTimeToleranceSPFP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(17, 114);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label6.Size = new System.Drawing.Size(287, 25);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "SP and FP, time tolerance (in seconds)";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(17, 270);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.label8.Size = new System.Drawing.Size(357, 25);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "Maximum penalty, per excursion (0= unrestricted)";
+            // 
+            // numericUpDownMaxPenalty
+            // 
+            this.numericUpDownMaxPenalty.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxPenalty.Location = new System.Drawing.Point(473, 270);
+            this.numericUpDownMaxPenalty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownMaxPenalty.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxPenalty.Name = "numericUpDownMaxPenalty";
+            this.numericUpDownMaxPenalty.Size = new System.Drawing.Size(64, 26);
+            this.numericUpDownMaxPenalty.TabIndex = 26;
+            this.numericUpDownMaxPenalty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // textBoxCompMapAdditionalText
+            // 
+            this.textBoxCompMapAdditionalText.Location = new System.Drawing.Point(250, 36);
+            this.textBoxCompMapAdditionalText.Multiline = true;
+            this.textBoxCompMapAdditionalText.Name = "textBoxCompMapAdditionalText";
+            this.textBoxCompMapAdditionalText.Size = new System.Drawing.Size(216, 109);
+            this.textBoxCompMapAdditionalText.TabIndex = 37;
+            // 
+            // chkCompMapAdditionalText
+            // 
+            this.chkCompMapAdditionalText.AutoSize = true;
+            this.chkCompMapAdditionalText.Location = new System.Drawing.Point(21, 36);
+            this.chkCompMapAdditionalText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chkCompMapAdditionalText.Name = "chkCompMapAdditionalText";
+            this.chkCompMapAdditionalText.Size = new System.Drawing.Size(211, 24);
+            this.chkCompMapAdditionalText.TabIndex = 39;
+            this.chkCompMapAdditionalText.Text = "Prompt for additional text";
+            this.chkCompMapAdditionalText.UseVisualStyleBackColor = true;
+            this.chkCompMapAdditionalText.CheckedChanged += new System.EventHandler(this.chkCompMapAdditionalText_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lblCompMapAdditionalText);
+            this.groupBox1.Controls.Add(this.chkCompMapAdditionalText);
+            this.groupBox1.Controls.Add(this.textBoxCompMapAdditionalText);
+            this.groupBox1.Location = new System.Drawing.Point(524, 328);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Size = new System.Drawing.Size(491, 207);
+            this.groupBox1.TabIndex = 40;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Competition map export";
+            // 
+            // lblCompMapAdditionalText
+            // 
+            this.lblCompMapAdditionalText.AutoSize = true;
+            this.lblCompMapAdditionalText.Location = new System.Drawing.Point(176, 148);
+            this.lblCompMapAdditionalText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCompMapAdditionalText.Name = "lblCompMapAdditionalText";
+            this.lblCompMapAdditionalText.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.lblCompMapAdditionalText.Size = new System.Drawing.Size(291, 25);
+            this.lblCompMapAdditionalText.TabIndex = 40;
+            this.lblCompMapAdditionalText.Text = "Use placeholder {0} for map scale value";
             // 
             // UserSettings
             // 
@@ -783,9 +1052,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPROHBorderPen)).EndInit();
             this.groupBoxLayer.ResumeLayout(false);
             this.groupBoxLayer.PerformLayout();
-            this.groupBoxMaxPenalty.ResumeLayout(false);
-            this.groupBoxMaxPenalty.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenalty)).EndInit();
             this.groupBoxFlightTrack.ResumeLayout(false);
             this.groupBoxFlightTrack.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFlightPen)).EndInit();
@@ -799,15 +1065,25 @@
             this.tabPage2.ResumeLayout(false);
             this.groupBoxCalculationType.ResumeLayout(false);
             this.groupBoxCalculationType.PerformLayout();
-            this.groupBoxLoggerDataImport.ResumeLayout(false);
-            this.groupBoxLoggerDataImport.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.groupBoxPenaltiesAndTolerances.ResumeLayout(false);
+            this.groupBoxPenaltiesAndTolerances.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeToleranceTKOFUpper)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeToleranceTKOFLower)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenaltyTKOF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenaltySPFP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeToleranceEnroute)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenaltyPointsPerSecond)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeToleranceSPFP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenalty)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox chkParcourAdditionalText;
         private System.Windows.Forms.CheckBox chkDefaultDBDirectory;
         private System.Windows.Forms.TextBox textBoxDatabasePath;
         private System.Windows.Forms.GroupBox groupBoxChannel;
@@ -834,9 +1110,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownChannelFillAlpha;
         private System.Windows.Forms.Button btnChannelFillColor;
-        private System.Windows.Forms.GroupBox groupBoxMaxPenalty;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown numericUpDownMaxPenalty;
         private System.Windows.Forms.GroupBox groupBoxFlightTrack;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown numericUpDownFlightPen;
@@ -854,8 +1127,28 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDownIntersectPen;
         private System.Windows.Forms.Button btnIntersectColor;
-        private System.Windows.Forms.GroupBox groupBoxLoggerDataImport;
-        private System.Windows.Forms.RadioButton radioButtonLoggerDataFileTypeGPX;
-        private System.Windows.Forms.RadioButton radioButtonLoggerDataFileTypeGAC;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox groupBoxPenaltiesAndTolerances;
+        private System.Windows.Forms.NumericUpDown numericUpDownTimeToleranceTKOFUpper;
+        private System.Windows.Forms.NumericUpDown numericUpDownTimeToleranceTKOFLower;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxPenaltyTKOF;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxPenaltySPFP;
+        private System.Windows.Forms.NumericUpDown numericUpDownTimeToleranceEnroute;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown numericUpDownPenaltyPointsPerSecond;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown numericUpDownTimeToleranceSPFP;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxPenalty;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.DateTimePicker dtPickerGACFileThreshold;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox chkCompMapAdditionalText;
+        private System.Windows.Forms.TextBox textBoxCompMapAdditionalText;
+        private System.Windows.Forms.Label lblCompMapAdditionalText;
     }
 }
