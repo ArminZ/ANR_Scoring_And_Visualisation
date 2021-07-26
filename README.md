@@ -10,7 +10,7 @@ and to print out the map with the competition task overlay.
 
 ---
 #### Technical
-The application is a Microsoft Windows Forms (stand-alone) application written in C# (.NET Framework 4.5, and Entity Framework 6.1). 
+The application is a Microsoft Windows Forms (stand-alone) application written in C# (.NET Framework 4.5 or higher, and Entity Framework 6.1). 
 Data is stored in a local MS SQL database file (SQLLocalDB).
 
 ---
@@ -23,8 +23,7 @@ At this time the application was basically a client-server application with a ce
 
 During 2016 the user interface was entirely renewed and improved, bugs fixed, unused and outdated code removed. The most important new functionality was the Route Generator, allowing parcour generation from Google Earth kml files. Also some documentation was provided, including the important subjects of map conversion/map import, and parcour creation/import.
 
-#### version 2.2.0 ( expected in August 2021)
-
+#### version 2.2.0 (2021-07-27)
 
 * Moved various hard-coded values used for penalty calculation to user settings  
 * Logger files, small modification in upload functionality  
@@ -40,8 +39,6 @@ During 2016 the user interface was entirely renewed and improved, bugs fixed, un
 * Implemented Route Inversion (switching SP and FP), to make routes 'flyable' from the opposite direction  
 * Competition map, default text now configurable (in settings)  
 * Bug fix for Exporting Flight data from Database to gpx (fixed incorrect datetime format).
-
-
 
 --- 
 #### What is new in this version?
