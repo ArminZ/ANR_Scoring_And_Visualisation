@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AirNavigationRaceLive</RootNamespace>
     <AssemblyName>AirNavigationRaceLive</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -409,6 +409,11 @@
     <Compile Include="Model\TeamSet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <EmbeddedResource Include="AirNavigationRaceLiveMain.resx">
       <DependentUpon>AirNavigationRaceLiveMain.cs</DependentUpon>
@@ -514,14 +519,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="AirNavigationRace_key.snk" />
     <None Include="app.config">
       <SubType>Designer</SubType>
@@ -551,9 +551,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\compass.jpg" />
-    <None Include="Resources\ANR_0003.JPG" />
-    <None Include="Resources\ANR_00031.JPG" />
     <Content Include="Migrations\ReadMe.txt" />
+    <None Include="Resources\ANR_210.JPG" />
+    <None Include="Resources\ANR_220.JPG" />
     <Content Include="Resources\default.png" />
     <None Include="Resources\stopwatch.jpg" />
     <Content Include="Resources\Summe.png">
@@ -583,9 +583,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\logoVS1.png" />
-    <Content Include="Resources\pluginhost.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\GPSCursorModify.cur">

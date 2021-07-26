@@ -73,9 +73,19 @@ namespace AirNavigationRaceLive.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ANR_0003 {
+        internal static System.Drawing.Bitmap ANR_210 {
             get {
-                object obj = ResourceManager.GetObject("ANR_0003", resourceCulture);
+                object obj = ResourceManager.GetObject("ANR_210", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ANR_220 {
+            get {
+                object obj = ResourceManager.GetObject("ANR_220", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
