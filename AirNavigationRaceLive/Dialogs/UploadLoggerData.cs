@@ -119,8 +119,14 @@ namespace AirNavigationRaceLive.Dialogs
                         // invalid date in GAC file line 2
                         if (!(isValidDate) && CompFirstTime0 != null)
                         {
-                            string res = string.Join("\n", Importer.lstWarnings) + "\nDefine the correct date (default: actual date):";
-                            string strCompDate = DateTime.Today.ToString("ddMMyy");
+                            // read file creation date which might be close to the correct date (if not, its probably close to the actual date)
+                            FileInfo fi = new FileInfo(ofd.FileName);
+                            DateTime dtFi = fi.CreationTime.Date;
+
+                            string res = string.Join("\n", Importer.lstWarnings) + "\nDefine the correct date (default: file creation date):";
+                            string strCompDate = dtFi.ToString("ddMMyy");
+                           // string res = string.Join("\n", Importer.lstWarnings) + "\nDefine the correct date (default: actual date):";
+                           // string strCompDate = DateTime.Today.ToString("ddMMyy");
                             if (InputBoxClass.InputBox("Invalid Date", res, ref strCompDate) == DialogResult.OK)
                             {
                                 CompDate0 = DateTime.ParseExact(strCompDate, "ddMMyy", CultureInfo.InvariantCulture);
