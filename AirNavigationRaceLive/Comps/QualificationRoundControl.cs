@@ -374,7 +374,7 @@ namespace AirNavigationRaceLive.Comps
                     di.Create();
                 }
                 PDFCreator.CreateStartListPDF(c, Client, dirPath +
-                    @"\StartList_" + c.Id + "_" + c.Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".pdf");
+                    @"\StartList_" + c.Id + "_" + c.Name + "_" + DateTime.UtcNow.ToString("yyyyMMddhhmmss") + ".pdf");
             }
         }
 
@@ -527,8 +527,8 @@ namespace AirNavigationRaceLive.Comps
             long tkofToStart = timeTakeOffToStartgateDuration.Value.Minute * 60 + timeTakeOffToStartgateDuration.Value.Second;
             long parcourLength = timeParcourDuration.Value.Minute * 60 + timeParcourDuration.Value.Second;
 
-            // as a default, use the actual date
-            long dateQRdate0 = DateTime.Now.Ticks;
+            // as a default, use the actual date (in UTC)
+            long dateQRdate0 = DateTime.UtcNow.Ticks;
             long timeTKOF0 = dateQRdate0;
             long timeStart0 = new DateTime(timeTKOF0).AddSeconds(intervStartL).Ticks;
             long timeEnd0 = new DateTime(timeStart0).AddSeconds(parcourLength).Ticks;
@@ -729,7 +729,7 @@ namespace AirNavigationRaceLive.Comps
             {
                 ListViewItem lvi = listViewQualificationRound.SelectedItems[0];
                 qRnd = lvi.Tag as QualificationRoundSet;
-                tkof0 = DateTime.Now.Ticks;
+                tkof0 = DateTime.UtcNow.Ticks; // actual datetime (in UTC)
             }
 
             List<TeamSet> lstTeam = Client.SelectedCompetition.TeamSet.ToList();
