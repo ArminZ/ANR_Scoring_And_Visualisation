@@ -89,55 +89,62 @@ namespace AirNavigationRaceLive.Comps
         {
             File.WriteAllBytes(filename, Properties.Resources.Template);
             FileInfo newFile = new FileInfo(filename);
-            ExcelPackage pck = new ExcelPackage(newFile);
-            ExcelWorksheet Participants = pck.Workbook.Worksheets.First(p => p.Name == "Participants");
-            ExcelWorksheet Teams = pck.Workbook.Worksheets.First(p => p.Name == "Crews");
-            ExcelWorksheet StartList = pck.Workbook.Worksheets.First(p => p.Name == "StartList");
-            int i = 2;
-            foreach (SubscriberSet sub in Client.SelectedCompetition.SubscriberSet.OrderBy(p => p.LastName))
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            using (var pck = new ExcelPackage(newFile))
             {
-                Participants.Cells[("A" + i)].Value = sub.LastName;
-                Participants.Cells[("B" + i)].Value = sub.FirstName;
-                i++;
-            }
-            i = 2;
-            foreach (TeamSet t in Client.SelectedCompetition.TeamSet.OrderBy(p => int.Parse(p.CNumber)))
-            {
-                Teams.Cells[("A" + i)].Value = int.Parse(t.CNumber);
-                Teams.Cells[("B" + i)].Value = t.Nationality;
-                Teams.Cells[("C" + i)].Value = t.Pilot.LastName + " " + t.Pilot.FirstName;
-                Teams.Cells[("D" + i)].Value = t.Navigator == null ? "" : t.Navigator.LastName + " " + t.Navigator.FirstName;
-                Teams.Cells[("E" + i)].Value = t.AC;
-                i++;
-            }
-            i = 2;
-            foreach (FlightSet f in item.q.FlightSet.OrderBy(p => p.StartID))
-            {
-                if (i == 2)
+
+                // }
+                // ExcelPackage pck = new ExcelPackage(newFile);
+                ExcelWorksheet Participants = pck.Workbook.Worksheets.First(p => p.Name == "Participants");
+                ExcelWorksheet Teams = pck.Workbook.Worksheets.First(p => p.Name == "Crews");
+                ExcelWorksheet StartList = pck.Workbook.Worksheets.First(p => p.Name == "StartList");
+                int i = 2;
+                foreach (SubscriberSet sub in Client.SelectedCompetition.SubscriberSet.OrderBy(p => p.LastName))
                 {
-                    StartList.Cells[("K" + i)].Value = new DateTime(f.TimeTakeOff).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                    Participants.Cells[("A" + i)].Value = sub.LastName;
+                    Participants.Cells[("B" + i)].Value = sub.FirstName;
+                    i++;
                 }
-                StartList.Cells[("A" + i)].Value = f.StartID;
-                StartList.Cells[("B" + i)].Value = int.Parse(f.TeamSet.CNumber);
-                StartList.Cells[("C" + i)].Value = f.TeamSet.AC;
-                string pilot = f.TeamSet.Pilot.LastName + " " + f.TeamSet.Pilot.FirstName;
-                string navigator = "";
-                if (f.TeamSet.Navigator != null)
+                i = 2;
+                foreach (TeamSet t in Client.SelectedCompetition.TeamSet.OrderBy(p => int.Parse(p.CNumber)))
                 {
-                    navigator = " - " + f.TeamSet.Navigator.LastName + " " + f.TeamSet.Navigator.FirstName;
+                    Teams.Cells[("A" + i)].Value = int.Parse(t.CNumber);
+                    Teams.Cells[("B" + i)].Value = t.Nationality;
+                    Teams.Cells[("C" + i)].Value = t.Pilot.LastName + " " + t.Pilot.FirstName;
+                    Teams.Cells[("D" + i)].Value = t.Navigator == null ? "" : t.Navigator.LastName + " " + t.Navigator.FirstName;
+                    Teams.Cells[("E" + i)].Value = t.AC;
+                    i++;
                 }
-                string crew = pilot + navigator;
-                DateTime dt = new DateTime(f.TimeTakeOff);
-                StartList.Cells[("D" + i)].Value = crew;
-                StartList.Cells[("E" + i)].Value = dt.AddMinutes(-C_Timespan_EndPlanningToTKOF).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
-                StartList.Cells[("F" + i)].Value = dt.AddMinutes(-C_Timespan_EndPlanningToTKOF).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
-                StartList.Cells[("G" + i)].Value = dt.ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
-                StartList.Cells[("H" + i)].Value = new DateTime(f.TimeStartLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
-                StartList.Cells[("I" + i)].Value = new DateTime(f.TimeEndLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
-                StartList.Cells[("J" + i)].Value = ((Route)f.Route).ToString();
-                i++;
+                i = 2;
+                foreach (FlightSet f in item.q.FlightSet.OrderBy(p => p.StartID))
+                {
+                    if (i == 2)
+                    {
+                        StartList.Cells[("K" + i)].Value = new DateTime(f.TimeTakeOff).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                    }
+                    StartList.Cells[("A" + i)].Value = f.StartID;
+                    StartList.Cells[("B" + i)].Value = int.Parse(f.TeamSet.CNumber);
+                    StartList.Cells[("C" + i)].Value = f.TeamSet.AC;
+                    string pilot = f.TeamSet.Pilot.LastName + " " + f.TeamSet.Pilot.FirstName;
+                    string navigator = "";
+                    if (f.TeamSet.Navigator != null)
+                    {
+                        navigator = " - " + f.TeamSet.Navigator.LastName + " " + f.TeamSet.Navigator.FirstName;
+                    }
+                    string crew = pilot + navigator;
+                    DateTime dt = new DateTime(f.TimeTakeOff);
+                    StartList.Cells[("D" + i)].Value = crew;
+                    StartList.Cells[("E" + i)].Value = dt.AddMinutes(-C_Timespan_EndPlanningToTKOF).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                    StartList.Cells[("F" + i)].Value = dt.AddMinutes(-C_Timespan_EndPlanningToTKOF).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                    StartList.Cells[("G" + i)].Value = dt.ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                    StartList.Cells[("H" + i)].Value = new DateTime(f.TimeStartLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                    StartList.Cells[("I" + i)].Value = new DateTime(f.TimeEndLine).ToString(C_TimeFormat, DateTimeFormatInfo.InvariantInfo);
+                    StartList.Cells[("J" + i)].Value = ((Route)f.Route).ToString();
+                    i++;
+                }
+                pck.Save();
             }
-            pck.Save();
         }
 
         private void ImportFromExcel(ComboQRExtension item, string filename)
@@ -146,118 +153,122 @@ namespace AirNavigationRaceLive.Comps
             // therefore unsupported UFN
             return;
             FileInfo newFile = new FileInfo(filename);
-            ExcelPackage pck = new ExcelPackage(newFile);
-            ExcelWorksheet Participants = pck.Workbook.Worksheets.First(p => p.Name == "Participants");
-            ExcelWorksheet Teams = pck.Workbook.Worksheets.First(p => p.Name == "Crews");
-            ExcelWorksheet StartList = pck.Workbook.Worksheets.First(p => p.Name == "StartList");
-            int i = 2;
-            while (i < 200)
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            //ExcelPackage pck = new ExcelPackage(newFile);
+            using (var pck = new ExcelPackage(newFile))
             {
-                string LastName = Participants.Cells[("A" + i)].Value as string;
-                string FirstName = Participants.Cells[("B" + i)].Value as string;
-                if (LastName != null && FirstName != null && LastName != "" && FirstName != "")
+                ExcelWorksheet Participants = pck.Workbook.Worksheets.First(p => p.Name == "Participants");
+                ExcelWorksheet Teams = pck.Workbook.Worksheets.First(p => p.Name == "Crews");
+                ExcelWorksheet StartList = pck.Workbook.Worksheets.First(p => p.Name == "StartList");
+                int i = 2;
+                while (i < 200)
                 {
-                    if (!Client.SelectedCompetition.SubscriberSet.Any(p => p.LastName == LastName && p.FirstName == FirstName))
+                    string LastName = Participants.Cells[("A" + i)].Value as string;
+                    string FirstName = Participants.Cells[("B" + i)].Value as string;
+                    if (LastName != null && FirstName != null && LastName != "" && FirstName != "")
                     {
-                        SubscriberSet sub = new SubscriberSet();
-                        sub.CompetitionSet = Client.SelectedCompetition;
-                        sub.LastName = LastName;
-                        sub.FirstName = FirstName;
-                        Client.DBContext.SubscriberSet.Add(sub);
-                    }
-                }
-                else
-                {
-                    break;
-                }
-                i++;
-            }
-            Client.DBContext.SaveChanges();
-            i = 2;
-            while (i < 200)
-            {
-                double? cNumber = Teams.Cells[("A" + i)].Value as double?;
-                string nationality = Teams.Cells[("B" + i)].Value as string;
-                string pilot = Teams.Cells[("C" + i)].Value as string;
-                string navigator = Teams.Cells[("D" + i)].Value as string;
-                string ac = Teams.Cells[("E" + i)].Value as string;
-                if (cNumber.HasValue && pilot != null && pilot != "")
-                {
-                    SubscriberSet pilotS = Client.SelectedCompetition.SubscriberSet.First(p => pilot.Contains(p.FirstName) && pilot.Contains(p.LastName));
-                    SubscriberSet navigatorS = null;
-                    if (navigator != null && navigator != "")
-                    {
-                        navigatorS = Client.SelectedCompetition.SubscriberSet.First(p => navigator.Contains(p.FirstName) && navigator.Contains(p.LastName));
-                    }
-                    TeamSet t = null;
-                    if (Client.SelectedCompetition.TeamSet.Any(p => p.CNumber == ((int)cNumber.Value).ToString()))
-                    {
-                        t = Client.SelectedCompetition.TeamSet.First(p => p.CNumber == ((int)cNumber.Value).ToString());
+                        if (!Client.SelectedCompetition.SubscriberSet.Any(p => p.LastName == LastName && p.FirstName == FirstName))
+                        {
+                            SubscriberSet sub = new SubscriberSet();
+                            sub.CompetitionSet = Client.SelectedCompetition;
+                            sub.LastName = LastName;
+                            sub.FirstName = FirstName;
+                            Client.DBContext.SubscriberSet.Add(sub);
+                        }
                     }
                     else
                     {
-                        t = new TeamSet();
-                        t.CompetitionSet = Client.SelectedCompetition;
-                        Client.DBContext.TeamSet.Add(t);
+                        break;
                     }
-                    t.Pilot = pilotS;
-                    t.Navigator = navigatorS;
-                    t.CNumber = ((int)cNumber.Value).ToString();
-                    t.Nationality = nationality;
-                    t.AC = ac;
+                    i++;
                 }
-                else
+                Client.DBContext.SaveChanges();
+                i = 2;
+                while (i < 200)
                 {
-                    break;
-                }
-                i++;
-            }
-            Client.DBContext.SaveChanges();
-            i = 2;
-            DateTime? date = null;
-            while (i < 200)
-            {
-                if (i == 2)
-                {
-                    date = StartList.Cells[("K" + i)].Value as DateTime?;
-                }
-                double? startId = StartList.Cells[("A" + i)].Value as double?;
-                double? cNumber = StartList.Cells[("B" + i)].Value as double?;
-                double? takeOff = StartList.Cells[("G" + i)].Value as double?;
-                double? start = StartList.Cells[("H" + i)].Value as double?;
-                double? end = StartList.Cells[("I" + i)].Value as double?;
-                string route = StartList.Cells[("J" + i)].Value as string;
-                if (date != null && date.HasValue && takeOff != null && start != null && end != null && startId.HasValue && cNumber.HasValue && takeOff.HasValue && start.HasValue && end.HasValue && route != null)
-                {
-                    FlightSet f = null;
-                    if (item.q.FlightSet.Any(p => p.StartID == startId.Value))
+                    double? cNumber = Teams.Cells[("A" + i)].Value as double?;
+                    string nationality = Teams.Cells[("B" + i)].Value as string;
+                    string pilot = Teams.Cells[("C" + i)].Value as string;
+                    string navigator = Teams.Cells[("D" + i)].Value as string;
+                    string ac = Teams.Cells[("E" + i)].Value as string;
+                    if (cNumber.HasValue && pilot != null && pilot != "")
                     {
-                        f = item.q.FlightSet.First(p => p.StartID == startId.Value);
+                        SubscriberSet pilotS = Client.SelectedCompetition.SubscriberSet.First(p => pilot.Contains(p.FirstName) && pilot.Contains(p.LastName));
+                        SubscriberSet navigatorS = null;
+                        if (navigator != null && navigator != "")
+                        {
+                            navigatorS = Client.SelectedCompetition.SubscriberSet.First(p => navigator.Contains(p.FirstName) && navigator.Contains(p.LastName));
+                        }
+                        TeamSet t = null;
+                        if (Client.SelectedCompetition.TeamSet.Any(p => p.CNumber == ((int)cNumber.Value).ToString()))
+                        {
+                            t = Client.SelectedCompetition.TeamSet.First(p => p.CNumber == ((int)cNumber.Value).ToString());
+                        }
+                        else
+                        {
+                            t = new TeamSet();
+                            t.CompetitionSet = Client.SelectedCompetition;
+                            Client.DBContext.TeamSet.Add(t);
+                        }
+                        t.Pilot = pilotS;
+                        t.Navigator = navigatorS;
+                        t.CNumber = ((int)cNumber.Value).ToString();
+                        t.Nationality = nationality;
+                        t.AC = ac;
                     }
                     else
                     {
-                        f = new FlightSet();
-                        f.QualificationRoundSet = item.q;
-                        f.StartID = ((int)startId.Value);
-                        Client.DBContext.FlightSet.Add(f);
+                        break;
                     }
-                    f.TeamSet = Client.SelectedCompetition.TeamSet.First(p => p.CNumber == ((int)cNumber.Value).ToString());
-                    f.Route = (int)Enum.Parse(typeof(Route), route, true);
-                    DateTime d = date.Value;
-                    DateTime to = DateTime.FromOADate(takeOff.Value);
-                    DateTime st = DateTime.FromOADate(start.Value);
-                    DateTime en = DateTime.FromOADate(end.Value);
-                    f.TimeTakeOff = new DateTime(d.Year, d.Month, d.Day, to.Hour, to.Minute, to.Second).Ticks;
-                    f.TimeStartLine = new DateTime(d.Year, d.Month, d.Day, st.Hour, st.Minute, st.Second).Ticks;
-                    f.TimeEndLine = new DateTime(d.Year, d.Month, d.Day, en.Hour, en.Minute, en.Second).Ticks;
+                    i++;
                 }
-                else
+                Client.DBContext.SaveChanges();
+                i = 2;
+                DateTime? date = null;
+                while (i < 200)
                 {
-                    break;
+                    if (i == 2)
+                    {
+                        date = StartList.Cells[("K" + i)].Value as DateTime?;
+                    }
+                    double? startId = StartList.Cells[("A" + i)].Value as double?;
+                    double? cNumber = StartList.Cells[("B" + i)].Value as double?;
+                    double? takeOff = StartList.Cells[("G" + i)].Value as double?;
+                    double? start = StartList.Cells[("H" + i)].Value as double?;
+                    double? end = StartList.Cells[("I" + i)].Value as double?;
+                    string route = StartList.Cells[("J" + i)].Value as string;
+                    if (date != null && date.HasValue && takeOff != null && start != null && end != null && startId.HasValue && cNumber.HasValue && takeOff.HasValue && start.HasValue && end.HasValue && route != null)
+                    {
+                        FlightSet f = null;
+                        if (item.q.FlightSet.Any(p => p.StartID == startId.Value))
+                        {
+                            f = item.q.FlightSet.First(p => p.StartID == startId.Value);
+                        }
+                        else
+                        {
+                            f = new FlightSet();
+                            f.QualificationRoundSet = item.q;
+                            f.StartID = ((int)startId.Value);
+                            Client.DBContext.FlightSet.Add(f);
+                        }
+                        f.TeamSet = Client.SelectedCompetition.TeamSet.First(p => p.CNumber == ((int)cNumber.Value).ToString());
+                        f.Route = (int)Enum.Parse(typeof(Route), route, true);
+                        DateTime d = date.Value;
+                        DateTime to = DateTime.FromOADate(takeOff.Value);
+                        DateTime st = DateTime.FromOADate(start.Value);
+                        DateTime en = DateTime.FromOADate(end.Value);
+                        f.TimeTakeOff = new DateTime(d.Year, d.Month, d.Day, to.Hour, to.Minute, to.Second).Ticks;
+                        f.TimeStartLine = new DateTime(d.Year, d.Month, d.Day, st.Hour, st.Minute, st.Second).Ticks;
+                        f.TimeEndLine = new DateTime(d.Year, d.Month, d.Day, en.Hour, en.Minute, en.Second).Ticks;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    i++;
                 }
-                i++;
+                Client.DBContext.SaveChanges();
             }
-            Client.DBContext.SaveChanges();
         }
 
         //private class QualiComboBoxItem
