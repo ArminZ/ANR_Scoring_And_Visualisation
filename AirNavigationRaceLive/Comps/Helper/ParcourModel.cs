@@ -17,7 +17,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         public ParcourModel(ParcourSet parcour, Converter c, double desiredLengthFactor, double channel)
         {
             this.desiredLengthFactor = desiredLengthFactor;
-            this.channel = Converter.NMtoM(channel);
+            this.channel = Converter.NMToKm(channel);
             this.c = c;
             List<Line> lines = new List<Line>(parcour.Line);
             AddLineAsCorridor(c, lines.Single(p => p.Type == (int)LineType.START_A), lines.Single(p => p.Type == (int)LineType.END_A));
@@ -29,7 +29,7 @@ namespace AirNavigationRaceLive.Comps.Helper
         public ParcourModel(ParcourSet parcour, Converter c, double desiredLengthFactor, double channel, bool regenerate)
         {
             this.desiredLengthFactor = desiredLengthFactor;
-            this.channel = Converter.NMtoM(channel);
+            this.channel = Converter.NMToKm(channel);
             this.c = c;
             List<Line> lines = new List<Line>(parcour.Line);
             AddLineAsCorridor(c, lines.Single(p => p.Type == (int)LineType.START_A), lines.Single(p => p.Type == (int)LineType.END_A), lines, LineType.START_A);

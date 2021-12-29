@@ -65,8 +65,8 @@ namespace AirNavigationRaceLive.Comps.Helper
             bestModel.addPolygons();
             lock (parcour)
             {
-                bestLegLength = Converter.MtoNM(bestModel.lenght);
-                bestStraightLength = Converter.MtoNM(bestModel.straightLength);
+                bestLegLength = Converter.KmToNM(bestModel.lenght);
+                bestStraightLength = Converter.KmToNM(bestModel.straightLength);
                 
                 foreach (Line line in parcour.Line.ToList<Line>().Where(p => p.Type == (int)LineType.Point))
                 {

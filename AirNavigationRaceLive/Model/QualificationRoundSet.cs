@@ -5,9 +5,9 @@ namespace AirNavigationRaceLive.Model
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("QualificationRoundSet")]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class QualificationRoundSet
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public QualificationRoundSet()
         {
             FlightSet = new HashSet<FlightSet>();
@@ -27,7 +27,6 @@ namespace AirNavigationRaceLive.Model
 
         public virtual CompetitionSet CompetitionSet { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FlightSet> FlightSet { get; set; }
 
         public virtual Line TakeOffLine { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AirNavigationRaceLive.Comps.Airsports;
+using System;
 using System.Windows.Forms;
 
 namespace AirNavigationRaceLive.Comps
@@ -62,7 +63,8 @@ namespace AirNavigationRaceLive.Comps
 
             Properties.Settings.Default.GACFileWarningThresholdDate = dtPickerGACFileThreshold.Value.Ticks;
             Properties.Settings.Default.CompMapAdditionalText = textBoxCompMapAdditionalText.Text;
-
+            Properties.Settings.Default.AirsportsHost = textBoxAirsportsHost.Text;
+            Properties.Settings.Default.AirsportsToken = textBoxAirsportsToken.Text;
             Properties.Settings.Default.Save();
         }
 
@@ -112,6 +114,9 @@ namespace AirNavigationRaceLive.Comps
 
             radioButtonPenaltyCalcTypePROH.Checked = Properties.Settings.Default.ParcourType == 0;
             radioButtonPenaltyCalcTypeChannel.Checked = Properties.Settings.Default.ParcourType == 1;
+
+            textBoxAirsportsHost.Text = Properties.Settings.Default.AirsportsHost;
+            textBoxAirsportsToken.Text = Properties.Settings.Default.AirsportsToken;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -133,6 +138,14 @@ namespace AirNavigationRaceLive.Comps
         {
             textBoxCompMapAdditionalText.Visible = chkCompMapAdditionalText.Checked;
             lblCompMapAdditionalText.Visible = chkCompMapAdditionalText.Checked;
+        }
+
+        private void btnConnectionCheck_Click(object sender, EventArgs e)
+        {
+            RESTClient _client = new RESTClient();
+            string errorString = string.Empty;
+            bool ret = _client.CheckConnection(out errorString);
+            string a = errorString;
         }
     }
 }

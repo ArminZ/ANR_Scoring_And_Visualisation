@@ -18,8 +18,8 @@ namespace AirNavigationRaceLive.Comps.Helper
 
         public ParcourModelSingle(ParcourSet parcour, Converter c, double channel, double channelLength)
         {
-            this.desiredLength = Converter.NMtoM(channelLength);
-            this.channelWidth = Converter.NMtoM(channel);
+            this.desiredLength = Converter.NMToKm(channelLength);
+            this.channelWidth = Converter.NMToKm(channel);
             this.c = c;
             List<Line> lines = new List<Line>(parcour.Line);
             AddLineAsCorridor(c, lines.Single(p => p.Type == (int)LineType.START_A), lines.Single(p => p.Type == (int)LineType.END_A));
@@ -27,8 +27,8 @@ namespace AirNavigationRaceLive.Comps.Helper
 
         public ParcourModelSingle(ParcourSet parcour, Converter c, double channel, double channelLength, bool regenerate)
         {
-            this.desiredLength = Converter.NMtoM(channelLength);
-            this.channelWidth = Converter.NMtoM(channel);
+            this.desiredLength = Converter.NMToKm(channelLength);
+            this.channelWidth = Converter.NMToKm(channel);
             this.c = c;
             List<Line> lines = new List<Line>(parcour.Line);
             AddLineAsCorridor(c, lines.Single(p => p.Type == (int)LineType.START_A), lines.Single(p => p.Type == (int)LineType.END_A), lines, LineType.START_A);

@@ -68,6 +68,10 @@
             this.numericUpDownIntersectPen = new System.Windows.Forms.NumericUpDown();
             this.btnIntersectColor = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblCompMapAdditionalText = new System.Windows.Forms.Label();
+            this.chkCompMapAdditionalText = new System.Windows.Forms.CheckBox();
+            this.textBoxCompMapAdditionalText = new System.Windows.Forms.TextBox();
             this.groupBoxCalculationType = new System.Windows.Forms.GroupBox();
             this.radioButtonPenaltyCalcTypeChannel = new System.Windows.Forms.RadioButton();
             this.radioButtonPenaltyCalcTypePROH = new System.Windows.Forms.RadioButton();
@@ -90,10 +94,13 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownMaxPenalty = new System.Windows.Forms.NumericUpDown();
-            this.textBoxCompMapAdditionalText = new System.Windows.Forms.TextBox();
-            this.chkCompMapAdditionalText = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblCompMapAdditionalText = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblAirsportsToken = new System.Windows.Forms.Label();
+            this.lblAirsportsHost = new System.Windows.Forms.Label();
+            this.textBoxAirsportsToken = new System.Windows.Forms.TextBox();
+            this.textBoxAirsportsHost = new System.Windows.Forms.TextBox();
+            this.btnConnectionCheck = new System.Windows.Forms.Button();
             this.groupBoxChannel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelFillAlpha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownChannelPen)).BeginInit();
@@ -110,6 +117,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectRadius)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectPen)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.groupBoxCalculationType.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBoxPenaltiesAndTolerances.SuspendLayout();
@@ -121,7 +129,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenaltyPointsPerSecond)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeToleranceSPFP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenalty)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkDefaultDBDirectory
@@ -524,6 +533,7 @@
             this.tabControlSettings.Controls.Add(this.tabPage1);
             this.tabControlSettings.Controls.Add(this.tabPage2);
             this.tabControlSettings.Controls.Add(this.tabPage3);
+            this.tabControlSettings.Controls.Add(this.tabPage4);
             this.tabControlSettings.Location = new System.Drawing.Point(27, 23);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
@@ -663,6 +673,51 @@
             this.tabPage2.Size = new System.Drawing.Size(1038, 666);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Parcour Default Settings";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lblCompMapAdditionalText);
+            this.groupBox1.Controls.Add(this.chkCompMapAdditionalText);
+            this.groupBox1.Controls.Add(this.textBoxCompMapAdditionalText);
+            this.groupBox1.Location = new System.Drawing.Point(524, 328);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Size = new System.Drawing.Size(491, 207);
+            this.groupBox1.TabIndex = 40;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Competition map export";
+            // 
+            // lblCompMapAdditionalText
+            // 
+            this.lblCompMapAdditionalText.AutoSize = true;
+            this.lblCompMapAdditionalText.Location = new System.Drawing.Point(176, 148);
+            this.lblCompMapAdditionalText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCompMapAdditionalText.Name = "lblCompMapAdditionalText";
+            this.lblCompMapAdditionalText.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
+            this.lblCompMapAdditionalText.Size = new System.Drawing.Size(291, 25);
+            this.lblCompMapAdditionalText.TabIndex = 40;
+            this.lblCompMapAdditionalText.Text = "Use placeholder {0} for map scale value";
+            // 
+            // chkCompMapAdditionalText
+            // 
+            this.chkCompMapAdditionalText.AutoSize = true;
+            this.chkCompMapAdditionalText.Location = new System.Drawing.Point(21, 36);
+            this.chkCompMapAdditionalText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chkCompMapAdditionalText.Name = "chkCompMapAdditionalText";
+            this.chkCompMapAdditionalText.Size = new System.Drawing.Size(211, 24);
+            this.chkCompMapAdditionalText.TabIndex = 39;
+            this.chkCompMapAdditionalText.Text = "Prompt for additional text";
+            this.chkCompMapAdditionalText.UseVisualStyleBackColor = true;
+            this.chkCompMapAdditionalText.CheckedChanged += new System.EventHandler(this.chkCompMapAdditionalText_CheckedChanged);
+            // 
+            // textBoxCompMapAdditionalText
+            // 
+            this.textBoxCompMapAdditionalText.Location = new System.Drawing.Point(250, 36);
+            this.textBoxCompMapAdditionalText.Multiline = true;
+            this.textBoxCompMapAdditionalText.Name = "textBoxCompMapAdditionalText";
+            this.textBoxCompMapAdditionalText.Size = new System.Drawing.Size(216, 109);
+            this.textBoxCompMapAdditionalText.TabIndex = 37;
             // 
             // groupBoxCalculationType
             // 
@@ -987,50 +1042,72 @@
             this.numericUpDownMaxPenalty.TabIndex = 26;
             this.numericUpDownMaxPenalty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // textBoxCompMapAdditionalText
+            // tabPage4
             // 
-            this.textBoxCompMapAdditionalText.Location = new System.Drawing.Point(250, 36);
-            this.textBoxCompMapAdditionalText.Multiline = true;
-            this.textBoxCompMapAdditionalText.Name = "textBoxCompMapAdditionalText";
-            this.textBoxCompMapAdditionalText.Size = new System.Drawing.Size(216, 109);
-            this.textBoxCompMapAdditionalText.TabIndex = 37;
+            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage4.Controls.Add(this.groupBox2);
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1038, 666);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Airsports.no";
             // 
-            // chkCompMapAdditionalText
+            // groupBox2
             // 
-            this.chkCompMapAdditionalText.AutoSize = true;
-            this.chkCompMapAdditionalText.Location = new System.Drawing.Point(21, 36);
-            this.chkCompMapAdditionalText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chkCompMapAdditionalText.Name = "chkCompMapAdditionalText";
-            this.chkCompMapAdditionalText.Size = new System.Drawing.Size(211, 24);
-            this.chkCompMapAdditionalText.TabIndex = 39;
-            this.chkCompMapAdditionalText.Text = "Prompt for additional text";
-            this.chkCompMapAdditionalText.UseVisualStyleBackColor = true;
-            this.chkCompMapAdditionalText.CheckedChanged += new System.EventHandler(this.chkCompMapAdditionalText_CheckedChanged);
+            this.groupBox2.Controls.Add(this.btnConnectionCheck);
+            this.groupBox2.Controls.Add(this.lblAirsportsToken);
+            this.groupBox2.Controls.Add(this.lblAirsportsHost);
+            this.groupBox2.Controls.Add(this.textBoxAirsportsToken);
+            this.groupBox2.Controls.Add(this.textBoxAirsportsHost);
+            this.groupBox2.Location = new System.Drawing.Point(23, 22);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(427, 240);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Settings for Airsports.no";
             // 
-            // groupBox1
+            // lblAirsportsToken
             // 
-            this.groupBox1.Controls.Add(this.lblCompMapAdditionalText);
-            this.groupBox1.Controls.Add(this.chkCompMapAdditionalText);
-            this.groupBox1.Controls.Add(this.textBoxCompMapAdditionalText);
-            this.groupBox1.Location = new System.Drawing.Point(524, 328);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(491, 207);
-            this.groupBox1.TabIndex = 40;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Competition map export";
+            this.lblAirsportsToken.AutoSize = true;
+            this.lblAirsportsToken.Location = new System.Drawing.Point(24, 116);
+            this.lblAirsportsToken.Name = "lblAirsportsToken";
+            this.lblAirsportsToken.Size = new System.Drawing.Size(53, 20);
+            this.lblAirsportsToken.TabIndex = 4;
+            this.lblAirsportsToken.Text = "Token";
             // 
-            // lblCompMapAdditionalText
+            // lblAirsportsHost
             // 
-            this.lblCompMapAdditionalText.AutoSize = true;
-            this.lblCompMapAdditionalText.Location = new System.Drawing.Point(176, 148);
-            this.lblCompMapAdditionalText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCompMapAdditionalText.Name = "lblCompMapAdditionalText";
-            this.lblCompMapAdditionalText.Padding = new System.Windows.Forms.Padding(4, 5, 0, 0);
-            this.lblCompMapAdditionalText.Size = new System.Drawing.Size(291, 25);
-            this.lblCompMapAdditionalText.TabIndex = 40;
-            this.lblCompMapAdditionalText.Text = "Use placeholder {0} for map scale value";
+            this.lblAirsportsHost.AutoSize = true;
+            this.lblAirsportsHost.Location = new System.Drawing.Point(24, 52);
+            this.lblAirsportsHost.Name = "lblAirsportsHost";
+            this.lblAirsportsHost.Size = new System.Drawing.Size(43, 20);
+            this.lblAirsportsHost.TabIndex = 3;
+            this.lblAirsportsHost.Text = "Host";
+            // 
+            // textBoxAirsportsToken
+            // 
+            this.textBoxAirsportsToken.Location = new System.Drawing.Point(24, 139);
+            this.textBoxAirsportsToken.Name = "textBoxAirsportsToken";
+            this.textBoxAirsportsToken.Size = new System.Drawing.Size(363, 26);
+            this.textBoxAirsportsToken.TabIndex = 2;
+            // 
+            // textBoxAirsportsHost
+            // 
+            this.textBoxAirsportsHost.Location = new System.Drawing.Point(24, 78);
+            this.textBoxAirsportsHost.Name = "textBoxAirsportsHost";
+            this.textBoxAirsportsHost.Size = new System.Drawing.Size(363, 26);
+            this.textBoxAirsportsHost.TabIndex = 1;
+            // 
+            // btnConnectionCheck
+            // 
+            this.btnConnectionCheck.Location = new System.Drawing.Point(267, 181);
+            this.btnConnectionCheck.Name = "btnConnectionCheck";
+            this.btnConnectionCheck.Size = new System.Drawing.Size(120, 42);
+            this.btnConnectionCheck.TabIndex = 5;
+            this.btnConnectionCheck.Text = "Check";
+            this.btnConnectionCheck.UseVisualStyleBackColor = true;
+            this.btnConnectionCheck.Click += new System.EventHandler(this.btnConnectionCheck_Click);
             // 
             // UserSettings
             // 
@@ -1063,6 +1140,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectRadius)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntersectPen)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBoxCalculationType.ResumeLayout(false);
             this.groupBoxCalculationType.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -1077,8 +1156,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPenaltyPointsPerSecond)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeToleranceSPFP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPenalty)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1150,5 +1230,12 @@
         private System.Windows.Forms.CheckBox chkCompMapAdditionalText;
         private System.Windows.Forms.TextBox textBoxCompMapAdditionalText;
         private System.Windows.Forms.Label lblCompMapAdditionalText;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label lblAirsportsToken;
+        private System.Windows.Forms.Label lblAirsportsHost;
+        private System.Windows.Forms.TextBox textBoxAirsportsToken;
+        private System.Windows.Forms.TextBox textBoxAirsportsHost;
+        private System.Windows.Forms.Button btnConnectionCheck;
     }
 }

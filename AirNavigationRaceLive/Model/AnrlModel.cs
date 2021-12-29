@@ -1,14 +1,9 @@
 namespace AirNavigationRaceLive.Model
 {
-    using Client;
     //using Migrations;
-    using System;
     using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using Migrations;
 
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class AnrlModel : DbContext
     {
         public AnrlModel() : base("name=AnrlModel2Container")

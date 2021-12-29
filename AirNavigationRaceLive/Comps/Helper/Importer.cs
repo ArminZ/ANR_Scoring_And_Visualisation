@@ -1184,7 +1184,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             throw new Exception("cannot define Line type for layer");
         }
 
-        internal static List<SubscriberSet> getPilotsListCSV(string filePath)
+        internal static List<SubscriberSet> getPilotsListCSV(string filePath, CompetitionSet SelectedCompetition)
         {
             //var filePath = @"C:\Person.csv"; // Habeeb, "Dubai Media City, Dubai"
             List<SubscriberSet> lst = new List<SubscriberSet>();
@@ -1200,10 +1200,66 @@ namespace AirNavigationRaceLive.Comps.Helper
                 {
                     // Read current line fields, pointer moves to the next line.
                     string[] fields = csvParser.ReadFields();
+                    SubscriberSet subscr = new SubscriberSet();
+                    subscr.LastName = fields[0].Trim();
+                    subscr.FirstName = fields[1].Trim();
+                    if (!(String.IsNullOrEmpty(fields[2].Trim())))
+                    {
+                        subscr.External_Id = fields[2].Trim();
+                    }
+
+                    subscr.CompetitionSet = SelectedCompetition;
+                    //pil.Competition_Id = SelectedCompetition.Id;
+                    lst.Add(subscr);
+                }
+            }
+
+            return lst;
+        }
+
+        internal static List<TeamSet> getTeamsListCSV(string filePath, CompetitionSet selectedCompetition)
+        {
+            //var filePath = @"C:\Person.csv"; // Habeeb, "Dubai Media City, Dubai"
+            List<TeamSet> lst = new List<TeamSet>();
+            using (TextFieldParser csvParser = new TextFieldParser(filePath))
+            {
+                csvParser.CommentTokens = new string[] { "#" };
+                csvParser.SetDelimiters(new string[] { ",", ";", "|" });
+                csvParser.HasFieldsEnclosedInQuotes = true;
+
+                // Skip the row with the column names
+                //csvParser.ReadLine();
+                while (!csvParser.EndOfData)
+                {
+                    // Read current line fields, pointer moves to the next line.
+                    // external_Id, registration,  
+                    string[] fields = csvParser.ReadFields();
                     SubscriberSet pil = new SubscriberSet();
-                    pil.LastName = fields[0].Trim();
-                    pil.FirstName = fields[1].Trim();
-                    lst.Add(pil);
+                    SubscriberSet nav = new SubscriberSet();
+
+                    TeamSet tm = new TeamSet();
+                    //pil.External_Id = Int32.Parse(fields[3].Trim());
+                    pil.LastName = fields[4].Trim();
+                    pil.FirstName = fields[5].Trim();
+                    //nav.External_Id = Int32.Parse(fields[6].Trim());
+                    nav.LastName = fields[7].Trim();
+                    nav.FirstName = fields[8].Trim();
+
+                    tm.CNumber = fields[0].Trim();
+                    tm.Nationality = fields[1].Trim();
+                    tm.AC = fields[2].Trim();
+                    tm.Competition_Id = selectedCompetition.Id;
+                    if (!(string.IsNullOrEmpty(pil.LastName )))
+                    {
+                        pil.External_Id = fields[3].Trim();
+                        tm.Pilot = pil;
+                    }
+                    if (!(string.IsNullOrEmpty(nav.LastName)))
+                    {
+                        nav.External_Id = fields[6].Trim();
+                        tm.Navigator = nav;
+                    }
+                    lst.Add(tm);
                 }
             }
 

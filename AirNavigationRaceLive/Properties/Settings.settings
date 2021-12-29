@@ -112,5 +112,11 @@
     <Setting Name="CompMapAdditionalText" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="AirsportsHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://airsports.no</Value>
+    </Setting>
+    <Setting Name="AirsportsToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">14b3f9e9d6352010623e4afe61a727c775e58852</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

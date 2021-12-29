@@ -34,7 +34,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             Vector StartMV = Vector.Middle(StartAV, StartBV);
             Vector StartLotOrientation = Vector.MinDistance(StartAV, StartBV, StartOV);
 
-            double GateRadiusKm = Converter.NMtoM(0.3);
+            double GateRadiusKm = Converter.NMToKm(0.3);
             Vector StartABNormalized = StartAB / Vector.Abs(StartAB);
             double StartABLength = Converter.Distance(c.XtoLongitude(StartAV.X), c.YtoLatitude(StartAV.Y), c.XtoLongitude((StartAV + StartABNormalized).X), c.YtoLatitude((StartAV + StartABNormalized).Y));
             Vector StartAB1KM = StartABNormalized / StartABLength;
@@ -123,7 +123,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             #endregion
 
             #region EndeVektoren
-            double lengthKm = Converter.NMtoM(lenght);
+            double lengthKm = Converter.NMToKm(lenght);
             Vector lotPoint = StartMV + StartLotOrientation;
             double lotLenght = Converter.Distance(c.XtoLongitude(StartMV.X), c.YtoLatitude(StartMV.Y), c.XtoLongitude(lotPoint.X), c.YtoLatitude(lotPoint.Y));
             Vector StartEnd = (StartLotOrientation / lotLenght) * lengthKm * EndLineDist; //Shorten to make linearcombinations of vectors ... factor to be definded
@@ -214,7 +214,7 @@ namespace AirNavigationRaceLive.Comps.Helper
             #endregion
 
             #region LineOfNoReturn
-            double lengthLONRKm = Converter.NMtoM(LineOfNoReturnDist);
+            double lengthLONRKm = Converter.NMToKm(LineOfNoReturnDist);
             Vector StartToLONR = (StartLotOrientation / lotLenght) * ((lengthKm * EndLineDist) - lengthLONRKm);
 
             Vector LONR_A = StartAV + StartToLONR;

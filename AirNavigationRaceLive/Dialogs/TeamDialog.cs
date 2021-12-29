@@ -55,6 +55,7 @@ namespace AirNavigationRaceLive.Dialogs
                 textBoxCrewNumber.Text = string.IsNullOrEmpty(SelectedTeam.CNumber) ? calculateCrewNumber() : SelectedTeam.CNumber;
 
                 textBoxAC.Text = SelectedTeam.AC;
+                textBoxExternalId.Text = SelectedTeam.External_Id;
                 btnColorSelect.BackColor = Color.Gray;
                 btnColorSelect.Text = SelectedTeam.Color != null ? SelectedTeam.Color.ToString() : Color.Gray.ToString();
                 btnColorSelect.BackColor = SelectedTeam.Color != null ? TeamControl.getColor(SelectedTeam.Color) : Color.Gray;
@@ -242,6 +243,10 @@ namespace AirNavigationRaceLive.Dialogs
             btnColorSelect.BackColor = cd.Color;
             btnColorSelect.Text = btnColorSelect.BackColor.Name;
             SelectedTeam.Color = btnColorSelect.BackColor.Name;
+        }
+        private void textBoxExternalId_TextChanged(object sender, EventArgs e)
+        {
+            SelectedTeam.External_Id = textBoxExternalId.Text.Trim();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

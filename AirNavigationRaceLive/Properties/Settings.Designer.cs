@@ -12,7 +12,7 @@ namespace AirNavigationRaceLive.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -438,6 +438,30 @@ namespace AirNavigationRaceLive.Properties {
             }
             set {
                 this["CompMapAdditionalText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://airsports.no")]
+        public string AirsportsHost {
+            get {
+                return ((string)(this["AirsportsHost"]));
+            }
+            set {
+                this["AirsportsHost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("14b3f9e9d6352010623e4afe61a727c775e58852")]
+        public string AirsportsToken {
+            get {
+                return ((string)(this["AirsportsToken"]));
+            }
+            set {
+                this["AirsportsToken"] = value;
             }
         }
     }

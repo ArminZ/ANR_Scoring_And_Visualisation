@@ -11,6 +11,7 @@ using AirNavigationRaceLive.Model;
 using System.ComponentModel.DataAnnotations.Schema;
 using AirNavigationRaceLive.ModelExtensions;
 using System.Globalization;
+using AirNavigationRaceLive.Comps.Airsports;
 
 namespace AirNavigationRaceLive.Comps
 {
@@ -144,7 +145,7 @@ namespace AirNavigationRaceLive.Comps
                 {
                     FlightSet secon = flights.OrderBy(x => x.TimeTakeOff).Skip(1).First();
                     timeTakeOffInterval.Value = new DateTime(secon.TimeTakeOff - first.TimeTakeOff).AddYears(2000);
-                   // timeTakeOffBlocksIntervall.Value will not be set
+                    // timeTakeOffBlocksIntervall.Value will not be set
                 }
             }
         }
@@ -156,7 +157,6 @@ namespace AirNavigationRaceLive.Comps
             LoadParcours();
             errorProviderQualification.Clear();
         }
-
         private void btnDeleteQualificationRound_Click(object sender, EventArgs e)
         {
             if (listViewQualificationRound.SelectedItems.Count == 1)
@@ -180,7 +180,6 @@ namespace AirNavigationRaceLive.Comps
                 }
             }
         }
-
         private void btnNewQualificationRound_Click(object sender, EventArgs e)
         {
             Reset();
@@ -194,7 +193,6 @@ namespace AirNavigationRaceLive.Comps
             textName.SelectAll();
             textName.Focus();
         }
-
         private void btnSaveQualificationRound_Click(object sender, EventArgs e)
         {
             UpdateEnablement();
@@ -212,7 +210,7 @@ namespace AirNavigationRaceLive.Comps
             Vector end = new Vector(double.Parse(takeOffRightLongitude.Text), double.Parse(takeOffRightLatitude.Text), 0);
             Vector o = Vector.Middle(start, end) - Vector.Orthogonal(end - start);
             Line line = new Line();
-             if (c.TakeOffLine !=null)
+            if (c.TakeOffLine != null)
             {
                 // update the existing TKOF line
                 line = c.TakeOffLine;
@@ -308,9 +306,9 @@ namespace AirNavigationRaceLive.Comps
             dataGridView1.Rows.Clear();
             List<FlightSet> flights = new List<FlightSet>(c.FlightSet);
             //foreach (Flight fl in flights.OrderBy(x => x.TimeTakeOff))
-                foreach (FlightSet fl in flights.OrderBy(x => x.StartID))
-                {
-                    DataGridViewRow dgvr = new DataGridViewRow();
+            foreach (FlightSet fl in flights.OrderBy(x => x.StartID))
+            {
+                DataGridViewRow dgvr = new DataGridViewRow();
                 dgvr.CreateCells(dataGridView1);
                 dgvr.SetValues(
                     fl.StartID.ToString(),
@@ -749,6 +747,60 @@ namespace AirNavigationRaceLive.Comps
 
             Client.DBContext.SaveChanges();
             updateList(qRnd);
+        }
+
+        private void txtContestId_TextChanged(object sender, EventArgs e)
+        {
+            long dummyLong = 0;
+            btnToAirsports.Enabled =
+                !(string.IsNullOrEmpty(txtContestId.Text) || string.IsNullOrEmpty(txtTaskId.Text)
+                && long.TryParse(txtContestId.Text, out dummyLong)
+                && long.TryParse(txtTaskId.Text, out dummyLong)
+                );
+        }
+
+        private void txtTaskId_TextChanged(object sender, EventArgs e)
+        {
+            long dummyLong = 0;
+            btnToAirsports.Enabled =
+                !(string.IsNullOrEmpty(txtContestId.Text) || string.IsNullOrEmpty(txtTaskId.Text)
+                && long.TryParse(txtContestId.Text, out dummyLong)
+                && long.TryParse(txtTaskId.Text, out dummyLong)
+                );
+        }
+
+        private void btnToAirsports_Click(object sender, EventArgs e)
+        {
+            QualificationRoundSet qr = listViewQualificationRound.SelectedItems[0].Tag as QualificationRoundSet;
+            int qualRndId = qr.Id;  // ANR scoring software Start list;
+            string contestId = txtContestId.Text; // Airsports contest id
+            string navTaskId = txtTaskId.Text; //  Airsports Nav Task Id
+            String errorString = string.Empty;
+            List<string> lstErrorString = new List<string>();
+
+            RESTClient _client = new RESTClient();
+
+            // Airsports data:
+            // all teams on the contest
+            List<ContestTeam> existingTeamsOnContest = _client.GetASTeamsOnContest(contestId, out errorString);
+            // contestants that are already scheduled on the navigation task
+            List<ContestantsTeam> existingContestantsTeams = _client.GetASContestantsTeamsOnNavTask(contestId, navTaskId, out errorString);
+
+            // ANR scoring, starting list
+            var fs = Client.DBContext.FlightSet.Where(x => x.QualificationRound_Id == qualRndId).ToList();
+            List<ContestantsTeam> lsMapped = _client.MapUpsertFlightSetsToASContestantsTeamsOnNavTask(fs, existingTeamsOnContest, existingContestantsTeams, qualRndId, contestId);
+            if (lsMapped.Count > 0)
+            {
+                List<ContestantsTeam> lsOut = _client.UpsertASContestantsTeamsOnNavTask(contestId, navTaskId, lsMapped, out lstErrorString);
+                MessageBox.Show(string.Format("Upserted {2} Contestant(s) on Airsports.no (ContestId={0}, NavigationTaskId={1})", contestId, navTaskId, lsMapped.Count), "Contestants", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                // no data to upload
+                // maybe because the externalIds are missing?
+                // try to import first from Airsports
+                MessageBox.Show(string.Format("No matching data (External ids) found. Cannot upload contestants to Airsports.no (ContestId={0}, NavigationTaskId={1})", contestId, navTaskId), "Contestants", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

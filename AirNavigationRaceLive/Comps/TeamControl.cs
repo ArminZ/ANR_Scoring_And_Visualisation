@@ -49,7 +49,8 @@ namespace AirNavigationRaceLive.Comps
                     team.Nationality != null ? team.Nationality : "", team.Pilot.LastName + " " + team.Pilot.FirstName, 
                     team.Navigator != null ? team.Navigator.LastName + " " + team.Navigator.FirstName : "-", 
                     team.AC, 
-                    team.Color);
+                    team.Color,
+                    team.External_Id);
                 dgvr.Cells[5].Style.BackColor = getColor(team.Color);
                 dataGridView1.Rows.Add(dgvr);
                 lstTeamIdPilotNavNames.Add(getCrewName(team));
@@ -147,7 +148,8 @@ namespace AirNavigationRaceLive.Comps
                             tm.Pilot.LastName + " " + tm.Pilot.FirstName,
                             tm.Navigator != null ? tm.Navigator.LastName + " " + tm.Navigator.FirstName : "-",
                             tm.AC,
-                            tm.Color);
+                            tm.Color,
+                            tm.External_Id);
                         dgvr.Tag = tm;
                         dataGridView1.Rows.Add(dgvr);
                     }
@@ -207,7 +209,7 @@ namespace AirNavigationRaceLive.Comps
 
         public static Color getColor(string strColor)
         {
-            Color c = Color.FromName(strColor);
+            Color c = Color.FromName(strColor==null ? "Black": strColor);
             if (c.A == 0 && c.B == 0 && c.G == 0 && c.R == 0)
             {
                 ColorConverter cc = new ColorConverter();

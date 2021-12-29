@@ -1,15 +1,13 @@
 namespace AirNavigationRaceLive.Model
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("MapSet")]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class MapSet
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MapSet()
         {
             ParcourSet = new HashSet<ParcourSet>();
@@ -40,7 +38,6 @@ namespace AirNavigationRaceLive.Model
 
         public virtual PictureSet PictureSet { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ParcourSet> ParcourSet { get; set; }
     }
 }

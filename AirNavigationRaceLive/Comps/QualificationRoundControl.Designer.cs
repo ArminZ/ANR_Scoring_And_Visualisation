@@ -81,6 +81,12 @@
             this.numericUpDownRoutes = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.lblQRound = new System.Windows.Forms.Label();
+            this.btnToAirsports = new System.Windows.Forms.Button();
+            this.txtContestId = new System.Windows.Forms.TextBox();
+            this.txtTaskId = new System.Windows.Forms.TextBox();
+            this.lblAirsportsContestId = new System.Windows.Forms.Label();
+            this.lblAirsportsTaskId = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderQualification)).BeginInit();
             this.groupBoxQualification.SuspendLayout();
             this.groupBoxTKOFLine.SuspendLayout();
@@ -90,6 +96,7 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBoxGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRoutes)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnDeleteQualificationRound
@@ -99,7 +106,7 @@
             this.btnDeleteQualificationRound.Name = "btnDeleteQualificationRound";
             this.btnDeleteQualificationRound.Size = new System.Drawing.Size(307, 44);
             this.btnDeleteQualificationRound.TabIndex = 14;
-            this.btnDeleteQualificationRound.Text = "Delete";
+            this.btnDeleteQualificationRound.Text = "Delete Qualification Round";
             this.btnDeleteQualificationRound.UseVisualStyleBackColor = true;
             this.btnDeleteQualificationRound.Click += new System.EventHandler(this.btnDeleteQualificationRound_Click);
             // 
@@ -369,6 +376,7 @@
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(921, 448);
             this.dataGridView1.TabIndex = 80;
@@ -380,6 +388,7 @@
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Column1.HeaderText = "StartID";
+            this.Column1.MinimumWidth = 8;
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Width = 97;
@@ -388,6 +397,7 @@
             // 
             this.CNum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
             this.CNum.HeaderText = "CNum";
+            this.CNum.MinimumWidth = 8;
             this.CNum.Name = "CNum";
             this.CNum.ReadOnly = true;
             this.CNum.Width = 27;
@@ -396,6 +406,7 @@
             // 
             this.AC.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
             this.AC.HeaderText = "AC";
+            this.AC.MinimumWidth = 8;
             this.AC.Name = "AC";
             this.AC.ReadOnly = true;
             this.AC.Width = 27;
@@ -404,6 +415,7 @@
             // 
             this.Crew.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Crew.HeaderText = "Crew";
+            this.Crew.MinimumWidth = 8;
             this.Crew.Name = "Crew";
             this.Crew.ReadOnly = true;
             this.Crew.Width = 81;
@@ -412,6 +424,7 @@
             // 
             this.TakeOff.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.TakeOff.HeaderText = "TakeOff";
+            this.TakeOff.MinimumWidth = 8;
             this.TakeOff.Name = "TakeOff";
             this.TakeOff.ReadOnly = true;
             this.TakeOff.Width = 102;
@@ -420,6 +433,7 @@
             // 
             this.Start.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Start.HeaderText = "Start";
+            this.Start.MinimumWidth = 8;
             this.Start.Name = "Start";
             this.Start.ReadOnly = true;
             this.Start.Width = 80;
@@ -428,6 +442,7 @@
             // 
             this.End.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.End.HeaderText = "End";
+            this.End.MinimumWidth = 8;
             this.End.Name = "End";
             this.End.ReadOnly = true;
             this.End.Width = 74;
@@ -436,6 +451,7 @@
             // 
             this.Route.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
             this.Route.HeaderText = "Route";
+            this.Route.MinimumWidth = 8;
             this.Route.Name = "Route";
             this.Route.ReadOnly = true;
             this.Route.Width = 27;
@@ -444,6 +460,7 @@
             // 
             this.Date1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
             this.Date1.HeaderText = "Date";
+            this.Date1.MinimumWidth = 8;
             this.Date1.Name = "Date1";
             this.Date1.ReadOnly = true;
             this.Date1.Width = 27;
@@ -693,10 +710,71 @@
             this.lblQRound.TabIndex = 129;
             this.lblQRound.Text = "Qualification Rounds";
             // 
+            // btnToAirsports
+            // 
+            this.btnToAirsports.Enabled = false;
+            this.btnToAirsports.Location = new System.Drawing.Point(1, 887);
+            this.btnToAirsports.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnToAirsports.Name = "btnToAirsports";
+            this.btnToAirsports.Size = new System.Drawing.Size(307, 45);
+            this.btnToAirsports.TabIndex = 130;
+            this.btnToAirsports.Text = "Export Start List to Airsports";
+            this.btnToAirsports.UseVisualStyleBackColor = true;
+            this.btnToAirsports.Click += new System.EventHandler(this.btnToAirsports_Click);
+            // 
+            // txtContestId
+            // 
+            this.txtContestId.Location = new System.Drawing.Point(185, 39);
+            this.txtContestId.Name = "txtContestId";
+            this.txtContestId.Size = new System.Drawing.Size(100, 26);
+            this.txtContestId.TabIndex = 131;
+            this.txtContestId.TextChanged += new System.EventHandler(this.txtContestId_TextChanged);
+            // 
+            // txtTaskId
+            // 
+            this.txtTaskId.Location = new System.Drawing.Point(185, 71);
+            this.txtTaskId.Name = "txtTaskId";
+            this.txtTaskId.Size = new System.Drawing.Size(100, 26);
+            this.txtTaskId.TabIndex = 132;
+            this.txtTaskId.TextChanged += new System.EventHandler(this.txtTaskId_TextChanged);
+            // 
+            // lblAirsportsContestId
+            // 
+            this.lblAirsportsContestId.AutoSize = true;
+            this.lblAirsportsContestId.Location = new System.Drawing.Point(33, 39);
+            this.lblAirsportsContestId.Name = "lblAirsportsContestId";
+            this.lblAirsportsContestId.Size = new System.Drawing.Size(146, 20);
+            this.lblAirsportsContestId.TabIndex = 133;
+            this.lblAirsportsContestId.Text = "Airsports ContestId";
+            // 
+            // lblAirsportsTaskId
+            // 
+            this.lblAirsportsTaskId.AutoSize = true;
+            this.lblAirsportsTaskId.Location = new System.Drawing.Point(33, 71);
+            this.lblAirsportsTaskId.Name = "lblAirsportsTaskId";
+            this.lblAirsportsTaskId.Size = new System.Drawing.Size(124, 20);
+            this.lblAirsportsTaskId.TabIndex = 134;
+            this.lblAirsportsTaskId.Text = "Airsports TaskId";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lblAirsportsTaskId);
+            this.groupBox1.Controls.Add(this.txtContestId);
+            this.groupBox1.Controls.Add(this.lblAirsportsContestId);
+            this.groupBox1.Controls.Add(this.txtTaskId);
+            this.groupBox1.Location = new System.Drawing.Point(4, 943);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(304, 125);
+            this.groupBox1.TabIndex = 135;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Airsports.no";
+            // 
             // QualificationRoundControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btnToAirsports);
             this.Controls.Add(this.lblQRound);
             this.Controls.Add(this.groupBoxGeneral);
             this.Controls.Add(this.btnNewQualificationRound);
@@ -725,6 +803,8 @@
             this.groupBoxGeneral.ResumeLayout(false);
             this.groupBoxGeneral.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRoutes)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -784,5 +864,11 @@
         private System.Windows.Forms.NumericUpDown numericUpDownRoutes;
         private System.Windows.Forms.Button btnRecalcStartList;
         private System.Windows.Forms.Button btnAutoFillStartList;
+        private System.Windows.Forms.TextBox txtTaskId;
+        private System.Windows.Forms.TextBox txtContestId;
+        private System.Windows.Forms.Button btnToAirsports;
+        private System.Windows.Forms.Label lblAirsportsTaskId;
+        private System.Windows.Forms.Label lblAirsportsContestId;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

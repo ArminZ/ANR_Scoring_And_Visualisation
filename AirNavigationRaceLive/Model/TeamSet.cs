@@ -5,9 +5,9 @@ namespace AirNavigationRaceLive.Model
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("TeamSet")]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class TeamSet
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TeamSet()
         {
             FlightSet = new HashSet<FlightSet>();
@@ -17,6 +17,7 @@ namespace AirNavigationRaceLive.Model
 
         [StringLength(50)]
         public string CNumber { get; set; }
+        public string External_Id { get; set; }
 
         [StringLength(10)]
         public string Color { get; set; }
@@ -34,8 +35,6 @@ namespace AirNavigationRaceLive.Model
         public int Competition_Id { get; set; }
 
         public virtual CompetitionSet CompetitionSet { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
 
         public virtual ICollection<FlightSet> FlightSet { get; set; }
