@@ -13,6 +13,8 @@ and to print out the map with the competition task overlay.
 The application is a Microsoft Windows Forms (stand-alone) application written in C# (.NET Framework 4.5 or higher, and Entity Framework 6.1). 
 Data is stored in a local MS SQL database file (SQLLocalDB).
 
+NOTE: this software reaches the end of its lifetime. The oldest components (e.g. pdf creation) are from around 2008-2010. Updating it to .NET 8 would be a major effort. Today's world offers more possibilities, so a solution would probably look different.
+
 ---
 #### History
 With the original ANR rules and specifications by Heini Schawalder and Maurice Ducret, the development for the ANR scoring and visualisation 
@@ -22,9 +24,6 @@ Old code can be found from the google code archive https://code.google.com/archi
 At this time the application was basically a client-server application with a centralized database server. Later on a first stand-alone version was tested. There has been some development in 2015, probably from the 2013 stand-alone version of the 'Anrl.zip (workaround-local-app)' version of above google code. Luc has stored the latest code of the 2015 stand-alone version in a dedicated GitHub repository ( https://github.com/helios57/anrl). This repository served as the starting point for the code presented here.
 
 During 2016 the user interface was entirely renewed and improved, bugs fixed, unused and outdated code removed. The most important new functionality was the Route Generator, allowing parcour generation from Google Earth kml files. Also some documentation was provided, including the important subjects of map conversion/map import, and parcour creation/import.
-
-NOTE: this software reaches the end of its lifetime. The oldest components (e.g. pdf creation) are from around 2008-2010. Updating it to .NET 8 would be a major effort.
-Today's world offers more possibilities, so a solution would probably look different.
 
 #### version 2.2.0 (2021-07-27)
 
