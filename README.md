@@ -23,6 +23,9 @@ At this time the application was basically a client-server application with a ce
 
 During 2016 the user interface was entirely renewed and improved, bugs fixed, unused and outdated code removed. The most important new functionality was the Route Generator, allowing parcour generation from Google Earth kml files. Also some documentation was provided, including the important subjects of map conversion/map import, and parcour creation/import.
 
+NOTE: this software reaches the end of its lifetime. The oldest components (e.g. pdf creation) are from around 2008-2010. Updating it to .NET 8 would be a major effort.
+Today's world offers more possibilities, so a solution would probably look different.
+
 #### version 2.2.0 (2021-07-27)
 
 * Moved various hard-coded values used for penalty calculation to user settings  
